@@ -68,7 +68,7 @@ smartmontools
 refind
 
 # keyring_mirros.cachyos
-keyring-cachyos
+cachyos-keyring
 cachyos-mirrorlist
 
 # xorg.cachyos
