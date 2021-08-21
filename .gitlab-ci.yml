@@ -1,0 +1,14 @@
+stages:
+  - build
+  - paks
+
+image: archlinux/archlinux:base-devel
+
+archiso:
+  stage: build
+  script:
+    - ./ci.build.sh
+  artifacts:
+    paths:
+      - out/*.iso
+    expire_in: 1 week
