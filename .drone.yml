@@ -3,6 +3,13 @@ type: docker
 name: production
 
 steps:
+  - name: check_enviroment
+    image: archlinux/archlinux:base-devel
+    commands:
+      - echo "$(whoami)"
+      - echo "running env command"
+      - env
+
   - name: archiso
     image: archlinux/archlinux:base-devel
     commands:
