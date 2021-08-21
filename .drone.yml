@@ -1,7 +1,6 @@
 pipeline:
-  run_bash:
+  archiso:
     group: build
-    image: alpine
+    image: archlinux/archlinux:base-devel
     commands:
-      - echo "running env command"
-      - env
+      - ./ci.build.sh
