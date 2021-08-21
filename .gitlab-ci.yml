@@ -1,8 +1,6 @@
 stages:
   - build
-  - paks
 
-image: archlinux/archlinux:base-devel
 
 archiso:
   tags:
