@@ -6,7 +6,7 @@ image: archlinux/archlinux:base-devel
 
 archiso:
   tags:
-    - build
+    - archiso
   stage: build
   script:
     - ./ci.build.sh
