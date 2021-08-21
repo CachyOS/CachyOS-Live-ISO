@@ -1,6 +1,9 @@
-pipeline:
-  archiso:
-    group: build
+kind: pipeline
+type: docker
+name: production
+
+steps:
+  - name: archiso
     image: archlinux/archlinux:base-devel
     commands:
       - ./ci.build.sh
