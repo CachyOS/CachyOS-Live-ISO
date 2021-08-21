@@ -1,0 +1,7 @@
+pipeline:
+  run_bash:
+    group: build
+    image: alpine
+    commands:
+      - echo "running env command"
+      - env
