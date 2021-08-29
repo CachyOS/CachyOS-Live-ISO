@@ -355,3 +355,7 @@ yad
 gspell
 #welcome
 meld
+
+# zfs support
+zfs-dkms
+zfs-utils
