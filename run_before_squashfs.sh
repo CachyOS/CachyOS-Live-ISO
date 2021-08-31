@@ -24,8 +24,8 @@ cp -aT /etc/skel/ /root/
 rm /root/xed.dconf
 chmod 700 /root
 useradd -m -p \"\" -g users -G 'sys,rfkill,wheel' -s /bin/bash liveuser
-git clone -b 08-2021 --single-branch https://github.com/endeavouros-team/liveuser-desktop-settings.git
-#git clone https://github.com/endeavouros-team/liveuser-desktop-settings.git
+git clone --single-branch https://gitlab.com/cachyos/liveuser-desktop-settings.git
+#git clone https://gitlab.com/cachyos/liveuser-desktop-settings.git
 cd liveuser-desktop-settings
 rm -R /home/liveuser/.config
 cp -R .config /home/liveuser/
@@ -88,7 +88,7 @@ sed -i 's?GRUB_DISTRIBUTOR=.*?GRUB_DISTRIBUTOR=\"CachyOS\"?' /etc/default/grub
 sed -i 's?\#GRUB_THEME=.*?GRUB_THEME=\/boot\/grub\/themes\/CachyOS\/theme.txt?g' /etc/default/grub
 echo 'GRUB_DISABLE_SUBMENU=y' >> /etc/default/grub
 rm /boot/grub/grub.cfg
-wget https://raw.githubusercontent.com/endeavouros-team/liveuser-desktop-settings/08-2021/dconf/xed.dconf
+wget https://gitlab.com/cachyos/liveuser-desktop-settings/-/raw/master/dconf/xed.dconf
 dbus-launch dconf load / < xed.dconf
 sudo -H -u liveuser bash -c 'dbus-launch dconf load / < xed.dconf'
 rm xed.dconf
