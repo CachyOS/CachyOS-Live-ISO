@@ -16,6 +16,6 @@ Clone:\
 `sudo ./fix_permissions.sh`
 
 ## Build
-`sudo ./build.sh -v`
+`sudo ./mkarchiso /path/to/profile`
 
 ## The iso appears at out folder

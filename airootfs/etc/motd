@@ -1,18 +1,19 @@
 This ISO is based on Arch-ISO modified hugely to provide Installation Environment for CachyOS.
 https://cachyos.org
 
-Arch-ISO Source:
-https://gitlab.archlinux.org/archlinux/archiso
-
 CachyOS-archiso Sources:
 https://gitlab.com/cachyos/cachyos-archiso
 
-Live environment will start now and let you install CachyOS to disk, or tryout XFCE4-Desktop from Live-Session.
+Arch-ISO Source:
+https://gitlab.archlinux.org/archlinux/archiso
 
-Bugs can be reported here:
-https://forum.endeavouros.com/c/Arch-based-related-questions/bug-reports
+Calamares as our installer:
+https://github.com/calamares/calamares
+
+Live environment will start now and let you install CachyOS to disk, or tryout Plasma-Desktop from Live-Session.
 
 Getting help at the forum: https://forum.cachyos.org
 
-Welcome to your cachy!
+Welcome to your cachy
 
+---

@@ -1,46 +1,23 @@
-#
-# Additions from new archiso config files
-bind-tools
-edk2-shell
-#irssi
-#kitty-terminfo
-#lftp
-#lynx
-memtest86+
-nbd
-nmap
-nvme-cli
-rxvt-unicode-terminfo
-sudo
-syslinux
-systemd-resolvconf
-#terminus-font
-#termite-terminfo
-mkinitcpio-archiso
-
-#default.groups.packages
-# now packages
+#base-system
 base
 base-devel
-
-
-# kernel.cachy
-# linux (base-group)
-# not anymore in base-group, needs explicit install
-# adding old base packages here as a list
 linux
 linux-headers
 linux-firmware
 mkinitcpio
 mkinitcpio-busybox
 mkinitcpio-nfs-utils
-#dkms (broadcom-wl-dkms will bring this in)
+cachyos-mirrorlist
+cachyos-keyring
+bind-tools
+edk2-shell
+rxvt-unicode-terminfo
+sudo
+systemd-resolvconf
 cryptsetup
 device-mapper
 diffutils
-e2fsprogs
 inetutils
-jfsutils
 less
 logrotate
 man-db
@@ -48,30 +25,22 @@ man-pages
 mdadm
 nano
 perl
-reiserfsprogs
 s-nail
 sysfsutils
 systemd-sysvcompat
 texinfo
-usbutils
-vi
 which
-xfsprogs
+intel-ucode
+amd-ucode
 
-# hardware-support.packages
-lsscsi
-sdparm
-sg3_utils
-smartmontools
+#ISO-specific
+mkinitcpio-archiso
+syslinux
+memtest86+
+xcompmgr
+arch-install-scripts
 
-# EFI/UEFI.packages
-refind
-
-# keyring_mirros.cachyos
-cachyos-keyring
-cachyos-mirrorlist
-
-# xorg.cachyos
+#x-system
 xf86-video-vesa
 xorg-server
 xorg-xinit
@@ -84,110 +53,46 @@ xf86-video-amdgpu
 xf86-video-ati
 xf86-video-fbdev
 xf86-video-intel
-#xf86-video-nouveau
 nvidia-dkms
 nvidia-utils
-#removed as it is not needed to run nvidia driver
-#nvidia-settings
 
-# loginmanager.packages
-lightdm-gtk-greeter
-lightdm-gtk-greeter-settings
-# now needed for lightdm in some cases
-accountsservice
-
-# default.desktop.cachyos
-plasma-browser-integration
-plasma-desktop
-plasma-firewall
-plasma-framework
-plasma-integration
-plasma-nm
-plasma-pa
-plasma-systemmonitor
-plasma-thunderbolt
-plasma-workspace
-# goodies selection
-# mousepad (issues with sudo)
-xed
-parole
-ristretto
-dolphin
-dolphin-plugins
-konsole
-neofetch
-
-# theme.plasma.cachyos
-capitaine-cursors
-gtk-engine-murrine
-gnome-themes-extra
-adwaita-icon-theme
-cachyos-grub-theme
-
-# extra.desktop.packages
-dconf-editor
-file-roller
-libwnck3
-network-manager-applet
-transmission-gtk
-gnome-calculator
-
-# default.browser.cachyos
-cachy-browser
-
-# fonts
-ttf-dejavu
-ttf-liberation
-ttf-bitstream-vera
-#ttf-ubuntu-font-family
-cantarell-fonts
-#ttf-croscore
-#ttf-carlito
-#ttf-caladea
-noto-fonts
-adobe-source-han-sans-jp-fonts
-adobe-source-han-sans-kr-fonts
-adobe-source-han-sans-cn-fonts
-opendesktop-fonts
-ttf-opensans
-
-# filesystems.packages
+#filesystem
 btrfs-progs
 dosfstools
 f2fs-tools
+xfsprogs
+e2fsprogs
 lvm2
 mtools
 ntfs-3g
-exfat-utils
+reiserfsprogs
+jfsutils
+nvme-cli
+exfatprogs
 nfs-utils
 nilfs-utils
-mlocate
 gvfs
 gvfs-afc
-gvfs-goa
 gvfs-gphoto2
 gvfs-mtp
 gvfs-nfs
 gvfs-smb
 
-# installation.packages
-arch-install-scripts
-pacman-contrib
+# zfs support
+zfs-dkms
+zfs-utils
+
+#general-system
+mlocate
 crda
 dialog
 dmraid
-efibootmgr
-efitools
 fakeroot
 gptfdisk
-grub
 haveged
 hwdetect
 hwinfo
 ntp
-os-prober
-
-# system.packages
 expect
 git
 pkgfile
@@ -199,19 +104,104 @@ wget
 xdg-user-dirs-gtk
 xz
 gpm
-intel-ucode
-amd-ucode
+poppler-glib
+libgsf
+libopenraw
+freetype2
+gpart
+gspell
+pacman-contrib
+rebuild-detector
 
-# for ssh
-gnome-keyring
+#general-hardware
+lsscsi
+sdparm
+sg3_utils
+smartmontools
+usbutils
 
-# network.packages
-#b43-firmware
+#DM
+lightdm-gtk-greeter
+lightdm-gtk-greeter-settings
+accountsservice
+
+#plasma-desktop
+plasma-browser-integration
+plasma-desktop
+plasma-firewall
+plasma-framework
+plasma-integration
+plasma-nm
+plasma-pa
+plasma-systemmonitor
+plasma-thunderbolt
+plasma-workspace
+xed
+parole
+ristretto
+dolphin
+dolphin-plugins
+konsole
+neofetch
+capitaine-cursors
+gtk-engine-murrine
+gnome-themes-extra
+adwaita-icon-theme
+file-roller
+libwnck3
+network-manager-applet
+galculator
+cachy-browser
+kvantum-qt5
+qt5ct
+
+#fonts
+ttf-dejavu
+ttf-liberation
+ttf-bitstream-vera
+cantarell-fonts
+noto-fonts
+adobe-source-han-sans-jp-fonts
+adobe-source-han-sans-kr-fonts
+adobe-source-han-sans-cn-fonts
+opendesktop-fonts
+ttf-opensans
+
+#audio
+alsa-utils
+alsa-plugins
+alsa-firmware
+sof-firmware
+pulseaudio-alsa
+pulseaudio-bluetooth
+pulseaudio-equalizer
+pulseaudio-jack
+pavucontrol
+ffmpegthumbnailer
+gst-libav
+gst-plugins-bad
+gst-plugins-ugly
+gst-plugin-pipewire
+
+#boot
+grub
+efibootmgr
+efitools
+os-prober
+refind
+
+#net-hardware
 b43-fwcutter
 broadcom-wl-dkms
 dnsutils
 ipw2100-fw
 ipw2200-fw
+linux-atm
+r8168
+
+#network
+nbd
+nmap
 modemmanager
 netctl
 net-tools
@@ -226,7 +216,6 @@ dnsmasq
 elinks
 ethtool
 openconnect
-openssh
 openvpn
 rp-pppoe
 wireless-regdb
@@ -234,21 +223,27 @@ wpa_supplicant
 wvdial
 gnu-netcat
 iwd
-linux-atm
 ndisc6
 ppp
 pptpclient
 vpnc
 xl2tpd
-r8168
 
-# calamares.cachy
-calamares
-calamares-branding-cachyos
-#calamares_current
-#calamares_test
+#live-iso-tools
+gparted
+grsync
+clonezilla
+hdparm
+fsarchiver
+glances
+python-defusedxml
+inxi
+bash-completion
+downgrade
+pcurses
+tldr
 
-# calamares.dependencies
+#calamares
 lsb-release
 libpwquality
 cmake
@@ -256,17 +251,8 @@ qt5-svg
 qt5-webengine
 yaml-cpp
 extra-cmake-modules
-boost
-
-# calamares.modules
-# dependencies for installer modules
-#for encrypted swap
-#for showing keyboard layouts
-
-# calamares.welcome
+boost-libs
 upower
-
-# calamares.partition
 kcoreaddons
 kconfig
 ki18n
@@ -274,12 +260,7 @@ kservice
 kwidgetsaddons
 kpmcore
 parted
-gparted
-
-# calamares.unpackfs
 squashfs-tools
-
-# calamares.others
 qt5-xmlpatterns
 doxygen
 tcpdump
@@ -289,73 +270,25 @@ polkit-qt5
 python
 solid
 qt5-tools
-#pythonqt
+calamares
+calamares-branding-cachyos
 
-# liveiso.rescue-tools
-grsync
-#ddrescue
-#dd_rescue
-#testdisk
-clonezilla
-#partclone
-#partimage
-gftp
-hdparm
-fsarchiver
-#mc
-
-# sound
-alsa-utils
-alsa-plugins
-alsa-firmware
-pulseaudio-alsa
-pulseaudio-bluetooth
-pulseaudio-equalizer
-pulseaudio-jack
-
-# developers.wishes
-#htop
-glances
-#rsync (grsync will bring this in)
-hardinfo
-bash-completion
-pcurses
-tldr
-
-# needed.dependencies
-pavucontrol
-ffmpegthumbnailer
-poppler-glib
-libgsf
-libopenraw
-freetype2
-gst-libav
-gst-plugins-bad
-gst-plugins-ugly
-gst-plugin-pipewire
-gpart
-libdvdcss
-
-# AUR-support
+#cachyos-repo
+#rate-mirrors-bin
+mkinitcpio-openswap
+ckbcomp
+cachyos-grub-theme
+#cachyos-theming
 paru
+yad
+#welcome
+meld
+#keyserver-rank-cachy
+reflector-simple
 
-#virtualbox.packages
+#vm-support
+qemu-guest-agent
 virtualbox-guest-utils
-
-#Vmware.packages
 open-vm-tools
 xf86-input-vmmouse
 xf86-video-vmware
-
-#screen tearing at ISO
-xcompmgr
-
-# cachyos.welcome
-yad
-gspell
-#welcome
-meld
-
-# zfs support
-zfs-dkms
-zfs-utils
