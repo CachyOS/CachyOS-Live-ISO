@@ -278,6 +278,7 @@ calamares-branding-cachyos
 mkinitcpio-openswap
 ckbcomp
 cachyos-grub-theme
+cachyos-nord-kde-theme-git
 #cachyos-theming
 paru
 yad
