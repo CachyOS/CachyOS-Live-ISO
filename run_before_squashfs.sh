@@ -23,26 +23,26 @@ usermod -s /usr/bin/bash root
 cp -aT /etc/skel/ /root/
 rm /root/xed.dconf
 chmod 700 /root
-useradd -m -p \"\" -g users -G 'sys,rfkill,wheel' -s /bin/bash liveuser
+useradd -m -p \"\" -g users -G 'sys,rfkill,wheel' -s /bin/bash cachyos
 git clone --single-branch https://gitlab.com/cachyos/liveuser-desktop-settings.git
 #git clone https://gitlab.com/cachyos/liveuser-desktop-settings.git
 cd liveuser-desktop-settings
-rm -R /home/liveuser/.config
-cp -R .config /home/liveuser/
-chown -R liveuser:liveuser /home/liveuser/.config
-cp .xinitrc .xprofile .Xauthority /home/liveuser/
-chown liveuser:liveuser /home/liveuser/.xinitrc
-chown liveuser:liveuser /home/liveuser/.xprofile
-chown liveuser:liveuser /home/liveuser/.Xauthority
-cp -R .local /home/liveuser/
-chown -R liveuser:liveuser /home/liveuser/.local
-chmod +x /home/liveuser/.local/bin/*
-cp user_pkglist.txt /home/liveuser/
-chown liveuser:liveuser /home/liveuser/user_pkglist.txt
-rm /home/liveuser/.bashrc
-cp .bashrc /home/liveuser/
-chown liveuser:liveuser /home/liveuser/.bashrc
-cp LICENSE /home/liveuser/
+rm -R /home/cachyos/.config
+cp -R .config /home/cachyos/
+chown -R cachyos:cachyos /home/cachyos/.config
+cp .xinitrc .xprofile .Xauthority /home/cachyos/
+chown cachyos:cachyos /home/cachyos/.xinitrc
+chown cachyos:cachyos /home/cachyos/.xprofile
+chown cachyos:cachyos /home/cachyos/.Xauthority
+cp -R .local /home/cachyos/
+chown -R cachyos:cachyos /home/cachyos/.local
+chmod +x /home/cachyos/.local/bin/*
+cp user_pkglist.txt /home/cachyos/
+chown cachyos:cachyos /home/cachyos/user_pkglist.txt
+rm /home/cachyos/.bashrc
+cp .bashrc /home/cachyos/
+chown cachyos:cachyos /home/cachyos/.bashrc
+cp LICENSE /home/cachyos/
 cd ..
 rm -R liveuser-desktop-settings
 chmod 755 /etc/sudoers.d
@@ -90,7 +90,7 @@ echo 'GRUB_DISABLE_SUBMENU=y' >> /etc/default/grub
 rm /boot/grub/grub.cfg
 wget https://gitlab.com/cachyos/liveuser-desktop-settings/-/raw/master/dconf/xed.dconf
 dbus-launch dconf load / < xed.dconf
-sudo -H -u liveuser bash -c 'dbus-launch dconf load / < xed.dconf'
+sudo -H -u cachyos bash -c 'dbus-launch dconf load / < xed.dconf'
 rm xed.dconf
 chmod -R 700 /root
 chown root:root -R /root

@@ -277,9 +277,9 @@ calamares-branding-cachyos
 #rate-mirrors-bin
 mkinitcpio-openswap
 ckbcomp
-cachyos-grub-theme
-cachyos-nord-kde-theme-git
-#cachyos-theming
+#cachyos-grub-theme
+#cachyos-nord-kde-theme-git
+cachyos-theming
 paru
 yad
 #welcome
