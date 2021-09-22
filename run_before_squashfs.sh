@@ -79,6 +79,11 @@ rm mirrorlist
 #pacman-key --refresh-keys
 #pacman -Syy
 
+# to install locally builded packages on ISO:
+#pacman -U --noconfirm /root/cachyos-hello-0.6.7-1-x86_64.pkg.tar.zst
+#rm /root/cachyos-hello-0.6.7-1-x86_64.pkg.tar.zst
+#rm /var/log/pacman.log
+
 # now done with recreating pacman keyring inside calamares:
 # shellprocess_initialize_pacman
 #rm -R /etc/pacman.d/gnupg
@@ -86,8 +91,10 @@ rm mirrorlist
 sed -i 's|^GRUB_CMDLINE_LINUX_DEFAULT=\"\(.*\)\"$|GRUB_CMDLINE_LINUX_DEFAULT=\"\1 nowatchdog\"|' /etc/default/grub
 sed -i 's?GRUB_DISTRIBUTOR=.*?GRUB_DISTRIBUTOR=\"CachyOS\"?' /etc/default/grub
 sed -i 's?\#GRUB_THEME=.*?GRUB_THEME=\/boot\/grub\/themes\/CachyOS\/theme.txt?g' /etc/default/grub
-echo 'GRUB_DISABLE_SUBMENU=y' >> /etc/default/grub
-rm /boot/grub/grub.cfg
+sed -i 's?\#GRUB_DISABLE_SUBMENU=y?GRUB_DISABLE_SUBMENU=y?g' /etc/default/grub
+echo 'GRUB_DISABLE_OS_PROBER=false' >> /etc/default/grub
+# rm /boot/grub/grub.cfg --> seems mkarchiso is doing this now?
+
 wget https://gitlab.com/cachyos/liveuser-desktop-settings/-/raw/master/dconf/xed.dconf
 dbus-launch dconf load / < xed.dconf
 sudo -H -u cachyos bash -c 'dbus-launch dconf load / < xed.dconf'

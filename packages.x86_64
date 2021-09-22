@@ -5,7 +5,6 @@ linux
 linux-headers
 linux-firmware
 mkinitcpio
-mkinitcpio-busybox
 mkinitcpio-nfs-utils
 cachyos-mirrorlist
 cachyos-keyring
@@ -24,6 +23,8 @@ man-db
 man-pages
 mdadm
 nano
+tmux
+vim
 perl
 s-nail
 sysfsutils
@@ -63,6 +64,7 @@ f2fs-tools
 xfsprogs
 e2fsprogs
 lvm2
+lynx
 mtools
 ntfs-3g
 reiserfsprogs
@@ -84,6 +86,7 @@ zfs-utils
 
 #general-system
 mlocate
+mc
 crda
 dialog
 dmraid
@@ -206,7 +209,6 @@ modemmanager
 netctl
 net-tools
 networkmanager
-networkmanager-openvpn
 nss-mdns
 usb_modeswitch
 whois
@@ -216,6 +218,7 @@ dnsmasq
 elinks
 ethtool
 openconnect
+openssh
 openvpn
 rp-pppoe
 wireless-regdb
@@ -273,16 +276,21 @@ qt5-tools
 calamares
 calamares-branding-cachyos
 
+#welcome-app
+gtkmm3
+fmt
+#cachyos-hello
+
 #cachyos-repo
 #rate-mirrors-bin
 mkinitcpio-openswap
 ckbcomp
 #cachyos-grub-theme
 #cachyos-nord-kde-theme-git
+cachyos-settings
 cachyos-theming
 paru
 yad
-#welcome
 meld
 #keyserver-rank-cachy
 reflector-simple
