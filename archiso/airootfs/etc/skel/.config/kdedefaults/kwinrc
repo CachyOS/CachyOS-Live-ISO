@@ -1,0 +1,8 @@
+[TabBox]
+DesktopLayout=big_icons
+DesktopListLayout=big_icons
+LayoutName=big_icons
+
+[org.kde.kdecoration2]
+library=org.kde.breeze
+theme=Breeze

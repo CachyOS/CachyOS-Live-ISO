@@ -1,0 +1,20 @@
+[Desktop Entry]
+Terminal=false
+Type=Application
+Categories=GNOME;GTK;System;
+StartupNotify=false
+Name=CachyOS Hello
+Exec=/usr/bin/cachyos-hello
+Icon=cachyos
+Comment=A tool providing access to documentation and support for new CachyOS users.
+Comment[da]=En app med adgang til dokumentation og support for nye CachyOS brugere.
+Comment[de]=Ein Tool für schnellen Zugriff auf Support und Dokumentation für neue CachyOS-Nutzer.
+Comment[es]=Una herramienta que provee acceso a la documentación y soporte para nuevos usuarios de CachyOS.
+Comment[fr]=Outil d'accès à la documentation et support aux nouveaux utilisateurs de CachyOS.
+Comment[nl]=Een manier voor nieuwe CachyOS gebruikers om toegang tot documentatie en support te krijgen.
+Comment[pl]=Narzędzie ułatwiające dostęp do dokumentacji i pomocy przeznaczone dla nowych użytkowników CachyOS.
+Comment[pt_BR]=Uma ferramenta que fornece acesso à documentação e suporte para novos usuários CachyOS.
+Comment[pt_PT]=Uma ferramenta que fornece acesso à documentação e suporte para novos usuários CachyOS.
+Comment[ru]=Средство доступа к документации и поддержке для новых пользователей CachyOS.
+Comment[it]=Strumento per accedere alla documentazione e supporto per nuovi utenti CachyOS.
+Comment[tr]=Yeni CachyOS kullanıcıları için dökümantasyon ve destek sağlayan bir araç.

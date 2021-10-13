@@ -8,14 +8,14 @@ These are the basic needed files and folders to build CachyOS system.
 `sudo pacman -S archiso mkinitcpio-archiso git squashfs-tools --needed`
 
 Clone:\
-`git clone https://gitlab.com/cachyos/cachyos-archiso.git`
+`git clone https://github.com/CachyOS/CachyOS-Live-ISO.git`
 
-`cd cachyos-archiso`
-
-## Run fix permissions script
-`sudo ./fix_permissions.sh`
+`cd CachyOS-Live-ISO`
 
 ## Build
-`sudo ./mkarchiso /path/to/profile`
+`./30-build-the-iso-the-first-time.sh`
+
+#### if you want rebuild
+`./40-build-the-iso-local-again.sh`
 
 ## The iso appears at out folder

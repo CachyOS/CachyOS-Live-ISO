@@ -1,8 +1,0 @@
-root:x:0:root
-adm:x:4:cachyos
-wheel:x:10:cachyos
-uucp:x:14:cachyos
-nopasswdlogin:x:966:cachyos
-rfkill:x:983:cachyos
-sys:x:3:bin,cachyos
-cachyos:x:1000:
