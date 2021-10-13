@@ -6,7 +6,7 @@ b43-fwcutter
 base
 bind-tools
 brltty
-broadcom-wl
+broadcom-wl-dkms
 btrfs-progs
 clonezilla
 cloud-init
@@ -47,10 +47,9 @@ less
 lftp
 libfido2
 libusb-compat
-linux
+linux-cachyos-bmq
 linux-atm
 linux-firmware
-livecd-sounds
 lsscsi
 lvm2
 lynx
@@ -119,27 +118,9 @@ zsh
 
 
 # everything above comes from archiso releng folder
-#######################################################
-###                    ALCI                         ###
-#######################################################
 
-#######################################################
-###  PACKAGES THAT ARE REMOVED AFTER INSTALLATION   ###
-###             VIA CALAMARES CONFIG                ###
-#######################################################
-
-#alci-dwm
-#alci-dwm-nemesis
-#alci-calamares
 cachyos-calamares
-#alci-calamares-dev
-#alci-calamares-config
 cachyos-calamares-config
-#alci-calamares-config-btrfs
-#alci-calamares-config-dev
-#alci-calamares-config-lts
-#alci-calamares-config-pure
-#alci-calamares-config-zen
 
 #######################################################
 ###      PACKAGES THAT STAY AFTER INSTALLATION      ###
@@ -251,7 +232,7 @@ base-devel
 
 ##### want to have linux-headers
 
-linux-headers
+linux-cachyos-bmq-headers
 
 
 
@@ -292,10 +273,14 @@ alsa-utils
 alsa-plugins
 alsa-firmware
 sof-firmware
-pulseaudio-alsa
-pulseaudio-bluetooth
-pulseaudio-equalizer
-pulseaudio-jack
+pipewire
+pipewire-alsa
+pipewire-jack
+pipewire-media-session
+pipewire-pulse
+pipewire-support
+pipewire-zeroconf
+profile-sync-daemon
 pavucontrol
 ffmpegthumbnailer
 gst-libav
@@ -340,6 +325,5 @@ xf86-video-vmware
 ##### want to add/use your local repo packages
 ##### create your packages and put them in the local repo
 
-timeshift
-#grub-btrfs
-#timeshift-autosnap
+veracrypt
+firejail
