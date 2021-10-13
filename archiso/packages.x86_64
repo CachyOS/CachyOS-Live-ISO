@@ -47,7 +47,7 @@ less
 lftp
 libfido2
 libusb-compat
-linux-cachyos-bmq
+linux-cachyos
 linux-atm
 linux-firmware
 lsscsi
@@ -232,7 +232,7 @@ base-devel
 
 ##### want to have linux-headers
 
-linux-cachyos-bmq-headers
+linux-cachyos-headers
 
 
 
