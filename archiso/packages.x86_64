@@ -140,14 +140,21 @@ xorg-xinput
 xorg-xrdb
 mkinitcpio-openswap
 alacritty
+kwin-scripts-forceblur
 
 #network
 netctl
 net-tools
 networkmanager
+networkmanager-openconnect
+networkmanager-openvpn
+networkmanager-qt
+networkmanager-vpnc
 nss-mdns
 whois
-
+wireguard-tools
+openconnect
+openvpn
 
 #live-iso-tools
 gparted
@@ -297,6 +304,8 @@ ttf-liberation
 ttf-bitstream-vera
 cantarell-fonts
 noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
 adobe-source-han-sans-jp-fonts
 adobe-source-han-sans-kr-fonts
 adobe-source-han-sans-cn-fonts
