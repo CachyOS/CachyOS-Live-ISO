@@ -286,6 +286,8 @@ pipewire-jack
 pipewire-media-session
 pipewire-pulse
 # pipewire-support
+realtime-privileges
+wireplumber
 pipewire-zeroconf
 profile-sync-daemon
 pavucontrol
