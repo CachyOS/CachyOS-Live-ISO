@@ -285,7 +285,7 @@ pipewire-alsa
 pipewire-jack
 pipewire-media-session
 pipewire-pulse
-pipewire-support
+# pipewire-support
 pipewire-zeroconf
 profile-sync-daemon
 pavucontrol
