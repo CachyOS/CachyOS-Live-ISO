@@ -287,7 +287,7 @@ pipewire-pulse
 pipewire-v4l2
 # pipewire-support
 realtime-privileges
-wireplumber
+pipewire-media-session
 pipewire-zeroconf
 profile-sync-daemon
 pavucontrol
