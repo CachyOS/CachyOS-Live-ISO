@@ -20,9 +20,10 @@ file_permissions=(
   ["/etc/sudoers.d"]="0:0:750"
   ["/root/.automated_script.sh"]="0:0:755"
   ["/usr/local/bin/choose-mirror"]="0:0:755"
-  ["/usr/local/bin/Installation_guide"]="0:0:755"
-  ["/usr/local/bin/livecd-sound"]="0:0:755"
-  ["/usr/local/bin/alci-displaymanager-check"]="0:0:755"
+  ["/usr/local/bin/dmcheck"]="0:0:755"
   ["/usr/local/bin/calamares-offline.sh"]="0:0:755"
   ["/usr/local/bin/calamares-online.sh"]="0:0:755"
+  ["/usr/local/bin/remove-nvidia"]="0:0:755"
+  ["/usr/local/bin/removeun"]="0:0:755"
+  ["/usr/local/bin/removeun-online"]="0:0:755"
 )

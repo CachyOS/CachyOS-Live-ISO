@@ -1,0 +1,73 @@
+#!/bin/bash
+#set -e
+###############################################################################
+# Author    :   Erik Dubois
+# Website   :   https://www.erikdubois.be
+# Website   :   https://www.arcolinux.info
+# Website   :   https://www.arcolinux.com
+# Website   :   https://www.arcolinuxd.com
+# Website   :   https://www.arcolinuxb.com
+# Website   :   https://www.arcolinuxiso.com
+# Website   :   https://www.arcolinuxforum.com
+###############################################################################
+#
+#   DO NOT JUST RUN THIS. EXAMINE AND JUDGE. RUN AT YOUR OWN RISK.
+#
+###############################################################################
+
+_clean_packages(){
+
+    local _packages_to_remove=(
+    gparted
+    grsync
+    cachyos-calamares
+    cachyos-calamares-config
+    edk2-shell
+    boost-libs
+    doxygen
+    expect
+    gpart
+    tcpdump
+    libpwquality
+    refind
+    rate-mirrors-bin
+    kvantum-qt5
+    polkit-qt5
+    qca-qt5
+    qt5-location
+    qt5-multimedia
+    qt5-speech
+    qt5-wayland
+    qt5-webchannel
+    qt5-webengine
+    qt5-xmlpatterns
+    qt5-base
+    sonnet
+    kwidgetsaddons
+    kitemviews
+    kguiaddons
+    kdbusaddons
+    kcoreaddons
+    karchive
+    qt5ct
+    arch-install-scripts
+    squashfs-tools
+    extra-cmake-modules
+    cmake
+    elinks
+    yaml-cpp
+    syslinux
+    clonezilla
+    ckbcomp
+    xcompmgr
+    memtest86+
+    mkinitcpio-archiso
+)
+    local xx
+    # @ does one by one to avoid errors in the entire process
+    # * can be used to treat all packages in one command
+    for xx in ${_packages_to_remove[@]}; do pacman -Rsc $xx --noconfirm; done
+
+}
+
+_clean_packages
