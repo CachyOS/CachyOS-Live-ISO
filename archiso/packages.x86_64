@@ -283,8 +283,8 @@ sof-firmware
 pipewire
 pipewire-alsa
 pipewire-jack
-pipewire-media-session
 pipewire-pulse
+pipewire-v4l2
 # pipewire-support
 realtime-privileges
 wireplumber
