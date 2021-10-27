@@ -146,7 +146,6 @@ kwin-scripts-forceblur
 netctl
 net-tools
 networkmanager
-networkmanager-openconnect
 networkmanager-openvpn
 networkmanager-qt
 networkmanager-vpnc
@@ -190,7 +189,6 @@ qt5-tools
 
 xorg-server
 xorg-apps
-neofetch
 
 
 # zfs support(not working)
@@ -298,6 +296,7 @@ gst-plugins-ugly
 gst-plugin-pipewire
 
 cachyos-mirrorlist
+cachyos-v3-mirrorlist
 cachyos-keyring
 
 #fonts
@@ -306,11 +305,6 @@ ttf-liberation
 ttf-bitstream-vera
 cantarell-fonts
 noto-fonts
-noto-fonts-cjk
-noto-fonts-emoji
-adobe-source-han-sans-jp-fonts
-adobe-source-han-sans-kr-fonts
-adobe-source-han-sans-cn-fonts
 opendesktop-fonts
 ttf-opensans
 
@@ -322,9 +316,7 @@ char-white
 cachyos-nord-kde-theme-git
 cachyos-emerald-kde-theme-git
 paru
-yad
 meld
-#keyserver-rank-cachy
 reflector-simple
 
 
@@ -332,9 +324,3 @@ reflector-simple
 open-vm-tools
 xf86-input-vmmouse
 xf86-video-vmware
-
-##### want to add/use your local repo packages
-##### create your packages and put them in the local repo
-
-veracrypt
-firejail
