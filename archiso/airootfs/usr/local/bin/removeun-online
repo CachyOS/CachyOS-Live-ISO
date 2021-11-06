@@ -8,7 +8,7 @@ _clean_packages(){
     # * can be used to treat all packages in one command
     for xx in ${_packages_to_remove[@]}; do pacman -Rsc $xx --noconfirm; done
 
-    rm /etc/sddm.conf
+    rm /etc/sddm.conf || true
 }
 
 _clean_packages
