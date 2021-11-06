@@ -126,7 +126,7 @@ cachyos-calamares-config
 ###      PACKAGES THAT STAY AFTER INSTALLATION      ###
 #######################################################
 
-#sddm
+#ly
 bash-completion
 grub
 os-prober
