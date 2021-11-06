@@ -25,10 +25,8 @@ alias l.="ls -A | egrep '^\.'"
 alias grep='grep --colour=auto'
 alias egrep='egrep --colour=auto'
 alias fgrep='fgrep --colour=auto'
-alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
-alias np='nano -w PKGBUILD'
 PS1='[\u@\h \W]\$ '
 
 # Bash won't get SIGWINCH if another process is in the foreground.
