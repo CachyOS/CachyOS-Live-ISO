@@ -140,6 +140,7 @@ xorg-xinput
 xorg-xrdb
 mkinitcpio-openswap
 alacritty
+konsole
 kwin-scripts-forceblur
 
 #network
