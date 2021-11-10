@@ -71,5 +71,10 @@ _try_v3(){
 
 }
 
+_remove_misc(){
+    rm /etc/motd || true
+}
+
 _clean_packages
 _try_v3
+_remove_misc
