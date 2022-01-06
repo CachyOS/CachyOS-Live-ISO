@@ -221,8 +221,10 @@ nvidia-utils
 
 ##### lightdm display manager
 
-#lightdm
-#lightdm-gtk-greeter
+lightdm
+lightdm-gtk-greeter
+lightdm-webkit2-greeter
+lightdm-webkit2-theme-arch
 
 ##### sddm display manager
 
@@ -289,6 +291,7 @@ realtime-privileges
 pipewire-media-session
 pipewire-zeroconf
 profile-sync-daemon
+power-profiles-daemon
 pavucontrol
 ffmpegthumbnailer
 gst-libav
@@ -311,11 +314,14 @@ ttf-opensans
 
 efitools
 
+cachyos-hooks
 cachyos-settings
 # cachyos-theming broken
 char-white
 cachyos-nord-kde-theme-git
 cachyos-emerald-kde-theme-git
+lightly-git
+nordic-theme-git
 paru
 meld
 reflector-simple

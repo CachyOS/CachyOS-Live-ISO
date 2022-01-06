@@ -4,14 +4,40 @@ env:
 
 window:
   dimensions:
-    columns: 80
-    lines: 24
+    columns: 100
+    lines: 30
 
+  # Spread additional padding evenly around the terminal content.
+  dynamic_padding: true
+
+  # Window decorations
   decorations: full
 
+  # Startup Mode (changes require restart)
   startup_mode: Windowed
+
+  # Window title
+  title: Alacritty@CachyOS
+
+  # Window class (Linux/BSD only):
+  class:
+    # Application instance name
+    instance: Alacritty
+    # General application class
+    general: Alacritty
+
+  # GTK theme variant (Linux/BSD only)
+  #
+  # Override the variant of the GTK theme. Commonly supported values are `dark` and `light`.
+  # Set this to `None` to use the default theme variant.
+  gtk_theme_variant: dark
+
 scrolling:
-  history: 2500
+  # Maximum number of lines in the scrollback buffer.
+  # Specifying '0' will disable scrolling.
+  history: 10000
+
+  # Scrolling distance multiplier.
   multiplier: 3
 
 # Colors (Oceanic Next)
@@ -105,11 +131,12 @@ font:
 
 draw_bold_text_with_bright_colors: false
 
-background_opacity: 0.95
+background_opacity: 0.8
 
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
-  save_to_clipboard: false
+  save_to_clipboard: true
+  window.dynamic_title: true
 
 cursor:
   style: Block

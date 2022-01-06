@@ -1,0 +1,12 @@
+[General]
+autoSaveImage=true
+copyImageToClipboard=true
+copySaveLocation=false
+printKeyActionRunning=FocusWindow
+useReleaseToCapture=true
+
+[GuiConfig]
+quitAfterSaveCopyExport=true
+
+[Save]
+saveFilenameFormat=Screenshot_%T_%d

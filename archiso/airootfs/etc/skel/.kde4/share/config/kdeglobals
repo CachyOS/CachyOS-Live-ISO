@@ -1,11 +1,9 @@
 [ColorEffects:Disabled]
-ChangeSelectionColor=
 Color=23,23,23
 ColorAmount=0
 ColorEffect=0
 ContrastAmount=0.65
 ContrastEffect=1
-Enable=
 IntensityAmount=0.1
 IntensityEffect=2
 
@@ -133,19 +131,22 @@ ForegroundPositive=24,165,222
 ForegroundVisited=179,13,191
 
 [General]
+ColorScheme=CachyOSNord
 Name=CachyOSNord
-XftAntialias=true
-XftHintStyle=hintslight
-XftSubPixel=rgb
-fixed=Monospace,10,-1,5,50,0,0,0,0,0
 shadeSortColumn=true
-widgetStyle=Breeze
+widgetStyle=Lightly
+
+[Icons]
+Theme=char-white
 
 [KDE]
-ColorScheme=BreezeLight
-LookAndFeelPackage=com.cachyos.ddh4r4m.nord
+ShowIconsInMenuItems=true
+ShowIconsOnPushButtons=true
 contrast=0
-widgetStyle=Lightly
+
+[Toolbar style]
+ToolButtonStyle=TextBesideIcon
+ToolButtonStyleOtherToolbars=TextBesideIcon
 
 [WM]
 activeBackground=12,14,20

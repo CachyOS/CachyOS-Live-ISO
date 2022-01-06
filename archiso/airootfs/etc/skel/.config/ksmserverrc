@@ -1,0 +1,5 @@
+[General]
+excludeApps=
+loginMode=emptySession
+offerShutdown=true
+shutdownType=0
