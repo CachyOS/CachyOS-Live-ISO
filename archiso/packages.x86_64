@@ -33,7 +33,7 @@ gnu-netcat
 gpart
 gpm
 gptfdisk
-grml-zsh-config
+#grml-zsh-config
 hdparm
 intel-ucode
 ipw2100-fw
@@ -224,7 +224,7 @@ nvidia-utils
 lightdm
 lightdm-gtk-greeter
 lightdm-webkit2-greeter
-lightdm-webkit2-theme-arch
+#lightdm-webkit2-theme-arch
 
 ##### sddm display manager
 
@@ -319,12 +319,19 @@ cachyos-settings
 # cachyos-theming broken
 char-white
 cachyos-nord-kde-theme-git
-cachyos-emerald-kde-theme-git
 lightly-git
 nordic-theme-git
 paru
 meld
 reflector-simple
+octopi
+mhwd-cachyos
+mhwd-nvidia-390xx
+cachyos-kernel-manager
+#cachyos-dnscrypt-proxy
+cachyos-rate-mirrors
+cachyos-picom-config
+cachyos-kde-settings
 
 
 #vm-support

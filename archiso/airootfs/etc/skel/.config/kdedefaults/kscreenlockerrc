@@ -1,6 +1,0 @@
-[Daemon]
-LockGrace=60
-Timeout=20
-
-[Greeter]
-Theme=com.cachyos.ddh4r4m.nord
