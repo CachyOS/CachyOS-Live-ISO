@@ -50,6 +50,7 @@ libusb-compat
 linux-cachyos
 linux-atm
 linux-firmware
+linux-firmware-marvell
 lsscsi
 lvm2
 lynx

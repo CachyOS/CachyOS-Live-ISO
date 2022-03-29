@@ -1,0 +1,14 @@
+#!/bin/bash
+
+_clean_packages(){
+    local _leave_these_packages="base\nbase-devel\ncachyos-keyring\ncachyos-mirrorlist\ncachyos-v3-mirrorlist\ncachyos-hello\ngrub\nefibootmgr\n"
+    local _packages_to_remove=($(comm -23 <(pacman -Qqt | sort) <({ pacman -Qqg base-devel; printf $_leave_these_packages; } | sort -u)))
+    local xx
+    # @ does one by one to avoid errors in the entire process
+    # * can be used to treat all packages in one command
+    for xx in ${_packages_to_remove[@]}; do pacman -Rsc $xx --noconfirm; done
+
+    rm /etc/sddm.conf || true
+}
+
+_clean_packages
