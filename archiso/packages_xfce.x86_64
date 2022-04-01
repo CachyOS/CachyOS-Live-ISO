@@ -1,289 +1,178 @@
-#
-# Additions from new archiso config files
-bind-tools
-edk2-shell
-#irssi
-#kitty-terminfo
-#lftp
-#lynx
-memtest86+
-nbd
-nmap
-nvme-cli
-rxvt-unicode-terminfo
-sudo
-syslinux
-systemd-resolvconf
-#terminus-font
-#termite-terminfo
-mkinitcpio-archiso
-
-#default.groups.packages
-# now packages
+alsa-utils
+amd-ucode
+arch-install-scripts
+archinstall
+b43-fwcutter
 base
-base-devel
-
-
-# kernel.cachy
-# linux (base-group)
-# not anymore in base-group, needs explicit install
-# adding old base packages here as a list
-linux
-linux-headers
-linux-firmware
-mkinitcpio
-mkinitcpio-busybox
-mkinitcpio-nfs-utils
-#dkms (broadcom-wl-dkms will bring this in)
+bind-tools
+brltty
+broadcom-wl-dkms
+btrfs-progs
+clonezilla
+cloud-init
+crda
 cryptsetup
-device-mapper
+darkhttpd
+ddrescue
+dhclient
+dhcpcd
 diffutils
+dmraid
+dnsmasq
+dosfstools
 e2fsprogs
-inetutils
+edk2-shell
+efibootmgr
+espeakup
+ethtool
+exfatprogs
+f2fs-tools
+fatresize
+fsarchiver
+gnu-netcat
+gpart
+gpm
+gptfdisk
+#grml-zsh-config
+hdparm
+intel-ucode
+ipw2100-fw
+ipw2200-fw
+irssi
+iw
+iwd
 jfsutils
+kitty-terminfo
 less
-logrotate
+lftp
+libfido2
+libusb-compat
+linux-cachyos
+linux-atm
+linux-firmware
+linux-firmware-marvell
+lsscsi
+lvm2
+lynx
 man-db
 man-pages
+mc
 mdadm
+memtest86+
+mkinitcpio
+mkinitcpio-archiso
+mkinitcpio-nfs-utils
+modemmanager
+mtools
 nano
-perl
+nbd
+ndisc6
+nfs-utils
+nilfs-utils
+nmap
+ntfs-3g
+nvme-cli
+openconnect
+openssh
+openvpn
+partclone
+parted
+partimage
+pcsclite
+ppp
+pptpclient
+pv
+qemu-guest-agent
+reflector
 reiserfsprogs
-s-nail
-sysfsutils
-systemd-sysvcompat
-texinfo
-usbutils
-vi
-which
-xfsprogs
-
-# hardware-support.packages
-lsscsi
+rp-pppoe
+rsync
+rxvt-unicode-terminfo
+screen
 sdparm
 sg3_utils
 smartmontools
+sof-firmware
+squashfs-tools
+sudo
+syslinux
+systemd-resolvconf
+tcpdump
+terminus-font
+testdisk
+tmux
+tpm2-tss
+udftools
+usb_modeswitch
+usbmuxd
+usbutils
+vim
+#virtualbox-guest-utils-nox
+vpnc
+wireless-regdb
+wireless_tools
+wpa_supplicant
+wvdial
+xfsprogs
+xl2tpd
+zsh
 
-# EFI/UEFI.packages
-refind
 
-# keyring_mirros.cachyos
-cachyos-keyring
-cachyos-mirrorlist
+# everything above comes from archiso releng folder
 
-# xorg.cachyos
-xf86-video-vesa
-xorg-server
+cachyos-calamares
+cachyos-calamares-config
+
+#######################################################
+###      PACKAGES THAT STAY AFTER INSTALLATION      ###
+#######################################################
+
+#ly
+bash-completion
+grub
+os-prober
+dex
+libxinerama
+make
 xorg-xinit
 xorg-xkill
 xorg-xrandr
 xorg-xinput
-mesa
-xf86-input-libinput
-xf86-video-amdgpu
-xf86-video-ati
-xf86-video-fbdev
-xf86-video-intel
-#xf86-video-nouveau
-nvidia-dkms
-nvidia-utils
-#removed as it is not needed to run nvidia driver
-#nvidia-settings
+xorg-xrdb
+mkinitcpio-openswap
+alacritty
+konsole
+kwin-scripts-forceblur
 
-# loginmanager.packages
-lightdm-gtk-greeter
-lightdm-gtk-greeter-settings
-# now needed for lightdm in some cases
-accountsservice
-
-# default.desktop.cachyos
-xfce4
-#xfce4-goodies
-# goodies selection
-# mousepad (issues with sudo)
-xed
-parole
-ristretto
-thunar-archive-plugin
-thunar-media-tags-plugin
-xfce4-battery-plugin
-xfce4-datetime-plugin
-xfce4-mount-plugin
-xfce4-netload-plugin
-xfce4-notifyd
-xfce4-pulseaudio-plugin
-xfce4-screensaver
-xfce4-screenshooter
-xfce4-taskmanager
-xfce4-wavelan-plugin
-xfce4-weather-plugin
-xfce4-whiskermenu-plugin
-xfce4-xkb-plugin
-neofetch
-
-# theme.xfce4.cachyos
-capitaine-cursors
-gtk-engine-murrine
-gnome-themes-extra
-adwaita-icon-theme
-cachyos-grub-theme
-
-# extra.desktop.packages
-dconf-editor
-file-roller
-libwnck3
-network-manager-applet
-transmission-gtk
-gnome-calculator
-
-# default.browser.cachyos
-cachy-browser
-
-# fonts
-ttf-dejavu
-ttf-liberation
-ttf-bitstream-vera
-#ttf-ubuntu-font-family
-cantarell-fonts
-#ttf-croscore
-#ttf-carlito
-#ttf-caladea
-noto-fonts
-adobe-source-han-sans-jp-fonts
-adobe-source-han-sans-kr-fonts
-adobe-source-han-sans-cn-fonts
-opendesktop-fonts
-ttf-opensans
-
-# filesystems.packages
-btrfs-progs
-dosfstools
-f2fs-tools
-lvm2
-mtools
-ntfs-3g
-exfat-utils
-nfs-utils
-nilfs-utils
-mlocate
-gvfs
-gvfs-afc
-gvfs-goa
-gvfs-gphoto2
-gvfs-mtp
-gvfs-nfs
-gvfs-smb
-
-# installation.packages
-arch-install-scripts
-pacman-contrib
-crda
-dialog
-dmraid
-efibootmgr
-efitools
-fakeroot
-gptfdisk
-grub
-haveged
-hwdetect
-hwinfo
-ntp
-os-prober
-
-# system.packages
-expect
-git
-pkgfile
-reflector
-tlp
-unrar
-unzip
-wget
-xdg-user-dirs-gtk
-xz
-gpm
-intel-ucode
-amd-ucode
-
-# for ssh
-gnome-keyring
-
-# network.packages
-#b43-firmware
-b43-fwcutter
-broadcom-wl-dkms
-dnsutils
-ipw2100-fw
-ipw2200-fw
-modemmanager
+#network
 netctl
 net-tools
 networkmanager
 networkmanager-openvpn
+networkmanager-qt
+networkmanager-vpnc
 nss-mdns
-usb_modeswitch
 whois
-wireless_tools
-dhclient
-dnsmasq
-elinks
-ethtool
+wireguard-tools
 openconnect
-openssh
 openvpn
-rp-pppoe
-wireless-regdb
-wpa_supplicant
-wvdial
-gnu-netcat
-iwd
-linux-atm
-ndisc6
-ppp
-pptpclient
-vpnc
-xl2tpd
-r8168
 
-# calamares.cachy
-calamares
-calamares-branding-cachyos
-#calamares_current
-#calamares_test
-
-# calamares.dependencies
-lsb-release
-libpwquality
-cmake
-qt5-svg
-qt5-webengine
-yaml-cpp
-extra-cmake-modules
-boost
-
-# calamares.modules
-# dependencies for installer modules
-#for encrypted swap
-#for showing keyboard layouts
-
-# calamares.welcome
-upower
-
-# calamares.partition
-kcoreaddons
-kconfig
-ki18n
-kservice
-kwidgetsaddons
-kpmcore
-parted
+#live-iso-tools
 gparted
+grsync
+glances
+python-defusedxml
+inxi
+downgrade
+pcurses
+tldr
 
-# calamares.unpackfs
-squashfs-tools
+#welcome-app
+gtkmm3
+fmt
+cachyos-hello
 
-# calamares.others
+#calamares
 qt5-xmlpatterns
 doxygen
 tcpdump
@@ -293,69 +182,179 @@ polkit-qt5
 python
 solid
 qt5-tools
-#pythonqt
 
-# liveiso.rescue-tools
-grsync
-#ddrescue
-#dd_rescue
-#testdisk
-clonezilla
-#partclone
-#partimage
-gftp
-hdparm
-fsarchiver
-#mc
+#######################################################
+###                    EXTRAS                       ###
+#######################################################
 
-# sound
+##### xorg applications
+
+xorg-server
+xorg-apps
+
+
+# zfs support(not working)
+#zfs-dkms
+#zfs-utils
+
+wget
+
+##### Drivers for graphical cards
+
+#driver for virtualbox - xf86-video-vmware is dependency
+#systemctl enable vboxservice
+#systemctl start vboxservice
+#to have fullscreen
+virtualbox-guest-utils
+
+xf86-video-vesa
+xorg-server
+xorg-xinit
+xorg-xkill
+xorg-xrandr
+xorg-xinput
+mesa
+xf86-video-amdgpu
+xf86-video-intel
+nvidia-dkms
+nvidia-utils
+
+
+##### lightdm display manager
+
+lightdm
+lightdm-gtk-greeter
+lightdm-webkit2-greeter
+#lightdm-webkit2-theme-arch
+
+##### sddm display manager
+
+#sddm
+
+##### gdm display manager
+
+#gdm
+
+##### want to have base-devel group
+
+base-devel
+
+##### want to have linux-headers
+
+linux-cachyos-headers
+
+
+
+##### want to have a desktop
+xfce4-appfinder
+xfce4-battery-plugin
+xfce4-clipman-plugin
+xfce4-cpufreq-plugin
+xfce4-cpugraph-plugin
+xfce4-datetime-plugin
+xfce4-dict
+xfce4-diskperf-plugin
+xfce4-eyes-plugin
+xfce4-fsguard-plugin
+xfce4-genmon-plugin
+xfce4-mailwatch-plugin
+xfce4-mount-plugin
+xfce4-mpc-plugin
+xfce4-netload-plugin
+xfce4-notes-plugin
+xfce4-notifyd
+xfce4-panel
+xfce4-power-manager
+xfce4-pulseaudio-plugin
+xfce4-screensaver
+xfce4-screenshooter
+xfce4-sensors-plugin
+xfce4-session
+xfce4-settings
+xfce4-smartbookmark-plugin
+xfce4-systemload-plugin
+xfce4-taskmanager
+xfce4-terminal
+xfce4-time-out-plugin
+xfce4-timer-plugin
+xfce4-verve-plugin
+xfce4-wavelan-plugin
+xfce4-weather-plugin
+xfce4-whiskermenu-plugin
+xfce4-xkb-plugin
+xed
+parole
+ristretto
+capitaine-cursors
+gtk-engine-murrine
+gnome-themes-extra
+adwaita-icon-theme
+file-roller
+libwnck3
+network-manager-applet
+galculator
+cachy-browser
+kvantum-qt5
+qt5ct
+neofetch
+
+#audio
 alsa-utils
 alsa-plugins
 alsa-firmware
-pulseaudio-alsa
-pulseaudio-bluetooth
-pulseaudio-equalizer
-pulseaudio-jack
-
-# developers.wishes
-#htop
-glances
-#rsync (grsync will bring this in)
-hardinfo
-bash-completion
-pcurses
-tldr
-
-# needed.dependencies
+sof-firmware
+pipewire
+pipewire-alsa
+pipewire-jack
+pipewire-pulse
+pipewire-v4l2
+# pipewire-support
+realtime-privileges
+pipewire-media-session
+pipewire-zeroconf
+profile-sync-daemon
+power-profiles-daemon
 pavucontrol
 ffmpegthumbnailer
-poppler-glib
-libgsf
-libopenraw
-freetype2
 gst-libav
 gst-plugins-bad
 gst-plugins-ugly
 gst-plugin-pipewire
-gpart
-libdvdcss
 
-# AUR-support
+cachyos-mirrorlist
+cachyos-v3-mirrorlist
+cachyos-keyring
+
+#fonts
+ttf-dejavu
+ttf-liberation
+ttf-bitstream-vera
+cantarell-fonts
+noto-fonts
+opendesktop-fonts
+ttf-opensans
+
+efitools
+
+cachyos-hooks
+cachyos-settings
+# cachyos-theming broken
+char-white
+nordic-theme-git
 paru
+meld
+reflector-simple
+octopi
+mhwd-cachyos
+mhwd-nvidia-390xx
+cachyos-kernel-manager
+#cachyos-dnscrypt-proxy
+cachyos-rate-mirrors
+cachyos-picom-config
+cachyos-xfce-settings
 
-#virtualbox.packages
-virtualbox-guest-utils
 
-#Vmware.packages
+#vm-support
 open-vm-tools
 xf86-input-vmmouse
 xf86-video-vmware
-
-#screen tearing at ISO
-xcompmgr
-
-# cachyos.welcome
-yad
-gspell
-#welcome
-meld
