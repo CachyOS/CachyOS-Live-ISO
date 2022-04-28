@@ -10,7 +10,6 @@ broadcom-wl-dkms
 btrfs-progs
 clonezilla
 cloud-init
-crda
 cryptsetup
 darkhttpd
 ddrescue
@@ -194,8 +193,8 @@ xorg-apps
 
 
 # zfs support(not working)
-#zfs-dkms
-#zfs-utils
+zfs-dkms
+zfs-utils
 
 wget
 
