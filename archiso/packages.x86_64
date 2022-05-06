@@ -195,6 +195,7 @@ xorg-apps
 # zfs support(not working)
 zfs-dkms
 zfs-utils
+linux-cachyos-zfs
 
 wget
 
