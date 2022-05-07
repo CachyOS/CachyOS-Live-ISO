@@ -2,7 +2,7 @@
 
 _clean_packages() {
     local _leave_these_packages="base\nbase-devel\ncachyos-keyring\ncachyos-mirrorlist\ncachyos-v3-mirrorlist\ncachyos-hello\ngrub\nefibootmgr\n"
-    local _packages_to_remove=("$(comm -23 <(pacman -Qq | sort) <({ pacman -Qqg base-devel; printf "%s" $_leave_these_packages; } | sort -u))")
+    local _packages_to_remove=($(comm -23 <(pacman -Qq | sort) <({ pacman -Qqg base-devel; printf "%s" $_leave_these_packages; } | sort -u)))
     local xx
     # @ does one by one to avoid errors in the entire process
     # * can be used to treat all packages in one command
