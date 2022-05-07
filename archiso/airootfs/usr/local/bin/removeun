@@ -15,8 +15,7 @@
 #
 ###############################################################################
 
-_clean_packages(){
-
+_clean_packages() {
     local _packages_to_remove=(
     gparted
     grsync
@@ -43,18 +42,15 @@ _clean_packages(){
     local xx
     # @ does one by one to avoid errors in the entire process
     # * can be used to treat all packages in one command
-    for xx in ${_packages_to_remove[@]}; do pacman -Rsc "$xx" --noconfirm; done
-
+    for xx in "${_packages_to_remove[@]}"; do pacman -Rsc "$xx" --noconfirm; done
 }
 
-_try_v3(){
-    /lib/ld-linux-x86-64.so.2 --help | grep "x86-64-v3 (supported, searched)" > /dev/null
-
+_try_v3() {
     local pacman_conf="/etc/pacman.conf"
     local pacman_conf_cachyos="/etc/pacman-more.conf"
     local pacman_conf_path_backup="/etc/pacman.conf.bak"
 
-    if [ $? -eq 0 ]; then
+    if /lib/ld-linux-x86-64.so.2 --help | grep "x86-64-v3 (supported, searched)" > /dev/null; then
         echo "x86-64-v3 is supported"
 
         sed -i 's/Architecture = auto/#Architecture = auto/' $pacman_conf_cachyos
