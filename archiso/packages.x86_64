@@ -316,7 +316,6 @@ efitools
 
 cachyos-hooks
 cachyos-settings
-# cachyos-theming broken
 char-white
 cachyos-nord-kde-theme-git
 lightly-git
