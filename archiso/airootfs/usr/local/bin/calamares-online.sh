@@ -3,15 +3,13 @@
 FollowFile() {
     local tailfile="$1"
     local term_title="$2"
-    local xpos="$3"
-    local ypos="$4"
 
     alacritty -t "$term_title" -e tail -f "$tailfile" &
 }
 
 catch_chrooted_pacman_log() {
     local pacmanlog=""
-    local lockfile="$HOME/.$progname.lck"
+    local lockfile="$HOME/.$1.lck"
 
     # wait until pacman.log is available in the chrooted system, then follow the log in background
     while true ; do
@@ -28,7 +26,8 @@ catch_chrooted_pacman_log() {
 }
 
 Main() {
-    local progname="$(basename "$0")"
+    local progname
+    progname="$(basename "$0")"
     local log=/home/liveuser/cachy-install.log
     local mode=""
 
@@ -49,7 +48,7 @@ EOF
     pkexec calamares -style kvantum -d >> $log &
 
     # comment out the following line if pacman.log is not needed:
-    [ "$mode" = "online" ] && catch_chrooted_pacman_log
+    [ "$mode" = "online" ] && catch_chrooted_pacman_log "$progname"
 }
 
 Main "$@"
