@@ -38,6 +38,7 @@ _clean_packages(){
     clonezilla
     memtest86+
     mkinitcpio-archiso
+    linux-cachyos-zfs
 )
     local xx
     # @ does one by one to avoid errors in the entire process
