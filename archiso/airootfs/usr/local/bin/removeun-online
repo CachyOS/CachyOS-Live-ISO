@@ -6,7 +6,7 @@ _clean_packages(){
     local xx
     # @ does one by one to avoid errors in the entire process
     # * can be used to treat all packages in one command
-    for xx in ${_packages_to_remove[@]}; do pacman -Rsc $xx --noconfirm; done
+    for xx in ${_packages_to_remove[@]}; do pacman -Rsc "$xx" --noconfirm; done
 
     rm /etc/sddm.conf || true
 }
