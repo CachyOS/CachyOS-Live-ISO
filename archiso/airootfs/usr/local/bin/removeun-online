@@ -11,4 +11,28 @@ _clean_packages(){
     rm /etc/sddm.conf || true
 }
 
+_try_v3() {
+    local pacman_conf="/etc/pacman.conf"
+    local pacman_conf_cachyos="/etc/pacman-more.conf"
+    local pacman_conf_path_backup="/etc/pacman.conf.bak"
+
+    if /lib/ld-linux-x86-64.so.2 --help | grep "x86-64-v3 (supported, searched)" > /dev/null; then
+        echo "x86-64-v3 is supported"
+
+        sed -i 's/Architecture = auto/#Architecture = auto/' $pacman_conf_cachyos
+        sed -i 's/#<disabled_v3>//g' $pacman_conf_cachyos
+
+        echo "backup old config"
+        mv $pacman_conf $pacman_conf_path_backup
+
+        echo "CachyOS -v3 Repo changed"
+        mv $pacman_conf_cachyos $pacman_conf
+
+    else
+        echo "x86-64-v3 is not supported"
+    fi
+
+}
+
 _clean_packages
+_try_v3
