@@ -1,7 +1,7 @@
 #!/bin/bash
 
 _clean_packages() {
-    local _leave_these_packages="base\nbase-devel\ncachyos-keyring\ncachyos-hello\ngrub\nefibootmgr\noctopi\n"
+    local _leave_these_packages="base\nbase-devel\ncachyos-keyring\ncachyos-hello\ngrub\nefibootmgr\noctopi\nca-certificates\nca-certificates-mozilla\nca-certificates-utils\npacman\narchlinux-keyring\n"
     local _packages_to_remove=($(comm -23 <(pacman -Qq | sort) <({ pacman -Qqg base-devel; pacman -Qqg cachyos; printf $_leave_these_packages; } | sort -u)))
     local xx
     # @ does one by one to avoid errors in the entire process
