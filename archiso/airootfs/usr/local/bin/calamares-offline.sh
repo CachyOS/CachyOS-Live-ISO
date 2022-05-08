@@ -15,7 +15,7 @@ EOF
     RunInTerminal "tail -f $log" &
 
     sudo cp /usr/share/calamares/settings_${mode}.conf /etc/calamares/settings.conf
-    sudo -E calamares -style kvantum -d >> $log
+    sudo -E calamares -D6 >> $log
 }
 
 Main "$@"

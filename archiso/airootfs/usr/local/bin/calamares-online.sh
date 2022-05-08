@@ -45,7 +45,7 @@ EOF
     FollowFile "$log" "Install log" 20 20
 
     sudo cp /usr/share/calamares/settings_${mode}.conf /etc/calamares/settings.conf
-    sudo -E calamares -style kvantum -d >> $log &
+    sudo -E calamares -D6 >> $log &
 
     # comment out the following line if pacman.log is not needed:
     [ "$mode" = "online" ] && catch_chrooted_pacman_log "$progname"
