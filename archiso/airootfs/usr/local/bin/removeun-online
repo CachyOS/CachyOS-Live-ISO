@@ -1,12 +1,17 @@
 #!/bin/bash
 
 _clean_packages() {
-    local _leave_these_packages="base\nbase-devel\ncachyos-keyring\ncachyos-hello\ngrub\nefibootmgr\noctopi\nca-certificates\nca-certificates-mozilla\nca-certificates-utils\npacman\narchlinux-keyring\n"
-    local _packages_to_remove=($(comm -23 <(pacman -Qq | sort) <({ pacman -Qqg base-devel; pacman -Qqg cachyos; printf $_leave_these_packages; } | sort -u)))
+    local _leave_these_packages="base\nbase-devel\ncachyos-keyring\ncachyos-hello\ngrub\nefibootmgr\noctopi\nca-certificates\n"
+    local _leave_these_basepackages="filesystem\ngcc-libs\nglibc\nglib2\nbash\ncoreutils\nfile\nfindutils\ngawk\ngrep\nprocps-ng\nsed\ntar\ngettext\npciutils\npsmisc\nshadow\nutil-linux\nbzip2\ngzip\nxz\nlicenses\npacman\nsystemd\nsystemd-sysvcompat\niputils\niproute2\n"
+    local _packages_to_remove=($(comm -23 <(pacman -Qq | sort) <({ pacman -Qqg base-devel; pacman -Qqg cachyos; printf $_leave_these_packages; printf $_leave_these_basepackages; } | sort -u)))
     local xx
     # @ does one by one to avoid errors in the entire process
     # * can be used to treat all packages in one command
-    for xx in "${_packages_to_remove[@]}"; do pacman -Rsc "$xx" --noconfirm; done
+    for xx in "${_packages_to_remove[@]}"; do pacman -Rs "$xx" --noconfirm; done
+
+    # making sure they are removed
+    local _toberemoved_packages=("bash-completion\nxorg-xinit\nxorg-xkill\nxorg-xinput\nxorg-xrandr\nxorg-xrdb\nmkinitcpio-openswap\nalacritty\nkonsole\nkwin-scripts-forceblur\nnetworkmanager-vpnc\nnetworkmanager-qt\nnetworkmanager-openvpn\nwireguard-tools\nopenconnect\nopenvpn\nqt5-xmlpatterns\ndoxygen\ntcpdump\ndmidecode\nkparts\npolkit-qt5\nxorg-server\nxorg-apps\nqt5-tools\nzfs-utils\nlinux-cachyos-zfs\nwget\nvirtualbox-guest-utils\nxf86-video-vesa\nxf86-video-amdgpu\nxf86-video-intel\nnvidia-dkms\nnvidia-utils\nlightdm\nlightdm-gtk-greeter\nlightdm-webkit2-greeter\nbase-devel\nlinux-cachyos-headers\nplasma-browser-integration\nplasma-desktop\nplasma-firewall\nplasma-framework\nplasma-integration\nplasma-nm\nplasma-pa\nplasma-systemmonitor\nplasma-thunderbolt\nplasma-workspace\ndiscover\npackagekit-qt5\nxed\nparole\nristretto\ndolphin\ndolphin-plugins\ncapitaine-cursors\ngtk-engine-murrine\ngnome-themes-extra\nadwaita-icon-theme\nfile-roller\nlibwnck3\nnetwork-manager-applet\ngalculator\ncachy-browser\nkvantum-qt5\nqt5ct\nneofetch\nopen-vm-tools\nxf86-input-vmmouse\nxf86-video-vmware\ncachyos-kde-settings\ncachyos-picom-config\ncachyos-rate-mirrors\ncachyos-kernel-manager\nmhwd-nvidia-390xx\nmhwd-cachyos\noctopi\nreflector-simple\nmeld\nparu\nnordic-theme-git\nlightly-git\ncachyos-nord-kde-theme-git\nchar-white\n")
+    for xx in "${_toberemoved_packages[@]}"; do pacman -Rs "$xx" --noconfirm; done
 
     rm /etc/sddm.conf || true
 }
