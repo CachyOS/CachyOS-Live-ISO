@@ -282,6 +282,13 @@ plasma-thunderbolt
 plasma-workspace
 discover
 packagekit-qt5
+wayland-protocols
+wayland-integration
+plasma-wayland-protocols
+plasma-wayland-session
+wayland
+lib32-wayland
+wayland-protocols
 xed
 parole
 ristretto
