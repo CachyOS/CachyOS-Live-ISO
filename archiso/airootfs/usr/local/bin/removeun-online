@@ -19,6 +19,12 @@ _clean_packages() {
     rm /etc/sddm.conf || true
 }
 
+_pacman_fix() {
+
+pacman-key --init
+pacman-key --populate
+}
+
 _try_v3() {
     /lib/ld-linux-x86-64.so.2 --help | grep "x86-64-v3 (supported, searched)" > /dev/null
 
@@ -45,4 +51,5 @@ _try_v3() {
 }
 
 _clean_packages
-#_try_v3
+_pacman_fix
+_try_v3
