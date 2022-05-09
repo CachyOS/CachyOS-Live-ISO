@@ -39,6 +39,7 @@ ipw2100-fw
 ipw2200-fw
 irssi
 iw
+wget
 iwd
 jfsutils
 kitty-terminfo
@@ -117,7 +118,9 @@ xl2tpd
 zsh
 
 
-# everything above comes from archiso releng folder
+#######################################################
+###               calamares                         ###
+#######################################################
 
 cachyos-calamares
 cachyos-calamares-config
@@ -126,7 +129,6 @@ cachyos-calamares-config
 ###      PACKAGES THAT STAY AFTER INSTALLATION      ###
 #######################################################
 
-#ly
 bash-completion
 grub
 os-prober
@@ -143,6 +145,10 @@ alacritty
 konsole
 kwin-scripts-forceblur
 
+#######################################################
+###                  Network                        ###
+#######################################################
+
 #network
 netctl
 net-tools
@@ -156,7 +162,9 @@ wireguard-tools
 openconnect
 openvpn
 
-#live-iso-tools
+#######################################################
+###                  iso-tools                      ###
+#######################################################
 gparted
 grsync
 glances
@@ -166,12 +174,16 @@ downgrade
 pcurses
 tldr
 
-#welcome-app
+#######################################################
+###               cachyos-welcome                   ###
+#######################################################
 gtkmm3
 fmt
 cachyos-hello
 
-#calamares
+#######################################################
+###                  calamares                      ###
+#######################################################
 qt5-xmlpatterns
 doxygen
 tcpdump
@@ -186,24 +198,23 @@ qt5-tools
 ###                    EXTRAS                       ###
 #######################################################
 
-##### xorg applications
+#######################################################
+###                     xorg                         ###
+#######################################################
 
 xorg-server
 xorg-apps
 
 
-# zfs support(not working)
+#######################################################
+###                     zfs                         ###
+#######################################################
 zfs-utils
 linux-cachyos-zfs
 
-wget
-
-##### Drivers for graphical cards
-
-#driver for virtualbox - xf86-video-vmware is dependency
-#systemctl enable vboxservice
-#systemctl start vboxservice
-#to have fullscreen
+#######################################################
+###                     vbox                         ###
+#######################################################
 virtualbox-guest-utils
 
 xf86-video-vesa
@@ -219,32 +230,45 @@ nvidia-dkms
 nvidia-utils
 
 
-##### lightdm display manager
+#######################################################
+###                   lightdm                       ###
+#######################################################
 
-lightdm
-lightdm-gtk-greeter
-lightdm-webkit2-greeter
+#lightdm
+#lightdm-gtk-greeter
+#lightdm-webkit2-greeter
 #lightdm-webkit2-theme-arch
 
-##### sddm display manager
+#######################################################
+###                   sddm                          ###
+#######################################################
 
-#sddm
+sddm
+sddm-kcm
 
-##### gdm display manager
+#######################################################
+###                     gdm                         ###
+#######################################################
 
 #gdm
 
-##### want to have base-devel group
+#######################################################
+###                base-devel                       ###
+#######################################################
 
 base-devel
 
-##### want to have linux-headers
+#######################################################
+###               kernel-headers                    ###
+#######################################################
 
 linux-cachyos-headers
 
 
 
-##### want to have a desktop
+#######################################################
+###                 Desktop                         ###
+#######################################################
 
 plasma-browser-integration
 plasma-desktop
@@ -276,7 +300,10 @@ kvantum-qt5
 qt5ct
 neofetch
 
-#audio
+#######################################################
+###                   Audio                         ###
+#######################################################
+
 alsa-utils
 alsa-plugins
 alsa-firmware
@@ -299,11 +326,18 @@ gst-plugins-bad
 gst-plugins-ugly
 gst-plugin-pipewire
 
+#######################################################
+###                   cachy-base                    ###
+#######################################################
+
 cachyos-mirrorlist
 cachyos-v3-mirrorlist
 cachyos-keyring
 
-#fonts
+#######################################################
+###                   Fonts                         ###
+#######################################################
+
 ttf-dejavu
 ttf-liberation
 ttf-bitstream-vera
@@ -333,7 +367,9 @@ cachyos-picom-config
 cachyos-kde-settings
 
 
-#vm-support
+#######################################################
+###                  vm-support                     ###
+#######################################################
 open-vm-tools
 xf86-input-vmmouse
 xf86-video-vmware
