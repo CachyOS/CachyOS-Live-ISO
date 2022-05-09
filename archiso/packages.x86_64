@@ -283,7 +283,6 @@ plasma-workspace
 discover
 packagekit-qt5
 wayland-protocols
-wayland-integration
 plasma-wayland-protocols
 plasma-wayland-session
 wayland
