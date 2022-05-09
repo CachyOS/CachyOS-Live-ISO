@@ -369,9 +369,6 @@ mhwd-nvidia-390xx
 cachyos-kernel-manager
 #cachyos-dnscrypt-proxy
 cachyos-rate-mirrors
-cachyos-picom-config
-cachyos-kde-settings
-
 
 #######################################################
 ###                  vm-support                     ###
