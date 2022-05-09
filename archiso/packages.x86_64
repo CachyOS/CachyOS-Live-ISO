@@ -366,9 +366,11 @@ reflector-simple
 octopi
 mhwd-cachyos
 mhwd-nvidia-390xx
+snapper
 cachyos-kernel-manager
-#cachyos-dnscrypt-proxy
 cachyos-rate-mirrors
+cachyos-picom-config
+cachyos-kde-settings
 
 #######################################################
 ###                  vm-support                     ###
