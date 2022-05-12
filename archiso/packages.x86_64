@@ -62,6 +62,8 @@ memtest86+
 mkinitcpio
 mkinitcpio-archiso
 mkinitcpio-nfs-utils
+open-vm-tools
+hyperv
 modemmanager
 mtools
 nano
@@ -321,7 +323,7 @@ pipewire-pulse
 pipewire-v4l2
 # pipewire-support
 realtime-privileges
-pipewire-media-session
+wireplumber
 pipewire-zeroconf
 profile-sync-daemon
 power-profiles-daemon
