@@ -120,9 +120,8 @@ libwnck3
 libxinerama
 lightly-git
 linux-atm
-linux-cachyos
-linux-cachyos-headers
-linux-cachyos-zfs
+linux
+linux-headers
 linux-firmware
 linux-firmware-marvell
 livecd-sounds
@@ -291,5 +290,6 @@ xorg-xinput
 xorg-xkill
 xorg-xrandr
 xorg-xrdb
+zfs-dkms
 zfs-utils
 zsh
