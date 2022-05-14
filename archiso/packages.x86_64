@@ -11,12 +11,12 @@ archinstall
 arch-install-scripts
 ## Archive
 archlinux-keyring
-## Audio hardware
 b43-fwcutter
 base
 base-devel
 bash-completion
 bind
+bind-tools
 brltty
 bluez
 bluez-utils
@@ -104,6 +104,8 @@ inxi
 iptables-nft
 ipw2100-fw
 ipw2200-fw
+irssi
+iw
 iwd
 jfsutils
 kitty-terminfo
@@ -216,6 +218,7 @@ profile-sync-daemon
 pv
 python
 python-defusedxml
+pcsclite
 qemu-guest-agent
 qt5ct
 qt5-tools
@@ -243,7 +246,7 @@ squashfs-tools
 sudo
 sysfsutils
 syslinux
-systemd-sysvcompat
+systemd-resolvconf
 tcpdump
 terminus-font
 testdisk
@@ -259,7 +262,7 @@ usb_modeswitch
 usbmuxd
 usbutils
 vim
-virtualbox-guest-utils
+virtualbox-guest-utils-nox
 vpnc
 wayland
 wayland-protocols
