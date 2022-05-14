@@ -9,7 +9,6 @@ alsa-utils
 amd-ucode
 archlinux-keyring
 arch-install-scripts
-## Archive
 b43-fwcutter
 base
 base-devel
@@ -20,7 +19,6 @@ brltty
 bluez
 bluez-utils
 boost-libs
-## Boot
 broadcom-wl-dkms
 btrfs-progs
 cachy-browser
@@ -93,7 +91,7 @@ gst-plugins-ugly
 gtk-engine-murrine
 gtkmm3
 hdparm
-hyperv
+# hyperv not needed
 hwdetect
 hwinfo
 ## Image viewer
@@ -154,7 +152,6 @@ ndisc6
 neofetch
 netctl
 net-tools
-#network
 networkmanager
 network-manager-applet
 networkmanager-openvpn
@@ -174,7 +171,7 @@ nvme-cli
 octopi
 openconnect
 opendesktop-fonts
-open-iscsi
+# open-iscsi not needed
 openssh
 open-vm-tools
 openvpn
@@ -216,7 +213,7 @@ pv
 python
 python-defusedxml
 pcsclite
-qemu-guest-agent
+# qemu-guest-agent break uefi boot
 qt5ct
 qt5-tools
 qt5-xmlpatterns
@@ -259,7 +256,7 @@ usb_modeswitch
 usbmuxd
 usbutils
 vim
-virtualbox-guest-utils-nox
+# virtualbox-guest-utils-nox breaks uefi boot
 vpnc
 wayland
 wayland-protocols
