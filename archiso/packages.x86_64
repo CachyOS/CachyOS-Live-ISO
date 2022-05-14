@@ -7,10 +7,9 @@ alsa-firmware
 alsa-plugins
 alsa-utils
 amd-ucode
-archinstall
+archlinux-keyring
 arch-install-scripts
 ## Archive
-archlinux-keyring
 b43-fwcutter
 base
 base-devel
@@ -106,7 +105,6 @@ ipw2100-fw
 ipw2200-fw
 irssi
 iw
-iwd
 jfsutils
 kitty-terminfo
 konsole
