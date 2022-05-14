@@ -33,7 +33,6 @@ gnu-netcat
 gpart
 gpm
 gptfdisk
-#grml-zsh-config
 grub
 hdparm
 hyperv
@@ -224,8 +223,6 @@ linux-cachyos-zfs
 #######################################################
 ###                     vbox                         ###
 #######################################################
-virtualbox-guest-utils
-
 xf86-video-vesa
 xorg-server
 xorg-xinit
