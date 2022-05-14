@@ -173,7 +173,7 @@ openconnect
 opendesktop-fonts
 # open-iscsi not needed
 openssh
-open-vm-tools
+# open-vm-tools ## uefi fais
 openvpn
 os-prober
 packagekit-qt5
