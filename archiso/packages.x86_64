@@ -9,6 +9,7 @@ alsa-utils
 amd-ucode
 archlinux-keyring
 arch-install-scripts
+## Archive
 b43-fwcutter
 base
 base-devel
@@ -19,6 +20,7 @@ brltty
 bluez
 bluez-utils
 boost-libs
+## Boot
 broadcom-wl-dkms
 btrfs-progs
 cachy-browser
@@ -91,7 +93,7 @@ gst-plugins-ugly
 gtk-engine-murrine
 gtkmm3
 hdparm
-# hyperv not needed
+hyperv
 hwdetect
 hwinfo
 ## Image viewer
@@ -118,8 +120,9 @@ libwnck3
 libxinerama
 lightly-git
 linux-atm
-linux
-linux-headers
+linux-cachyos
+linux-cachyos-headers
+linux-cachyos-zfs
 linux-firmware
 linux-firmware-marvell
 livecd-sounds
@@ -152,6 +155,7 @@ ndisc6
 neofetch
 netctl
 net-tools
+#network
 networkmanager
 network-manager-applet
 networkmanager-openvpn
@@ -171,9 +175,9 @@ nvme-cli
 octopi
 openconnect
 opendesktop-fonts
-# open-iscsi not needed
+open-iscsi
 openssh
-# open-vm-tools ## uefi fais
+open-vm-tools
 openvpn
 os-prober
 packagekit-qt5
@@ -213,7 +217,7 @@ pv
 python
 python-defusedxml
 pcsclite
-# qemu-guest-agent break uefi boot
+qemu-guest-agent
 qt5ct
 qt5-tools
 qt5-xmlpatterns
@@ -256,7 +260,7 @@ usb_modeswitch
 usbmuxd
 usbutils
 vim
-# virtualbox-guest-utils-nox breaks uefi boot
+virtualbox-guest-utils-nox
 vpnc
 wayland
 wayland-protocols
@@ -287,6 +291,5 @@ xorg-xinput
 xorg-xkill
 xorg-xrandr
 xorg-xrdb
-zfs-dkms
 zfs-utils
 zsh
