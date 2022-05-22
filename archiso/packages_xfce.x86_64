@@ -348,6 +348,7 @@ octopi
 mhwd-cachyos
 mhwd-nvidia-390xx
 cachyos-kernel-manager
+cachyos-packageinstaller
 #cachyos-dnscrypt-proxy
 cachyos-rate-mirrors
 cachyos-picom-config

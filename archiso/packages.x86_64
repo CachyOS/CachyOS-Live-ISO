@@ -30,6 +30,7 @@ cachyos-hello
 cachyos-hooks
 cachyos-kde-settings
 cachyos-kernel-manager
+cachyos-packageinstaller
 cachyos-keyring
 cachyos-mirrorlist
 cachyos-nord-kde-theme-git
