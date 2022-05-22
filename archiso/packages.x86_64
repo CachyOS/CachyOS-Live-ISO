@@ -9,7 +9,6 @@ alsa-utils
 amd-ucode
 archlinux-keyring
 arch-install-scripts
-## Archive
 b43-fwcutter
 base
 base-devel
@@ -20,7 +19,6 @@ brltty
 bluez
 bluez-utils
 boost-libs
-## Boot
 broadcom-wl-dkms
 btrfs-progs
 cachy-browser
@@ -97,7 +95,6 @@ hdparm
 hyperv
 hwdetect
 hwinfo
-## Image viewer
 inetutils
 intel-ucode
 inxi
@@ -193,7 +190,6 @@ pipewire-alsa
 pipewire-jack
 pipewire-media-session
 pipewire-pulse
-# pipewire-support
 pipewire-v4l2
 pipewire-zeroconf
 plasma-browser-integration
