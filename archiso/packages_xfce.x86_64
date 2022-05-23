@@ -1,3 +1,7 @@
+accountsservice
+adobe-source-han-sans-cn-fonts
+adobe-source-han-sans-jp-fonts
+adobe-source-han-sans-kr-fonts
 adwaita-icon-theme
 alacritty
 alsa-firmware
@@ -23,7 +27,6 @@ cachyos-calamares
 cachyos-calamares-config
 cachyos-hello
 cachyos-hooks
-cachyos-xfce-settings
 cachyos-kernel-manager
 cachyos-packageinstaller
 cachyos-keyring
@@ -158,7 +161,6 @@ networkmanager-vpnc
 nfs-utils
 nilfs-utils
 nmap
-cachyos-nord-gtk-theme-git
 noto-fonts
 nss-mdns
 ntfs-3g
@@ -174,14 +176,16 @@ openssh
 open-vm-tools
 openvpn
 os-prober
-packagekit-qt5
 parole
 partclone
 parted
 partimage
 paru
 pavucontrol
+pcsclite
+pcurses
 perl
+pipewire
 pipewire-alsa
 pipewire-jack
 pipewire-media-session
@@ -196,7 +200,6 @@ profile-sync-daemon
 pv
 python
 python-defusedxml
-pcsclite
 qemu-guest-agent
 qt5ct
 qt5-tools
@@ -209,10 +212,10 @@ reiserfsprogs
 ristretto
 rp-pppoe
 rsync
+rtkit
 rxvt-unicode-terminfo
 screen
 sdparm
-rtkit
 sg3_utils
 smartmontools
 snapper
@@ -240,6 +243,8 @@ usbutils
 vim
 virtualbox-guest-utils-nox
 vpnc
+wayland
+wayland-protocols
 wget
 whois
 wireguard-tools
