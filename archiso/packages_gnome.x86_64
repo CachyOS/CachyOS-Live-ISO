@@ -232,8 +232,7 @@ rsync
 rtkit
 rxvt-unicode-terminfo
 screen
-sddm
-sddm-kcm
+gdm
 sdparm
 sg3_utils
 smartmontools
