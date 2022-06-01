@@ -103,6 +103,7 @@ ipw2100-fw
 ipw2200-fw
 irssi
 iw
+iwd
 jfsutils
 kitty-terminfo
 konsole
@@ -174,8 +175,9 @@ octopi
 openconnect
 opendesktop-fonts
 open-iscsi
-openssh
 open-vm-tools
+openconnect
+openssh
 openvpn
 os-prober
 packagekit-qt5
