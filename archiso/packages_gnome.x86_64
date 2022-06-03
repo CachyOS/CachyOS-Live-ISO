@@ -132,7 +132,6 @@ libfido2
 libusb-compat
 libwnck3
 libxinerama
-lightly-git
 linux-atm
 linux-cachyos
 linux-cachyos-headers
