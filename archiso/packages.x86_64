@@ -175,12 +175,13 @@ partimage
 paru
 pavucontrol
 perl
+pipewire-alsa
+pipewire-pulse
 pipewire-media-session
 plasma-desktop
 plasma-framework
-plasma-integration
+plasma-workspace
 plasma-nm
-plasma-pa
 plasma-thunderbolt
 polkit-qt5
 poppler-glib
