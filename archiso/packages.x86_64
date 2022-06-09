@@ -73,8 +73,6 @@ fmt
 fsarchiver
 galculator
 git
-glances
-gnome-themes-extra
 gnu-netcat
 gpart
 gparted
@@ -167,7 +165,6 @@ openconnect
 openssh
 openvpn
 os-prober
-packagekit-qt5
 parole
 partclone
 parted
@@ -182,7 +179,6 @@ plasma-desktop
 plasma-framework
 plasma-workspace
 plasma-nm
-plasma-thunderbolt
 polkit-qt5
 poppler-glib
 power-profiles-daemon
@@ -198,7 +194,6 @@ qt5ct
 qt5-tools
 qt5-xmlpatterns
 realtime-privileges
-refind
 reflector
 reflector-simple
 reiserfsprogs
@@ -225,7 +220,6 @@ tcpdump
 terminus-font
 testdisk
 tldr
-tmux
 tpm2-tss
 ttf-bitstream-vera
 ttf-dejavu
