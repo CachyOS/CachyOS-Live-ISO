@@ -1,0 +1,12 @@
+*~
+archiso-*.tar.gz*
+work/
+out/
+*.iso
+*.img
+*.cer
+*.crt
+*.key
+*.pem
+user-data
+meta-data

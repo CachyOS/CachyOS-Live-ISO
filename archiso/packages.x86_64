@@ -11,7 +11,6 @@ base
 base-devel
 bash-completion
 bind
-bind-tools
 boost-libs
 brltty
 broadcom-wl-dkms
@@ -37,7 +36,6 @@ ckbcomp
 clonezilla
 cloud-init
 cmake
-crda
 cronie
 cryptsetup
 darkhttpd
@@ -75,11 +73,6 @@ gpm
 gptfdisk
 grsync
 grub
-gst-libav
-gst-plugin-pipewire
-gst-plugins-bad
-gst-plugins-ugly
-gtk-engine-murrine
 gtkmm3
 haveged
 hdparm
@@ -116,7 +109,6 @@ linux-cachyos
 linux-cachyos-headers
 linux-cachyos-zfs
 linux-firmware
-linux-firmware-marvell
 lsb-release
 lsscsi
 lvm2
@@ -156,8 +148,6 @@ noto-fonts
 nss-mdns
 ntfs-3g
 ntp
-nvidia-dkms
-nvidia-utils
 nvme-cli
 octopi
 openconnect
@@ -177,7 +167,6 @@ perl
 pipewire-alsa
 pipewire-media-session
 pipewire-pulse
-plasma-browser-integration
 plasma-desktop
 plasma-framework
 plasma-integration
@@ -185,7 +174,6 @@ plasma-nm
 plasma-pa
 plasma-systemmonitor
 plasma-thunderbolt
-plasma-vault
 plasma-workspace
 polkit
 polkit-kde-agent
