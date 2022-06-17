@@ -2,6 +2,7 @@
 archiso-*.tar.gz*
 work/
 out/
+build/
 *.iso
 *.img
 *.cer
