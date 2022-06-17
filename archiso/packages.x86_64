@@ -14,10 +14,10 @@ boost-libs
 brltty
 broadcom-wl-dkms
 btrfs-progs
+discover
 cachy-browser
-cachyos-calamares-systemd
-cachyos-calamares-systemd-config
-cachyos-hello
+cachyos-calamares
+cachyos-calamares-config
 cachyos-hooks
 cachyos-kde-settings
 cachyos-kernel-manager
@@ -113,6 +113,7 @@ man-pages
 mc
 mdadm
 memtest86+
+mesa
 mhwd-cachyos
 mhwd-nvidia-390xx
 mkinitcpio
@@ -128,11 +129,6 @@ nbd
 ndisc6
 net-tools
 networkmanager
-network-manager-applet
-networkmanager-openconnect
-networkmanager-openvpn
-networkmanager-pptp
-networkmanager-vpnc
 nfs-utils
 nilfs-utils
 nmap
@@ -162,11 +158,8 @@ pipewire-jack
 pipewire-pulse
 plasma-desktop
 plasma-framework
-plasma-wayland-session
 plasma-nm
 plasma-pa
-plasma-systemmonitor
-plasma-thunderbolt
 plasma-workspace
 polkit
 polkit-kde-agent
