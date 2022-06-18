@@ -9,7 +9,7 @@ echo "################################################################## "
 echo
 
     # setting of the general parameters
-    archisoRequiredVersion="archiso 58-1"
+    archisoRequiredVersion="archiso 64-1"
     currentFolder=$(pwd)
     buildFolder="${currentFolder}/build"
     outFolder="${currentFolder}/out"

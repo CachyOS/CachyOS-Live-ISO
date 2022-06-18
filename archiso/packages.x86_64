@@ -1,7 +1,6 @@
-alsa-utils
 alacritty
+alsa-utils
 amd-ucode
-arch-install-scripts
 archinstall
 arch-install-scripts
 archlinux-keyring
@@ -14,10 +13,10 @@ boost-libs
 brltty
 broadcom-wl-dkms
 btrfs-progs
-discover
 cachy-browser
 cachyos-calamares
 cachyos-calamares-config
+cachyos-grub-theme
 cachyos-hello
 cachyos-hooks
 cachyos-kde-settings
@@ -44,6 +43,7 @@ dhclient
 dhcpcd
 dialog
 diffutils
+discover
 dmidecode
 dmraid
 dnsmasq
@@ -55,6 +55,7 @@ efibootmgr
 ethtool
 exfatprogs
 f2fs-tools
+fastfetch
 fatresize
 ffmpegthumbnailer
 file-roller
@@ -68,7 +69,6 @@ gpm
 gptfdisk
 grsync
 grub
-cachyos-grub-theme
 gtkmm3
 haveged
 hdparm
@@ -151,8 +151,8 @@ packagekit-qt5
 partclone
 parted
 partimage
-paru
 partitionmanager
+paru
 pcsclite
 pipewire
 pipewire-alsa
