@@ -7,6 +7,7 @@ archlinux-keyring
 avahi
 b43-fwcutter
 base
+micro
 bash-completion
 bind
 boost-libs
@@ -55,7 +56,7 @@ efibootmgr
 ethtool
 exfatprogs
 f2fs-tools
-fastfetch
+fastfetch-git
 fatresize
 ffmpegthumbnailer
 file-roller
@@ -139,6 +140,7 @@ nss-mdns
 ntfs-3g
 ntp
 nvme-cli
+kio
 octopi
 openconnect
 opendesktop-fonts
@@ -161,6 +163,7 @@ pipewire-pulse
 plasma-desktop
 plasma-framework
 plasma-nm
+plasma-integration
 plasma-pa
 plasma-workspace
 polkit
