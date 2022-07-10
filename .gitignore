@@ -11,3 +11,4 @@ build/
 *.pem
 user-data
 meta-data
+*.qcow2
