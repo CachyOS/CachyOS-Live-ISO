@@ -28,6 +28,6 @@ Clone:\
 `cd cachyos-archiso`
 
 ## Build
-`sudo ./buildiso.sh -p kde -c -v`
+`sudo ./buildiso.sh -p kde -v`
 
 ## The iso appears at out folder
