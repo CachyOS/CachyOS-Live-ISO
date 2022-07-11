@@ -1,5 +1,20 @@
 These are the basic needed files and folders to build CachyOS system.
 
+### buildiso
+
+buildiso is used to build CachyOS ISO.
+
+#### Arguments
+
+~~~
+$ buildiso -h
+Usage: buildiso [options]
+    -c                 Disable clean work dir
+    -h                 This help
+    -p <profile>       Buildset or profile [default: kde]
+    -v                 Verbose output to log file, show profile detail (-q)
+~~~
+
 * Uses the same signature that normal repo and has no mirrors package to install.
 
 `sudo pacman -Syy`
@@ -13,9 +28,6 @@ Clone:\
 `cd CachyOS-Live-ISO`
 
 ## Build
-`./30-build-the-iso-the-first-time.sh`
-
-#### if you want rebuild
-`./40-build-the-iso-local-again.sh`
+`sudo ./buildiso -p kde -c -v`
 
 ## The iso appears at out folder
