@@ -61,12 +61,12 @@ prepare_profile(){
 
     info "Profile: [%s]" "${profile}"
 
-    rm ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
+    rm -f ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
     if [ "$profile" == "kde" ]; then
         cp ${src_dir}/archiso/packages_kde.x86_64 ${src_dir}/archiso/packages.x86_64
         ln -sf /usr/lib/systemd/system/sddm.service ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
     elif [ "$profile" == "gnome" ]; then
-        rm ${src_dir}/archiso/airootfs/etc/motd
+        rm -f ${src_dir}/archiso/airootfs/etc/motd
         cp ${src_dir}/archiso/packages_gnome.x86_64 ${src_dir}/archiso/packages.x86_64
         ln -sf /usr/lib/systemd/system/gdm.service ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
     elif [ "$profile" == "xfce" ]; then
