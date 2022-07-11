@@ -12,3 +12,4 @@ build/
 user-data
 meta-data
 *.qcow2
+archiso/packages.x86_64
