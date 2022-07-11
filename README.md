@@ -7,7 +7,7 @@ buildiso is used to build CachyOS ISO.
 #### Arguments
 
 ~~~
-$ buildiso -h
+$ ./buildiso.sh -h
 Usage: buildiso [options]
     -c                 Disable clean work dir
     -h                 This help
@@ -23,11 +23,11 @@ Usage: buildiso [options]
 `sudo pacman -S archiso mkinitcpio-archiso git squashfs-tools --needed`
 
 Clone:\
-`git clone https://github.com/CachyOS/CachyOS-Live-ISO.git`
+`git clone https://github.com/cachyos/cachyos-live-iso.git cachyos-archiso`
 
-`cd CachyOS-Live-ISO`
+`cd cachyos-archiso`
 
 ## Build
-`sudo ./buildiso -p kde -c -v`
+`sudo ./buildiso.sh -p kde -c -v`
 
 ## The iso appears at out folder
