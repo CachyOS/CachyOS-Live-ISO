@@ -106,6 +106,7 @@ run_build() {
     sudo mkarchiso -v -w ${work_dir} -o $outFolder ${work_dir}/archiso/
 
     cp ${work_dir}/iso/arch/pkglist.x86_64.txt  $outFolder/$(gen_iso_fn).pkgs.txt
+    mv $outFolder/"cachyos-$(date +%Y.%m.%d)-x86_64.iso" $outFolder/${iso_file}
 
     msg "Done [Build ISO] ${iso_file}"
     msg "Finished building [%s]" "${_profile}"
