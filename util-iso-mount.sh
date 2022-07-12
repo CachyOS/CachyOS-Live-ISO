@@ -12,20 +12,21 @@
 umount_img() {
     if [[ -n ${IMG_ACTIVE_MOUNTS[@]} ]]; then
         info "umount: [%s]" "${IMG_ACTIVE_MOUNTS[@]}"
-        umount "${IMG_ACTIVE_MOUNTS[@]}"
+        sudo umount "${IMG_ACTIVE_MOUNTS[@]}"
         unset IMG_ACTIVE_MOUNTS
         rm -r "$1"
     fi
 }
 
 check_umount() {
-    if mountpoint -q "$1"
-        then
-        umount -l "$1"
+    if mountpoint -q "$1"; then
+        sudo umount -l "$1"
     fi
 }
 
 umount_fs(){
+    FS_ACTIVE_MOUNTS=()
+
     if [[ -n ${FS_ACTIVE_MOUNTS[@]} ]]; then
         info "overlayfs umount: [%s]" "${FS_ACTIVE_MOUNTS[@]}"
         #umount "${FS_ACTIVE_MOUNTS[@]}"
