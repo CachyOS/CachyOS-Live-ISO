@@ -92,11 +92,12 @@ run_build() {
 
     if $clean_first; then
         msg2 "Deleting the build folder if one exists - takes some time"
+        umount_fs
         [ -d ${work_dir} ] && sudo rm -rf ${work_dir}
     fi
 
     msg2 "Copying the Archiso folder to build work"
-    mkdir ${work_dir}
+    mkdir -p ${work_dir}
     cp -r archiso ${work_dir}/archiso
 
     msg "Start [Build ISO]"
@@ -107,11 +108,12 @@ run_build() {
     sudo chown $USER $outFolder
 
     cp ${work_dir}/iso/arch/pkglist.x86_64.txt  $outFolder/$(gen_iso_fn).pkgs.txt
-    mv $outFolder/"cachyos-$(date +%Y.%m.%d)-x86_64.iso" $outFolder/${iso_file}
+    mv "$outFolder/$_profile/cachyos-$(date +%Y.%m.%d)-x86_64.iso" $outFolder/${iso_file}
 
     msg "Done [Build ISO] ${iso_file}"
     msg "Finished building [%s]" "${_profile}"
 
+    cd "$outFolder/$_profile"
     for f in $(find . -maxdepth 1 -name '*.iso' | cut -d'/' -f2); do
         if [[ ! -e $f.sha256 ]]; then
             create_chksums $f
