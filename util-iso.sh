@@ -42,8 +42,7 @@ run_safe() {
 }
 
 check_umount() {
-    if mountpoint -q "$1"
-        then
+    if mountpoint -q "$1"; then
         umount -l "$1"
     fi
 }
@@ -108,7 +107,7 @@ run_build() {
     sudo chown $USER $outFolder
 
     cp ${work_dir}/iso/arch/pkglist.x86_64.txt  $outFolder/$(gen_iso_fn).pkgs.txt
-    mv "$outFolder/$_profile/cachyos-$(date +%Y.%m.%d)-x86_64.iso" $outFolder/${iso_file}
+    mv "$outFolder/$_profile/cachyos-$(date +%Y.%m.%d)-x86_64.iso" "$outFolder/$_profile/${iso_file}"
 
     msg "Done [Build ISO] ${iso_file}"
     msg "Finished building [%s]" "${_profile}"
