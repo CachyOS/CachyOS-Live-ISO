@@ -24,6 +24,7 @@ cachyos-calamares-config
 cachyos-grub-theme
 cachyos-hello
 cachyos-hooks
+cachyos-settings
 cachyos-kernel-manager
 cachyos-keyring
 cachyos-mirrorlist
