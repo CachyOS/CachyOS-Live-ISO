@@ -45,8 +45,9 @@ Main() {
 
     if [[ "${_exitcode}" -eq 2 ]]; then
         echo "GRUB!"
-    elif [[ ${_exitcode} -eq 3 ]]; then
+    elif [[ "${_exitcode}" -eq 3 ]]; then
         echo "SYSTEMD-BOOT!"
+        sudo pacman -Sy cachyos-calamares-systemd cachyos-calamares-systemd-config
     else
         exit
     fi
