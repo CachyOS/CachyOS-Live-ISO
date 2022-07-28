@@ -37,6 +37,20 @@ Main() {
     esac
     mode=online  # keep this line for now!
 
+    local _exitcode=$(yad --width 300 --title "Bootloader" \
+--image=gnome-shutdown \
+--button="Grub:2" \
+--button="Systemd-boot:3" \
+--text "Choose Bootloader:" ; echo $?)
+
+    if [[ "${_exitcode}" -eq 2 ]]; then
+        echo "GRUB!"
+    elif [[ ${_exitcode} -eq 3 ]]; then
+        echo "SYSTEMD-BOOT!"
+    else
+        exit
+    fi
+
     cat <<EOF > $log
 ########## $log by $progname
 ########## Started (UTC): $(date -u "+%x %X")
