@@ -1,16 +1,16 @@
 alacritty
 alsa-utils
 amd-ucode
-archinstall
 arch-install-scripts
+archinstall
 archlinux-keyring
 avahi
 b43-fwcutter
 base
-micro
 bash-completion
 bind
 boost-libs
+breeze-gtk
 brltty
 broadcom-wl-dkms
 btrfs-progs
@@ -20,7 +20,6 @@ cachyos-calamares-config
 cachyos-grub-theme
 cachyos-hello
 cachyos-hooks
-cachyos-settings
 cachyos-kde-settings
 cachyos-kernel-manager
 cachyos-keyring
@@ -29,6 +28,7 @@ cachyos-nord-gtk-theme-git
 cachyos-nord-kde-theme-git
 cachyos-packageinstaller
 cachyos-rate-mirrors
+cachyos-settings
 cachyos-v3-mirrorlist
 cantarell-fonts
 capitaine-cursors
@@ -36,7 +36,6 @@ char-white
 ckbcomp
 clonezilla
 cloud-init
-cmake
 cronie
 cryptsetup
 darkhttpd
@@ -88,7 +87,9 @@ irssi
 iw
 iwd
 jfsutils
+kde-gtk-config
 kinit
+kio
 kitty-terminfo
 konsole
 kpmcore
@@ -120,6 +121,7 @@ memtest86+
 mesa
 mhwd-cachyos
 mhwd-nvidia-390xx
+micro
 mkinitcpio
 mkinitcpio-archiso
 mkinitcpio-nfs-utils
@@ -141,13 +143,12 @@ nss-mdns
 ntfs-3g
 ntp
 nvme-cli
-kio
 octopi
+open-iscsi
+open-vm-tools
 openconnect
 opendesktop-fonts
-open-iscsi
 openssh
-open-vm-tools
 openvpn
 os-prober
 packagekit-qt5
@@ -163,8 +164,8 @@ pipewire-jack
 pipewire-pulse
 plasma-desktop
 plasma-framework
-plasma-nm
 plasma-integration
+plasma-nm
 plasma-pa
 plasma-workspace
 polkit
@@ -179,9 +180,9 @@ pv
 python
 python-defusedxml
 qemu-guest-agent
-qt5ct
 qt5-tools
 qt5-xmlpatterns
+qt5ct
 realtime-privileges
 refind
 reflector
@@ -229,8 +230,6 @@ wvdial
 xdg-user-dirs-gtk
 xdg-utils
 xed
-kde-gtk-config
-breeze-gtk
 xf86-input-elographics
 xf86-input-evdev
 xf86-input-libinput
@@ -248,5 +247,6 @@ xorg-server
 xorg-xinit
 xorg-xkill
 xorg-xrdb
+yad
 zfs-utils
 zsh

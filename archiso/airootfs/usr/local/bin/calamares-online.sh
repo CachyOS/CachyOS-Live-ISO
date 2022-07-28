@@ -44,10 +44,11 @@ Main() {
 --text "Choose Bootloader:" ; echo $?)
 
     if [[ "${_exitcode}" -eq 2 ]]; then
-        echo "GRUB!"
+        echo "USING GRUB!"
+        yes | sudo pacman -Sy --needed cachyos-calamares cachyos-calamares-config
     elif [[ "${_exitcode}" -eq 3 ]]; then
-        echo "SYSTEMD-BOOT!"
-        sudo pacman -Sy cachyos-calamares-systemd cachyos-calamares-systemd-config
+        echo "USING SYSTEMD-BOOT!"
+        yes | sudo pacman -Sy --needed cachyos-calamares-systemd cachyos-calamares-systemd-config
     else
         exit
     fi
