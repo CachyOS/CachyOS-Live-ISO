@@ -45,9 +45,11 @@ Main() {
 
     if [[ "${_exitcode}" -eq 2 ]]; then
         echo "USING GRUB!"
+        yes | sudo pacman -Rsn cachyos-calamares-systemd cachyos-calamares-systemd-config
         yes | sudo pacman -Sy --needed cachyos-calamares cachyos-calamares-config
     elif [[ "${_exitcode}" -eq 3 ]]; then
         echo "USING SYSTEMD-BOOT!"
+        yes | sudo pacman -Rsn cachyos-calamares cachyos-calamares-config
         yes | sudo pacman -Sy --needed cachyos-calamares-systemd cachyos-calamares-systemd-config
     else
         exit
