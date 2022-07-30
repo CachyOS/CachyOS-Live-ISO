@@ -1,4 +1,3 @@
-#network
 accountsservice
 adobe-source-han-sans-cn-fonts
 adobe-source-han-sans-jp-fonts
@@ -223,6 +222,7 @@ sof-firmware
 solid
 squashfs-tools
 sudo
+spice-vdagent
 sysfsutils
 syslinux
 systemd-resolvconf
