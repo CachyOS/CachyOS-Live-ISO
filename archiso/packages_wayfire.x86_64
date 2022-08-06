@@ -81,7 +81,6 @@ gpart
 gparted
 gpm
 gptfdisk
-lightdm
 grsync
 grub
 gst-libav
@@ -104,8 +103,6 @@ irssi
 iw
 jfsutils
 kitty-terminfo
-konsole
-kparts
 kvantum-qt5
 less
 lftp
@@ -113,6 +110,7 @@ libfido2
 libusb-compat
 libwnck3
 libxinerama
+lightdm
 linux-atm
 linux-cachyos
 linux-cachyos-headers

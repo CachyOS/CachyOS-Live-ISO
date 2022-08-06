@@ -103,8 +103,6 @@ irssi
 iw
 jfsutils
 kitty-terminfo
-konsole
-kparts
 kvantum-qt5
 less
 lftp
@@ -218,9 +216,9 @@ smartmontools
 snapper
 sof-firmware
 solid
+spice-vdagent
 squashfs-tools
 sudo
-spice-vdagent
 sysfsutils
 syslinux
 systemd-resolvconf
