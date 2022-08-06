@@ -71,6 +71,9 @@ prepare_profile(){
     elif [ "$profile" == "xfce" ]; then
         cp ${src_dir}/archiso/packages_xfce.x86_64 ${src_dir}/archiso/packages.x86_64
         ln -sf /usr/lib/systemd/system/lightdm.service ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
+    elif [ "$profile" == "wayfire" ]; then
+        cp ${src_dir}/archiso/packages_wayfire.x86_64 ${src_dir}/archiso/packages.x86_64
+        ln -sf /usr/lib/systemd/system/greetd.service ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
     else
         die "Unknown profile: [%s]" "${profile}"
     fi
