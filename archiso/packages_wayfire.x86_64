@@ -81,8 +81,7 @@ gpart
 gparted
 gpm
 gptfdisk
-greetd
-greetd-qtgreet
+lightdm
 grsync
 grub
 gst-libav
