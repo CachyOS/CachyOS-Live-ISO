@@ -193,7 +193,6 @@ pipewire
 pipewire-alsa
 pipewire-jack
 pipewire-pulse
-plymouth
 polkit-qt5
 poppler-glib
 power-profiles-daemon

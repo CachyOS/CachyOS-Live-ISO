@@ -187,7 +187,6 @@ pipewire-jack
 pipewire-pulse
 pipewire-v4l2
 pipewire-zeroconf
-plymouth
 polkit-qt5
 power-profiles-daemon
 ppp
