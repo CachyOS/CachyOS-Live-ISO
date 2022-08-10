@@ -72,6 +72,7 @@ prepare_profile(){
         cp ${src_dir}/archiso/packages_xfce.x86_64 ${src_dir}/archiso/packages.x86_64
         ln -sf /usr/lib/systemd/system/lightdm.service ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
     elif [ "$profile" == "openbox" ]; then
+        rm -f ${src_dir}/archiso/airootfs/etc/skel/.Xresources
         cp ${src_dir}/archiso/packages_openbox.x86_64 ${src_dir}/archiso/packages.x86_64
         ln -sf /usr/lib/systemd/system/lightdm.service ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
     elif [ "$profile" == "wayfire" ]; then
