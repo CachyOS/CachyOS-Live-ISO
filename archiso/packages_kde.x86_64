@@ -142,6 +142,8 @@ nss-mdns
 ntfs-3g
 ntp
 nvme-cli
+nvidia-utils
+nvidia-dkms
 octopi
 open-iscsi
 open-vm-tools
