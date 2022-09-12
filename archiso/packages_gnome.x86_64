@@ -105,7 +105,6 @@ gst-plugins-bad
 gst-plugins-ugly
 gtk-engine-murrine
 gtk3
-haveged
 hdparm
 hwdetect
 hwinfo

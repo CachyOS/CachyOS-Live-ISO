@@ -1,10 +1,9 @@
-#
-# SPDX-License-Identifier: GPL-3.0-or-later
-
 [Unit]
 Description=Initializes Pacman keyring
-Wants=haveged.service
-After=haveged.service
+Requires=etc-pacman.d-gnupg.mount
+After=etc-pacman.d-gnupg.mount
+BindsTo=etc-pacman.d-gnupg.mount
+Before=archlinux-keyring-wkd-sync.service
 
 [Service]
 Type=oneshot
