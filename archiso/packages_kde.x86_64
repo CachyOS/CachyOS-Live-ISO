@@ -12,7 +12,7 @@ bind
 boost-libs
 breeze-gtk
 brltty
-broadcom-wl-dkms
+# broadcom-wl-dkms ## Wait for a fix for the 6.0 Kernel
 btrfs-progs
 cachy-browser
 cachyos-calamares
