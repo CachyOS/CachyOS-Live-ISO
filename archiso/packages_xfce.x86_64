@@ -20,7 +20,7 @@ bluez
 bluez-utils
 boost-libs
 brltty
-# broadcom-wl-dkms ## Wait for a fix for the 6.0 Kernel
+broadcom-wl-dkms
 btrfs-progs
 cachy-browser
 cachyos-calamares
