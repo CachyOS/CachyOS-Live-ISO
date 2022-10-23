@@ -148,6 +148,8 @@ memtest86+
 mesa
 mhwd-cachyos
 mhwd-nvidia-390xx
+nvidia-dkms
+nvidia-utils
 mkinitcpio
 mkinitcpio-archiso
 mkinitcpio-nfs-utils
