@@ -37,18 +37,33 @@ Main() {
     esac
     mode=online  # keep this line for now!
 
-    local _exitcode=$(yad --width 300 --title "Bootloader" \
---image=gnome-shutdown \
---button="Grub:2" \
---button="Systemd-boot:3" \
---text "Choose Bootloader:" ; echo $?)
+    local _efi_check_dir="/sys/firmware/efi"
+    local _exitcode=2 # by default use grub
+
+    local SYSTEM=""
+    local BOOTLOADER=""
+    if [ -d "${_efi_check_dir}" ]; then
+        SYSTEM="UEFI SYSTEM"
+
+        # Restrict bootloader selection to only UEFI systems
+        _exitcode=$(yad --width 300 --title "Bootloader" \
+    --image=gnome-shutdown \
+    --button="Grub:2" \
+    --button="Systemd-boot:3" \
+    --text "Choose Bootloader:" ; echo $?)
+    else
+        SYSTEM="BIOS/MBR SYSTEM"
+    fi
+
 
     if [[ "${_exitcode}" -eq 2 ]]; then
+        BOOTLOADER="GRUB"
         echo "USING GRUB!"
         yes | sudo pacman -R cachyos-calamares-systemd cachyos-calamares-systemd-config
         yes | sudo pacman -R cachyos-calamares cachyos-calamares-config
         yes | sudo pacman -Sy cachyos-calamares cachyos-calamares-config
     elif [[ "${_exitcode}" -eq 3 ]]; then
+        BOOTLOADER="SYSTEMD-BOOT"
         echo "USING SYSTEMD-BOOT!"
         yes | sudo pacman -R cachyos-calamares cachyos-calamares-config
         yes | sudo pacman -Sy cachyos-calamares-systemd cachyos-calamares-systemd-config
@@ -60,6 +75,8 @@ Main() {
 ########## $log by $progname
 ########## Started (UTC): $(date -u "+%x %X")
 ########## Install mode: $mode
+########## System: $SYSTEM
+########## Bootloader: $BOOTLOADER
 EOF
     FollowFile "$log" "Install log" 20 20
 
