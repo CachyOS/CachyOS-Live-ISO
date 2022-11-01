@@ -99,6 +99,7 @@ gpm
 gptfdisk
 grsync
 grub
+grub-hook
 gst-libav
 gst-plugin-pipewire
 gst-plugins-bad

@@ -70,6 +70,7 @@ gpm
 gptfdisk
 grsync
 grub
+grub-hook
 gtkmm3
 haveged
 hdparm
