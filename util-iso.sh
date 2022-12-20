@@ -80,7 +80,7 @@ EOF
 
 change_grub_version() {
     local _version="$1"
-    sed -i "s/CACHYOS_VERSION=\"GIT\"/CACHYOS_VERSION=\"${_version}\"/" ${src_dir}/archiso/grub/grub.cfg
+    sed -i "s/CACHYOS_VERSION=\".*\"/CACHYOS_VERSION=\"${_version}\"/" ${src_dir}/archiso/grub/grub.cfg
 }
 
 prepare_profile(){
