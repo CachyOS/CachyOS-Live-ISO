@@ -55,7 +55,7 @@ trap_exit() {
     kill "-$sig" "$$"
 }
 
-generate_gbm_config() {
+generate_gdm_config() {
     mkdir -p ${src_dir}/archiso/airootfs/etc/gdm
     cat << 'EOF' > ${src_dir}/archiso/airootfs/etc/gdm/custom.conf
 # GDM configuration storage
@@ -94,7 +94,7 @@ prepare_profile(){
     elif [ "$profile" == "gnome" ]; then
         rm -f ${src_dir}/archiso/airootfs/etc/motd
         rm -rf ${src_dir}/archiso/airootfs/etc/gdm
-        generate_gbm_config
+        generate_gdm_config
         cp ${src_dir}/archiso/packages_gnome.x86_64 ${src_dir}/archiso/packages.x86_64
         ln -sf /usr/lib/systemd/system/gdm.service ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
     elif [ "$profile" == "xfce" ]; then
