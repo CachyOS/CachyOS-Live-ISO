@@ -13,3 +13,4 @@ user-data
 meta-data
 *.qcow2
 archiso/packages.x86_64
+archiso/airootfs/etc/gdm/
