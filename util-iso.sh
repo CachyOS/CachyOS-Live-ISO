@@ -62,9 +62,6 @@ generate_gbm_config() {
 
 [daemon]
 AutomaticLoginEnable=True
-# Uncomment the line below to force the login screen to use Xorg
-WaylandEnable=false
-DefaultSession=gnome-xorg.desktop
 
 [security]
 
