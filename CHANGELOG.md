@@ -54,17 +54,6 @@ Following options you can select for a kernel compile:
 - Enable or disable nf cone
 - Enable LTO (Full, Thin, No)
 
-More about it you can find here:
-
-https://wiki.cachyos.org/en/home/kernel-manager
-
-The downloads for the iso are as always here:
-
-Our mirrors:
-https://mirror.cachyos.org/ISO/kde/220603/
-https://mirror.cachyos.org/ISO/gnome/220603
-Sourceforge:
-https://sourceforge.net/projects/cachyos-arch/
 
 ############################################################################################
 
@@ -89,10 +78,6 @@ https://sourceforge.net/projects/cachyos-arch/
 `- btrfs swap luksencryption got fixed`
 `- usual translation fixes`
 
-As always the download can be found at our mirrors our sourgeforge.
-
-https://mirror.cachyos.org/ISO/
-https://sourceforge.net/projects/cachyos-arch/files/
 
 ############################################################################################
 
@@ -113,15 +98,6 @@ https://sourceforge.net/projects/cachyos-arch/files/
 `- netinstall packages has been updated and got some fixes`
 `- OpenBox installation has been fixed`
 `- usual translation fixes`
-
-As always the download can be found at our mirrors our sourgeforge.
-
-https://mirror.cachyos.org/ISO/
-https://sourceforge.net/projects/cachyos-arch/files/
-
-Regards
-
-CachyOS - Team
 
 ############################################################################################
 
@@ -145,14 +121,6 @@ CachyOS - Team
 `- Added a fallback bootmode, which does not set any modeset (nomodeset)`
 `- And more ISO fixes`
 
-As always the download can be found at our mirrors our sourgeforge.
-
-https://mirror.cachyos.org/ISO/
-https://sourceforge.net/projects/cachyos-arch/files/
-
-Regards
-
-CachyOS - Team
 
 ############################################################################################
 
@@ -178,11 +146,27 @@ CachyOS - Team
 `- mkinitcpio.conf got updated`
 `- And more ISO fixes`
 
-As always the download can be found at our mirrors our sourceforge.
+############################################################################################
 
-https://mirror.cachyos.org/ISO/
-https://sourceforge.net/projects/cachyos-arch/files/
+*Changelog CachyOS 22.12:*
 
-Regards
+**Features:**
 
-CachyOS - Team
+`- New GRUB background at the ISO bootloader`
+`- memtest is now included for UEFI Systems`
+`- CachyOS-sddm-theme got added to the KDE Installation`
+`- Automatic version script added when creating the ISO`
+`- Calamares updated to the latest commit`
+`- The mirrors are now ranked with "cachyos-rate-mirros", which ranks our mirrors and the arch ones`
+`- Packages Update: 6.1.1 Kernel, mesa 22.3.1, plasma 5.26.4,...`
+`- The Kofuku Desktop Enviroment got removed`
+`- extra ISO with llvm 15 included to provide support for newer AMD Cards`
+
+
+**Bug-fixes:**
+
+`- Calamares got fixed when using GNOME as ISO`
+`- zfshostid does now work proper for the offline and online installation`
+`- Add "kms" hook to the initcpiocfg module to follow archlinux defaults`
+`- And more ISO fixes`
+
