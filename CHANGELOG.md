@@ -1,10 +1,12 @@
-*Changelog CachyOS 22.05:*
+I will edit this post with the Changes are done on the GUI ISO, which is using the Calamares Installer:
+
+# *Changelog CachyOS 22.05:*
 
 CachyOS was founded a year ago. After almost one year of development, we are really proud to announce our first Stable Release of GUI Installer.
 We spent a lot of time investigating repo management, kernel development, infrastructure, theming, ... and finally put them all into the CachyOS GUI Installer.
 All the features we worked on and implemented into the Installer are just trying to offer users a completely customizable experience.
 
-The most exciting changes are that we use now for the online install pacstrap which provide then a complete clear installed enviroment and we do support a complete native support for the zfs filesystem
+The most exciting changes are that we use now for the online install pacstrap which provide then a complete clear installed environment and we do support a complete native support for the zfs filesystem
 
 Since Discord restrict the length of the messages the full announcement can be found here:
 
@@ -14,22 +16,21 @@ Download can be found here:
 https://mirror.cachyos.org/ISO/kde/220522/
 https://sourceforge.net/projects/cachyos-arch/
 
-############################################################################################
 
-*Changelog CachyOS 22.06:*
+ # **Changelog CachyOS 22.06:**
 
-## Following known bugs has been fixed:
+Following known bugs has been fixed:
 
 - Install failed when a generic CPU was used
 - KDE did automatically mount zfs paritions which resulted that the auto login into the ISO did not worked anymore
 
-## Improvements:
+**Improvements:**
 
 - The firewall from the server has been corrected, cloudflare did blocked users as "bots", which resulted then into a error at installing
 - Added theming support for Gnome, XFCE, OpenBox
 - Updated our wiki
 
-## CachyOS - Kernel - Manager
+**_CachyOS - Kernel - Manager_**
 Also we are excited to announce our CachyOS-Kernel-Manager.
 Their you have the possibility to install the kernel from the repo and also configure with a GUI your own kernel build which makes is very easy to customize it to his own suits.
 
@@ -54,10 +55,7 @@ Following options you can select for a kernel compile:
 - Enable or disable nf cone
 - Enable LTO (Full, Thin, No)
 
-
-############################################################################################
-
-*Changelog CachyOS 22.07:*
+# Changelog CachyOS 22.07:*
 
 **Features:**
 
@@ -79,9 +77,8 @@ Following options you can select for a kernel compile:
 `- usual translation fixes`
 
 
-############################################################################################
 
-*Changelog CachyOS 22.09:*
+# *Changelog CachyOS 22.09:*
 
 **Features:**
 
@@ -99,9 +96,7 @@ Following options you can select for a kernel compile:
 `- OpenBox installation has been fixed`
 `- usual translation fixes`
 
-############################################################################################
-
-*Changelog CachyOS 22.10:*
+# *Changelog CachyOS 22.10:*
 
 **Features:**
 
@@ -122,9 +117,7 @@ Following options you can select for a kernel compile:
 `- And more ISO fixes`
 
 
-############################################################################################
-
-*Changelog CachyOS 22.11:*
+# *Changelog CachyOS 22.11:*
 
 **Features:**
 
@@ -146,9 +139,7 @@ Following options you can select for a kernel compile:
 `- mkinitcpio.conf got updated`
 `- And more ISO fixes`
 
-############################################################################################
-
-*Changelog CachyOS 22.12:*
+# *Changelog CachyOS 22.12:*
 
 **Features:**
 
@@ -169,4 +160,3 @@ Following options you can select for a kernel compile:
 `- zfshostid does now work proper for the offline and online installation`
 `- Add "kms" hook to the initcpiocfg module to follow archlinux defaults`
 `- And more ISO fixes`
-
