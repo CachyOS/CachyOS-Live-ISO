@@ -24,12 +24,13 @@ cachyos-themes-sddm
 cachyos-kernel-manager
 cachyos-keyring
 cachyos-mirrorlist
+cachyos-v3-mirrorlist
+cachyos-v4-mirrorlist
 cachyos-nord-gtk-theme-git
 cachyos-nord-kde-theme-git
 cachyos-packageinstaller
 cachyos-rate-mirrors
 cachyos-settings
-cachyos-v3-mirrorlist
 cantarell-fonts
 capitaine-cursors
 char-white
