@@ -160,3 +160,23 @@ Following options you can select for a kernel compile:
 `- zfshostid does now work proper for the offline and online installation`
 `- Add "kms" hook to the initcpiocfg module to follow archlinux defaults`
 `- And more ISO fixes`
+
+# *Changelog CachyOS 23.01:*
+
+**Features:**
+
+`- Calamares Slides got reworked and updated`
+`- UKUI Desktop Enviroment got added to the Netinstallation`
+`- Cinnamon Desktop Enviroment got added to the Netinstallation`
+`- Cmdline: zswap is now disabled as default because CachyOS provides zram as default`
+`- Calamares updated to the latest commit`
+`- LLVM 15 is now shipped as default`
+`- Package Updates: linux-cachyos 6.1.7, mesa 22.3.3, Plasma 5.26.5, llvm 15.0.7, gcc 12.1.1, binutils 2.40, zfs-utils 2.1.8, nvidia 525.85.05`
+`- CLI Installer got updated`
+
+**Bug-fixes:**
+
+`- remove-ucode shellprocess does also run now at the offline installation`
+`- pamac got removed from the netinstall`
+`- The ranked cachyos mirrors gets now correctly copied to the install target`
+`- power-profile-daemon don't gets enabled anymore as default`
