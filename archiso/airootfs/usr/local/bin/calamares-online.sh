@@ -59,14 +59,14 @@ Main() {
     if [[ "${_exitcode}" -eq 2 ]]; then
         BOOTLOADER="GRUB"
         echo "USING GRUB!"
-        yes | sudo pacman -R cachyos-calamares-systemd
-        yes | sudo pacman -R cachyos-calamares-grub
-        yes | sudo pacman -Sy cachyos-calamares-grub
+        yes | sudo pacman -R cachyos-calamares-next-systemd
+        yes | sudo pacman -R cachyos-calamares-next-grub
+        yes | sudo pacman -Sy cachyos-calamares-next-grub
     elif [[ "${_exitcode}" -eq 3 ]]; then
         BOOTLOADER="SYSTEMD-BOOT"
         echo "USING SYSTEMD-BOOT!"
-        yes | sudo pacman -R cachyos-calamares-grub
-        yes | sudo pacman -Sy cachyos-calamares-systemd
+        yes | sudo pacman -R cachyos-calamares-next-grub
+        yes | sudo pacman -Sy cachyos-calamares-next-systemd
     else
         exit
     fi
