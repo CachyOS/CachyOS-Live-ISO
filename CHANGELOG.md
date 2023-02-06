@@ -180,3 +180,21 @@ Following options you can select for a kernel compile:
 `- pamac got removed from the netinstall`
 `- The ranked cachyos mirrors gets now correctly copied to the install target`
 `- power-profile-daemon don't gets enabled anymore as default`
+
+# *Changelog CachyOS 23.02:*
+
+**Features:**
+
+`- Introducing cachyos-community-v3 repo`
+`- Budgie Desktop Enviroment got added to the Netinstallation`
+`- Mate Desktop Enviroment got added to the Netinstallation`
+`- LXDE Desktop Enviroment got added to the Netinstallation`
+`- Bluetooth is now enabled as default`
+`- Package Updates: linux-cachyos 6.1.10, mesa 22.3.4, zfs-utils 2.1.9, glibc 2.37, cachy-browser 109.0.1`
+
+**Bug-fixes:**
+
+`- rate-mirrors: fallback to unranked mirrors if rate-mirrors fails to rate them`
+`- cachyos-rate-mirrors: Increase fetch-mirrors-timeout`
+`- hosts: Add github to avoid issues when fetching the mirrorlist`
+`- syslinux: Update boot entries for BIOS`
