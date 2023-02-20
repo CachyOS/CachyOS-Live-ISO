@@ -2,7 +2,6 @@ alacritty
 alsa-utils
 amd-ucode
 arch-install-scripts
-archinstall
 archlinux-keyring
 avahi
 b43-fwcutter
@@ -15,7 +14,7 @@ brltty
 broadcom-wl-dkms
 btrfs-progs
 cachy-browser
-cachyos-calamares-grub
+cachyos-calamares-next-grub
 cachyos-cli-installer-new
 cachyos-hello
 cachyos-hooks
@@ -45,7 +44,6 @@ dhclient
 dhcpcd
 dialog
 diffutils
-discover
 dmidecode
 dmraid
 dnsmasq
@@ -72,7 +70,6 @@ gptfdisk
 grsync
 grub
 grub-hook
-gtkmm3
 haveged
 hdparm
 hwinfo
@@ -94,7 +91,6 @@ kitty-terminfo
 konsole
 kpmcore
 kscreen
-kwin-scripts-forceblur
 less
 lftp
 libfido2
@@ -120,7 +116,6 @@ memtest86+
 memtest86+-efi
 mesa
 mhwd-cachyos
-mhwd-nvidia-390xx
 micro
 mkinitcpio
 mkinitcpio-archiso
@@ -154,7 +149,6 @@ opendesktop-fonts
 openssh
 openvpn
 os-prober
-packagekit-qt5
 partclone
 parted
 partimage
@@ -183,9 +177,7 @@ pv
 python
 python-defusedxml
 qemu-guest-agent
-qt5-tools
 qt5-xmlpatterns
-qt5ct
 realtime-privileges
 refind
 reflector
