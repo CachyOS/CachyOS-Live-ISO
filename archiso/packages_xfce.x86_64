@@ -131,12 +131,9 @@ memtest86+
 mesa
 mesa-utils
 mhwd-cachyos
-mhwd-nvidia-390xx
 mkinitcpio
 mkinitcpio-archiso
-mkinitcpio-busybox
 mkinitcpio-nfs-utils
-mkinitcpio-openswap
 mlocate
 modemmanager
 mtools
