@@ -21,6 +21,7 @@ btrfs-progs
 cachy-browser
 cachyos-calamares-grub
 cachyos-cli-installer-new
+cachyos-fish-config
 cachyos-gnome-settings
 cachyos-hello
 cachyos-hooks
@@ -33,6 +34,7 @@ cachyos-rate-mirrors
 cachyos-settings
 cachyos-v3-mirrorlist
 cachyos-v4-mirrorlist
+cachyos-zsh-config
 cantarell-fonts
 capitaine-cursors
 char-white
@@ -275,4 +277,3 @@ xorg-xrandr
 xorg-xrdb
 yad
 zfs-utils
-zsh
