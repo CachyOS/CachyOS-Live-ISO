@@ -30,6 +30,8 @@ cachyos-nord-kde-theme-git
 cachyos-packageinstaller
 cachyos-rate-mirrors
 cachyos-settings
+cachyos-zsh-config
+cachyos-fish-config
 cantarell-fonts
 capitaine-cursors
 char-white
@@ -245,4 +247,3 @@ xorg-xkill
 xorg-xrdb
 yad
 zfs-utils
-zsh
