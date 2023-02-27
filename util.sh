@@ -8,6 +8,8 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
+[[ -r ${src_dir}/util-msg.sh ]] && source ${src_dir}/util-msg.sh
+
 get_timer(){
     echo $(date +%s)
 }
@@ -67,8 +69,33 @@ prepare_dir(){
     fi
 }
 
+load_vars() {
+    [[ -f $1 ]] || return 1
+
+    local var
+    for var in {SRC,SRCPKG,PKG,LOG}DEST MAKEFLAGS PACKAGER CARCH GPGKEY; do
+        [[ -z ${!var} ]] && eval $(grep -a "^${var}=" "$1")
+    done
+
+    return 0
+}
+
 create_chksums() {
     msg2 "creating checksums for [$1]"
     sha1sum $1 > $1.sha1
     sha256sum $1 > $1.sha256
+}
+
+sign_with_key() {
+    load_vars "$HOME/.makepkg.conf"
+    load_vars /etc/makepkg.conf
+
+    if [ ! -e "$1" ]; then
+        error "%s does not exist!" "$1"
+        exit 1
+    fi
+
+    msg2 "signing [%s] with key %s" "${1##*/}" "${GPGKEY}"
+    [[ -e "$1".sig ]] && rm "$1".sig
+    gpg --detach-sign --use-agent -u "${GPGKEY}" "$1"
 }
