@@ -160,6 +160,14 @@ run_build() {
         else
             info "checksums for [$f] already created"
         fi
+        if [[ ! -e $f.sig ]]; then
+            sign_with_key $f
+        elif [[ $f -nt $f.sig ]]; then
+            rm $f.sig
+            sign_with_key $f
+        else
+            info "signature file for [$f] already created"
+        fi
     done
     show_elapsed_time "${FUNCNAME}" "${timer_start}"
 }

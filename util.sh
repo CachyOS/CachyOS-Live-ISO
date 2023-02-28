@@ -8,8 +8,6 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
-[[ -r ${src_dir}/util-msg.sh ]] && source ${src_dir}/util-msg.sh
-
 get_timer(){
     echo $(date +%s)
 }
