@@ -95,5 +95,10 @@ sign_with_key() {
 
     msg2 "signing [%s] with key %s" "${1##*/}" "${GPGKEY}"
     [[ -e "$1".sig ]] && rm "$1".sig
-    gpg --detach-sign --use-agent -u "${GPGKEY}" "$1"
+
+    local SIGNWITHKEY=()
+    if [[ -n $GPGKEY ]]; then
+        SIGNWITHKEY=(-u "${GPGKEY}")
+    fi
+    gpg --detach-sign --use-agent "${SIGNWITHKEY[@]}" "$1"
 }
