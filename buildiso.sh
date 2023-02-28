@@ -50,7 +50,7 @@ shift $(($OPTIND - 1))
 
 timer_start=$(get_timer)
 
-check_root "$0" "${orig_argv[@]}"
+#check_root "$0" "${orig_argv[@]}"
 
 prepare_dir "${work_dir}"
 
