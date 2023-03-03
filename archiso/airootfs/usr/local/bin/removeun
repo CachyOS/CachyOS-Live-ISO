@@ -5,6 +5,9 @@ _clean_files() {
     local _files_to_remove=(
     /etc/modprobe.d/nvidia-utils.conf
     /etc/modules-load.d/nvidia-utils.conf
+    /usr/local/bin/choose-mirror
+    /usr/local/bin/prepare-live-desktop.sh
+    /usr/local/bin/removeun-online
 )
     local xx
     for xx in "${_files_to_remove[@]}"; do rm -f "$xx" || true; done
