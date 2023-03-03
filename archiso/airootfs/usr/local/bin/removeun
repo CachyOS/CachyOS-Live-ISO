@@ -1,20 +1,16 @@
 #!/bin/bash
 #set -e
-###############################################################################
-# Author    :   Erik Dubois
-# Website   :   https://www.erikdubois.be
-# Website   :   https://www.arcolinux.info
-# Website   :   https://www.arcolinux.com
-# Website   :   https://www.arcolinuxd.com
-# Website   :   https://www.arcolinuxb.com
-# Website   :   https://www.arcolinuxiso.com
-# Website   :   https://www.arcolinuxforum.com
-###############################################################################
-#
-#   DO NOT JUST RUN THIS. EXAMINE AND JUDGE. RUN AT YOUR OWN RISK.
-#
-###############################################################################
 
+_clean_files() {
+    local _files_to_remove=(
+    /etc/modprobe.d/nvidia-utils.conf
+    /etc/modules-load.d/nvidia-utils.conf
+)
+    local xx
+    for xx in "${_files_to_remove[@]}"; do rm -f "$xx" || true; done
+}
+
+# taken from Erik Dubois script
 _clean_packages() {
     local _packages_to_remove=(
     gparted
@@ -45,3 +41,4 @@ _clean_packages() {
 }
 
 _clean_packages
+_clean_files
