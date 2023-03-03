@@ -19,6 +19,9 @@ _clean_packages() {
 local _packages_to_remove=(
   gparted
   grsync
+  cachyos-calamares-grub
+  cachyos-calamares-systemd
+  cachyos-calamares-refind
   cachyos-calamares
   cachyos-calamares-config
   edk2-shell
@@ -39,21 +42,16 @@ local _packages_to_remove=(
   mkinitcpio-archiso
 )
 
-  local _nvidia_packages_to_remove=(nvidia-dkms nvidia-utils)
-
   local _check_nvidia_card="$(mhwd --is_nvidia_card | grep -q 'NVIDIA card found!'; echo $?)"
   if [[ "${_check_nvidia_card}" -ne 0 ]]; then
     echo "No NVIDIA card detected. Removing nvidia drivers"
-
-    local xx
-    # @ does one by one to avoid errors in the entire process
-    for xx in "${_nvidia_packages_to_remove[@]}"; do pacman -Rc "$xx" --noconfirm; done
+    _packages_to_remove+=(nvidia-dkms nvidia-utils egl-wayland)
   fi
 
   local xx
   # @ does one by one to avoid errors in the entire process
   # taken from Erik Dubois script
-  for xx in "${_packages_to_remove[@]}"; do pacman -Rsc "$xx" --noconfirm; done
+  for xx in "${_packages_to_remove[@]}"; do pacman -Rsnc "$xx" --noconfirm; done
 }
 
 _clean_packages
