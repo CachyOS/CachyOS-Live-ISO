@@ -198,3 +198,27 @@ Following options you can select for a kernel compile:
 `- cachyos-rate-mirrors: Increase fetch-mirrors-timeout`
 `- hosts: Add github to avoid issues when fetching the mirrorlist`
 `- syslinux: Update boot entries for BIOS`
+
+# *Changelog CachyOS 23.03:*
+
+**Features:**
+
+`- Added the refind bootloader`
+`- Automatic Nvidia driver installation using MHWD`
+`- Encryption support for ZFS installation`
+`- Added Hyprland to netinstallation`
+`- CachyOS-KDE-Settings now uses the KDE default theme, but the CachyOS Themes are still preinstalled and available for use`
+`- Package updates: linux-cachyos 6.2.2, mesa 23.0.0, cachy-browser 110.0.1, plasma 5.27.2`
+`- Fully reworked and improved the bootloader calamares module`
+`- The ISO gets now signed with a GPG key`
+`- MHWD got improved and updated`
+`- Synced Calamares with upstream`
+
+**Bug-fixes:**
+
+`- The "replace partition" option now offers a filesystem selection`
+`- Fixed a typo in slide 3`
+`- nouveau got fixed and does now proper load the module`
+`- MHWD: Use modesetting for INTEL/ATI and Nouveau`
+`- Removed the zfs hook from mkinitcpio on the live iso, which caused issues when booting`
+`- You can download the update from our mirrors on SourceForge.`
