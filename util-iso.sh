@@ -78,6 +78,13 @@ DefaultSession=gnome-xorg.desktop
 EOF
 }
 
+fetch_cachyos_mirrorlist() {
+    mkdir -p ${src_dir}/archiso/airootfs/etc/pacman.d
+    local _mirrorlist_url="https://github.com/CachyOS/CachyOS-PKGBUILDS/raw/master/cachyos-mirrorlist/cachyos-mirrorlist"
+
+    curl -sSL "${_mirrorlist_url}" > ${src_dir}/archiso/airootfs/etc/pacman.d/cachyos-mirrorlist
+}
+
 change_grub_version() {
     local _version="$1"
     sed -i "s/CACHYOS_VERSION=\".*\"/CACHYOS_VERSION=\"${_version}\"/" ${src_dir}/archiso/grub/grub.cfg
@@ -89,6 +96,9 @@ prepare_profile(){
     info "Profile: [%s]" "${profile}"
 
     change_grub_version "$(date +%y%m%d)"
+
+    # Fetch up-to-date version of CachyOS repo mirrorlist
+    fetch_cachyos_mirrorlist
 
     rm -f ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
     if [ "$profile" == "kde" ]; then
