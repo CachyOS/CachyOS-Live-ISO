@@ -217,3 +217,13 @@ Following options you can select for a kernel compile:
 - Removed the zfs hook from mkinitcpio on the live iso, which caused issues when booting
 - You can download the update from our mirrors on SourceForge.
 
+# 23.03.1
+
+**Features:**
+
+- Package updates: linux-cachyos 6.2.7, cachy-browser 111.0
+
+**Bug-fixes:**
+
+- Calamares got fixed with the lightdm displaymanager due faulty calamares upstream commits
+- Offline installation keyring issue got fixed
