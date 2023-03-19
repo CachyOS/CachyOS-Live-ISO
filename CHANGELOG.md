@@ -227,3 +227,4 @@ Following options you can select for a kernel compile:
 
 - Calamares got fixed with the lightdm displaymanager due faulty calamares upstream commits
 - Offline installation keyring issue got fixed
+- Refind: Use linux-cachyos-lts as defaullt. Current 6.2 seems not to work well together with refind
