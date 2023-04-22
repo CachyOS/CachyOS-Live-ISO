@@ -206,7 +206,6 @@ pv
 python
 python-defusedxml
 qemu-guest-agent
-qt5-tools
 qt5-xmlpatterns
 qt5ct
 realtime-privileges
