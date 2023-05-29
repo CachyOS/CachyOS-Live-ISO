@@ -1,3 +1,16 @@
+# 23.05
+
+**Features:**
+- CachyOS Git Migration layout is now reflected in the installation
+- chwd (mhwd) got multiple fixes
+- Pacman: We added a feature, which makes it possible to provide a message to our users before updating
+- Calamares got synced with upstream
+- Package updates: linux-cachyos 6.3.4, cachy-browser 113.0.1, mesa 23.1.1, python 3.11
+
+**Bug-fixes:**
+- netinstall: minimal fixes due package changes
+- Slides: Slide 6 got updated to reflect the lastest changes
+
 # 23.04
 
 **Features:**
