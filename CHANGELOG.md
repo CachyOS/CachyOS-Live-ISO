@@ -1,3 +1,8 @@
+# 23.06
+
+**Bug-fixes:**
+- Offline Installation: Fix calamares
+
 # 23.05
 
 **Features:**
