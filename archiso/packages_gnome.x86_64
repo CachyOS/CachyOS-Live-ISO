@@ -150,7 +150,7 @@ mdadm
 memtest86+
 memtest86+-efi
 mesa
-mhwd-cachyos
+chwd
 mkinitcpio
 mkinitcpio-archiso
 mkinitcpio-nfs-utils

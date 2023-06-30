@@ -42,7 +42,7 @@ local _packages_to_remove=(
   mkinitcpio-archiso
 )
 
-  local _check_nvidia_card="$(mhwd --is_nvidia_card | grep -q 'NVIDIA card found!'; echo $?)"
+  local _check_nvidia_card="$(chwd --is_nvidia_card | grep -q 'NVIDIA card found!'; echo $?)"
   if [[ "${_check_nvidia_card}" -ne 0 ]]; then
     echo "No NVIDIA card detected. Removing nvidia drivers"
     _packages_to_remove+=(nvidia-dkms nvidia-utils egl-wayland)

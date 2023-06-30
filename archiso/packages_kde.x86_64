@@ -117,7 +117,7 @@ mdadm
 memtest86+
 memtest86+-efi
 mesa
-mhwd-cachyos
+chwd
 micro
 mkinitcpio
 mkinitcpio-archiso

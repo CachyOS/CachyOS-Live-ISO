@@ -132,7 +132,7 @@ meld
 memtest86+
 mesa
 mesa-utils
-mhwd-cachyos
+chwd
 mkinitcpio
 mkinitcpio-archiso
 mkinitcpio-nfs-utils
