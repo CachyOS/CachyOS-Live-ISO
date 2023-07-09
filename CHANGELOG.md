@@ -1,3 +1,17 @@
+# 23.07
+
+**Features:**
+- CachyOS-Settings includes now "bpftune", which automatically tweaks the network settings depending on the usage
+- CachyOS-Qtile-Settings: Quality of Life changes, better icons, ...
+- Package updates: linux-cachyos 6.4.2, cachy-browser 115.0.1, mesa 23.1.3,
+
+**Bug-fixes:**
+- rate-mirrors got fixed
+- chwd (Hardware Detection) got multiple fixes
+- fixed installation of nonfree drivers for hybrid setup in the installer
+- fixed Calamares freezes, which happened in some rare configurations, mainly VM
+- Slides: Slide 6 typo fix
+
 # 23.06
 
 **Bug-fixes:**
