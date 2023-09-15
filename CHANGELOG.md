@@ -1,3 +1,13 @@
+# 23.08
+
+**Features:**
+- Calamares synced with upstream
+- Package updates: linux-cachyos 6.4.10, nvidia-utils 535.98
+
+**Bug-fixes:**
+- Keyring got updated and works now correctly
+
+
 # 23.07
 
 **Features:**
