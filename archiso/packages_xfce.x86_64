@@ -103,7 +103,7 @@ irssi
 iw
 jfsutils
 kitty-terminfo
-kvantum-qt5
+kvantum
 less
 lftp
 libfido2
@@ -149,7 +149,7 @@ netctl
 network-manager-applet
 networkmanager
 networkmanager-openvpn
-networkmanager-qt
+networkmanager-qt5
 networkmanager-vpnc
 nfs-utils
 nilfs-utils
@@ -211,7 +211,7 @@ sg3_utils
 smartmontools
 snapper
 sof-firmware
-solid
+solid5
 spice-vdagent
 squashfs-tools
 sudo

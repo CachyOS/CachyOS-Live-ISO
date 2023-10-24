@@ -125,7 +125,7 @@ iwd
 jfsutils
 kitty-terminfo
 kpmcore
-kvantum-qt5
+kvantum
 less
 lftp
 lib32-wayland
@@ -222,7 +222,7 @@ sg3_utils
 smartmontools
 snapper
 sof-firmware
-solid
+solid5
 spice-vdagent
 squashfs-tools
 sudo

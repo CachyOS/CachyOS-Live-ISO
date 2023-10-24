@@ -88,7 +88,7 @@ iwd
 jfsutils
 kde-gtk-config
 kinit
-kio
+kio5
 kitty-terminfo
 konsole
 kpmcore
@@ -162,7 +162,7 @@ pipewire-alsa
 pipewire-jack
 pipewire-pulse
 plasma-desktop
-plasma-framework
+plasma-framework5
 plasma-integration
 plasma-nm
 plasma-pa
@@ -197,7 +197,7 @@ smartmontools
 smbclient
 snapper
 sof-firmware
-solid
+solid5
 spice-vdagent
 squashfs-tools
 sudo
