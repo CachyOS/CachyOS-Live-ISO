@@ -113,6 +113,7 @@ lightdm-webkit2-greeter
 linux-atm
 linux-cachyos
 linux-cachyos-headers
+linux-cachyos-nvidia
 linux-cachyos-zfs
 linux-firmware
 linux-firmware-marvell
@@ -155,7 +156,6 @@ noto-fonts
 nss-mdns
 ntfs-3g
 ntp
-nvidia-dkms
 nvidia-utils
 nvme-cli
 octopi

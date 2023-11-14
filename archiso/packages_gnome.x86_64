@@ -131,6 +131,7 @@ libxinerama
 linux-atm
 linux-cachyos
 linux-cachyos-headers
+linux-cachyos-nvidia
 linux-cachyos-zfs
 linux-firmware
 linux-firmware-marvell
@@ -169,7 +170,6 @@ noto-fonts-cjk
 nss-mdns
 ntfs-3g
 ntp
-nvidia-dkms
 nvidia-utils
 nvme-cli
 octopi
