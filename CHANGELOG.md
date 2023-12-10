@@ -1,3 +1,10 @@
+# 23.12
+
+**Bug-fixes:**
+- zfs: Add compatibility=grub to the pool options to ensure the compatibility
+- grub/xfs: Add a patch to grub to have compatibility with the new xfs bigtime default
+- netinstall: xdg-desktop-portal-hyprland instead of xdg-desktop-portal-hyprland-git
+
 # 23.11
 
 **Features:**
