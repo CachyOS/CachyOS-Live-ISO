@@ -17,17 +17,24 @@ Usage: buildiso [options]
 
 * Uses the same signature that normal repo and has no mirrors package to install.
 
-`sudo pacman -Syy`
+```bash
+sudo pacman -Syy
+```
 
 ## Install necessary packages
-`sudo pacman -S archiso mkinitcpio-archiso git squashfs-tools --needed`
+```bash
+sudo pacman -S archiso mkinitcpio-archiso git squashfs-tools --needed
+```
 
 Clone:\
-`git clone https://github.com/cachyos/cachyos-live-iso.git cachyos-archiso`
-
-`cd cachyos-archiso`
+```bash
+git clone https://github.com/cachyos/cachyos-live-iso.git cachyos-archiso
+cd cachyos-archiso
+```
 
 ## Build
-`sudo ./buildiso.sh -p kde -v`
+```bash
+sudo ./buildiso.sh -p kde -v
+```
 
 ## The iso appears at out folder
