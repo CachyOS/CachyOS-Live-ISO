@@ -78,6 +78,30 @@ DefaultSession=gnome-xorg.desktop
 EOF
 }
 
+generate_motd() {
+    cat << 'EOF' > ${src_dir}/archiso/airootfs/etc/motd
+This ISO is based on ArchLinux ISO modified to provide Installation Environment for [38;2;23;147;209mCachyOS[0m.
+https://cachyos.org
+
+CachyOS Archiso Sources:
+https://github.com/cachyos/cachyos-live-iso
+
+ArchLinux ISO Source:
+https://gitlab.archlinux.org/archlinux/archiso
+
+Calamares is used as GUI installer:
+https://github.com/calamares/calamares
+
+Live environment will start now and let you install [38;2;23;147;209mCachyOS[0m to disk.
+
+Getting help at the forum: https://forum.cachyos.org
+
+Welcome to your [38;2;23;147;209mCachyOS[0m!
+
+[41m [41m [41m [40m [44m [40m [41m [46m [45m [41m [46m [43m [41m [44m [45m [40m [44m [40m [41m [44m [41m [41m [46m [42m [41m [44m [43m [41m [45m [40m [40m [44m [40m [41m [44m [42m [41m [46m [44m [41m [46m [47m [0m
+EOF
+}
+
 fetch_cachyos_mirrorlist() {
     mkdir -p ${src_dir}/archiso/airootfs/etc/pacman.d
     local _mirrorlist_url="https://github.com/CachyOS/CachyOS-PKGBUILDS/raw/master/cachyos-mirrorlist/cachyos-mirrorlist"
@@ -99,6 +123,8 @@ prepare_profile(){
 
     # Fetch up-to-date version of CachyOS repo mirrorlist
     fetch_cachyos_mirrorlist
+
+    generate_motd
 
     rm -f ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
     if [ "$profile" == "kde" ]; then
