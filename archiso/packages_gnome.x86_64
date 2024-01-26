@@ -10,6 +10,7 @@ b43-fwcutter
 base
 base-devel
 bash-completion
+bcachefs-tools
 bind
 bind-tools
 bluez
@@ -36,6 +37,7 @@ cachyos-v4-mirrorlist
 cachyos-zsh-config
 cantarell-fonts
 capitaine-cursors
+chwd
 ckbcomp
 clonezilla
 cloud-init
@@ -121,9 +123,9 @@ jfsutils
 kitty-terminfo
 kpmcore
 kvantum
+ldns
 less
 lftp
-lib32-wayland
 libfido2
 libusb-compat
 libwnck3
@@ -146,7 +148,6 @@ mdadm
 memtest86+
 memtest86+-efi
 mesa
-chwd
 mkinitcpio
 mkinitcpio-archiso
 mkinitcpio-nfs-utils
@@ -159,8 +160,8 @@ nano-syntax-highlighting
 nautilus
 nbd
 ndisc6
-net-tools
 netctl
+net-tools
 networkmanager
 nfs-utils
 nilfs-utils
@@ -173,11 +174,11 @@ ntp
 nvidia-utils
 nvme-cli
 octopi
-open-iscsi
-open-vm-tools
 openconnect
 opendesktop-fonts
+open-iscsi
 openssh
+open-vm-tools
 openvpn
 os-prober
 parole
@@ -200,8 +201,8 @@ pv
 python
 python-defusedxml
 qemu-guest-agent
-qt5-xmlpatterns
 qt5ct
+qt5-xmlpatterns
 realtime-privileges
 refind
 reflector
@@ -246,8 +247,8 @@ wireless_tools
 wireplumber
 wpa_supplicant
 wvdial
-xdg-user-dirs-gtk
 xdg-desktop-portal-gnome
+xdg-user-dirs-gtk
 xdg-utils
 xed
 xf86-input-elographics

@@ -14,6 +14,7 @@ b43-fwcutter
 base
 base-devel
 bash-completion
+bcachefs-tools
 bind
 bind-tools
 bluez
@@ -42,6 +43,7 @@ cachyos-zsh-config
 cantarell-fonts
 capitaine-cursors
 char-white
+chwd
 ckbcomp
 clonezilla
 cloud-init
@@ -89,8 +91,8 @@ gst-libav
 gst-plugin-pipewire
 gst-plugins-bad
 gst-plugins-ugly
-gtk-engine-murrine
 gtk3
+gtk-engine-murrine
 hdparm
 hwdetect
 hwinfo
@@ -104,6 +106,7 @@ iw
 jfsutils
 kitty-terminfo
 kvantum
+ldns
 less
 lftp
 libfido2
@@ -133,7 +136,6 @@ meld
 memtest86+
 mesa
 mesa-utils
-chwd
 mkinitcpio
 mkinitcpio-archiso
 mkinitcpio-nfs-utils
@@ -145,10 +147,10 @@ nano-syntax-highlighting
 nbd
 ndisc6
 neofetch
-net-tools
 netctl
-network-manager-applet
+net-tools
 networkmanager
+network-manager-applet
 networkmanager-openvpn
 networkmanager-qt5
 networkmanager-vpnc
@@ -162,11 +164,11 @@ ntp
 nvidia-utils
 nvme-cli
 octopi
-open-iscsi
-open-vm-tools
 openconnect
 opendesktop-fonts
+open-iscsi
 openssh
+open-vm-tools
 openvpn
 os-prober
 parole
@@ -193,8 +195,8 @@ pv
 python
 python-defusedxml
 qemu-guest-agent
-qt5-xmlpatterns
 qt5ct
+qt5-xmlpatterns
 realtime-privileges
 refind
 reflector

@@ -7,6 +7,7 @@ avahi
 b43-fwcutter
 base
 bash-completion
+bcachefs-tools
 bind
 boost-libs
 breeze-gtk
@@ -35,6 +36,7 @@ cachyos-zsh-config
 cantarell-fonts
 capitaine-cursors
 char-white
+chwd
 ckbcomp
 clonezilla
 cloud-init
@@ -93,6 +95,7 @@ kitty-terminfo
 konsole
 kpmcore
 kscreen
+ldns
 less
 lftp
 libfido2
@@ -118,7 +121,6 @@ mdadm
 memtest86+
 memtest86+-efi
 mesa
-chwd
 micro
 mkinitcpio
 mkinitcpio-archiso
@@ -144,11 +146,11 @@ ntp
 nvidia-utils
 nvme-cli
 octopi
-open-iscsi
-open-vm-tools
 openconnect
 opendesktop-fonts
+open-iscsi
 openssh
+open-vm-tools
 openvpn
 os-prober
 partclone
