@@ -21,20 +21,20 @@ Usage: buildiso [options]
 sudo pacman -Syy
 ```
 
-## Install necessary packages
+### Install necessary packages:
 ```bash
 sudo pacman -S archiso mkinitcpio-archiso git squashfs-tools --needed
 ```
 
-Clone:\
+### Clone:
 ```bash
 git clone https://github.com/cachyos/cachyos-live-iso.git cachyos-archiso
 cd cachyos-archiso
 ```
 
-## Build
+### Build
 ```bash
 sudo ./buildiso.sh -p kde -v
 ```
 
-## The iso appears at out folder
+As the result iso appears at the `out` folder
