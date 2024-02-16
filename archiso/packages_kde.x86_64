@@ -237,7 +237,6 @@ xf86-input-synaptics
 xf86-input-vmmouse
 xf86-input-void
 xf86-video-fbdev
-xf86-video-openchrome
 xf86-video-qxl
 xf86-video-vmware
 xfsprogs
