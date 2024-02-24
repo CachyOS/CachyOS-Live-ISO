@@ -1,3 +1,13 @@
+# 24.02
+
+**Features:**
+- refind: Change layout from /boot/efi to /boot to provide more options of filesystems and encryption
+- Live-ISO: Cleanup and Sync the Live-ISO
+- Launch Installer: Add recommendation for the online installation
+- shell-configs: Add option to disable fastfetch when starting the terminal and add an "update" alias
+- netinstall: Add phonon-qt5-vlc to kde
+- Package Updates: linux-cachyos 6.7.5, mesa 23.3.5, gcc 13.2.1-12, glibc 2.39, mesa 24.0.1, nvidia 550.54.14
+
 # 23.12
 
 **Bug-fixes:**
