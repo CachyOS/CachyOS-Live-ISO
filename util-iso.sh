@@ -114,6 +114,20 @@ change_grub_version() {
     sed -i "s/CACHYOS_VERSION=\".*\"/CACHYOS_VERSION=\"${_version}\"/" ${src_dir}/archiso/grub/grub.cfg
 }
 
+generate_environment() {
+    local _profile="$1"
+    if [ "$_profile" == "kde" ]; then
+        cat << 'EOF' > ${src_dir}/archiso/airootfs/etc/environment
+ZPOOL_VDEV_NAME_PATH=1
+EOF
+    else
+        cat << 'EOF' > ${src_dir}/archiso/airootfs/etc/environment
+QT_QPA_PLATFORMTHEME=qt5ct
+ZPOOL_VDEV_NAME_PATH=1
+EOF
+    fi
+}
+
 prepare_profile(){
     profile=$1
 
@@ -149,6 +163,8 @@ prepare_profile(){
     else
         die "Unknown profile: [%s]" "${profile}"
     fi
+
+    generate_environment "${profile}"
 
     iso_file=$(gen_iso_fn).iso
 }

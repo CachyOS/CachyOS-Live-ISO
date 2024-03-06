@@ -9,7 +9,6 @@ base
 bash-completion
 bcachefs-tools
 bind
-boost-libs
 breeze-gtk
 brltty
 broadcom-wl-dkms
@@ -90,7 +89,7 @@ iwd
 jfsutils
 kde-gtk-config
 kinit
-kio5
+kio
 kitty-terminfo
 konsole
 kpmcore
@@ -164,14 +163,13 @@ pipewire-alsa
 pipewire-jack
 pipewire-pulse
 plasma-desktop
-plasma-framework5
+libplasma
 plasma-integration
 plasma-nm
 plasma-pa
 plasma-workspace
 polkit
 polkit-kde-agent
-polkit-qt5
 poppler-glib
 power-profiles-daemon
 ppp
@@ -181,7 +179,6 @@ pv
 python
 python-defusedxml
 qemu-guest-agent
-qt5-xmlpatterns
 realtime-privileges
 refind
 reflector
@@ -199,7 +196,7 @@ smartmontools
 smbclient
 snapper
 sof-firmware
-solid5
+solid
 spice-vdagent
 squashfs-tools
 sudo
