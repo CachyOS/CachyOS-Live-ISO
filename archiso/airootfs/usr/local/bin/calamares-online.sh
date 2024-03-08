@@ -60,22 +60,22 @@ Main() {
     if [[ "${_exitcode}" -eq 2 ]]; then
         BOOTLOADER="GRUB"
         echo "USING GRUB!"
-        yes | sudo pacman -R cachyos-calamares-systemd
-        yes | sudo pacman -R cachyos-calamares-grub
-        yes | sudo pacman -R cachyos-calamares-refind
-        yes | sudo pacman -Sy cachyos-calamares-grub
+        yes | sudo pacman -R cachyos-calamares-qt6-systemd
+        yes | sudo pacman -R cachyos-calamares-qt6-grub
+        yes | sudo pacman -R cachyos-calamares-qt6-refind
+        yes | sudo pacman -Sy cachyos-calamares-qt6-grub
     elif [[ "${_exitcode}" -eq 3 ]]; then
         BOOTLOADER="SYSTEMD-BOOT"
         echo "USING SYSTEMD-BOOT!"
-        yes | sudo pacman -R cachyos-calamares-grub
-        yes | sudo pacman -R cachyos-calamares-refind
-        yes | sudo pacman -Sy cachyos-calamares-systemd
+        yes | sudo pacman -R cachyos-calamares-qt6-grub
+        yes | sudo pacman -R cachyos-calamares-qt6-refind
+        yes | sudo pacman -Sy cachyos-calamares-qt6-systemd
     elif [[ "${_exitcode}" -eq 4 ]]; then
         BOOTLOADER="REFIND"
         echo "USING REFIND!"
-        yes | sudo pacman -R cachyos-calamares-grub
-        yes | sudo pacman -R cachyos-calamares-systemd
-        yes | sudo pacman -Sy cachyos-calamares-refind
+        yes | sudo pacman -R cachyos-calamares-qt6-grub
+        yes | sudo pacman -R cachyos-calamares-qt6-systemd
+        yes | sudo pacman -Sy cachyos-calamares-qt6-refind
     else
         exit
     fi
