@@ -1,3 +1,19 @@
+# 24.03
+
+**Features:**
+- ISO: Plasma 6 is now shipped in the ISO and uses Wayland as default, GNOME ISO got dropped to avoid confusion about netinstall
+- Calamares: Rebased for QT6
+- refind: Add f2fs and zfs as option including luks2 encryption
+- mirrors: We provide now 2 new CDNs, one located in US via Digital Ocean and the other one via Cloudflare R2 in Europe
+- mirrorlist: Fetch the online installer directly from cdn to provide a faster delivery
+- initcpiocfg: Use the new microcode hook for early loading the ucode
+- bootloader: Dont load the microcode with the bootloader anymore
+
+**Bug-Fixes:**
+- pacstrap: Do not install config packages to provide the user a more clean selection of the installation
+- shellprocess_pacman: Also copy the ranked cachyos-v4-mirrorlists to the target
+
+
 # 24.02
 
 **Features:**
