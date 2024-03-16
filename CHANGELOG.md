@@ -1,12 +1,15 @@
 # 24.03.1
 
 **Features:**
-- netinstall: Remove extra kernels in the netinstall selection to avoid confusion by users. Other kernels can be installed via the kernel manager
-- Package Updates: pacman 6.1, mesa 24.0.3, Plasma 6.0.2, llvm 17.0.6
+- netinstall: Remove extra kernels in the netinstall selection to avoid confusion by users. Other custom kernels can be installed via Kernel Manager
+- Kernel Manager: NVIDIA Modules are automatically installed when detected, Rebased for QT6, Fixed custom names when using LTO Option
+- Package Installer: Rebased on QT6, updated for pacman 6.1
+- Package Updates: linux-cachyos 6.8.1, pacman 6.1, mesa 24.0.3, Plasma 6.0.2, llvm 17.0.6
 
 **Bug-Fixes:**
 - NVIDIA: patched nvidia module to take the owner ship of nvidia.drm.modeset earlier to avoid issues on nvidia graphics
 - Refind: Don't install the lts kernel to avoid issues
+- shellprocess: Remove the liveusers directory completly
 
 
 # 24.03
