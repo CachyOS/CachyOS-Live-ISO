@@ -6,6 +6,7 @@
 - CachyOS-Deckify: Provide own variant for Handhelds (experimental)
 - ISO Bootloader: Use systemd-boot instead of grub
 - ISO: Add memtest to systemd-boot
+- ISO: Drop Offline Installation
 
 **Bug-Fixes:**
 - settings: Move hardware detection before netinstall
