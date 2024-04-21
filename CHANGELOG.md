@@ -1,3 +1,18 @@
+# 24.05
+
+**Features:**
+- Filesystems: Introduce bcachefs as filesystem choice
+- pacstrap: Add detection if bcachefs is used and install bcachefs-tools
+- CachyOS-Deckify: Provide own variant for Handhelds (experimental)
+- ISO Bootloader: Use systemd-boot instead of grub
+- ISO: Add memtest to systemd-boot
+
+**Bug-Fixes:**
+- settings: Move hardware detection before netinstall
+- pacstrap: Use btrfs-assistant instead of btrfs-assistant-git
+- plymouth: remove plymouth hook on zfs + encryption
+
+
 # 24.04
 
 **Features:**
