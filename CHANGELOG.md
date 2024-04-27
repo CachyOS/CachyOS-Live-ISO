@@ -7,11 +7,13 @@
 - ISO Bootloader: Use systemd-boot instead of grub
 - ISO: Add memtest to systemd-boot
 - ISO: Drop Offline Installation
+- Package Updates: Python 3.12, gcc 13.1.1, mesa 24.0.6, xwayland 24.1 branch, NVIDIA 550.78
 
 **Bug-Fixes:**
 - settings: Move hardware detection before netinstall
 - pacstrap: Use btrfs-assistant instead of btrfs-assistant-git
 - plymouth: remove plymouth hook on zfs + encryption
+- ISO: Add various config files for KDE, to avoid getting into Screenlocker at Installation Time
 
 
 # 24.04
