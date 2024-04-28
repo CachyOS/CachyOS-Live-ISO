@@ -14,7 +14,7 @@
 - pacstrap: Use btrfs-assistant instead of btrfs-assistant-git
 - plymouth: remove plymouth hook on zfs + encryption
 - ISO: Add various config files for KDE, to avoid getting into Screenlocker at Installation Time
-
+- services-systemd: Properly enable fstrim.timer
 
 # 24.04
 
