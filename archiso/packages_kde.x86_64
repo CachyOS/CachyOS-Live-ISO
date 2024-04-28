@@ -98,6 +98,7 @@ ldns
 less
 lftp
 libfido2
+libplasma
 libusb-compat
 libwnck3
 libxinerama
@@ -163,7 +164,6 @@ pipewire-alsa
 pipewire-jack
 pipewire-pulse
 plasma-desktop
-libplasma
 plasma-integration
 plasma-nm
 plasma-pa
