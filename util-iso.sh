@@ -120,6 +120,10 @@ generate_environment() {
         cat << 'EOF' > ${src_dir}/archiso/airootfs/etc/environment
 ZPOOL_VDEV_NAME_PATH=1
 EOF
+    elif [ "$_profile" == "deckify" ]; then
+        cat << 'EOF' > ${src_dir}/archiso/airootfs/etc/environment
+ZPOOL_VDEV_NAME_PATH=1
+EOF
     else
         cat << 'EOF' > ${src_dir}/archiso/airootfs/etc/environment
 QT_QPA_PLATFORMTHEME=qt5ct
@@ -150,6 +154,9 @@ prepare_profile(){
         generate_gdm_config
         cp ${src_dir}/archiso/packages_gnome.x86_64 ${src_dir}/archiso/packages.x86_64
         ln -sf /usr/lib/systemd/system/gdm.service ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
+    elif [ "$profile" == "deckify" ];  then
+        cp ${src_dir}/archiso/packages_deckify.x86_64 ${src_dir}/archiso/packages.x86_64
+        ln -sf /usr/lib/systemd/system/sddm.service ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
     elif [ "$profile" == "xfce" ]; then
         cp ${src_dir}/archiso/packages_xfce.x86_64 ${src_dir}/archiso/packages.x86_64
         ln -sf /usr/lib/systemd/system/lightdm.service ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
