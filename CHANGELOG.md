@@ -15,6 +15,8 @@
 - plymouth: remove plymouth hook on zfs + encryption
 - ISO: Add various config files for KDE, to avoid getting into Screenlocker at Installation Time
 - services-systemd: Properly enable fstrim.timer
+- umount: Disable emergency to avoid issues with the zfs installation
+- shellprocess: Cleanup leftovers from the offline installation
 
 # 24.04
 
