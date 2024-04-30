@@ -17,7 +17,7 @@ import ${src_dir}/util.sh
 work_dir="${src_dir}/build"
 outFolder="${src_dir}/out"
 
-build_list_iso="kde"
+build_list_iso="kde deckify"
 clean_first=true
 verbose=false
 
