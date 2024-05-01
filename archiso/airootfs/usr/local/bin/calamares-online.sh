@@ -37,31 +37,10 @@ Main() {
     esac
     mode=online  # keep this line for now!
 
-    local _efi_check_dir="/sys/firmware/efi"
-    local _exitcode=2 # by default use grub
-
-    local SYSTEM=""
-    local BOOTLOADER=""
-    if [ -d "${_efi_check_dir}" ]; then
-        SYSTEM="UEFI SYSTEM"
-
-        # Restrict bootloader selection to only UEFI systems
-        _exitcode=$(yad --width 300 --title "Bootloader" \
-    --image=gnome-shutdown \
-    --button="SYSTEMD-BOOT:2" \
-    --text "Choose Bootloader:" ; echo $?)
-    else
-        SYSTEM="BIOS/MBR SYSTEM"
-    fi
-
-
-    if [[ "${_exitcode}" -eq 2 ]]; then
-        BOOTLOADER="SYSTEMD-BOOT Deckify"
-        echo "USING SYSTEMD-BOOT-DECKIFY!"
-        yes | sudo pacman -R cachyos-calamares-qt6-deckify
-        yes | sudo pacman -Sy cachyos-calamares-qt6-deckify
-        exit
-    fi
+    BOOTLOADER="SYSTEMD-BOOT Deckify"
+    echo "USING SYSTEMD-BOOT-DECKIFY!"
+    yes | sudo pacman -R cachyos-calamares-qt6-deckify
+    yes | sudo pacman -Sy cachyos-calamares-qt6-deckify
 
     cat <<EOF > $log
 ########## $log by $progname
