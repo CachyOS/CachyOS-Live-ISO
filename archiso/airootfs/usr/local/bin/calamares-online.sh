@@ -51,6 +51,7 @@ Main() {
     --button="Grub:2" \
     --button="Systemd-boot:3" \
     --button="Refind:4" \
+    --button="AI SDK (NVIDIA):5" \
     --text "Choose Bootloader:" ; echo $?)
     else
         SYSTEM="BIOS/MBR SYSTEM"
@@ -76,6 +77,13 @@ Main() {
         yes | sudo pacman -R cachyos-calamares-qt6-next-grub
         yes | sudo pacman -R cachyos-calamares-qt6-next-systemd
         yes | sudo pacman -Sy cachyos-calamares-qt6-next-refind
+    elif [[ "${_exitcode}" -eq 5 ]]; then
+        BOOTLOADER="REFIND"
+        echo "USING REFIND!"
+        yes | sudo pacman -R cachyos-calamares-qt6-next-grub
+        yes | sudo pacman -R cachyos-calamares-qt6-next-systemd
+        yes | sudo pacman -R cachyos-calamares-qt6-next-refind
+        yes | sudo pacman -Sy cachyos-calamares-qt6-next-ai
     else
         exit
     fi
