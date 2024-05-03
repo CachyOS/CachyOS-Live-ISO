@@ -1,0 +1,14 @@
+[PlasmaTransientsConfig]
+PreloadWeight=0
+
+[PlasmaViews][Panel 2]
+floating=1
+
+[PlasmaViews][Panel 2][Defaults]
+thickness=44
+
+[PlasmaViews][Panel 23]
+floating=1
+
+[PlasmaViews][Panel 23][Defaults]
+thickness=30

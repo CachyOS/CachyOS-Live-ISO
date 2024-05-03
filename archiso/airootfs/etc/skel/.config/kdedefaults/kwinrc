@@ -1,0 +1,8 @@
+[org.kde.kdecoration2]
+NoPlugin=false
+library=org.kde.breeze
+theme=Breeze
+
+[Wayland]
+InputMethod[$e]=/usr/share/applications/com.github.maliit.keyboard.desktop
+VirtualKeyboardEnabled=true
