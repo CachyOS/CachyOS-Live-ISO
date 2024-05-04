@@ -1,4 +1,4 @@
-#!/bin/bash
+7#!/bin/bash
 
 FollowFile() {
     local tailfile="$1"
@@ -52,7 +52,7 @@ Main() {
     --button="Systemd-boot:3" \
     --button="Refind:4" \
     --button="AI SDK (NVIDIA):5" \
-    --text "Choose Bootloader:" ; echo $?)
+    --text "Choose Bootloader/Edition:" ; echo $?)
     else
         SYSTEM="BIOS/MBR SYSTEM"
     fi
