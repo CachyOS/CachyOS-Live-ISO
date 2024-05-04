@@ -1,4 +1,4 @@
-7#!/bin/bash
+#!/bin/bash
 
 FollowFile() {
     local tailfile="$1"
