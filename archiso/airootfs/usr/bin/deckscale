@@ -11,21 +11,19 @@ sleep 5
 # In the edid-decode commands eDP-1 is used in both live session and post-install, so we don't need to change it.
 	
 # Steam deck screen
-if [[ ! -z $(edid-decode /sys/class/drm/card1-eDP-1/edid | grep 'ANX7530 U') ]]; then
+if [[ ! -z $(edid-decode /sys/class/drm/card0-eDP-1/edid | grep 'ANX7530 U') ]]; then
 	/usr/bin/kscreen-doctor output.eDP.rotation.right
-	/usr/bin/kscreen-doctor output.eDP.scale.1
 	/usr/bin/kscreen-doctor output.eDP-1.rotation.right
-	/usr/bin/kscreen-doctor output.eDP-1.scale.1
 fi
 
 # GPD Win 4 screen
-if [[ ! -z $(edid-decode /sys/class/drm/card1-eDP-1/edid | grep 'G1618-04') ]]; then
+if [[ ! -z $(edid-decode /sys/class/drm/card0-eDP-1/edid | grep 'G1618-04') ]]; then
 	/usr/bin/kscreen-doctor output.eDP.scale.1.5
 	/usr/bin/kscreen-doctor output.eDP-1.scale.1.5
 fi
 
 # Lenovo Legion Go screen
-if [[ ! -z $(edid-decode /sys/class/drm/card1-eDP-1/edid | grep 'Go Display') ]]; then
+if [[ ! -z $(edid-decode /sys/class/drm/card0-eDP-1/edid | grep 'Go Display') ]]; then
         /usr/bin/kscreen-doctor output.eDP.rotation.left
         /usr/bin/kscreen-doctor output.eDP.scale.2
         /usr/bin/kscreen-doctor output.eDP-1.rotation.left
