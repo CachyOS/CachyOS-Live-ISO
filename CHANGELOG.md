@@ -4,9 +4,10 @@
 - Filesystems: Introduce bcachefs as filesystem choice
 - pacstrap: Add detection if bcachefs is used and install bcachefs-tools
 - CachyOS-AI-SDK: Introduce new install option to have a OOB NVIDIA SDK Setup
-- CachyOS-Deckify: Provide own variant for Handhelds (experimental)
+- CachyOS-Deckify: Provide own variant for Handhelds (experimental), see $LINKTOFORUM for more details
+- BTRFS: Preconfigure Snapper for snapshots
 - ISO: Drop Offline Installation
-- Package Updates: Python 3.12, gcc 13.1.1, mesa 24.0.6, xwayland 24.1 branch, NVIDIA 550.78
+- Package Updates: Python 3.12, gcc 14.1.1, mesa 24.0.6, xwayland 24.1rc2 , NVIDIA 550.78
 
 **Bug-Fixes:**
 - settings.conf: Move hardware detection before netinstall
