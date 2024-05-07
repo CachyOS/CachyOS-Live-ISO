@@ -51,7 +51,7 @@ Main() {
     --button="Grub:2" \
     --button="Systemd-boot:3" \
     --button="Refind:4" \
-    --text "Choose Bootloader/Edition:" ; echo $?)
+    --text "Choose Bootloader:" ; echo $?)
     else
         SYSTEM="BIOS/MBR SYSTEM"
     fi
