@@ -78,8 +78,8 @@ Main() {
         yes | sudo pacman -R cachyos-calamares-qt6-next-systemd
         yes | sudo pacman -Sy cachyos-calamares-qt6-next-refind
     elif [[ "${_exitcode}" -eq 5 ]]; then
-        BOOTLOADER="REFIND"
-        echo "USING REFIND!"
+        BOOTLOADER="AI-SDK/Refind"
+        echo "USING AI SDK and Refind!"
         yes | sudo pacman -R cachyos-calamares-qt6-next-grub
         yes | sudo pacman -R cachyos-calamares-qt6-next-systemd
         yes | sudo pacman -R cachyos-calamares-qt6-next-refind
