@@ -1,19 +1,19 @@
 # 24.05
 
 **Features:**
-- Filesystems: Introduce bcachefs as filesystem choice
-- pacstrap: Add detection if bcachefs is used and install bcachefs-tools
-- CachyOS-AI-SDK: Introduce new install option to have a OOB NVIDIA SDK Setup
-- CachyOS-Deckify: Provide own variant for Handhelds (experimental), see $LINKTOFORUM for more details
-- BTRFS: Preconfigure Snapper for snapshots
-- ISO: Drop Offline Installation
+- Filesystems: Introduce Bcachefs as a filesystem option
+- pacstrap: Add detection if Bcachefs is used and install corresponding Bcachefs-tools
+- CachyOS-AI-SDK: Introduce new install option to provide a OOB NVIDIA SDK Setup
+- CachyOS-Deckify: Provide variant for Handhelds (experimental), see [here](https://discuss.cachyos.org/t/information-experimental-cachyos-deckify/203) for more details
+- BTRFS: Automatic Snapper for snapshots, can be installed from within the CachyOS hello app.
+- ISO: Drop Offline Installer
 - Package Updates: Python 3.12, gcc 14.1.1, mesa 24.0.6, xwayland 24.1rc2 , NVIDIA 550.78
 
 **Bug-Fixes:**
 - settings.conf: Move hardware detection before netinstall
 - pacstrap: Use btrfs-assistant instead of btrfs-assistant-git
 - plymouth: remove plymouth hook on zfs + encryption
-- ISO: Add various config files for KDE, to avoid getting into Screenlocker at Installation Time
+- ISO: Add various config files for KDE, to avoid getting screen locking during installation
 - services-systemd: Properly enable fstrim.timer
 - umount: Disable emergency to avoid issues with the zfs installation
 - shellprocess: Cleanup leftovers from the offline installation
