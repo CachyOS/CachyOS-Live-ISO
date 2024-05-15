@@ -7,25 +7,55 @@
 # We need to wait until the display is available before executing our changes
 sleep 5
 
-# In the kscreen-doctor commands eDP is used in USB live session but eDP-1 is used post-install, so we need to try both.
-# In the edid-decode commands eDP-1 is used in both live session and post-install, so we don't need to change it.
-	
-# Steam deck screen
-if [[ ! -z $(edid-decode /sys/class/drm/card0-eDP-1/edid | grep 'ANX7530 U') ]]; then
-	/usr/bin/kscreen-doctor output.eDP.rotation.right
-	/usr/bin/kscreen-doctor output.eDP-1.rotation.right
-fi
+scale=0
+rotation="none"
 
+#Find enabled eDP device.
+for p in /sys/class/drm/*eDP*/enabled; do 
+ if [[ $(cat $p) == "enabled" ]]; then
+        cardpath=${p%/enabled}
+        dp=${cardpath#*/card?-}
+        echo "Found first enabled eDP card. Using $cardpath"
+        #Break out of loop to only use first card found.
+        break
+ fi
+done
+
+#Check for specific devices
+edid=$(edid-decode $cardpath/edid)
+# Steam Deck
+if [[ ! -z $(grep 'ANX7530 U' <<< "$edid") ]]; then
+        scale=1
+        rotation="right"
+        echo "Steam Deck display found."
 # GPD Win 4 screen
-if [[ ! -z $(edid-decode /sys/class/drm/card0-eDP-1/edid | grep 'G1618-04') ]]; then
-	/usr/bin/kscreen-doctor output.eDP.scale.1.5
-	/usr/bin/kscreen-doctor output.eDP-1.scale.1.5
+elif [[ ! -z $(grep 'G1618-04' <<< "$edid") ]]; then
+        scale=1.5
+        echo "GPD Win 4 display found"
+# Lenovo Legion Go screen
+elif [[ ! -z $(grep 'Go Display' <<< "$edid") ]]; then
+        scale=2
+        rotation="left"
+        echo "Lenovo Legion Go display found."
+# ROG Ally
+elif [[ ! -z $(grep 'TL070FVXS01-0' <<< "$edid") ]]; then
+        scale=1.25
+        echo "ROG Ally display found"
+else
+        echo "No known display found."
 fi
 
-# Lenovo Legion Go screen
-if [[ ! -z $(edid-decode /sys/class/drm/card0-eDP-1/edid | grep 'Go Display') ]]; then
-        /usr/bin/kscreen-doctor output.eDP.rotation.left
-        /usr/bin/kscreen-doctor output.eDP.scale.2
-        /usr/bin/kscreen-doctor output.eDP-1.rotation.left
-        /usr/bin/kscreen-doctor output.eDP-1.scale.2
+# Run rotate command if a rotation was found
+if [[ $rotation != "none" ]]; then
+        /usr/bin/kscreen-doctor output.$dp.rotation.$rotation
+        echo "$rotation rotation applied."
+else
+        echo "No rotation applied."
+fi
+# Run scale command if a scale was found
+if (( $(echo "$scale 0" | awk '{print ($1 != $2)}') )); then
+        /usr/bin/kscreen-doctor output.$dp.scale.$scale
+        echo "$scale scale factor applied."
+else 
+        echo "No scaling applied."
 fi
