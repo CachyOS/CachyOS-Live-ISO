@@ -39,8 +39,8 @@ Main() {
 
     BOOTLOADER="SYSTEMD-BOOT Deckify"
     echo "USING SYSTEMD-BOOT-DECKIFY!"
-    yes | sudo pacman -R cachyos-calamares-qt6-next-deckify
-    yes | sudo pacman -Sy cachyos-calamares-qt6-next-deckify
+    yes | sudo pacman -R cachyos-calamares-qt6-deckify
+    yes | sudo pacman -Sy cachyos-calamares-qt6-deckify
 
     cat <<EOF > $log
 ########## $log by $progname
