@@ -53,6 +53,7 @@ dolphin
 dosfstools
 e2fsprogs
 edk2-shell
+edid-decode-git
 efibootmgr
 ethtool
 exfatprogs
