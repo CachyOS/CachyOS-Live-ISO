@@ -17,7 +17,7 @@ import ${src_dir}/util.sh
 work_dir="${src_dir}/build"
 outFolder="${src_dir}/out"
 
-build_list_iso="deckify"
+build_list_iso="handheld"
 clean_first=true
 verbose=false
 
