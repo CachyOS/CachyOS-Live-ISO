@@ -1,3 +1,12 @@
+# 24.06
+
+**Features:**
+- ISO: Switch to Microcode Hooks, this requires to use the latest ventoy release
+- ISO: Enable copytoram, this is not required anymore to disable, because we dont provide the offline installation anymore
+
+**Bug-Fixes:**
+
+
 # 24.05
 
 **Features:**
