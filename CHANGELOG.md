@@ -6,9 +6,12 @@
 - netinstall: Use ufw instead of firewalld
 - Calamares: Branding: Update Branding Slides
 - Calamares: Shellprocess: Move mirror ranking before installing keyring
+- chwd: Introduce handheld hardware detection
 
 **Bug-Fixes:**
 - calamares: umount: Enable emergency again
+- netinstall: Remove b43-fwcutter to be installed
+
 
 # 24.05
 
