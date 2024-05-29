@@ -104,10 +104,10 @@ libwnck3
 libxinerama
 lightly-git
 linux-atm
-linux-cachyos
-linux-cachyos-headers
-linux-cachyos-nvidia
-linux-cachyos-zfs
+linux-cachyos-deckify
+linux-cachyos-deckify-headers
+linux-cachyos-deckify-nvidia
+linux-cachyos-deckify-zfs
 linux-firmware
 linux-firmware-marvell
 lsb-release

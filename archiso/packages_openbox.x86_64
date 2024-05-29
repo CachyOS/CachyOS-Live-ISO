@@ -111,10 +111,10 @@ lightdm
 lightdm-gtk-greeter
 lightdm-webkit2-greeter
 linux-atm
-linux-cachyos
-linux-cachyos-headers
-linux-cachyos-nvidia
-linux-cachyos-zfs
+linux-cachyos-deckify
+linux-cachyos-deckify-headers
+linux-cachyos-deckify-nvidia
+linux-cachyos-deckify-zfs
 linux-firmware
 linux-firmware-marvell
 livecd-sounds
