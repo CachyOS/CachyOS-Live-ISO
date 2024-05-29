@@ -49,7 +49,7 @@ Main() {
         _exitcode=$(yad --width 300 --title "Bootloader" \
     --image=gnome-shutdown \
     --button="Grub:2" \
-    --button="Systemd-boot:3" \
+    --button="Systemd-boot(Default):3" \
     --button="Refind:4" \
     --button="AI SDK (NVIDIA):5" \
     --text "Choose Bootloader/Edition:" ; echo $?)
