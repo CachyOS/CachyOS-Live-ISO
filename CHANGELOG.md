@@ -1,17 +1,39 @@
 # 24.06
 
 **Features:**
+- chwd: Introduce handheld hardware detection
+- chwd: Introduce T2 MacBook support
+- Installation: Added MacBook T2 support
 - ISO: Switch to Microcode Hooks, this requires to use the latest ventoy release
 - ISO: Enable copytoram, this is not required anymore to disable, because we dont provide the offline installation anymore
 - netinstall: Use ufw instead of firewalld
 - Calamares: Branding: Update Branding Slides
 - Calamares: Shellprocess: Move mirror ranking before installing keyring
-- chwd: Introduce handheld hardware detection
+- Slides: Updated for latest changes
+- Package Updates: mesa 24.1.0, xwayland 24.1 , NVIDIA 555.42.02, Plasma 6.0.5
+
 
 **Bug-Fixes:**
 - calamares: umount: Enable emergency again
 - netinstall: Remove b43-fwcutter to be installed
+- netinstall: hyprland-git got replaced with hyprland
+- netinstall: linux-cachyos-lts got dropped from selection, to avoid issues with missing modules
 
+## Changes from CachyOS Handheld Experimental Release
+
+**Features:**
+- KDE Vapor Theme will be now used as default (SteamOS Theme)
+- BTRFS is now the default filesystem
+- linux-cachyos-deckify is now the default kernel
+- SDDM uses now Wayland
+- Enviroment Flag for HHD to reduce latency
+- Added Kernel Arguments to improve the Game Mode Switching behaviour
+- The username can be now edited
+- Hardware Detection does configure and install required packages, depending on the used device
+- Mallit Keyboard uses now Dark Mode
+- Powerbuttond from Valve is now used for proper sleeping
+- Shortcuts can be now added to steam
+- scx-scheds got updated to latest git commit and provides the latest enhancements for the LAVD Scheduler
 
 # 24.05
 
