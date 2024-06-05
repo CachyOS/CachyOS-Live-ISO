@@ -21,10 +21,10 @@ cachyos-hello
 cachyos-hooks
 cachyos-kde-settings
 cachyos-keyring
-cachyos-mirrorlist
 cachyos-rate-mirrors
 cachyos-settings
 cachyos-themes-sddm
+cachyos-mirrorlist
 cachyos-v3-mirrorlist
 cachyos-v4-mirrorlist
 chwd
@@ -52,11 +52,11 @@ gnu-netcat
 gpart
 gptfdisk
 grub
-grub-hook
 hyperv
 imwheel
 inetutils
 intel-ucode
+inxi
 irssi
 iw
 iwd
@@ -89,6 +89,7 @@ mesa
 micro
 mkinitcpio
 mkinitcpio-archiso
+mkinitcpio-nfs-utils
 mobile-broadband-provider-info
 modemmanager
 mtools
