@@ -3,6 +3,7 @@
 **Features:**
 - chwd: Introduce handheld hardware detection
 - chwd: Introduce T2 MacBook support
+- chwd: Add network driver detection
 - Installation: Added MacBook T2 support
 - ISO: Switch to Microcode Hooks, this requires to use the latest ventoy release
 - ISO: Enable copytoram, this is not required anymore to disable, because we dont provide the offline installation anymore
@@ -12,8 +13,7 @@
 - Calamares: Branding: Update Branding Slides
 - Calamares: Shellprocess: Move mirror ranking before installing keyring
 - Slides: Updated for latest changes
-- Package Updates: mesa 24.1.0, xwayland 24.1 , NVIDIA 555.42.02, Plasma 6.0.5
-
+- Package Updates: mesa 24.1.0, xwayland 24.1 , NVIDIA 555.52.04, Plasma 6.0.5
 
 **Bug-Fixes:**
 - calamares: umount: Enable emergency again
