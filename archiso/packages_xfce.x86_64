@@ -146,7 +146,6 @@ nano
 nano-syntax-highlighting
 nbd
 ndisc6
-neofetch
 netctl
 net-tools
 networkmanager
@@ -178,7 +177,6 @@ partimage
 paru
 pavucontrol
 pcsclite
-pcurses
 perl
 pipewire
 pipewire-alsa
