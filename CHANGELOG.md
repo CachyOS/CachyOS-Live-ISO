@@ -9,6 +9,7 @@
 - ISO: Switch to Microcode Hooks, this requires to use the latest ventoy release
 - ISO: Enable copytoram, this is not required anymore to disable, because we dont provide the offline installation anymore
 - ISO: Remove not required packages from Live ISO to reduce the size
+- filesystem: BTRFS is now the default selected filesystem
 - NVIDIA: Enable required services and options to have proper sleep. Existing users need to enable manually these services
 - netinstall: Use ufw instead of firewalld
 - Calamares: Branding: Update Branding Slides
