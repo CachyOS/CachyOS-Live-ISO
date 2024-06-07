@@ -5,6 +5,7 @@
 - chwd: Introduce T2 MacBook support
 - chwd: Add network driver detection
 - Installation: Added MacBook T2 support
+- ISO: Add cachy-chroot. This is a script, which helps the user to chroot into the system.
 - ISO: Switch to Microcode Hooks, this requires to use the latest ventoy release
 - ISO: Enable copytoram, this is not required anymore to disable, because we dont provide the offline installation anymore
 - ISO: Remove not required packages from Live ISO to reduce the size
@@ -17,6 +18,7 @@
 
 **Bug-Fixes:**
 - calamares: umount: Enable emergency again
+- Qtile: Multimedia Controls are now working correctly
 - netinstall: Remove b43-fwcutter to be installed
 - netinstall: hyprland-git got replaced with hyprland
 - netinstall: linux-cachyos-lts got dropped from selection, to avoid issues with missing modules
@@ -36,6 +38,8 @@
 - Powerbuttond from Valve is now used for proper sleeping
 - Shortcuts can be now added to steam
 - scx-scheds got updated to latest git commit and provides the latest enhancements for the LAVD Scheduler
+- Add automount to cachyos-handheld
+- CachyOS is now able to do Steam Deck BIOS updates on the Steam Deck
 
 # 24.05
 
