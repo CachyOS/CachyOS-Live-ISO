@@ -5,42 +5,38 @@
 - chwd: Introduce T2 MacBook support
 - chwd: Add network driver detection
 - Installation: Added MacBook T2 support
-- ISO: Add cachy-chroot. This is a script, which helps the user to chroot into the system.
-- ISO: Switch to Microcode Hooks, this requires to use the latest ventoy release
-- ISO: Enable copytoram, this is not required anymore to disable, because we dont provide the offline installation anymore
-- ISO: Remove not required packages from Live ISO to reduce the size
-- filesystem: BTRFS is now the default selected filesystem
-- NVIDIA: Enable required services and options to have proper sleep. Existing users need to enable manually these services
+- ISO: Add cachy-chroot. This is a script that helps the user to chroot into the system.
+- ISO: Switch to Microcode Hooks; this requires using the latest Ventoy release (1.0.98)
+- ISO: Enable copytoram; this no longer needs to be disabled because we don't provide the offline installation anymore
+- filesystem: BTRFS is now the default selected file system
 - netinstall: Use ufw instead of firewalld
-- Calamares: Branding: Update Branding Slides
-- Calamares: Shellprocess: Move mirror ranking before installing keyring
 - Slides: Updated for latest changes
-- Package Updates: mesa 24.1.0, xwayland 24.1 , NVIDIA 555.52.04, Plasma 6.0.5
+- Package Updates: linux-cachyos 6.9.3, mesa 24.1.1, xwayland 24.1, NVIDIA 555.52.04, Plasma 6.0.5
 
-**Bug-Fixes:**
-- calamares: umount: Enable emergency again
+**Bug Fixes:**
+- Calamares: umount: Enable emergency again
 - Qtile: Multimedia Controls are now working correctly
-- netinstall: Remove b43-fwcutter to be installed
-- netinstall: hyprland-git got replaced with hyprland
-- netinstall: linux-cachyos-lts got dropped from selection, to avoid issues with missing modules
+- NVIDIA: Enable required services and options for working sleep on Wayland
+- netinstall: Remove b43-fwcutter from installation
+- netinstall: Replace hyprland-git with hyprland
+- netinstall: Drop linux-cachyos-lts from selection to avoid issues with missing modules
+- Calamares: Shellprocess: Move mirror ranking before installing keyring
 
-## Changes from CachyOS Handheld Experimental Release
-
-**Features:**
-- KDE Vapor Theme will be now used as default (SteamOS Theme)
-- BTRFS is now the default filesystem
-- linux-cachyos-deckify is now the default kernel
-- SDDM uses now Wayland
-- Enviroment Flag for HHD to reduce latency
-- Added Kernel Arguments to improve the Game Mode Switching behaviour
-- The username can be now edited
-- Hardware Detection does configure and install required packages, depending on the used device
-- Mallit Keyboard uses now Dark Mode
-- Powerbuttond from Valve is now used for proper sleeping
-- Shortcuts can be now added to steam
-- scx-scheds got updated to latest git commit and provides the latest enhancements for the LAVD Scheduler
-- Add automount to cachyos-handheld
-- CachyOS is now able to do Steam Deck BIOS updates on the Steam Deck
+**Changelog from Experimental Handheld Release:**
+- Default to KDE Vapor Theme (SteamOS Theme)
+- Default file system: BTRFS
+- Default kernel: linux-cachyos-deckify
+- SDDM now uses Wayland
+- Environment Flag for HHD to reduce latency
+- Added Kernel Arguments to improve Game Mode Switching behavior
+- The username can now be edited
+- Hardware Detection configures and installs required packages depending on the device used
+- Mallit Keyboard now uses Dark Mode
+- Valve's Powerbuttond for proper sleeping
+- Shortcuts can now be added to Steam
+- Updated scx-scheds to latest git commit, providing the latest enhancements for the LAVD Scheduler
+- Added automount to cachyos-handheld
+- CachyOS can now perform Steam Deck BIOS updates on the Steam Deck
 
 # 24.05
 
