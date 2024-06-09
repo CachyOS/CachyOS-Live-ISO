@@ -115,6 +115,7 @@ openvpn
 os-prober
 partclone
 parted
+haveged
 partimage
 partitionmanager
 paru
