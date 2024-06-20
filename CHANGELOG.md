@@ -1,3 +1,15 @@
+# 24.07
+
+**Features:**
+- Repository: Introduce Zen 4 optimized repository, this will be used for Zen4 and Zen5 CPU's
+- ISO: Add check for Zen4/Zen5
+- chwd: Added GC support for AMD GPU's, this helps for detecting official ROCm supported GPUs
+- cachyos-settings: Replace uksmd with systemd's MemoryKSM - this will reduce the cputime used. uksmd is pretty intensive on a worse cpu's
+
+**Bug Fixes:**
+- ISO: Set copytoram to auto instead of yes
+
+
 # 24.06
 
 **Features:**
