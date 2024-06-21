@@ -12,6 +12,8 @@
 **Bug Fixes:**
 - ISO: Set copytoram to auto instead of yes
 - Launch Installer: Install the latest archlinux-keyring, before the installation starts to avoid issues, when fetching the archlinux-keyring in the chroot
+- Mirrors Ranking: Rank only Tier 1 Mirror's at installation time, to avoid issues
+- pacman.conf: Remove not used pacman repository
 
 # 24.06
 
