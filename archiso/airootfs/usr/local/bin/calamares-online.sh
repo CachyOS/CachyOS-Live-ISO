@@ -26,6 +26,12 @@ catch_chrooted_pacman_log() {
 }
 
 Main() {
+    # We are using this, because archlinux is signing the keyring often with a newly created keyring
+    # This results into a failed installation for the user.
+    # Installing archlinux-keyring fails due not being correctly signed
+    # Mitigate this by installing the latest archlinux-keyring on the ISO, before starting the installation
+    # The issue could also happen, when the installation does rank the mirrors and then a "faulty" mirror gets used
+    sudo pacman -Sy --noconfirm archlinux-keyring
     local progname
     progname="$(basename "$0")"
     local log=/home/liveuser/cachy-install.log
