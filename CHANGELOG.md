@@ -2,13 +2,16 @@
 
 **Features:**
 - Repository: Introduce Zen 4 optimized repository, this will be used for Zen4 and Zen5 CPU's
-- ISO: Add check for Zen4/Zen5
+- ISO: Add automatic architecture check for Zen4/Zen5 repository
 - chwd: Added GC support for AMD GPU's, this helps for detecting official ROCm supported GPUs
-- cachyos-settings: Replace uksmd with systemd's MemoryKSM - this will reduce the cputime used. uksmd is pretty intensive on a worse cpu's
+- cachyos-settings: Replace uksmd with systemd's MemoryKSM
+- ksmctl: Introduce tool to enable/disable KSM: ksmctl --enable
+- Kernel: For the "linux-cachyos" kernel is now a "linux-cachyos-dbg" package available, this contains an unstripped vmlinux for debugging purposes
+
 
 **Bug Fixes:**
 - ISO: Set copytoram to auto instead of yes
-
+- Launch Installer: Install the latest archlinux-keyring, before the installation starts to avoid issues, when fetching the archlinux-keyring in the chroot
 
 # 24.06
 
