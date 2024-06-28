@@ -57,7 +57,7 @@ Main() {
     --button="Grub:2" \
     --button="Systemd-boot(Default):3" \
     --button="Refind:4" \
-    --button="AI SDK (NVIDIA):5" \
+    --button="AI SDK / Refind:5" \
     --text "Choose Bootloader/Edition:" ; echo $?)
     else
         SYSTEM="BIOS/MBR SYSTEM"
