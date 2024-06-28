@@ -7,13 +7,16 @@
 - cachyos-settings: Replace uksmd with systemd's MemoryKSM
 - ksmctl: Introduce tool to enable/disable KSM: ksmctl --enable
 - Kernel: For the "linux-cachyos" kernel is now a "linux-cachyos-dbg" package available, this contains an unstripped vmlinux for debugging purposes
-
+- steam/proton: There is now a "game-performance" script, which can be added to steam's launch options
+- kernel: amd cpb boost is now available and the power-profiles-daemon is patched, if the "powersave" profile is set, it will disable the boost on amd cpus
+- kwin: Added backport for tearing, this has been tested. On NVIDIA it only works on native wayland applications
 
 **Bug Fixes:**
 - ISO: Set copytoram to auto instead of yes
 - Launch Installer: Install the latest archlinux-keyring, before the installation starts to avoid issues, when fetching the archlinux-keyring in the chroot
 - Mirrors Ranking: Rank only Tier 1 Mirror's at installation time, to avoid issues
 - pacman.conf: Remove not used pacman repository
+- cachy-chroot: Do not show .snapshot subvolumes
 
 # 24.06
 
