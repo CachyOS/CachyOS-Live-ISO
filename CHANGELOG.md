@@ -4,12 +4,15 @@
 - Repository: Introduce Zen 4 optimized repository, this will be used for Zen4 and Zen5 CPU's
 - ISO: Add automatic architecture check for Zen4/Zen5 repository
 - chwd: Added GC support for AMD GPU's, this helps for detecting official ROCm supported GPUs
-- cachyos-settings: Replace uksmd with systemd's MemoryKSM
 - ksmctl: Introduce tool to enable/disable KSM: ksmctl --enable
 - Kernel: For the "linux-cachyos" kernel is now a "linux-cachyos-dbg" package available, this contains an unstripped vmlinux for debugging purposes
 - steam/proton: There is now a "game-performance" script, which can be added to steam's launch options
 - kernel: amd cpb boost is now available and the power-profiles-daemon is patched, if the "powersave" profile is set, it will disable the boost on amd cpus
 - kwin: Added backport for tearing, this has been tested. On NVIDIA it only works on native wayland applications
+- netinstall: Cutefish has been dropped as installable Desktop Environment
+- Mirrors: Added Austria and China Mirror, the China Mirror is hosted by the TUNA University. This should help a lot of users from china
+- Package Updates: linux-cachyos 6.9.7, mesa 24.1.3, NVIDIA 555.58.02, Plasma 6.1.2
+
 
 **Bug Fixes:**
 - ISO: Set copytoram to auto instead of yes
