@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if pacman -Qs ufw > /dev/null ; then
+  ufw default deny incoming
+  ufw default allow outgoing
+  ufw enable
+fi

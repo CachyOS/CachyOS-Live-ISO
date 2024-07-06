@@ -7,8 +7,9 @@
 - chwd: Use libva-nvidia-driver on supported cards
 - ksmctl: Introduce tool to enable/disable KSM: ksmctl --enable
 - Kernel: For the "linux-cachyos" kernel is now a "linux-cachyos-dbg" package available, this contains an unstripped vmlinux for debugging purposes
-- steam/proton: There is now a "game-performance" script, which can be added to steam's launch options
 - kernel: amd cpb boost is now available and the power-profiles-daemon is patched, if the "powersave" profile is set, it will disable the boost on amd cpus
+- kernel-manager: Added support for managing sched-ext schedulers and getting information via GUI
+- steam/proton: There is now a "game-performance" script, which can be added to steam's launch options
 - power-profiles: On AMD Pstate supported CPUs the Linear frequeny is now set higher, this can improve latency and 1% lows
 - kwin: Added backport for tearing, this has been tested. On NVIDIA it only works on native wayland applications
 - netinstall: Cutefish has been dropped as installable Desktop Environment
