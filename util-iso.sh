@@ -55,29 +55,6 @@ trap_exit() {
     kill "-$sig" "$$"
 }
 
-generate_gdm_config() {
-    mkdir -p ${src_dir}/archiso/airootfs/etc/gdm
-    cat << 'EOF' > ${src_dir}/archiso/airootfs/etc/gdm/custom.conf
-# GDM configuration storage
-
-[daemon]
-AutomaticLoginEnable=True
-# Uncomment the line below to force the login screen to use Xorg
-WaylandEnable=false
-DefaultSession=gnome-xorg.desktop
-
-[security]
-
-[xdmcp]
-
-[chooser]
-
-[debug]
-# Uncomment the line below to turn on debugging
-#Enable=true
-EOF
-}
-
 generate_motd() {
     cat << 'EOF' > ${src_dir}/archiso/airootfs/etc/motd
 This ISO is based on ArchLinux ISO modified to provide Installation Environment for [38;2;23;147;209mCachyOS[0m.
@@ -94,7 +71,7 @@ https://github.com/calamares/calamares
 
 Live environment will start now and let you install [38;2;23;147;209mCachyOS[0m to disk.
 
-Getting help at the forum: https://forum.cachyos.org
+Getting help at the forum: https://discuss.cachyos.org
 
 Welcome to your [38;2;23;147;209mCachyOS[0m!
 
@@ -116,13 +93,8 @@ change_grub_version() {
 
 generate_environment() {
     local _profile="$1"
-    if [ "$_profile" == "kde" ]; then
+    if [ "$_profile" == "desktop" ]; then
         cat << 'EOF' > ${src_dir}/archiso/airootfs/etc/environment
-ZPOOL_VDEV_NAME_PATH=1
-EOF
-    else
-        cat << 'EOF' > ${src_dir}/archiso/airootfs/etc/environment
-QT_QPA_PLATFORMTHEME=qt5ct
 ZPOOL_VDEV_NAME_PATH=1
 EOF
     fi
@@ -141,25 +113,9 @@ prepare_profile(){
     generate_motd
 
     rm -f ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
-    if [ "$profile" == "kde" ]; then
-        cp ${src_dir}/archiso/packages_kde.x86_64 ${src_dir}/archiso/packages.x86_64
+    if [ "$profile" == "desktop" ]; then
+        cp ${src_dir}/archiso/packages_desktop.x86_64 ${src_dir}/archiso/packages.x86_64
         ln -sf /usr/lib/systemd/system/sddm.service ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
-    elif [ "$profile" == "gnome" ]; then
-        rm -f ${src_dir}/archiso/airootfs/etc/motd
-        rm -rf ${src_dir}/archiso/airootfs/etc/gdm
-        generate_gdm_config
-        cp ${src_dir}/archiso/packages_gnome.x86_64 ${src_dir}/archiso/packages.x86_64
-        ln -sf /usr/lib/systemd/system/gdm.service ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
-    elif [ "$profile" == "xfce" ]; then
-        cp ${src_dir}/archiso/packages_xfce.x86_64 ${src_dir}/archiso/packages.x86_64
-        ln -sf /usr/lib/systemd/system/lightdm.service ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
-    elif [ "$profile" == "openbox" ]; then
-        rm -f ${src_dir}/archiso/airootfs/etc/skel/.Xresources
-        cp ${src_dir}/archiso/packages_openbox.x86_64 ${src_dir}/archiso/packages.x86_64
-        ln -sf /usr/lib/systemd/system/lightdm.service ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
-    elif [ "$profile" == "wayfire" ]; then
-        cp ${src_dir}/archiso/packages_wayfire.x86_64 ${src_dir}/archiso/packages.x86_64
-        #ln -sf /usr/lib/systemd/system/lightdm.service ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
     else
         die "Unknown profile: [%s]" "${profile}"
     fi
