@@ -34,7 +34,7 @@ cd cachyos-archiso
 
 ### Build
 ```bash
-sudo ./buildiso.sh -p kde -v
+sudo ./buildiso.sh -p desktop -v
 ```
 
 As the result iso appears at the `out` folder
