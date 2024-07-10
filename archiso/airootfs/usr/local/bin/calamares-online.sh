@@ -33,7 +33,7 @@ Main() {
     # The issue could also happen, when the installation does rank the mirrors and then a "faulty" mirror gets used
     sudo pacman -Sy --noconfirm archlinux-keyring
     # Also populate the keys, before starting the Installer, to avoid above issue
-    sudo pacman-keyring --populate
+    sudo pacman-key --populate
 
     local progname
     progname="$(basename "$0")"
