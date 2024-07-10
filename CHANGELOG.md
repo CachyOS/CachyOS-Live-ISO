@@ -14,7 +14,8 @@
 - kwin: Added backport for tearing, this has been tested. On NVIDIA it only works on native wayland applications
 - netinstall: Cutefish has been dropped as installable Desktop Environment
 - Mirrors: Added Austria and China Mirror, the China Mirror is hosted by the TUNA University. This should help a lot of users from china
-- Package Updates: linux-cachyos 6.9.7, mesa 24.1.3, NVIDIA 555.58.02, Plasma 6.1.2
+- cachy-chroot: Now detects and automatically mounts other partitions based on the initial root partition selection
+- Package Updates: linux-cachyos 6.9.8, mesa 24.1.3, NVIDIA 555.58.02, Plasma 6.1.2
 
 
 **Bug Fixes:**
@@ -465,7 +466,3 @@ https://forum.cachyos.org/d/34-cachyos-gui-installer-stable-release
 Download can be found here:
 https://mirror.cachyos.org/ISO/kde/220522/
 https://sourceforge.net/projects/cachyos-arch/
-
-
-
-

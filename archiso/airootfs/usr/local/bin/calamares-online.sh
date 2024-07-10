@@ -32,6 +32,9 @@ Main() {
     # Mitigate this by installing the latest archlinux-keyring on the ISO, before starting the installation
     # The issue could also happen, when the installation does rank the mirrors and then a "faulty" mirror gets used
     sudo pacman -Sy --noconfirm archlinux-keyring
+    # Also populate the keys, before starting the Installer, to avoid above issue
+    sudo pacman-keyring --populate
+
     local progname
     progname="$(basename "$0")"
     local log=/home/liveuser/cachy-install.log
