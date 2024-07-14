@@ -50,6 +50,7 @@ f2fs-tools
 fatresize
 gnu-netcat
 gpart
+gparted
 gptfdisk
 grub
 hyperv
@@ -149,6 +150,7 @@ smartmontools
 smbclient
 sof-firmware
 spice-vdagent
+spectacle
 squashfs-tools
 sudo
 syslinux
