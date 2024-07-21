@@ -54,6 +54,7 @@ f2fs-tools
 fatresize
 gnu-netcat
 gpart
+gparted
 gpm
 gptfdisk
 grsync
@@ -177,6 +178,7 @@ smbclient
 sof-firmware
 solid
 spice-vdagent
+spectacle
 squashfs-tools
 steamdeck-firmware
 sudo
