@@ -1,3 +1,27 @@
+# 24.08
+
+**Features:**
+- chwd: NVIDIA uses now for supported cards the open module as default
+- mirrors: CDN77 sponsered CachyOS a Object Storage with a Cache World Wide. This will further improve massively connection for users
+- mirrors: CachyOS provides now an own archlinux mirror, which will be used as default at installation time
+- SecureBoot: Added script and Tutorian in the Wiki for easy support for secure-boot
+- kernel-manager: Add support for setting sched-ext flags to the sched-ext configuration
+- kernel-manager: Added option to build nvidia-open
+- Package Updates: linux-cachyos 6.10.3, mesa 24.1.5, Plasma 6.1.3
+
+**Bug Fixes:**
+- chwd: Make a determination of PRIME profile usage based on the device name
+- calamares: Refactor Keyring initalize
+- kernel-manager: Fixed support for building custom pkgbase with LTO kernels and modules enabled
+- ISO: replace radeon.modeset=1 with amdgpu.modeset=1 for modern GPU's
+- game-performance: Dont fail if the profile is not available
+
+**Changelog for Handheld Edition:**
+- device support: Added support for Ally X
+- packagekit: block packagekit installation to avoid issues with updating the system via discover
+- hook: Added pacman-hook to conflict with native compiled proton's to avoid issues
+- Updated jupiter-fan-control, steamdeck-dsp and updated steamdeck firmware
+
 # 24.07
 
 **Features:**
