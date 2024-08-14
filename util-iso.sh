@@ -100,6 +100,16 @@ EOF
     fi
 }
 
+modify_mkarchiso() {
+    if [ ! grep -q 'archlinux-keyring-wkd-sync.timer' /usr/bin/mkarchiso ]; then
+        msg "Patching mkarchiso with disabled arch keyrings timer..."
+
+        sudo sed 's/_run_once _make_customize_airootfs/_run_once _make_customize_airootfs\n\trm -f "${pacstrap_dir}\/usr\/lib\/systemd\/system\/timers.target.wants\/archlinux-keyring-wkd-sync.timer"\n/' -i /usr/bin/mkarchiso
+    else
+        msg "mkarchiso is already patched!"
+    fi
+}
+
 prepare_profile(){
     profile=$1
 
@@ -147,6 +157,9 @@ run_build() {
     cp -r archiso ${work_dir}/archiso
 
     msg "Start [Build ISO]"
+
+    # insert removal of archlinux keyrings timer on the ISO before pack
+    modify_mkarchiso
 
     [ -d "$outFolder/$_profile" ] || mkdir -p "$outFolder/$_profile"
     cd ${work_dir}/archiso/
