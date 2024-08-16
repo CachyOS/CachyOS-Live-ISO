@@ -8,13 +8,14 @@
 - Desktop: Added Cosmic Desktop Environment to the installation
 - SecureBoot: Added script and Tutorial in the Wiki for easy support for secure-boot
 - cachy-chroot: Added auto mount via fstab for easy chrooting
+- cachy-chroot: Added support for LUKS Encryption
 - kernel-manager: Add support for setting sched-ext flags to the sched-ext configuration
 - kernel-manager: Added option to build nvidia-open
-- Package Updates: linux-cachyos 6.10.5, mesa 24.1.5, Plasma 6.1.4, NVIDIA 560.31.02
+- Package Updates: linux-cachyos 6.10.5, mesa 24.2.0, Plasma 6.1.4, NVIDIA 560.31.02
 
 **Bug Fixes:**
 - chwd: Make a determination of PRIME profile usage based on the device name
-- chwd: Apply RTD3 Workaround only for supported cards. Applying this to MUX Laptop's causes issues with wayland sessions
+- chwd: Remove RTD3 Workaround due problematic on some setups
 - cachyos-rate-mirorrs: Do not rank mirrors, when on Live ISO
 - calamares: Refactor Keyring initalize
 - kernel-manager: Fixed support for building custom pkgbase with LTO kernels and modules enabled
