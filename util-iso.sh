@@ -101,7 +101,8 @@ EOF
 }
 
 modify_mkarchiso() {
-    if [ ! grep -q 'archlinux-keyring-wkd-sync.timer' /usr/bin/mkarchiso ]; then
+    local _is_hack_applied="$(grep -q 'archlinux-keyring-wkd-sync.timer' /usr/bin/mkarchiso; echo $?)"
+    if [ $_is_hack_applied -ne 0 ]; then
         msg "Patching mkarchiso with disabled arch keyrings timer..."
 
         sudo sed 's/_run_once _make_customize_airootfs/_run_once _make_customize_airootfs\n\trm -f "${pacstrap_dir}\/usr\/lib\/systemd\/system\/timers.target.wants\/archlinux-keyring-wkd-sync.timer"\n/' -i /usr/bin/mkarchiso
