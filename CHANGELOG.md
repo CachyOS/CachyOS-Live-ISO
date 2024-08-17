@@ -11,19 +11,22 @@
 - cachy-chroot: Implemented support for LUKS Encryption
 - kernel-manager: Added support for setting sched-ext flags in the sched-ext configuration
 - kernel-manager: Introduced option to build nvidia-open
+- kernel-manager: Added option to remember last used options in configure page
 - Package Updates: linux-cachyos 6.10.5, mesa 24.2.0, Plasma 6.1.4, NVIDIA 560.31.02
 
 **Bug Fixes:**
 - chwd: Improved PRIME profile detection based on device name
 - chwd: Removed RTD3 workaround due to issues on some setups
 - cachyos-rate-mirrors: Disabled mirror ranking when running on Live ISO
+- cachy-chroot: Fixes a crash when a partition didn't have a valid fstype or uuid (eg Microsoft Recovery Partition)
 - calamares: Refactored keyring initialization
 - kernel-manager: Fixed support for building custom pkgbase with LTO kernels and modules enabled
+- kernel-manager: Fixed password prompt delay
 - ISO: Replaced radeon.modeset=1 with amdgpu.modeset=1 for modern GPUs
 - game-performance: Prevented failure when profile is unavailable
 
 **Changelog for Handheld Edition:**
-- device support: Added support for Ally X, thanks to ChimeraOS and Bazzite
+- device support: Added support for Ally X, thanks to Luke Jones
 - libei: Implemented support for libei, replacing libextest
 - packagekit: Blocked packagekit installation to prevent issues with system updates via Discover
 - hook: Added pacman-hook to conflict with natively compiled Proton versions, avoiding potential issues
