@@ -43,6 +43,7 @@ dnsmasq
 dolphin
 dosfstools
 e2fsprogs
+edk2-shell
 efibootmgr
 ethtool
 exfatprogs
