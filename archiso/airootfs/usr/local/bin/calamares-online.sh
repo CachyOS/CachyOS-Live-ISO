@@ -35,6 +35,10 @@ Main() {
     # Also populate the keys, before starting the Installer, to avoid above issue
     sudo pacman-key --init
     sudo pacman-key --populate archlinux cachyos
+    # Also use timedatectl to sync the time with the hardware clock
+    # There has been a bunch of reports, that the keyring was created in the future
+    # Syncing appears to fix it
+    timedatectl set-ntp true
 
     local progname
     progname="$(basename "$0")"
