@@ -26,7 +26,7 @@ catch_chrooted_pacman_log() {
 }
 
 Main() {
-    # Remove current keyring first, to completle intiate it
+    # Remove current keyring first, to complete initiate it
     sudo rm -rf /etc/pacman.d/gnupg
     # We are using this, because archlinux is signing the keyring often with a newly created keyring
     # This results into a failed installation for the user.
