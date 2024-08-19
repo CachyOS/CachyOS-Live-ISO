@@ -11,7 +11,7 @@ $ ./buildiso.sh -h
 Usage: buildiso [options]
     -c                 Disable clean work dir
     -h                 This help
-    -p <profile>       Buildset or profile [default: kde]
+    -p <profile>       Buildset or profile [default: desktop]
     -v                 Verbose output to log file, show profile detail (-q)
 ~~~
 
