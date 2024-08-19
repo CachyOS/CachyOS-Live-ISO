@@ -11,7 +11,7 @@ $ ./buildiso.sh -h
 Usage: buildiso [options]
     -c                 Disable clean work dir
     -h                 This help
-    -p <profile>       Buildset or profile [default: kde]
+    -p <profile>       Buildset or profile [default: desktop]
     -v                 Verbose output to log file, show profile detail (-q)
 ~~~
 
@@ -23,7 +23,7 @@ sudo pacman -Syy
 
 ### Install necessary packages:
 ```bash
-sudo pacman -S archiso mkinitcpio-archiso git squashfs-tools --needed
+sudo pacman -S archiso mkinitcpio-archiso git squashfs-tools grub --needed
 ```
 
 ### Clone:
