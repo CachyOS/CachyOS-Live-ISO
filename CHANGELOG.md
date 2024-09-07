@@ -1,3 +1,22 @@
+# 24.09
+
+**Features:**
+- PGO: Optimized a bunch of packages with PGO, like LLVM, Clang, svt-av1 and nodejs. This yielded a 10% faster Clang compiler
+- zlib-ng: Is now used as replacement for zlib
+- cachyos-settings: Networkmanager uses now the systemd-resolved as backend, this helps with DNS Caching
+- gcc: Added fixes for the tuning of znver5
+- gcc: Cherry picked patches and flags from clearlinux
+- glibc: Added "evex" patches as well as cherry picks from clearlinux
+- wiki: The Wiki got many new additions and reworks
+- chwd: Simplified Device Handling
+- chwd: All profiles are now specifically designed for PCI devices
+
+**Bug Fixes:**
+- Launch-Installer: Added fixes to sync the hardware clock before starting the installation
+- keyring: Cleanup the keyring and recreate it before starting installation, this fixes rare keyring issues
+- sysctl: Coredumps has been enabled again
+- chwd: Removed `libva-nvidia-driver` from the PRIME profile to prevent potential conflicts and improve compatibility with software like Spectacle
+
 # 24.08
 
 **Features:**
