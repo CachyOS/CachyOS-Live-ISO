@@ -1,8 +1,10 @@
 # 24.09
 
 **Features:**
-- PGO: Optimized a bunch of packages with PGO, like LLVM, Clang, svt-av1 and nodejs. This yielded a 10% faster Clang compiler
-- zlib-ng: Is now used as replacement for zlib
+- Packages: Optimized a bunch of packages with PGO, like LLVM, Clang, svt-av1 and nodejs. This yielded for example 10% faster Clang compiler
+- Repository: The repository is now more often synced and updated, this means there will be even less delay. The sync has been decreased from every 3 hours to every hour.
+- zlib-ng: is now used as replacement for zlib
+- sddm: On the KDE Installation sddm will now default to wayland as compositor. # Provide Migration changes in release post
 - cachyos-settings: Networkmanager uses now the systemd-resolved as backend, this helps with DNS Caching
 - gcc: Added fixes for the tuning of znver5
 - gcc: Cherry picked patches and flags from clearlinux
