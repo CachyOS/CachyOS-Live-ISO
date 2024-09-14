@@ -18,6 +18,7 @@
 - keyring: Cleanup the keyring and recreate it before starting installation, this fixes rare keyring issues
 - sysctl: Coredumps has been enabled again
 - chwd: Removed `libva-nvidia-driver` from the PRIME profile to prevent potential conflicts and improve compatibility with software like Spectacle
+- cachyos-settings: Added workaround for Gnome Wayland crashes
 
 # 24.08
 
