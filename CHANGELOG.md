@@ -3,9 +3,11 @@
 **Features:**
 - Packages: Optimized a bunch of packages with PGO, like LLVM, Clang, svt-av1 and nodejs. This yielded for example 10% faster Clang compiler
 - Repository: The repository is now more often synced and updated, this means there will be even less delay. The sync has been decreased from every 3 hours to every hour.
+- repository: Starting from 27.09.2024 packages compiled with -fpic will automatically enable -fno-semantic-interposition. This can provide a performance improvement for many packages.
 - zlib-ng: is now used as replacement for zlib
 - sddm: On the KDE Installation sddm will now default to wayland as compositor. # Provide Migration changes in release post
 - cachyos-settings: Networkmanager uses now the systemd-resolved as backend, this helps with DNS Caching
+- cachyos-settings: Use as timesync server time.google.com to avoid issues with timesync on some setups
 - gcc: Added fixes for the tuning of znver5
 - gcc: Cherry picked patches and flags from clearlinux
 - glibc: Added "evex" patches as well as cherry picks from clearlinux
@@ -15,6 +17,7 @@
 
 **Bug Fixes:**
 - Launch-Installer: Added fixes to sync the hardware clock before starting the installation
+- calamares: Added fix for umounting the filesystem after installation
 - keyring: Cleanup the keyring and recreate it before starting installation, this fixes rare keyring issues
 - sysctl: Coredumps has been enabled again
 - chwd: Removed `libva-nvidia-driver` from the PRIME profile to prevent potential conflicts and improve compatibility with software like Spectacle
