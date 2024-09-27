@@ -1,27 +1,28 @@
 # 24.09
 
 **Features:**
-- Packages: Optimized a bunch of packages with PGO, like LLVM, Clang, svt-av1 and nodejs. This yielded for example 10% faster Clang compiler
-- Repository: The repository is now more often synced and updated, this means there will be even less delay. The sync has been decreased from every 3 hours to every hour.
-- repository: Starting from 27.09.2024 packages compiled with -fpic will automatically enable -fno-semantic-interposition. This can provide a performance improvement for many packages.
-- zlib-ng: is now used as replacement for zlib
-- sddm: On the KDE Installation sddm will now default to wayland as compositor. # Provide Migration changes in release post
-- cachyos-settings: Networkmanager uses now the systemd-resolved as backend, this helps with DNS Caching
-- cachyos-settings: Use as timesync server time.google.com to avoid issues with timesync on some setups
+- Packages: Optimized a bunch of packages with PGO, like LLVM, Clang, svt-av1 and nodejs. This yielded, for example, a 10% faster Clang compiler
+- Repository: The repository is now synced and updated more frequently, meaning there will be even less delay. The sync interval has been decreased from every 3 hours to every hour.
+- Repository: Starting from 27.09.2024, packages compiled with -fpic will automatically enable -fno-semantic-interposition. This can provide a performance improvement for many packages.
+- zlib-ng: Is now used as a replacement for zlib
+- sddm: On the KDE Installation, sddm will now default to Wayland as the compositor. # Provide Migration changes in release post
+- cachyos-settings: NetworkManager now uses systemd-resolved as the backend, which helps with DNS caching
+- cachyos-settings: Use time.google.com as the timesync server to avoid issues with timesync on some setups
 - gcc: Added fixes for the tuning of znver5
-- gcc: Cherry picked patches and flags from clearlinux
-- glibc: Added "evex" patches as well as cherry picks from clearlinux
-- wiki: The Wiki got many new additions and reworks
-- chwd: Simplified Device Handling
+- gcc: Cherry-picked patches and flags from Clear Linux
+- glibc: Added "evex" patches as well as cherry-picks from Clear Linux
+- wiki: The Wiki received many new additions and reworks
+- chwd: Simplified device handling
 - chwd: All profiles are now specifically designed for PCI devices
+- Package Updates: linux-cachyos 6.11.0, mesa 24.2.3, Plasma 6.1.5, NVIDIA 560.35.03
 
 **Bug Fixes:**
 - Launch-Installer: Added fixes to sync the hardware clock before starting the installation
-- calamares: Added fix for umounting the filesystem after installation
-- keyring: Cleanup the keyring and recreate it before starting installation, this fixes rare keyring issues
-- sysctl: Coredumps has been enabled again
+- calamares: Added fix for unmounting the filesystem after installation
+- keyring: Clean up the keyring and recreate it before starting installation; this fixes rare keyring issues
+- sysctl: Core dumps have been enabled again
 - chwd: Removed `libva-nvidia-driver` from the PRIME profile to prevent potential conflicts and improve compatibility with software like Spectacle
-- cachyos-settings: Added workaround for Gnome Wayland crashes
+- cachyos-settings: Added workaround for GNOME Wayland crashes
 
 # 24.08
 
