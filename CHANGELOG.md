@@ -1,7 +1,7 @@
 # 24.09
 
 **Features:**
-- Packages: Optimized a bunch of packages with PGO, like LLVM, Clang, svt-av1 and nodejs. This yielded, for example, a 10% faster Clang compiler
+- Packages: Optimized a bunch of packages with PGO, like LLVM, Clang, svt-av1, and nodejs. This yielded, for example, a 10% faster Clang compiler
 - Repository: The repository is now synced and updated more frequently, meaning there will be even less delay. The sync interval has been decreased from every 3 hours to every hour.
 - Repository: Starting from 27.09.2024, packages compiled with -fpic will automatically enable -fno-semantic-interposition. This can provide a performance improvement for many packages.
 - zlib-ng: Is now used as a replacement for zlib
@@ -14,7 +14,8 @@
 - wiki: The Wiki received many new additions and reworks
 - chwd: Simplified device handling
 - chwd: All profiles are now specifically designed for PCI devices
-- Package Updates: linux-cachyos 6.11.0, mesa 24.2.3, Plasma 6.1.5, NVIDIA 560.35.03
+- chwd: Add --autoconfigure to automatically handle the driver installation
+- Package Updates: linux-cachyos 6.11.0, mesa 24.2.3, Plasma 6.1.5, NVIDIA 560.35.03, calamares 3.3.10, QT 6.7.3
 
 **Bug Fixes:**
 - Launch-Installer: Added fixes to sync the hardware clock before starting the installation
@@ -23,6 +24,11 @@
 - sysctl: Core dumps have been enabled again
 - chwd: Removed `libva-nvidia-driver` from the PRIME profile to prevent potential conflicts and improve compatibility with software like Spectacle
 - cachyos-settings: Added workaround for GNOME Wayland crashes
+- cachyos-fish/zsh-config: Dropped wayland specific quirks
+
+**Changelog for Handheld Edition:**
+- Ally/Ally X: HHD got replaced with inputplumber, since hhd does not use the kernel driver for it correctly, which results in issues.
+- Handheld related packages updated
 
 # 24.08
 
