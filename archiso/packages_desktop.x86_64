@@ -48,7 +48,6 @@ efibootmgr
 ethtool
 exfatprogs
 f2fs-tools
-fakeroot
 fatresize
 gnu-netcat
 gpart
@@ -197,9 +196,7 @@ xf86-video-vmware
 xfsprogs
 xl2tpd
 xorg-server
-xorg-xdpyinfo
 xorg-xinit
-xorg-xinput
 xorg-xkill
 xorg-xrandr
 xorg-xrdb
