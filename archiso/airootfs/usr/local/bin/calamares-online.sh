@@ -45,13 +45,7 @@ Main() {
     local progname
     progname="$(basename "$0")"
     local log=/home/liveuser/cachy-install.log
-    local mode=""
-
-    case "$progname" in
-        calamares-online.sh) mode=online ;;
-        calamares-offline.sh) mode=offline ;;
-    esac
-    mode=online  # keep this line for now!
+    local mode=online  # TODO: keep this line for now
 
     local _efi_check_dir="/sys/firmware/efi"
     local _exitcode=2 # by default use grub
@@ -73,6 +67,8 @@ Main() {
         SYSTEM="BIOS/MBR SYSTEM"
     fi
 
+    local ISO_VERSION="$(cat /etc/version-tag)"
+    echo "USING ISO VERSION: ${ISO_VERSION}"
 
     if [[ "${_exitcode}" -eq 2 ]]; then
         BOOTLOADER="GRUB"
@@ -107,7 +103,7 @@ Main() {
     cat <<EOF > $log
 ########## $log by $progname
 ########## Started (UTC): $(date -u "+%x %X")
-########## Install mode: $mode
+########## ISO version: $ISO_VERSION
 ########## System: $SYSTEM
 ########## Bootloader: $BOOTLOADER
 EOF
@@ -117,7 +113,7 @@ EOF
     sudo -E  dbus-launch calamares -D6 >> $log &
 
     # comment out the following line if pacman.log is not needed:
-    [ "$mode" = "online" ] && catch_chrooted_pacman_log "$progname"
+    catch_chrooted_pacman_log "$progname"
 }
 
 Main "$@"
