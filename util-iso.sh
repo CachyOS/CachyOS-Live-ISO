@@ -105,6 +105,14 @@ generate_edition_tag() {
     echo "${_edition}" > ${src_dir}/archiso/airootfs/etc/edition-tag
 }
 
+generate_version_tag() {
+    local _profile="$1"
+    local _version="$2"
+    if [ "$_profile" == "handheld" ]; then
+        echo "${_version}" > ${src_dir}/archiso/airootfs/etc/version-tag
+    fi
+}
+
 modify_mkarchiso() {
     local _is_hack_applied="$(grep -q 'archlinux-keyring-wkd-sync.timer' /usr/bin/mkarchiso; echo $?)"
     if [ $_is_hack_applied -ne 0 ]; then
@@ -121,7 +129,8 @@ prepare_profile(){
 
     info "Profile: [%s]" "${profile}"
 
-    change_grub_version "$(date +%y%m%d)"
+    local _iso_version="$(date +%y%m%d)"
+    change_grub_version "${_iso_version}"
 
     # Fetch up-to-date version of CachyOS repo mirrorlist
     fetch_cachyos_mirrorlist
@@ -140,6 +149,9 @@ prepare_profile(){
 
     # Write out edition to be able to check ISO edition
     generate_edition_tag "${profile}"
+
+    # Write out version to be able to check ISO version
+    generate_version_tag "${profile}" "${_iso_version}"
 
     iso_file=$(gen_iso_fn).iso
 }
