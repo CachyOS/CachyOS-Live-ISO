@@ -100,6 +100,9 @@ Main() {
         exit
     fi
 
+    # Get Hardware Informations
+    inxi -F > $log
+
     cat <<EOF > $log
 ########## $log by $progname
 ########## Started (UTC): $(date -u "+%x %X")
