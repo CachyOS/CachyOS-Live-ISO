@@ -103,7 +103,7 @@ Main() {
     # Get Hardware Informations
     inxi -F > $log
 
-    cat <<EOF > $log
+    cat <<EOF >> $log
 ########## $log by $progname
 ########## Started (UTC): $(date -u "+%x %X")
 ########## ISO version: $ISO_VERSION
