@@ -108,6 +108,14 @@ generate_version_tag() {
     fi
 }
 
+generate_edition_tag() {
+    local _profile="$1"
+    local _edition="$2"
+    if [ "$_profile" == "desktop" ]; then
+        echo "${_edition}" > ${src_dir}/archiso/airootfs/etc/edition-tag
+    fi
+}
+
 modify_mkarchiso() {
     local _is_hack_applied="$(grep -q 'archlinux-keyring-wkd-sync.timer' /usr/bin/mkarchiso; echo $?)"
     if [ $_is_hack_applied -ne 0 ]; then
@@ -144,6 +152,9 @@ prepare_profile(){
 
     # Write out version to be able to check ISO version
     generate_version_tag "${profile}" "${_iso_version}"
+
+    # Write out edition to be able to check ISO edition
+    generate_edition_tag "${profile}" "desktop"
 
     iso_file=$(gen_iso_fn).iso
 }
