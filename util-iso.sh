@@ -179,7 +179,7 @@ prepare_profile(){
     generate_environment "${profile}"
 
     # Write out edition to be able to check ISO edition
-    generate_edition_tag "handheld"
+    generate_edition_tag "${profile}"
 
     iso_file=$(gen_iso_fn).iso
 }
