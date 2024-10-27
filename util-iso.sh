@@ -109,11 +109,8 @@ generate_version_tag() {
 }
 
 generate_edition_tag() {
-    local _profile="$1"
-    local _edition="$2"
-    if [ "$_profile" == "desktop" ]; then
-        echo "${_edition}" > ${src_dir}/archiso/airootfs/etc/edition-tag
-    fi
+    local _edition="$1"
+    echo "${_edition}" > ${src_dir}/archiso/airootfs/etc/edition-tag
 }
 
 modify_mkarchiso() {
@@ -154,7 +151,7 @@ prepare_profile(){
     generate_version_tag "${profile}" "${_iso_version}"
 
     # Write out edition to be able to check ISO edition
-    generate_edition_tag "${profile}" "desktop"
+    generate_edition_tag "${profile}"
 
     iso_file=$(gen_iso_fn).iso
 }
