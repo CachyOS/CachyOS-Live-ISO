@@ -132,6 +132,11 @@ EOF
     fi
 }
 
+generate_edition_tag() {
+    local _edition="$1"
+    echo "${_edition}" > ${src_dir}/archiso/airootfs/etc/edition-tag
+}
+
 prepare_profile(){
     profile=$1
 
@@ -172,6 +177,9 @@ prepare_profile(){
     fi
 
     generate_environment "${profile}"
+
+    # Write out edition to be able to check ISO edition
+    generate_edition_tag "handheld"
 
     iso_file=$(gen_iso_fn).iso
 }
