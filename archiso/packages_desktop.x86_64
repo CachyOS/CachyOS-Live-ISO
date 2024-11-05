@@ -50,7 +50,6 @@ exfatprogs
 f2fs-tools
 fakeroot
 fatresize
-gnu-netcat
 gpart
 gparted
 gptfdisk
