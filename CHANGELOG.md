@@ -13,6 +13,7 @@
 - ISO: Added check, if the user is using the latest ISO, if not warn them
 
 **Bug Fixes:**
+- refind: partitioning: changed from 3 way partiton layout to 2 way
 
 # 24.10
 
