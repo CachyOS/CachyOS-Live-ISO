@@ -1,19 +1,23 @@
-# 24.10.2 or 24.11 (we dont know yet)
+# 24.11 (we dont know yet)
 
 **Features:**
 - NVIDIA: Rolled out 565 earlier due security issues in 560. NVIDIA does not release a fix for the current stable branch
 - thp-shrinker: Put max_ptes_none value to 80% for zero filled pages. This will reduce the memory usage for when THP always is used, while maintaining the same performance
 - NVIDIA: GSP Firmware gets now automatically disabled, if the users switches on their own to the closed driver
+- NVIDIA: nvidia-powerd services gets enabled for laptops, to reach the most available tdp
 - proton-cachyos: DLSS Frame Generation is now working. This is also expected to work in the future in the upstream proton
 - kernel: AMD Cache Optimizer is now applied. Users with dual x3d CCD's cpus can now switch between having frequency or cache cores preferred
 - kernel: amd-pstate: Backported amd-pstate performance fixes for Strix Point
 - kernel: Added upstream fixes for the tdp issues on amd rdna2 and rdna3 gpus
 - kernel: Added timing fixes for displays with 5120x1440x240 configuration
+- kernel: Experimental AutoFDO optimized kernel in the repository under "linux-cachyos-autofdo"
 - ISO: Added check, if user running handheld edition and warn then, if they are starting the installation on an unsupported device
 - ISO: Added check, if the user is using the latest ISO, if not warn them
 
 **Bug Fixes:**
 - refind: partitioning: changed from 3 way partiton layout to 2 way
+- netinstall: added kdeplasma-addons to the Plasma installation
+- calamares: Fixed a issue, while partitioning with a swap partition
 
 # 24.10
 
