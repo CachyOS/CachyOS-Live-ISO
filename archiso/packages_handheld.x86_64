@@ -52,7 +52,6 @@ ethtool
 exfatprogs
 f2fs-tools
 fatresize
-gnu-netcat
 gpart
 gparted
 gpm
