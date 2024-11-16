@@ -84,6 +84,7 @@ linux-firmware
 linux-firmware-marvell
 lsb-release
 lsscsi
+lsof
 lvm2
 lynx
 mc
