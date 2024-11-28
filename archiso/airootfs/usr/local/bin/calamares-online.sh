@@ -1,30 +1,5 @@
 #!/bin/bash
 
-FollowFile() {
-    local tailfile="$1"
-    local term_title="$2"
-
-    alacritty -t "$term_title" -e tail -f "$tailfile" &
-}
-
-catch_chrooted_pacman_log() {
-    local pacmanlog=""
-    local lockfile="$HOME/.$1.lck"
-
-    # wait until pacman.log is available in the chrooted system, then follow the log in background
-    while true ; do
-        sleep 2
-        pacmanlog="$(/usr/bin/ls -1 /tmp/calamares-root-*/var/log/pacman.log 2>/dev/null | /usr/bin/tail -n 1)"
-        if [ -n "$pacmanlog" ] ; then
-            # pacman.log found
-            [ -r "$lockfile" ] && return
-            /usr/bin/touch "$lockfile"
-            FollowFile "$pacmanlog" "Pacman log" 400 50
-            break
-        fi
-    done
-}
-
 Main() {
     # Remove current keyring first, to complete initiate it
     sudo rm -rf /etc/pacman.d/gnupg
@@ -42,10 +17,9 @@ Main() {
     # Syncing appears to fix it
     timedatectl set-ntp true
 
-    local progname
-    progname="$(basename "$0")"
-    local log=/home/liveuser/cachy-install.log
-    local mode=online  # TODO: keep this line for now
+    local progname="$(basename "$0")"
+    local log="/home/liveuser/cachy-install.log"
+    local mode="online"  # TODO: keep this line for now
 
     local _efi_check_dir="/sys/firmware/efi"
     local _exitcode=2 # by default use grub
@@ -110,13 +84,9 @@ Main() {
 ########## System: $SYSTEM
 ########## Bootloader: $BOOTLOADER
 EOF
-    FollowFile "$log" "Install log" 20 20
 
-    sudo cp /usr/share/calamares/settings_${mode}.conf /etc/calamares/settings.conf
-    sudo -E  dbus-launch calamares -D6 >> $log &
-
-    # comment out the following line if pacman.log is not needed:
-    catch_chrooted_pacman_log "$progname"
+    sudo cp "/usr/share/calamares/settings_${mode}.conf" /etc/calamares/settings.conf
+    sudo -E dbus-launch calamares -D6 >> $log &
 }
 
 Main "$@"
