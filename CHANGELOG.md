@@ -1,4 +1,15 @@
-# 24.11 (we dont know yet)
+# 24.12
+
+**Features:**
+- Kernel: AutoFDO is now applied to the default "linux-cachyos" kernel. This gets applied for the x86-64-v3, x86-64-v4 and Zen4 optimized repository.
+	Note: Do not expect too much performance difference yet. We can not currently merge profiles, since this depend on LLVM 19 and also the Propellor Optimization depends on it. We expect to have LLVM 19 and more optimized profiles at around end of the year, as soon archlinux pushes LLVM19.
+- 
+
+**Bug Fixes:**
+- Installer: Do not spawn terminal windows with installation log
+- partition: Set proper umask to make /boot not accessable
+
+# 24.11
 
 **Features:**
 - NVIDIA: Rolled out 565 earlier due security issues in 560. NVIDIA does not release a fix for the current stable branch
