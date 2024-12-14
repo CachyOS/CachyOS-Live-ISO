@@ -1,13 +1,18 @@
 # 24.12
 
 **Features:**
-- Kernel: AutoFDO is now applied to the default "linux-cachyos" kernel. This gets applied for the x86-64-v3, x86-64-v4 and Zen4 optimized repository.
-	Note: Do not expect too much performance difference yet. We can not currently merge profiles, since this depend on LLVM 19 and also the Propellor Optimization depends on it. We expect to have LLVM 19 and more optimized profiles at around end of the year, as soon archlinux pushes LLVM19.
-- 
+- Kernel: AutoFDO is now applied to the default "linux-cachyos" kernel. This gets applied for the x86-64-v3, x86-64-v4 and Zen4 optimized repository. Note: Do not expect too much performance difference yet. We can not currently merge profiles, since this depend on LLVM 19 and also the Propellor Optimization depends on it. We expect to have LLVM 19 and more optimized profiles at around end of the year, as soon archlinux pushes LLVM19.
+- chwd: rusticl is now used correctly
+- cachyos-settings: Added script to easily run application via zink
+- sysctl config: Reworked a lot of settings and configuration
+- kernel-manager: Added support for scx_loader, which brings a native scheduler switching implementation
+- Installer: Enabled bluetooth service by default
+- netinstall: Added wireless-regdb to list of installed packages. This sets up the connection to use the proper channels and unlocks more channels, potentially increasing internet speeds. By default a generic region is used, customize it to your own region for maximum benefits
 
 **Bug Fixes:**
 - Installer: Do not spawn terminal windows with installation log
 - partition: Set proper umask to make /boot not accessable
+- Launch Installer: The internet check has been fixed
 
 # 24.11
 
