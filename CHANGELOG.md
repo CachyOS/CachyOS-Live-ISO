@@ -1,18 +1,32 @@
 # 24.12
 
-**Features:**
-- Kernel: AutoFDO is now applied to the default "linux-cachyos" kernel. This gets applied for the x86-64-v3, x86-64-v4 and Zen4 optimized repository. Note: Do not expect too much performance difference yet. We can not currently merge profiles, since this depend on LLVM 19 and also the Propellor Optimization depends on it. We expect to have LLVM 19 and more optimized profiles at around end of the year, as soon archlinux pushes LLVM19.
-- chwd: rusticl is now used correctly
-- cachyos-settings: Added script to easily run application via zink
-- sysctl config: Reworked a lot of settings and configuration
-- kernel-manager: Added support for scx_loader, which brings a native scheduler switching implementation
-- Installer: Enabled bluetooth service by default
-- netinstall: Added wireless-regdb to list of installed packages. This sets up the connection to use the proper channels and unlocks more channels, potentially increasing internet speeds. By default a generic region is used, customize it to your own region for maximum benefits
+**Features**:
+- Kernel:
+  - AutoFDO is now applied to the default `linux-cachyos` kernel for all available architectures
+    - **Note**: Performance improvements are minimal for now due to current limitations. Merging profiles requires LLVM 19, and Propeller Optimization depends on it. We anticipate LLVM 19 and more optimized profiles to be available by the end of the year, following Arch Linux's adoption of LLVM 19
+- chwd: Rusticl is now configured correctly
+- chwd: improved error logging during hooks calls
+- chwd: fixed VAAPI drivers selection
+- cachyos-settings: Added a script to facilitate running applications via Zink
+- Sysctl Configuration: Reworked and optimized several settings
+- Kernel Manager: Added support for `scx_loader`, enabling native scheduler switching
+- Installer: Bluetooth service is now enabled by default
+- Netinstall:
+  - Added `wireless-regdb` to the installed packages
+    - This configures the connection to use appropriate channels and unlocks additional channels, potentially improving internet speed
+    - **Note**: A generic region is set by default; customizing it to your region is recommended for optimal performance
+- **Package Updates**: NVIDIA 565.77, linux-cachyos 6.12.6, mesa 24.3.2, scx-scheds 1.0.8, zfs 2.2.7
 
-**Bug Fixes:**
-- Installer: Do not spawn terminal windows with installation log
-- partition: Set proper umask to make /boot not accessable
-- Launch Installer: The internet check has been fixed
+**Bug Fixes**
+- Installer: Installation logs no longer spawn debug terminal windows
+- Partition Management:
+  - Proper `umask` settings ensure `/boot` is inaccessible without sufficient permissions
+- Launch Installer: Internet connectivity checks have been fixed
+
+**Changelog Handheld Edition:**
+- Updated handheld related packages
+- Fixed issue with the power profile handling
+- Added support for WiFi 6
 
 # 24.11
 
