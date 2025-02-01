@@ -78,7 +78,7 @@ libusb-compat
 libwnck3
 linux-atm
 linux-cachyos
-linux-cachyos-nvidia
+linux-cachyos-nvidia-open
 linux-cachyos-zfs
 linux-firmware
 linux-firmware-marvell
