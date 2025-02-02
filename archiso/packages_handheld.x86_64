@@ -89,7 +89,7 @@ libxinerama
 lightly-git
 linux-atm
 linux-cachyos-deckify
-linux-cachyos-deckify-nvidia
+linux-cachyos-deckify-nvidia-open
 linux-cachyos-deckify-zfs
 linux-firmware
 linux-firmware-marvell
