@@ -9,6 +9,7 @@ base
 bash-completion
 bcachefs-tools
 bind
+bluedevil
 breeze-gtk
 brltty
 btrfs-progs
@@ -83,8 +84,8 @@ linux-cachyos-zfs
 linux-firmware
 linux-firmware-marvell
 lsb-release
-lsscsi
 lsof
+lsscsi
 lvm2
 lynx
 mc
