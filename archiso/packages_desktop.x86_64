@@ -145,7 +145,6 @@ pv
 qemu-guest-agent
 realtime-privileges
 refind
-reiserfsprogs
 rp-pppoe
 rsync
 rtkit
