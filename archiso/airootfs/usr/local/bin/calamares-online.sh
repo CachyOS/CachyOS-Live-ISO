@@ -28,17 +28,21 @@ Main() {
     local BOOTLOADER=""
     if [ -d "${_efi_check_dir}" ]; then
         SYSTEM="UEFI SYSTEM"
-
-        # Restrict bootloader selection to only UEFI systems
         _exitcode=$(yad --width 300 --title "Bootloader" \
     --image=gnome-shutdown \
     --button="Grub:2" \
     --button="Systemd-boot(Default):3" \
     --button="Refind:4" \
     --button="AI SDK / Refind:5" \
+    --button="Limine:6" \
     --text "Choose Bootloader/Edition:" ; echo $?)
     else
         SYSTEM="BIOS/MBR SYSTEM"
+        _exitcode=$(yad --width 300 --title "Bootloader" \
+    --image=gnome-shutdown \
+    --button="Grub:2" \
+    --button="Limine:6" \
+    --text "Choose Bootloader/Edition:" ; echo $?)
     fi
 
     local ISO_VERSION="$(cat /etc/version-tag)"
@@ -70,6 +74,13 @@ Main() {
         yes | sudo pacman -R cachyos-calamares-qt6-systemd
         yes | sudo pacman -R cachyos-calamares-qt6-refind
         yes | sudo pacman -Sy cachyos-calamares-qt6-ai
+    elif [[ "${_exitcode}" -eq 6 ]]; then
+        BOOTLOADER="Limine"
+        echo "USING Limine"
+        yes | sudo pacman -R cachyos-calamares-qt6-grub
+        yes | sudo pacman -R cachyos-calamares-qt6-systemd
+        yes | sudo pacman -R cachyos-calamares-qt6-refind
+        yes | sudo pacman -Sy cachyos-calamares-qt6-limine
     else
         exit
     fi
