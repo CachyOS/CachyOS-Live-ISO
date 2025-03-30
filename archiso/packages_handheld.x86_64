@@ -8,6 +8,7 @@ b43-fwcutter
 base
 bash-completion
 bcachefs-tools
+bluedevil
 bind
 breeze-gtk
 brltty
@@ -29,6 +30,7 @@ cachyos-v4-mirrorlist
 cachyos-zsh-config
 cantarell-fonts
 capitaine-cursors
+kcalc
 chwd
 ckbcomp
 clonezilla
@@ -36,7 +38,6 @@ cloud-init
 cryptsetup
 darkhttpd
 ddrescue
-dhclient
 dhcpcd
 diffutils
 dmidecode
@@ -163,7 +164,6 @@ python
 python-defusedxml
 qemu-guest-agent
 realtime-privileges
-reiserfsprogs
 rp-pppoe
 rsync
 rtkit
