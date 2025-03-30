@@ -217,6 +217,8 @@ xf86-input-void
 xf86-video-fbdev
 xf86-video-qxl
 xf86-video-vmware
+xf86-video-amdgpu
+xf86-video-nouveau
 xfsprogs
 xl2tpd
 xorg-server
