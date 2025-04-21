@@ -54,18 +54,21 @@ Main() {
         yes | sudo pacman -R cachyos-calamares-qt6-systemd
         yes | sudo pacman -R cachyos-calamares-qt6-grub
         yes | sudo pacman -R cachyos-calamares-qt6-refind
+        yes | sudo pacman -R cachyos-calamares-qt6-limine
         yes | sudo pacman -Sy cachyos-calamares-qt6-grub
     elif [[ "${_exitcode}" -eq 3 ]]; then
         BOOTLOADER="SYSTEMD-BOOT"
         echo "USING SYSTEMD-BOOT!"
         yes | sudo pacman -R cachyos-calamares-qt6-grub
         yes | sudo pacman -R cachyos-calamares-qt6-refind
+        yes | sudo pacman -R cachyos-calamares-qt6-limine
         yes | sudo pacman -Sy cachyos-calamares-qt6-systemd
     elif [[ "${_exitcode}" -eq 4 ]]; then
         BOOTLOADER="REFIND"
         echo "USING REFIND!"
         yes | sudo pacman -R cachyos-calamares-qt6-grub
         yes | sudo pacman -R cachyos-calamares-qt6-systemd
+        yes | sudo pacman -R cachyos-calamares-qt6-limine
         yes | sudo pacman -Sy cachyos-calamares-qt6-refind
     elif [[ "${_exitcode}" -eq 5 ]]; then
         BOOTLOADER="AI-SDK/Refind"
@@ -73,6 +76,7 @@ Main() {
         yes | sudo pacman -R cachyos-calamares-qt6-grub
         yes | sudo pacman -R cachyos-calamares-qt6-systemd
         yes | sudo pacman -R cachyos-calamares-qt6-refind
+        yes | sudo pacman -R cachyos-calamares-qt6-limine
         yes | sudo pacman -Sy cachyos-calamares-qt6-ai
     elif [[ "${_exitcode}" -eq 6 ]]; then
         BOOTLOADER="Limine"
