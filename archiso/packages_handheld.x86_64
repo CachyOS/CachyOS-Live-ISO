@@ -87,7 +87,6 @@ libplasma
 libusb-compat
 libwnck3
 libxinerama
-lightly-git
 linux-atm
 linux-cachyos-deckify
 linux-cachyos-deckify-nvidia-open
