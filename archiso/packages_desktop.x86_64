@@ -13,7 +13,6 @@ bluedevil
 breeze-gtk
 brltty
 btrfs-progs
-cachy-browser
 cachy-chroot
 cachyos-calamares-qt6-next-grub
 cachyos-cli-installer-new
@@ -50,6 +49,7 @@ exfatprogs
 f2fs-tools
 fakeroot
 fatresize
+firefox
 gpart
 gparted
 gptfdisk
@@ -67,9 +67,9 @@ iw
 iwd
 jfsutils
 kate
+kcalc
 kde-gtk-config
 konsole
-kcalc
 kscreen
 ldns
 less
@@ -116,12 +116,12 @@ ntfs-3g
 ntp
 nvidia-utils
 nvme-cli
-opendesktop-fonts
-open-iscsi
-openssh
-open-vm-tools
-openvpn
 occt
+open-iscsi
+open-vm-tools
+opendesktop-fonts
+openssh
+openvpn
 os-prober
 partclone
 parted
@@ -191,8 +191,8 @@ xf86-input-synaptics
 xf86-input-vmmouse
 xf86-input-void
 xf86-video-amdgpu
-xf86-video-nouveau
 xf86-video-fbdev
+xf86-video-nouveau
 xf86-video-qxl
 xf86-video-vmware
 xfsprogs
