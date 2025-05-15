@@ -1,3 +1,89 @@
+# 25.05
+
+**Features:**
+- **Plymouth**: Added a new plymouth animation screen, you can find video about here:https://www.youtube.com/watch?v=JFpHeOyNeYg
+  - Thanks to Eren (https://github.com/erenyldz89) for working on this!
+- **Proton**:
+  - Rebased almost all patches from **Proton Cachyos 9.0**.
+  - Enabled the Wayland driver for the Steam Linux Runtime builds too. Enable with `PROTON_ENABLE_WAYLAND=1`. Thanks to [GloriousEggroll](https://github.com/GloriousEggroll) for making it happen.
+  - Added a lot of Wayland related patches from upstream wine that happened after the release of wine-10.0
+  - Fixed various issues with the Wayland driver and Vulkan games. Thanks to [Etaash-mathamsetty](https://github.com/Etaash-mathamsetty) for all the hard work.
+  - Added a stub implementation for `amdxc64.dll` to enable FSR4. Use `FSR4_UPGRADE=1` to upgrade FSR3.1 games to FSR4. Again thanks to [Etaash-mathamsetty](https://github.com/Etaash-mathamsetty). Instructions: https://github.com/Etaash-mathamsetty/wine-builds/releases/tag/fsr4
+  - Added DualSense related patches for more complete audio device detection functionality for wired sound-based haptics. Some games that relied on that specific behaviour should now have that functional. Thanks to [ClearlyClaire](https://github.com/ClearlyClaire) for the original patches and [Exotic0015](https://github.com/Exotic0015) for looking into it since **Proton Cachyos 9.0**. Upstream: https://gitlab.winehq.org/wine/wine/-/merge_requests/7238
+  - Removed the Dragon Age Inquisition patch as it was not working. Please use **Proton-Cachyos 9.0** for now with that game.
+  - Updated the NTSync branch to Proton 10.0. Thanks to [whrvt](https://github.com/whrvt). No, NTSync is not merged into Proton-CachyOS yet, sorry.
+- **Browser**: Cachy-Browser has been deprecated and we now provide firefox as default preinstalled. Here you can find a guide to migrate the profiles to firefox (forks): https://wiki.cachyos.org/support/faq/#migrating-your-profile-from-cachy-browser-to-firefox
+- **mesa-git**: Added patch to get FSR4 with Proton 10 correctly running
+
+**Fixes:**
+- **Mirrors**: Fixed an issue, that users from russia could not install anymore. We have mitigated this with not using the CDN77, which russia started to block
+- 
+
+
+# 25.04
+
+**Features:**
+- **occt**: Added OCCT to the ISO to have a live environment for stress testing
+  - Thanks to Marek for providing this idea!
+
+**Fixes:**
+- **kernel**: Fixes module crash on Asus laptops
+- **limine**: Limine now has mkinitcpio-limine-hook installed and will automatically create bootloader entries
+
+
+**Changelog for Handheld Edition:**
+- **audio**: Added audio profiles for ROG Ally X and Legion Go
+- **gamescope**: Replaced gamescope-plus with upstream gamescope
+
+
+# 25.03
+
+**Features**:
+- **Bootloader**: Added support for Limine bootloader
+- **Bootloader**: Added support for automatic snapshots for Limine bootloader
+- **Samba**: Added "cachyos-samba-settings" package to easily set up a Samba mount
+- **NVIDIA**: Re-enabled GSP Firmware for the closed source NVIDIA module
+- **Kernel**: Added support for the Asus Armoury driver
+- **Secure Boot**: Improved "sbctl-batch-sign" script to sign only wanted files
+- **udev**: Reverted using ntfs3 as the default driver for NTFS partitions
+  - Info: Using the NTFS3 Kernel driver as default resulted in issues for some users. Therefore, we reverted it again.
+- **wine**: Wine and Wine-Staging defaulting now to WoW64 and NTSync
+- **scx-manager**: Moved out sched-ext GUI manager from Kernel Manager to its own application
+- **Hardware Support**: Added support for RDNA4, RTX 5070 Ti, and 5070.
+- **Settings**: Added DLSS Swapper Support - this is a script, which automatically updates and uses the latest dlss version and preset
+- **Package Updates**: linux-cachyos 6.14.0, NVIDIA 570.133.07, Gnome 48, Plasma 6.3.3, mesa 25.0.2, linux-api-headers 6.14.0, linux-tools 6.14.0
+
+**Fixes**:
+- **initcpiocfg**: Removed "crc32c-intel" module adding to mkinitcpio - This has been deprecated and now defaults to the "crc32c" module
+- **chwd**: T2 MacBook disable offloading the brcmfmac
+- **chwd**: Do not install NVIDIA 390.xx driver for laptops
+
+# 25.02
+
+**Features**:
+- **Kernel**:
+  - Propeller Optimization is now applied to the default **linux-cachyos** kernel for all available architectures.
+    - **Note**: In combination with AutoFDO, this can improve performance by around 10%, depending on the workload.
+- **NVIDIA**: Added support for the Blackwell Architecture.
+- **ISO**: Using the nvidia-open module as the default to provide Blackwell support. Users with GPUs older than Turing should use the first or fallback boot option.
+- **Settings**: Enabled tap-to-click for X11 sessions by default.
+- **udev**: Use ntfs3 as the default driver for NTFS partitions.
+- **game-performance**: Disabled the screensaver while running games.
+- **kernel-manager (sched-ext)**: Added support for server mode.
+- **kernel**: Added fixes for the AMD preferred core feature.
+- **chwd**: Re-added the workaround for RTD3.
+- **Package Updates**: linux-cachyos 6.13.0, NVIDIA 570.86.16, LLVM 19, glibc 2.41, mesa 24.3.4.
+
+**Fixes**:
+- **chwd**: Fixed an issue where hybrid laptops with Intel and NVIDIA hardware could not use their GPU in DaVinci Resolve.
+- **glibc**: Added a fix for CVE-2025-0395.
+- **kernel-manager**: Attempted to install the prebuilt NVIDIA module, if available for the default Arch kernel.
+- **kernel-manager**: Added an extra check to avoid overwriting the value in case a module is not available.
+
+**Changelog for Handheld Edition:**
+- **hooks**: Allowed the use of natively compiled Proton again.
+- **misc**: Several updates and fixes.
+
 # 24.12
 
 **Features**:
