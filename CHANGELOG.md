@@ -14,10 +14,11 @@
   - Updated the NTSync branch to Proton 10.0. Thanks to [whrvt](https://github.com/whrvt). No, NTSync is not merged into Proton-CachyOS yet, sorry.
 - **Browser**: Cachy-Browser has been deprecated and we now provide firefox as default preinstalled. Here you can find a guide to migrate the profiles to firefox (forks): https://wiki.cachyos.org/support/faq/#migrating-your-profile-from-cachy-browser-to-firefox
 - **mesa-git**: Added patch to get FSR4 with Proton 10 correctly running
+- **netinstall**: Added kcalc, filelight, plymouth-kcm and kio-admin to the KDE installation
 
 **Fixes:**
 - **Mirrors**: Fixed an issue, that users from russia could not install anymore. We have mitigated this with not using the CDN77, which russia started to block
-- 
+- **kde-settings**: Disabled Discover icon in taskbar
 
 
 # 25.04
