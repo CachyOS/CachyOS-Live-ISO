@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Quick pass if one of the modules is already loaded.
+if [[ -e /sys/module/nvidia || -e /sys/module/nouveau ]]; then
+    exit 0
+fi
+
+# Using "install" in modprobe seems to result in no dependency resolving for
+# modules, so we have to manually set the order in which all modules are loaded
+# at once.
+load_nvidia_modules() {
+    local pkgname="$1"
+
+    # Load some basic dependencies of nvidia modules
+    modprobe video
+    modprobe drm_ttm_helper
+    modprobe drm_kms_helper
+
+    for module in nvidia nvidia-modeset nvidia-drm nvidia-uvm; do
+        modprobe --ignore-install "/usr/share/modules/${pkgname}/${module}.ko.zst"
+    done
+}
+
+# Load compatible version of NVIDIA modules for current hardware
+if chwd --list | awk '{ if($2 == "nouveau" || $2 == "nvidia-dkms-390xx" || $2 == "nvidia-dkms-470xx") f=1 } END {exit (f == 1) ? 0 : 1 }'; then
+    modprobe nouveau
+elif chwd --list | awk '{ if($2 == "nvidia-dkms") f=1 } END {exit (f == 1) ? 0 : 1 }'; then
+    load_nvidia_modules linux-cachyos-nvidia
+elif chwd --list | awk '{ if($2 == "nvidia-open-dkms") f=1 } END {exit (f == 1) ? 0 : 1 }'; then
+    load_nvidia_modules linux-cachyos-nvidia-open
+fi
+
+# Otherwise, do a fallback to nouveau anyway
+if [[ ! -e /sys/module/nouveau && ! -e /sys/module/nvidia ]]; then
+    modprobe nouveau
+fi

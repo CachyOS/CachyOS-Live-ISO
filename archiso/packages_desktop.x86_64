@@ -79,7 +79,6 @@ libusb-compat
 libwnck3
 linux-atm
 linux-cachyos
-linux-cachyos-nvidia-open
 linux-cachyos-zfs
 linux-firmware
 linux-firmware-marvell
@@ -115,6 +114,7 @@ nss-mdns
 ntfs-3g
 ntp
 nvidia-utils
+nvidia-module-extractor
 nvme-cli
 occt
 open-iscsi
