@@ -15,6 +15,7 @@
 - **Browser**: Cachy-Browser has been deprecated and we now provide firefox as default preinstalled. Here you can find a guide to migrate the profiles to firefox (forks): https://wiki.cachyos.org/support/faq/#migrating-your-profile-from-cachy-browser-to-firefox
 - **mesa-git**: Added patch to get FSR4 with Proton 10 correctly running
 - **netinstall**: Added kcalc, filelight, plymouth-kcm and kio-admin to the KDE installation
+- **ISO**: Added an automatic detection, while booting the ISO, which NVIDIA GPU is in the system and then loads the proper module: nvidia-open and nvidia to provide better support for 10xx and lower series
 
 **Fixes:**
 - **Mirrors**: Fixed an issue, that users from russia could not install anymore. We have mitigated this with not using the CDN77, which russia started to block
