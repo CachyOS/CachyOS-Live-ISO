@@ -182,6 +182,7 @@ wireless_tools
 wireplumber
 wpa_supplicant
 wvdial
+vulkan-virtio
 xdg-user-dirs-gtk
 xdg-utils
 xf86-input-elographics
