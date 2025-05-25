@@ -3,6 +3,11 @@
 **Features:**
 - **Plymouth**: Added a new plymouth animation screen, you can find video about here:https://www.youtube.com/watch?v=JFpHeOyNeYg
   - Thanks to Eren (https://github.com/erenyldz89) for working on this!
+- **Browser**: Cachy-Browser has been deprecated and we now provide firefox as default preinstalled. Here you can find a guide to migrate the profiles to firefox (forks): https://wiki.cachyos.org/support/faq/#migrating-your-profile-from-cachy-browser-to-firefox
+- **netinstall**: Added kcalc, filelight, plymouth-kcm and kio-admin to the KDE installation
+- **ISO**: Added an automatic detection, while booting the ISO, which NVIDIA GPU is in the system and then loads the proper module: nvidia-open and nvidia to provide better support for 10xx and lower series
+- **mkinitcpio**: Disabled fallback initramfs as default. This will save quite a bunch of sapce
+- **Mirrors**: Added new Bangladesh Mirro with 10GBs. Thanks to Limda for hosting this!
 - **Proton**:
   - Rebased almost all patches from **Proton Cachyos 9.0**.
   - Enabled the Wayland driver for the Steam Linux Runtime builds too. Enable with `PROTON_ENABLE_WAYLAND=1`. Thanks to [GloriousEggroll](https://github.com/GloriousEggroll) for making it happen.
@@ -12,15 +17,18 @@
   - Added DualSense related patches for more complete audio device detection functionality for wired sound-based haptics. Some games that relied on that specific behaviour should now have that functional. Thanks to [ClearlyClaire](https://github.com/ClearlyClaire) for the original patches and [Exotic0015](https://github.com/Exotic0015) for looking into it since **Proton Cachyos 9.0**. Upstream: https://gitlab.winehq.org/wine/wine/-/merge_requests/7238
   - Removed the Dragon Age Inquisition patch as it was not working. Please use **Proton-Cachyos 9.0** for now with that game.
   - Updated the NTSync branch to Proton 10.0. Thanks to [whrvt](https://github.com/whrvt). No, NTSync is not merged into Proton-CachyOS yet, sorry.
-- **Browser**: Cachy-Browser has been deprecated and we now provide firefox as default preinstalled. Here you can find a guide to migrate the profiles to firefox (forks): https://wiki.cachyos.org/support/faq/#migrating-your-profile-from-cachy-browser-to-firefox
-- **mesa-git**: Added patch to get FSR4 with Proton 10 correctly running
-- **netinstall**: Added kcalc, filelight, plymouth-kcm and kio-admin to the KDE installation
-- **ISO**: Added an automatic detection, while booting the ISO, which NVIDIA GPU is in the system and then loads the proper module: nvidia-open and nvidia to provide better support for 10xx and lower series
+
 
 **Fixes:**
 - **Mirrors**: Fixed an issue, that users from russia could not install anymore. We have mitigated this with not using the CDN77, which russia started to block
 - **kde-settings**: Disabled Discover icon in taskbar
 
+**Changelog for Handheld Edition:**
+- **os-branch**: Gamemode shows now properly that CachyOS Linux is used
+- **audio**: Updated convolver profile
+- **steamos-manager**: This is used for GPU Clock and TDP Management, BIOS/Dock Updates, Storage Device maintainance, external storage formatting and Battery charge limit for steamdeck
+- **steamos-powerbuttond**: Replace with powerbuttond for a better sleep expierence
+- **jupiter-hw-support**: Updated to 20250501
 
 # 25.04
 
