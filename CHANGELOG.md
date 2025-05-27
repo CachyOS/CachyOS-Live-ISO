@@ -17,7 +17,7 @@
   - Added DualSense related patches for more complete audio device detection functionality for wired sound-based haptics. Some games that relied on that specific behaviour should now have that functional. Thanks to [ClearlyClaire](https://github.com/ClearlyClaire) for the original patches and [Exotic0015](https://github.com/Exotic0015) for looking into it since **Proton Cachyos 9.0**. Upstream: https://gitlab.winehq.org/wine/wine/-/merge_requests/7238
   - Removed the Dragon Age Inquisition patch as it was not working. Please use **Proton-Cachyos 9.0** for now with that game.
   - Updated the NTSync branch to Proton 10.0. Thanks to [whrvt](https://github.com/whrvt). No, NTSync is not merged into Proton-CachyOS yet, sorry.
-
+- **grub**: Added a new grub theme. Thanks to diegons490 https://github.com/diegons490/cachyos-grub-theme
 
 **Fixes:**
 - **Mirrors**: Fixed an issue, that users from russia could not install anymore. We have mitigated this with not using the CDN77, which russia started to block
