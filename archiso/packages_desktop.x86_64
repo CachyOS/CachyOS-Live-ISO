@@ -138,6 +138,7 @@ plasma-integration
 plasma-nm
 plasma-pa
 plasma-workspace
+plasma-x11-session
 polkit
 polkit-kde-agent
 power-profiles-daemon
