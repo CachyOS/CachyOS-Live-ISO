@@ -51,40 +51,40 @@ Main() {
     if [[ "${_exitcode}" -eq 2 ]]; then
         BOOTLOADER="GRUB"
         echo "USING GRUB!"
-        yes | sudo pacman -R cachyos-calamares-qt6-systemd
-        yes | sudo pacman -R cachyos-calamares-qt6-grub
-        yes | sudo pacman -R cachyos-calamares-qt6-refind
-        yes | sudo pacman -R cachyos-calamares-qt6-limine
-        yes | sudo pacman -Sy cachyos-calamares-qt6-grub
+        yes | sudo pacman -R cachyos-calamares-qt6-next-systemd
+        yes | sudo pacman -R cachyos-calamares-qt6-next-grub
+        yes | sudo pacman -R cachyos-calamares-qt6-next-refind
+        yes | sudo pacman -R cachyos-calamares-qt6-next-limine
+        yes | sudo pacman -Sy cachyos-calamares-qt6-next-grub
     elif [[ "${_exitcode}" -eq 3 ]]; then
         BOOTLOADER="SYSTEMD-BOOT"
         echo "USING SYSTEMD-BOOT!"
-        yes | sudo pacman -R cachyos-calamares-qt6-grub
-        yes | sudo pacman -R cachyos-calamares-qt6-refind
-        yes | sudo pacman -R cachyos-calamares-qt6-limine
-        yes | sudo pacman -Sy cachyos-calamares-qt6-systemd
+        yes | sudo pacman -R cachyos-calamares-qt6-next-grub
+        yes | sudo pacman -R cachyos-calamares-qt6-next-refind
+        yes | sudo pacman -R cachyos-calamares-qt6-next-limine
+        yes | sudo pacman -Sy cachyos-calamares-qt6-next-systemd
     elif [[ "${_exitcode}" -eq 4 ]]; then
         BOOTLOADER="REFIND"
         echo "USING REFIND!"
-        yes | sudo pacman -R cachyos-calamares-qt6-grub
-        yes | sudo pacman -R cachyos-calamares-qt6-systemd
-        yes | sudo pacman -R cachyos-calamares-qt6-limine
-        yes | sudo pacman -Sy cachyos-calamares-qt6-refind
+        yes | sudo pacman -R cachyos-calamares-qt6-next-grub
+        yes | sudo pacman -R cachyos-calamares-qt6-next-systemd
+        yes | sudo pacman -R cachyos-calamares-qt6-next-limine
+        yes | sudo pacman -Sy cachyos-calamares-qt6-next-refind
     elif [[ "${_exitcode}" -eq 5 ]]; then
         BOOTLOADER="AI-SDK/Refind"
         echo "USING AI SDK and Refind!"
-        yes | sudo pacman -R cachyos-calamares-qt6-grub
-        yes | sudo pacman -R cachyos-calamares-qt6-systemd
-        yes | sudo pacman -R cachyos-calamares-qt6-refind
-        yes | sudo pacman -R cachyos-calamares-qt6-limine
-        yes | sudo pacman -Sy cachyos-calamares-qt6-ai
+        yes | sudo pacman -R cachyos-calamares-qt6-next-grub
+        yes | sudo pacman -R cachyos-calamares-qt6-next-systemd
+        yes | sudo pacman -R cachyos-calamares-qt6-next-refind
+        yes | sudo pacman -R cachyos-calamares-qt6-next-limine
+        yes | sudo pacman -Sy cachyos-calamares-qt6-next-ai
     elif [[ "${_exitcode}" -eq 6 ]]; then
         BOOTLOADER="Limine"
         echo "USING Limine"
-        yes | sudo pacman -R cachyos-calamares-qt6-grub
-        yes | sudo pacman -R cachyos-calamares-qt6-systemd
-        yes | sudo pacman -R cachyos-calamares-qt6-refind
-        yes | sudo pacman -Sy cachyos-calamares-qt6-limine
+        yes | sudo pacman -R cachyos-calamares-qt6-next-grub
+        yes | sudo pacman -R cachyos-calamares-qt6-next-systemd
+        yes | sudo pacman -R cachyos-calamares-qt6-next-refind
+        yes | sudo pacman -Sy cachyos-calamares-qt6-next-limine
     else
         exit
     fi
