@@ -21,11 +21,11 @@ load_nvidia_modules() {
 }
 
 # Load compatible version of NVIDIA modules for current hardware
-if chwd --list | awk '{ if($2 == "nouveau" || $2 == "nvidia-dkms-390xx" || $2 == "nvidia-dkms-470xx") f=1 } END {exit (f == 1) ? 0 : 1 }'; then
+if (chwd --check nvidia-dkms-390xx || chwd --check nvidia-dkms-470xx || chwd --check nouveau) 2>/dev/null; then
     modprobe nouveau
-elif chwd --list | awk '{ if($2 == "nvidia-dkms") f=1 } END {exit (f == 1) ? 0 : 1 }'; then
+elif chwd --check nvidia-dkms 2>/dev/null; then
     load_nvidia_modules linux-cachyos-nvidia
-elif chwd --list | awk '{ if($2 == "nvidia-open-dkms") f=1 } END {exit (f == 1) ? 0 : 1 }'; then
+elif chwd --check nvidia-open-dkms 2>/dev/null; then
     load_nvidia_modules linux-cachyos-nvidia-open
 fi
 
