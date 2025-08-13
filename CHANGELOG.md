@@ -1,3 +1,29 @@
+# 25.07
+
+**Features:**
+-   **Shell**: The user shell can be now choosen at installation time between fish, zsh and bash. Fish still stays to be default enabled. 
+-   **chwd**: Install plasma-x11 for legacy NVIDIA Drivers
+-   **Netinstall**: Added fwupd to KDE Plasma and Gnome
+-   **mesa-git**: Added support for AMD Anti Lag
+-   **firefox**: Introduced an alternative firefox called "firefox-pure", which includes improvement with the userjs profile. Additionally there has been "cachyos-firefox-settings" added, which can be installed on top of firefox.
+-   **Proton-CachyOS**:
+    -   Imported upstream wine-wayland commits
+    -   Added "PROTON_FSR4_UPGRADE" env variable, which will automatically download the latest FSR4 DLL and then replace it for an automatic upgrade on FSR 3.1 supported games
+    -   Added many Wayland-related patches from upstream Wine that were released after Wine 10.0.
+    -   added patches to help with better anticheat integration. Thanks to NelloKudo
+    -   Added patches for AMD's Anti Lag 2 for vkd3d-proton and wine
+    -   Updated umu-protonfixes to latest commit
+
+**Fixes:**
+-   **Keyring**: Improved the handling of the keyring installation to avoid issues and do several retries.
+-   **systemd-oomd**: Disabled systemd-oomd, since it had problems handling this together with le9 and killed applications way to early
+
+**Changelog for Handheld Edition:**
+-   **handheld-settings**: Imported several tweaks of SteamOS to the Handheld Edition
+-   **pipewire**: Set minimum quantum to 256
+-   **SteamDeck-OLED**: Install galileo-mura for Steam Deck OLED
+-   **Lenovo Legion Go S**: Added support for the Lenovo Legion Go S
+
 # 25.05
 
 **Features:**
