@@ -78,8 +78,8 @@ libfido2
 libusb-compat
 libwnck3
 linux-atm
-linux-cachyos
-linux-cachyos-zfs
+linux-cachyos-lts
+linux-cachyos-lts-zfs
 linux-firmware
 linux-firmware-marvell
 lsb-release

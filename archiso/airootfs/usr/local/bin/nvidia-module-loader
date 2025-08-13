@@ -24,9 +24,9 @@ load_nvidia_modules() {
 if chwd --list | awk '{ if($2 == "nouveau" || $2 == "nvidia-dkms-390xx" || $2 == "nvidia-dkms-470xx") f=1 } END {exit (f == 1) ? 0 : 1 }'; then
     modprobe nouveau
 elif chwd --list | awk '{ if($2 == "nvidia-dkms") f=1 } END {exit (f == 1) ? 0 : 1 }'; then
-    load_nvidia_modules linux-cachyos-nvidia
+    load_nvidia_modules linux-cachyos-lts-nvidia
 elif chwd --list | awk '{ if($2 == "nvidia-open-dkms") f=1 } END {exit (f == 1) ? 0 : 1 }'; then
-    load_nvidia_modules linux-cachyos-nvidia-open
+    load_nvidia_modules linux-cachyos-lts-nvidia-open
 fi
 
 # Otherwise, do a fallback to nouveau anyway
