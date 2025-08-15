@@ -1,4 +1,13 @@
-# 25.07
+# 25.08
+
+**Features:**
+-   **Services**: Added packages.cachyos.org for a package search which exludes our packages. Equal as the archlinux website package search
+-   **ISO-Kernel**: Switched on the ISO the kernel from stable to LTS. There has been ongoing issues with the stable kernel, so for a bootable ISO we switched to LTS
+-   **Kernel**: The installer will now install aditonally the linux-cachyos-lts kernel for a second kernel after the installation and as backup. We still suggest using the stable kernel
+-   **nvidia**: Enabled S01x Sleep for supported hardware. This will provide a more modern sleep
+-        
+
+ 25.07
 
 **Features:**
 -   **Shell**: The user shell can be now choosen at installation time between fish, zsh and bash. Fish still stays to be default enabled. 
