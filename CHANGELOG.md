@@ -7,6 +7,12 @@
 -   **nvidia**: Enabled S01x Sleep for supported hardware. This will provide a more modern sleep
 -        
 
+**Fixes:**
+-   **Limine**: Fixed limine bios-install /dev/sdaX installation error when selecting /boot mountpoint as boot location on MBR systems
+-   **Limine**: Fixed uninitialized value of bootLoader path, which causes a failure to install on MBR systems if user has not explicitly selected bootloader location 
+-   **Limine**: Added warning about using bios-grub flag on boot partition, is causing issue Stage 3 file not found
+-   **Limine**: Fixed broken dual-boot configuration with Windows out-of-box for BIOS installations
+
  25.07
 
 **Features:**
