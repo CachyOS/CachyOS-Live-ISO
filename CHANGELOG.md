@@ -5,7 +5,7 @@
 -   **ISO-Kernel**: Switched on the ISO the kernel from stable to LTS. There has been ongoing issues with the stable kernel, so for a bootable ISO we switched to LTS
 -   **Kernel**: The installer will now install aditonally the linux-cachyos-lts kernel for a second kernel after the installation and as backup. We still suggest using the stable kernel
 -   **nvidia**: Enabled S01x Sleep for supported hardware. This will provide a more modern sleep
--        
+-   **grub**: Bootable snapshots are now automatically enabled and setup, if BTRFS filesystem is used on root        
 
 **Fixes:**
 -   **Limine**: Fixed limine bios-install /dev/sdaX installation error when selecting /boot mountpoint as boot location on MBR systems
