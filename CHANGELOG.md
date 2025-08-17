@@ -4,14 +4,17 @@
 -   **Services**: Added packages.cachyos.org for a package search which exludes our packages. Equal as the archlinux website package search
 -   **ISO-Kernel**: Switched on the ISO the kernel from stable to LTS. There has been ongoing issues with the stable kernel, so for a bootable ISO we switched to LTS
 -   **Kernel**: The installer will now install aditonally the linux-cachyos-lts kernel for a second kernel after the installation and as backup. We still suggest using the stable kernel
+-   **Desktop**: Niri got added as option for the desktop, including some small predefined dotfiles
 -   **nvidia**: Enabled S01x Sleep for supported hardware. This will provide a more modern sleep
--   **grub**: Bootable snapshots are now automatically enabled and setup, if BTRFS filesystem is used on root        
+-   **grub**: Bootable snapshots are now automatically enabled and setup, if BTRFS filesystem is used on root
 
 **Fixes:**
 -   **Limine**: Fixed limine bios-install /dev/sdaX installation error when selecting /boot mountpoint as boot location on MBR systems
 -   **Limine**: Fixed uninitialized value of bootLoader path, which causes a failure to install on MBR systems if user has not explicitly selected bootloader location 
 -   **Limine**: Added warning about using bios-grub flag on boot partition, is causing issue Stage 3 file not found
 -   **Limine**: Fixed broken dual-boot configuration with Windows out-of-box for BIOS installations
+-   **Limine**: Fixed Btrfs snapshot not being able to boot when using GNOME (GDM) (https://github.com/CachyOS/cachyos-calamares/issues/76),
+-   **Launch Installer**: Added fallback IPs for the online check, if cachyos.org ping fails
 
  25.07
 
