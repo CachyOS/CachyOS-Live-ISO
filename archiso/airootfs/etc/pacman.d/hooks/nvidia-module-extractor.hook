@@ -1,0 +1,11 @@
+# remove from airootfs!
+[Trigger]
+Operation = Upgrade
+Operation = Install
+Type = Package
+Target = *
+
+[Action]
+Description = Extracting NVIDIA modules in separate directory...
+When = PostTransaction
+Exec = /usr/share/libalpm/scripts/nvidia-module-extractor
