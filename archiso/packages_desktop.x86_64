@@ -24,7 +24,6 @@ cachyos-keyring
 cachyos-mirrorlist
 cachyos-rate-mirrors
 cachyos-settings
-cachyos-themes-sddm
 cachyos-v3-mirrorlist
 cachyos-v4-mirrorlist
 chwd
@@ -150,7 +149,7 @@ rp-pppoe
 rsync
 rtkit
 rxvt-unicode-terminfo
-sddm
+plasma-login-manager
 sdparm
 sg3_utils
 smartmontools
