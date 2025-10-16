@@ -36,7 +36,7 @@ cd cachyos-archiso
 
 ### Build
 ```bash
-sudo ./buildiso.sh -p desktop -v
+sudo ./buildiso.sh -p desktop -v -w
 ```
 
 As the result iso appears at the `out` folder
