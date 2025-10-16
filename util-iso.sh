@@ -212,6 +212,10 @@ run_build() {
         fi
     done
     show_elapsed_time "${FUNCNAME}" "${timer_start}"
+    if [ "$work_dir"="/tmp/cachyos-live-iso-tmp" ]; then
+        msg "!!! Remember to remove $work_dir !!!"
+        msg2 "sudo rm -rf $work_dir"
+    fi
 }
 
 gen_iso_fn(){

@@ -20,10 +20,12 @@ outFolder="${src_dir}/out"
 build_list_iso="desktop"
 clean_first=true
 verbose=false
+build_in_ram=true
 
 usage() {
     echo "Usage: ${0##*/} [options]"
     echo '    -c                 Disable clean work dir'
+    echo '    -r                 Disable building in RAM on systems with more than 23GB RAM'
     echo "    -p <profile>       Buildset or profile [default: ${build_list_iso}]"
     echo '    -v                 Verbose output to log file, show profile detail (-q)'
     echo '    -h                 This help'
@@ -34,12 +36,13 @@ usage() {
 
 orig_argv=("$@")
 
-opts='p:cvh'
+opts='p:cvhr'
 
 while getopts "${opts}" arg; do
     case "${arg}" in
         c) clean_first=false ;;
         p) build_list_iso="$OPTARG" ;;
+        r) build_in_ram=false ;;
         v) verbose=true ;;
         h|?) usage 0 ;;
         *) echo "invalid argument '${arg}'"; usage 1 ;;
@@ -51,6 +54,11 @@ shift $(($OPTIND - 1))
 timer_start=$(get_timer)
 
 #check_root "$0" "${orig_argv[@]}"
+
+# Build ISO in RAM if RAM amount is greater than 23GB. This would speed up build process and extend disk lifetime 
+if [[ "$build_in_ram" == "true" ]] && [[ $(grep MemTotal /proc/meminfo | awk '{print int($2/1024/1024)}') -gt 23 ]]; then
+    work_dir="/tmp/cachyos-live-iso-tmp"
+fi
 
 prepare_dir "${work_dir}"
 
