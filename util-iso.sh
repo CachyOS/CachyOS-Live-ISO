@@ -212,7 +212,7 @@ run_build() {
         fi
     done
     show_elapsed_time "${FUNCNAME}" "${timer_start}"
-    if [[ "$work_dir"="/tmp/cachyos-live-iso-tmp" ]] && [[ "$remove_build_dir" == "false" ]]; then
+    if [[ "$build_in_ram"="true" ]] && [[ "$remove_build_dir" == "false" ]]; then
         msg "!!! Remember to remove $work_dir !!!"
         msg2 "sudo rm -rf $work_dir"
     fi
