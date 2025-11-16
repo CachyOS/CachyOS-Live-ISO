@@ -218,7 +218,7 @@ run_build() {
     fi
     if [[ "$remove_build_dir" == "true" ]]; then
         msg "Automatically removing build directory ($work_dir)..."
-        rm -rf $work_dir
+        rm -rf "$work_dir"
         msg2 "Removed"
     fi
 }
