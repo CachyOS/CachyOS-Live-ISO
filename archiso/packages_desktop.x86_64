@@ -12,6 +12,7 @@ bind
 bluedevil
 breeze-gtk
 brltty
+broadcom-wl-dkms
 btrfs-progs
 cachy-chroot
 cachyos-calamares-qt6-next-grub
@@ -36,6 +37,7 @@ darkhttpd
 ddrescue
 dhcpcd
 diffutils
+dkms
 dmidecode
 dmraid
 dnsmasq
@@ -51,10 +53,13 @@ f2fs-tools
 fakeroot
 fatresize
 firefox
+gc
+gcc
 gpart
 gparted
 gptfdisk
 grub
+guile
 haveged
 hwdetect
 hwinfo
@@ -77,6 +82,8 @@ ldns
 less
 lftp
 libfido2
+libisl
+libmpc
 libusb-compat
 libwnck3
 linux-atm
@@ -84,11 +91,15 @@ linux-cachyos-lts
 linux-cachyos-lts-zfs
 linux-firmware
 linux-firmware-marvell
+linux-headers
+linux-lts-headers
+linux-zen-headers
 lsb-release
 lsof
 lsscsi
 lvm2
 lynx
+make
 mc
 mdadm
 memtest86+
@@ -131,6 +142,7 @@ parted
 partimage
 partitionmanager
 paru
+patch
 pcsclite
 pipewire
 pipewire-alsa
