@@ -212,12 +212,13 @@ run_build() {
         fi
     done
     show_elapsed_time "${FUNCNAME}" "${timer_start}"
-    if [[ "$build_in_ram" == "true"  && "$remove_build_dir" == "false" ]]; then
+    if [[ "$build_in_ram" == "true" && "$remove_build_dir" == "false" ]]; then
         msg "!!! Remember to remove $work_dir !!!"
         msg2 "sudo rm -rf $work_dir"
     fi
     if [[ "$remove_build_dir" == "true" ]]; then
         msg "Automatically removing build directory ($work_dir)..."
+        umount_fs
         rm -rf "$work_dir"
         msg2 "Removed"
     fi
