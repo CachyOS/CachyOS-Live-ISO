@@ -219,7 +219,7 @@ run_build() {
     if [[ "$remove_build_dir" == "true" ]]; then
         msg "Automatically removing build directory ($work_dir)..."
         umount_fs
-        rm -rf "$work_dir"
+        [ -d ${work_dir} ] && sudo rm -rf ${work_dir}
         msg2 "Removed"
     fi
 }
