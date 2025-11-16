@@ -44,6 +44,7 @@ dosfstools
 e2fsprogs
 edk2-shell
 efibootmgr
+espeak-ng
 ethtool
 exfatprogs
 f2fs-tools
@@ -69,6 +70,7 @@ jfsutils
 kate
 kcalc
 kde-gtk-config
+kinfocenter
 konsole
 kscreen
 ldns
@@ -113,8 +115,8 @@ noto-fonts-cjk
 nss-mdns
 ntfs-3g
 ntp
-nvidia-utils
 nvidia-module-extractor
+nvidia-utils
 nvme-cli
 occt
 open-iscsi
@@ -122,6 +124,7 @@ open-vm-tools
 opendesktop-fonts
 openssh
 openvpn
+orca
 os-prober
 partclone
 parted
@@ -177,13 +180,13 @@ usbutils
 vim
 virtualbox-guest-utils
 vpnc
+vulkan-virtio
 wget
 wireless-regdb
 wireless_tools
 wireplumber
 wpa_supplicant
 wvdial
-vulkan-virtio
 xdg-user-dirs-gtk
 xdg-utils
 xf86-input-elographics
