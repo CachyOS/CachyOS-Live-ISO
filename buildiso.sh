@@ -60,7 +60,7 @@ timer_start=$(get_timer)
 
 # Build ISO in RAM if RAM amount is greater than 23GB. This would speed up build process and extend disk lifetime 
 if [[ "$build_in_ram" == "true" ]] && [[ $(grep MemTotal /proc/meminfo | awk '{print int($2/1024/1024)}') -gt 23 ]]; then
-    work_dir="/tmp/cachyos-live-iso-tmp"
+    work_dir="$(mktemp -d --suffix="-cachyos-iso")"
 fi
 
 prepare_dir "${work_dir}"
