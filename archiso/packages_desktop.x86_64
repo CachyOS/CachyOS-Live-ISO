@@ -88,12 +88,10 @@ libusb-compat
 libwnck3
 linux-atm
 linux-cachyos-lts
+linux-cachyos-lts-headers
 linux-cachyos-lts-zfs
 linux-firmware
 linux-firmware-marvell
-linux-headers
-linux-lts-headers
-linux-zen-headers
 lsb-release
 lsof
 lsscsi
