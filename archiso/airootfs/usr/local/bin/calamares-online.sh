@@ -101,7 +101,7 @@ Main() {
 EOF
 
     sudo cp "/usr/share/calamares/settings_${mode}.conf" /etc/calamares/settings.conf
-    sudo -E dbus-launch calamares -D6 >> $log &
+    exec pkexec-wrapper calamares -D6 >> $log
 }
 
 Main "$@"

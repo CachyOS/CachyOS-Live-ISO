@@ -1,3 +1,9 @@
+# 25.09
+**Features:**
+
+* **ISO:** Switched to Plasma Login as displaymanager, which will now utilize wayland only
+* **ISO:** Desktop Session does now use wayland
+
 # 25.08
 
 **Features:**
