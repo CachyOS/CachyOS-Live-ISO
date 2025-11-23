@@ -23,9 +23,17 @@ package=sddm
 if pacman -Qs $package > /dev/null ; then
     ln -sf /usr/lib/systemd/system/sddm.service /etc/systemd/system/display-manager.service
 fi
+package=plasma-login-manager
+if pacman -Qs $package > /dev/null ; then
+    ln -sf /usr/lib/systemd/system/plasma-login.service /etc/systemd/system/display-manager.service
+fi
 package=gdm
 if pacman -Qs $package > /dev/null ; then
     ln -sf /usr/lib/systemd/system/gdm.service /etc/systemd/system/display-manager.service
+fi
+package=cosmic-greeter
+if pacman -Qs $package > /dev/null ; then
+    ln -sf /usr/lib/systemd/system/cosmic-greeter.service /etc/systemd/system/display-manager.service
 fi
 package=lxdm
 if pacman -Qs $package > /dev/null ; then
