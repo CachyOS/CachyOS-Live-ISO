@@ -89,7 +89,7 @@ Main() {
         exit
     fi
 
-    # Get Hardware Informations
+    # Get Hardware Information
     inxi -F > $log
 
     cat <<EOF >> $log

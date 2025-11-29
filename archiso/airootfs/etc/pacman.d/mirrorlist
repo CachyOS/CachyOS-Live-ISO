@@ -1,6 +1,6 @@
 # Force good mirrors for installation
 # Mirrors from india currently being reported as fully synced but they are not
-# CachyOS provdes a CDN Cache archlinux mirror
+# CachyOS provides a CDN Cache archlinux mirror
 # as fallback an alternative cloudflare mirror will be used
 # as third fallback GEO mirrors from archlinux will be used
 Server = https://archlinux.cachyos.org/repo/$repo/os/$arch
