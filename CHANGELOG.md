@@ -57,7 +57,7 @@
 
 **Fixes:**
 
-* **Limine:** 
+* **Limine:**
     - Fixed `limine bios-install /dev/sdaX` error when selecting the **/boot** mount point as the boot location on MBR systems.
     - Fixed uninitialized value of the `bootLoader` path, which caused installation failures on MBR systems when the bootloader location wasn’t explicitly selected.
     - Added a warning about using the **bios-grub** flag on the boot partition, which can cause a “Stage 3 file not found” error.
@@ -68,7 +68,7 @@
  25.07
 
 **Features:**
--   **Shell**: The user shell can be now choosen at installation time between fish, zsh and bash. Fish still stays to be default enabled. 
+-   **Shell**: The user shell can be now chosen at installation time between fish, zsh and bash. Fish still stays to be default enabled.
 -   **chwd**: Install plasma-x11 for legacy NVIDIA Drivers
 -   **Netinstall**: Added fwupd to KDE Plasma and Gnome
 -   **mesa-git**: Added support for AMD Anti Lag
@@ -100,7 +100,7 @@
 - **netinstall**: Added kcalc, filelight, plymouth-kcm and kio-admin to the KDE installation
 - **ISO**: Added an automatic detection, while booting the ISO, which NVIDIA GPU is in the system and then loads the proper module: nvidia-open and nvidia to provide better support for 10xx and lower series
 - **mkinitcpio**: Disabled fallback initramfs as default. This will save quite a bunch of sapce
-- **Mirrors**: Added new Bangladesh Mirro with 10GBs. Thanks to Limda for hosting this!
+- **Mirrors**: Added new Bangladesh Mirror with 10GBs. Thanks to Limda for hosting this!
 - **Proton**:
   - Rebased almost all patches from **Proton Cachyos 9.0**.
   - Enabled the Wayland driver for the Steam Linux Runtime builds too. Enable with `PROTON_ENABLE_WAYLAND=1`. Thanks to [GloriousEggroll](https://github.com/GloriousEggroll) for making it happen.
@@ -119,8 +119,8 @@
 **Changelog for Handheld Edition:**
 - **os-branch**: Gamemode shows now properly that CachyOS Linux is used
 - **audio**: Updated convolver profile
-- **steamos-manager**: This is used for GPU Clock and TDP Management, BIOS/Dock Updates, Storage Device maintainance, external storage formatting and Battery charge limit for steamdeck
-- **steamos-powerbuttond**: Replace with powerbuttond for a better sleep expierence
+- **steamos-manager**: This is used for GPU Clock and TDP Management, BIOS/Dock Updates, Storage Device maintenance, external storage formatting and Battery charge limit for steamdeck
+- **steamos-powerbuttond**: Replace with powerbuttond for a better sleep experience
 - **jupiter-hw-support**: Updated to 20250501
 
 # 25.04
@@ -234,7 +234,7 @@
 - ISO: Added check, if the user is using the latest ISO, if not warn them
 
 **Bug Fixes:**
-- refind: partitioning: changed from 3 way partiton layout to 2 way
+- refind: partitioning: changed from 3 way partition layout to 2 way
 - netinstall: added kdeplasma-addons to the Plasma installation
 - calamares: Fixed a issue, while partitioning with a swap partition
 
@@ -441,7 +441,7 @@
 **Bug-Fixes:**
 - NVIDIA: patched nvidia module to take the owner ship of nvidia.drm.modeset earlier to avoid issues on nvidia graphics
 - Refind: Don't install the lts kernel to avoid issues
-- shellprocess: Remove the liveusers directory completly
+- shellprocess: Remove the liveusers directory completely
 
 
 # 24.03
@@ -541,13 +541,13 @@
 
 **Bug-fixes:**
 - netinstall: minimal fixes due package changes
-- Slides: Slide 6 got updated to reflect the lastest changes
+- Slides: Slide 6 got updated to reflect the latest changes
 
 # 23.04
 
 **Features:**
 
-- Introduce the Qtile desktop enviroment
+- Introduce the Qtile desktop environment
 - Reworked mhwd: Rust rewrite; Simplified profiles for GPUs and network cards; Removed bunch of ancient code
 - Package updates: linux-cachyos 6.2.12, cachy-browser 112.0.1, mesa 23.0.3, zfs-utils 2.1.11
 
@@ -565,7 +565,7 @@
 
 - Calamares got fixed with the lightdm displaymanager due faulty calamares upstream commits
 - Offline installation keyring issue got fixed
-- Refind: Use linux-cachyos-lts as defaullt. Current 6.2 seems not to work well together with refind
+- Refind: Use linux-cachyos-lts as default. Current 6.2 seems not to work well together with refind
 
 
 # 23.03
@@ -614,8 +614,8 @@
 **Features:**
 
 - Calamares Slides got reworked and updated
-- UKUI Desktop Enviroment got added to the Netinstallation
-- Cinnamon Desktop Enviroment got added to the Netinstallation
+- UKUI Desktop Environment got added to the Netinstallation
+- Cinnamon Desktop Environment got added to the Netinstallation
 - Cmdline: zswap is now disabled as default because CachyOS provides zram as default
 - Calamares updated to the latest commit
 - LLVM 15 is now shipped as default
@@ -671,7 +671,7 @@
 **Bug-fixes:**
 
 - qemu-quest-agent.service got removed from the ISO
-- copytoram got completly disabled, it breaks the offline installation
+- copytoram got completely disabled, it breaks the offline installation
 - mkinitcpio.conf got updated
 - And more ISO fixes
 
@@ -742,7 +742,7 @@
 Following known bugs has been fixed:
 
 - Install failed when a generic CPU was used
-- KDE did automatically mount zfs paritions which resulted that the auto login into the ISO did not worked anymore
+- KDE did automatically mount zfs partitions which resulted that the auto login into the ISO did not worked anymore
 
 **Improvements:**
 
@@ -770,7 +770,7 @@ Following options you can select for a kernel compile:
 - Enable or disable Speculative page fault
 - Enable or disable LRNG (Linux Random Number Generator)
 - Apply Kernel automatic Optimization (Does automatically detect your CPU March)
-- Apply Kernel Optimization slecting (You will see a list of different CPU-Marches and can select with a number yours)
+- Apply Kernel Optimization selecting (You will see a list of different CPU-Marches and can select with a number yours)
 - Disable debug (it lowers the size of the kernel)
 - Enable or disable nf cone
 - Enable LTO (Full, Thin, No)
