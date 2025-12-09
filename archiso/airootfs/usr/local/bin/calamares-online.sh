@@ -99,7 +99,7 @@ SetupPacmanKeyring() {
 
 ChooseBootLoaderUefi() {
   yad --width 300 --title "Bootloader" \
-    --image=gnome-shutdown \
+    --image=system-shutdown \
     --button="Limine:6" \
     --button="Grub:2" \
     --button="rEFInd:4" \
@@ -111,7 +111,7 @@ ChooseBootLoaderUefi() {
 
 ChooseBootLoaderBios() {
   yad --width 300 --title "Bootloader" \
-    --image=gnome-shutdown \
+    --image=system-shutdown \
     --button="Limine:6" \
     --button="Grub:2" \
     --text "Choose Bootloader/Edition:"
