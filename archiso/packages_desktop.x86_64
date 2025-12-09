@@ -82,6 +82,8 @@ libwnck3
 linux-atm
 linux-cachyos-lts
 linux-cachyos-lts-zfs
+linux-cachyos
+linux-cachyos-zfs
 linux-firmware
 linux-firmware-marvell
 lsb-release
