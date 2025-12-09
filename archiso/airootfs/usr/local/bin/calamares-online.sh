@@ -31,11 +31,7 @@ Main() {
         _exitcode=$(ChooseBootLoaderUefi)
     else
         SYSTEM="BIOS/MBR SYSTEM"
-        _exitcode=$(yad --width 300 --title "Bootloader" \
-    --image=gnome-shutdown \
-    --button="Grub:2" \
-    --button="Limine:6" \
-    --text "Choose Bootloader/Edition:" ; echo $?)
+        _exitcode=$(ChooseBootLoaderBios)
     fi
 
     local ISO_VERSION="$(cat /etc/version-tag)"
@@ -104,6 +100,15 @@ ChooseBootLoaderUefi() {
     --button="Systemd-boot(Default):3" \
     --button="Refind:4" \
     --button="AI SDK / Refind:5" \
+    --button="Limine:6" \
+    --text "Choose Bootloader/Edition:"
+  echo $?
+}
+
+ChooseBootLoaderBios() {
+  yad --width 300 --title "Bootloader" \
+    --image=gnome-shutdown \
+    --button="Grub:2" \
     --button="Limine:6" \
     --text "Choose Bootloader/Edition:"
   echo $?
