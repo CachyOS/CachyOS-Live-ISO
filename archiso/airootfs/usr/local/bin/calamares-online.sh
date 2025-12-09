@@ -114,12 +114,11 @@ ChooseBootLoaderUefi() {
 }
 
 ChooseBootLoaderBios() {
-  yad --width 300 --title "Bootloader" \
-    --image=system-shutdown \
-    --button="Limine:6" \
-    --button="Grub:2" \
-    --text "Choose Bootloader/Edition:"
-  echo $?
+  kdialog --title Bootloader \
+    --icon system-shutdown \
+    --radiolist "Choose Bootloader/Edition:" \
+    6 Limine on \
+    2 GRUB off
 }
 
 if [[ "$0" = "$BASH_SOURCE" ]]; then
