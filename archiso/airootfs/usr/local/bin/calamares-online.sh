@@ -84,7 +84,7 @@ EOF
     sudo -E dbus-launch calamares -D6 >> $log &
 }
 
-SetupPacmanKeyring() {
+setup_pacman_keyring() {
   # Remove current keyring first, to complete initiate it
   sudo rm -rf /etc/pacman.d/gnupg
   # We are using this, because archlinux is signing the keyring often with a newly created keyring
@@ -102,7 +102,7 @@ SetupPacmanKeyring() {
   timedatectl set-ntp true
 }
 
-ChooseBootLoaderUefi() {
+choose_bootloader_uefi() {
   kdialog --title Bootloader \
     --icon system-shutdown \
     --radiolist "Choose Bootloader/Edition:" \
@@ -113,7 +113,7 @@ ChooseBootLoaderUefi() {
     5 "AI SDK / rEFInd" off
 }
 
-ChooseBootLoaderBios() {
+choose_bootloader_bios() {
   kdialog --title Bootloader \
     --icon system-shutdown \
     --radiolist "Choose Bootloader/Edition:" \
