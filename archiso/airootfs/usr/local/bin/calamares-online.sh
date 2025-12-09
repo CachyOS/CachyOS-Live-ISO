@@ -1,8 +1,6 @@
 #!/bin/bash
 
 Main() {
-    SetupPacmanKeyring
-
     local progname="$(basename "$0")"
     local log="/home/liveuser/cachy-install.log"
     local mode="online"  # TODO: keep this line for now
@@ -22,6 +20,8 @@ Main() {
 
     local ISO_VERSION="$(cat /etc/version-tag)"
     echo "USING ISO VERSION: ${ISO_VERSION}"
+
+    SetupPacmanKeyring
 
     if [[ "${_exitcode}" -eq 2 ]]; then
         BOOTLOADER="GRUB"
