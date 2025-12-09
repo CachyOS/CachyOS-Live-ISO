@@ -6,7 +6,7 @@ Main() {
     local mode="online"  # TODO: keep this line for now
 
     local _efi_check_dir="/sys/firmware/efi"
-    local _exitcode=2 # by default use grub
+    local _exitcode=""
 
     local SYSTEM=""
     local BOOTLOADER=""
@@ -16,6 +16,11 @@ Main() {
     else
         SYSTEM="BIOS/MBR SYSTEM"
         _exitcode=$(ChooseBootLoaderBios)
+    fi
+
+    if [[ -z "$_exitcode" ]]; then
+      echo "User didn't choose."
+      exit 10
     fi
 
     local ISO_VERSION="$(cat /etc/version-tag)"
