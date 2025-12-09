@@ -1,6 +1,6 @@
 #!/bin/bash
 
-Main() {
+main() {
     local progname="$(basename "$0")"
     local log="/home/liveuser/cachy-install.log"
     local mode="online"  # TODO: keep this line for now
