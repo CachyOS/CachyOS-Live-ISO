@@ -103,7 +103,7 @@ ChooseBootLoaderUefi() {
     --button="Limine:6" \
     --button="Grub:2" \
     --button="Refind:4" \
-    --button="Systemd-boot(Default):3" \
+    --button="Systemd-boot:3" \
     --button="AI SDK / Refind:5" \
     --text "Choose Bootloader/Edition:"
   echo $?
