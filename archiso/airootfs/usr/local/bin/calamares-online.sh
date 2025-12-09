@@ -103,15 +103,14 @@ SetupPacmanKeyring() {
 }
 
 ChooseBootLoaderUefi() {
-  yad --width 300 --title "Bootloader" \
-    --image=system-shutdown \
-    --button="Limine:6" \
-    --button="Grub:2" \
-    --button="rEFInd:4" \
-    --button="systemd-boot:3" \
-    --button="AI SDK / rEFInd:5" \
-    --text "Choose Bootloader/Edition:"
-  echo $?
+  kdialog --title Bootloader \
+    --icon system-shutdown \
+    --radiolist "Choose Bootloader/Edition:" \
+    6 Limine on \
+    2 GRUB off \
+    4 rEFInd off \
+    3 systemd-boot off \
+    5 "AI SDK / rEFInd" off
 }
 
 ChooseBootLoaderBios() {
