@@ -12,10 +12,10 @@ main() {
     local BOOTLOADER=""
     if [ -d "${_efi_check_dir}" ]; then
         SYSTEM="UEFI SYSTEM"
-        _exitcode=$(ChooseBootLoaderUefi)
+        _exitcode=$(choose_bootloader_uefi)
     else
         SYSTEM="BIOS/MBR SYSTEM"
-        _exitcode=$(ChooseBootLoaderBios)
+        _exitcode=$(choose_bootloader_bios)
     fi
 
     if [[ -z "$_exitcode" ]]; then
@@ -26,7 +26,7 @@ main() {
     local ISO_VERSION="$(cat /etc/version-tag)"
     echo "USING ISO VERSION: ${ISO_VERSION}"
 
-    SetupPacmanKeyring
+    setup_pacman_keyring
 
     if [[ "${_exitcode}" -eq 2 ]]; then
         BOOTLOADER="GRUB"
@@ -122,5 +122,5 @@ choose_bootloader_bios() {
 }
 
 if [[ "$0" = "$BASH_SOURCE" ]]; then
-  Main "$@"
+  main "$@"
 fi
