@@ -20,7 +20,7 @@ main() {
 
     if [[ -z "$_exitcode" ]]; then
       echo "User didn't choose."
-      exit 10
+      return 10
     fi
 
     local ISO_VERSION="$(cat /etc/version-tag)"
