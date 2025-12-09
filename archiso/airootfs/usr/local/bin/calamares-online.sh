@@ -104,4 +104,6 @@ EOF
     sudo -E dbus-launch calamares -D6 >> $log &
 }
 
-Main "$@"
+if [[ "$0" = "$BASH_SOURCE" ]]; then
+  Main "$@"
+fi
