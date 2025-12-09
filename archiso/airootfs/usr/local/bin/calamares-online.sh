@@ -100,11 +100,11 @@ SetupPacmanKeyring() {
 ChooseBootLoaderUefi() {
   yad --width 300 --title "Bootloader" \
     --image=gnome-shutdown \
-    --button="Grub:2" \
-    --button="Systemd-boot(Default):3" \
-    --button="Refind:4" \
-    --button="AI SDK / Refind:5" \
     --button="Limine:6" \
+    --button="Grub:2" \
+    --button="Refind:4" \
+    --button="Systemd-boot(Default):3" \
+    --button="AI SDK / Refind:5" \
     --text "Choose Bootloader/Edition:"
   echo $?
 }
@@ -112,8 +112,8 @@ ChooseBootLoaderUefi() {
 ChooseBootLoaderBios() {
   yad --width 300 --title "Bootloader" \
     --image=gnome-shutdown \
-    --button="Grub:2" \
     --button="Limine:6" \
+    --button="Grub:2" \
     --text "Choose Bootloader/Edition:"
   echo $?
 }
