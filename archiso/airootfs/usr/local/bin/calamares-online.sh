@@ -28,14 +28,7 @@ Main() {
     local BOOTLOADER=""
     if [ -d "${_efi_check_dir}" ]; then
         SYSTEM="UEFI SYSTEM"
-        _exitcode=$(yad --width 300 --title "Bootloader" \
-    --image=gnome-shutdown \
-    --button="Grub:2" \
-    --button="Systemd-boot(Default):3" \
-    --button="Refind:4" \
-    --button="AI SDK / Refind:5" \
-    --button="Limine:6" \
-    --text "Choose Bootloader/Edition:" ; echo $?)
+        _exitcode=$(ChooseBootLoaderUefi)
     else
         SYSTEM="BIOS/MBR SYSTEM"
         _exitcode=$(yad --width 300 --title "Bootloader" \
@@ -102,6 +95,18 @@ EOF
 
     sudo cp "/usr/share/calamares/settings_${mode}.conf" /etc/calamares/settings.conf
     sudo -E dbus-launch calamares -D6 >> $log &
+}
+
+ChooseBootLoaderUefi() {
+  yad --width 300 --title "Bootloader" \
+    --image=gnome-shutdown \
+    --button="Grub:2" \
+    --button="Systemd-boot(Default):3" \
+    --button="Refind:4" \
+    --button="AI SDK / Refind:5" \
+    --button="Limine:6" \
+    --text "Choose Bootloader/Edition:"
+  echo $?
 }
 
 if [[ "$0" = "$BASH_SOURCE" ]]; then
