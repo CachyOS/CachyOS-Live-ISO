@@ -102,9 +102,9 @@ ChooseBootLoaderUefi() {
     --image=gnome-shutdown \
     --button="Limine:6" \
     --button="Grub:2" \
-    --button="Refind:4" \
-    --button="Systemd-boot:3" \
-    --button="AI SDK / Refind:5" \
+    --button="rEFInd:4" \
+    --button="systemd-boot:3" \
+    --button="AI SDK / rEFInd:5" \
     --text "Choose Bootloader/Edition:"
   echo $?
 }
