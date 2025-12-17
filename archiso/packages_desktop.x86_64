@@ -14,7 +14,7 @@ breeze-gtk
 brltty
 btrfs-progs
 cachy-chroot
-cachyos-calamares-qt6-next-grub
+cachyos-calamares-next
 cachyos-cli-installer-new
 cachyos-fish-config
 cachyos-hello
@@ -209,5 +209,4 @@ xorg-xinit
 xorg-xkill
 xorg-xrandr
 xorg-xrdb
-yad
 zfs-utils
