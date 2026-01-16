@@ -11,7 +11,6 @@ bcachefs-tools
 bind
 bluedevil
 breeze-gtk
-brltty
 btrfs-progs
 cachy-chroot
 cachyos-calamares-next
@@ -24,7 +23,6 @@ cachyos-keyring
 cachyos-mirrorlist
 cachyos-rate-mirrors
 cachyos-settings
-cachyos-themes-sddm
 cachyos-v3-mirrorlist
 cachyos-v4-mirrorlist
 chwd
@@ -63,7 +61,6 @@ imwheel
 inetutils
 intel-ucode
 inxi
-irssi
 iw
 iwd
 jfsutils
@@ -73,12 +70,10 @@ kde-gtk-config
 kinfocenter
 konsole
 kscreen
-ldns
 less
 lftp
 libfido2
 libusb-compat
-libwnck3
 linux-atm
 linux-cachyos-lts
 linux-cachyos-lts-zfs
@@ -90,8 +85,6 @@ lsb-release
 lsof
 lsscsi
 lvm2
-lynx
-mc
 mdadm
 memtest86+
 memtest86+-efi
@@ -111,7 +104,6 @@ net-tools
 networkmanager
 nfs-utils
 nilfs-utils
-nmap
 noto-fonts
 noto-fonts-cjk
 nss-mdns
@@ -139,10 +131,8 @@ pipewire-alsa
 pipewire-jack
 pipewire-pulse
 plasma-desktop
-plasma-integration
 plasma-nm
 plasma-pa
-plasma-workspace
 plasma-x11-session
 polkit
 polkit-kde-agent
@@ -154,7 +144,6 @@ refind
 rp-pppoe
 rsync
 rtkit
-rxvt-unicode-terminfo
 sddm
 sdparm
 sg3_utils
