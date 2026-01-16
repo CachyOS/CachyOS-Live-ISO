@@ -19,6 +19,10 @@ package=ly
 if pacman -Qs $package > /dev/null ; then
   ln -sf /usr/lib/systemd/system/ly.service /etc/systemd/system/display-manager.service
 fi
+package=plasma-login-manager
+if pacman -Qs $package > /dev/null ; then
+  ln -sf /usr/lib/systemd/system/plasmalogin.service /etc/systemd/system/display-manager.service
+fi
 package=sddm
 if pacman -Qs $package > /dev/null ; then
     ln -sf /usr/lib/systemd/system/sddm.service /etc/systemd/system/display-manager.service

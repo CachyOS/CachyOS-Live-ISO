@@ -17,6 +17,7 @@ _clean_packages() {
 #    for xxx in "${_toberemoved_packages[@]}"; do pacman -Rs "$xxx" --noconfirm; done
 
     rm /etc/sddm.conf || true
+    rm /etc/plasmalogin.conf || true
 }
 
 _pacman_fix() {
