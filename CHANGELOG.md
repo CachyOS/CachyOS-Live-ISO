@@ -1,3 +1,17 @@
+# 26.01
+
+**Features:**
+
+* **Installer:** The bootloader selection has been moved too Calamares and everything is managed now in one package
+* **displaymanager:** Switched to Plasma-Login-Manager for the ISO
+* **ISO:** The ISO does now contain a stable and LTS Kernel. The stable kernel is as default selected.
+* **ISO:** Switched to Wayland instead of x11 session on the ISO
+* **Installer:** Grub now uses LUKS 2 for encryption
+* **netinstall:** Plasma now uses Plasma-Login-Manager instead of SDDM
+* **netinstall:** Niri does now use the noctalia-shell and new dotfiles
+* **Slides:** The Calamares slides typo's got fixed and a new page informing about Wiki added
+
+
 # 25.11
 
 **Features:**
