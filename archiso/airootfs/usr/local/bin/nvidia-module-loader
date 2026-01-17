@@ -13,7 +13,7 @@ elif chwd --list | awk '{ if($2 == "nvidia-open-dkms") f=1 } END {exit (f == 1) 
     modprobe drm_ttm_helper
     modprobe drm_kms_helper
     # load nvidia modules
-    modprobe --ignore-install nvidia nvidia-modeset nvidia-drm nvidia-uvm
+    modprobe --ignore-install -a nvidia nvidia-modeset nvidia-drm nvidia-uvm
 fi
 
 # Otherwise, do a fallback to nouveau anyway
