@@ -29,7 +29,7 @@ if pacman -Qs $package > /dev/null ; then
 fi
 package=plasma-login-manager
 if pacman -Qs $package > /dev/null ; then
-    ln -sf /usr/lib/systemd/system/plasma-login.service /etc/systemd/system/display-manager.service
+    ln -sf /usr/lib/systemd/system/plasmalogin.service /etc/systemd/system/display-manager.service
 fi
 package=gdm
 if pacman -Qs $package > /dev/null ; then
