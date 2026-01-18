@@ -10,6 +10,8 @@
 * **netinstall:** Plasma now uses Plasma-Login-Manager instead of SDDM
 * **netinstall:** Niri does now use the noctalia-shell and new dotfiles
 * **Slides:** The Calamares slides typo's got fixed and a new page informing about Wiki added
+* **Mirrors:** https://packages.cachyos.org/mirrors shows now the syncing state of the CachyOS Mirrors
+* **Installer:** The installer does now block processing with the installation, when the EFI partition is too small for the options alongside and replace
 
 
 # 25.11
