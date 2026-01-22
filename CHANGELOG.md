@@ -2,16 +2,42 @@
 
 **Features:**
 
-* **Installer:** The bootloader selection has been moved too Calamares and everything is managed now in one package
-* **displaymanager:** Switched to Plasma-Login-Manager for the ISO
-* **ISO:** The ISO does now contain a stable and LTS Kernel. The stable kernel is as default selected.
-* **ISO:** Switched to Wayland instead of x11 session on the ISO
-* **Installer:** Grub now uses LUKS 2 for encryption
-* **netinstall:** Plasma now uses Plasma-Login-Manager instead of SDDM
-* **netinstall:** Niri does now use the noctalia-shell and new dotfiles
-* **Slides:** The Calamares slides typo's got fixed and a new page informing about Wiki added
-* **Mirrors:** https://packages.cachyos.org/mirrors shows now the syncing state of the CachyOS Mirrors
-* **Installer:** The installer does now block processing with the installation, when the EFI partition is too small for the options alongside and replace
+* **Installer:** 
+  * Moved bootloader selection to Calamares; management is now consolidated into a single package.
+  * Architecture detection is now performed **before** the base system installation to reduce download size.
+  * GRUB now uses LUKS2 for encryption.
+  * Pass --needed to pacman to avoid installing packages twice.
+* **ISO:** 
+  * Switched to `plasma-login-manager` for the ISO environment.
+  * The ISO now contains both Stable and LTS kernels. The Stable kernel is selected by default.
+  * Switched the default ISO session from X11 to Wayland.
+* **Netinstall:** 
+  * Plasma installations now use `plasma-login-manager` instead of SDDM.
+  * Niri now uses `noctalia-shell` and updated dotfiles.
+  * Cleaned up the GNOME installation process.
+* **Slides:** Fixed typos in the Calamares slides and added a new page linking to the Wiki.
+* **Mirrors:** The mirror status page ([https://packages.cachyos.org/mirrors](https://packages.cachyos.org/mirrors)) now displays the syncing state of CachyOS mirrors.
+* **cachyos-settings:** Enabled `EnableAggressiveVblank` for the NVIDIA module. This reduces time spent in the interrupt top half for low-latency display interrupts.
+* **chwd:** 
+  * Installs `nouveau-fw` to enable VA-API support in Nouveau.
+  * Added AI-SDK support for several new AMD GPUs.
+* **Proton-CachyOS:**
+  * Added FSR4 MLFG (Machine Learning Frame Generation) support; automatically enabled when using `PROTON_FSR4_UPGRADE`
+  * Added `d7vk` module support. This can be enabled via `PROTON_DXVK_DDRAW=1`
+  * Imported DualSense haptic feedback patches
+  * Added `WINE_BLOCK_HOSTS` to prevent Wine from connecting to specific domains
+  * Automatically enable `ENABLE_HDR_WSI=1` when using `winewayland` on NVIDIA GPUs
+  * Fixed keyboard layout issues when using `winewayland.drv`
+  * Removed a long-standing patch that was causing degraded 1% low FPS
+  * Patched `protonfixes` to better handle DLSS preset selection and `libxess_dx11.dll` redirection
+  
+
+**Fixes:**
+
+* **Limine:** Increased boot partition size to 4192MB to accommodate high requirements from `limine-snapper-sync`.
+* **Installer:** The installer now blocks/prevents proceeding if the EFI partition is too small when using "alongside" or "replace partition" options.
+* **chwd:** Removed the environment variable forcing `libva-nvidia-driver`, as it caused issues on dual-GPU systems.
+* **cachyos-hello**: Fixed an issue that cachy-update shows being disabled, while its enabled.
 
 
 # 25.11
