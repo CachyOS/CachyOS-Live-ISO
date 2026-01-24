@@ -50,6 +50,7 @@ f2fs-tools
 fakeroot
 fatresize
 firefox
+gcc
 gpart
 gparted
 gptfdisk
