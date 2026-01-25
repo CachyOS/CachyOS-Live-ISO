@@ -5,9 +5,11 @@ if [[ -e /sys/module/nvidia || -e /sys/module/nouveau ]]; then
 fi
 
 # Load compatible version of NVIDIA modules for current hardware
-if chwd --list | awk '{ if($2 == "nouveau" || $2 == "nvidia-dkms-470xx" || $2 == "nvidia-dkms-580xx") f=1 } END {exit (f == 1) ? 0 : 1 }'; then
+if (chwd --check nouveau ||
+    chwd --check nvidia-dkms-470xx ||
+    chwd --check nvidia-dkms-580xx) 2>/dev/null; then
     modprobe nouveau
-elif chwd --list | awk '{ if($2 == "nvidia-open-dkms") f=1 } END {exit (f == 1) ? 0 : 1 }'; then
+elif chwd --check nvidia-open-dkms 2>/dev/null; then
     # Load some basic dependencies of nvidia modules
     modprobe video
     modprobe drm_ttm_helper
