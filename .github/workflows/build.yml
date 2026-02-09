@@ -1,0 +1,38 @@
+name: Desktop ISO
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:base-devel
+      options: --privileged
+    name: Build
+    steps:
+      - name: Get build date
+        id: date
+        run: |
+          echo "builddate=$(date +'%y%m%d')" >> $GITHUB_OUTPUT
+
+      - name: Clone CachyOS-Live-ISO
+        id: clone
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Add CachyOS keyring
+        id: keyring
+        run: |
+          pacman-key --init
+          pacman-key --recv-keys F3B607488DB35A47 --keyserver keyserver.ubuntu.com
+          pacman-key --lsign-key F3B607488DB35A47
+
+      - name: Install dependencies
+        id: dependencies
+        run: |
+          sudo pacman -Syu --noconfirm archiso mkinitcpio-archiso squashfs-tools grub
+
+      - name: Build ISO (${{ steps.date.outputs.builddate }})
+        id: build
+        run: |
+          ./buildiso.sh
