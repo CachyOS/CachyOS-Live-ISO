@@ -36,3 +36,9 @@ jobs:
         id: build
         run: |
           ./buildiso.sh
+      - name: Upload ISO to artifacts
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: cachyos-desktop-linux-${{ steps.date.outputs.builddate }}
+          path: out/desktop/*
