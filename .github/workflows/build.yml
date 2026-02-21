@@ -8,6 +8,8 @@ jobs:
       image: archlinux:base-devel
       options: --privileged
     name: Build
+    outputs:
+      builddate: ${{ steps.date.outputs.builddate }}
     steps:
       - name: Get build date
         id: date
@@ -42,3 +44,69 @@ jobs:
         with:
           name: cachyos-desktop-linux-${{ steps.date.outputs.builddate }}
           path: out/desktop/*
+  quicktest:
+    name: Testing
+    runs-on: ubuntu-latest
+    needs: build
+    container:
+      image: archlinux:base-devel
+      options: --privileged
+    steps:
+      - name: Clone CachyOS-Live-ISO
+        id: clone
+        uses: actions/checkout@v6
+
+      - name: Install dependencies
+        id: dependencies
+        run: |
+          pacman -Syu --noconfirm git ffmpeg imagemagick tesseract-data-eng qemu-desktop
+
+      - name: Create build user
+        id: user
+        run: |
+          useradd builder -m
+          echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+          chmod -R a+rw .
+
+      - name: Build quickemu
+        id: quickemu
+        run: |
+          sudo -u builder git clone https://aur.archlinux.org/quickemu.git
+          cd quickemu
+          sudo -H -E -u builder makepkg --syncdeps --noconfirm
+          pacman -U --noconfirm quickemu*.pkg.tar.zst
+          cd ..
+
+      - name: Clone quicktest
+        id: clone-quicktest
+        uses: actions/checkout@v6
+        with:
+          repository: 'quickemu-project/quicktest'
+          path: 'quicktest'
+
+      - name: Download ISO
+        id: download
+        uses: actions/download-artifact@v4
+        with:
+          path: machines/cachyos-dailylive
+          merge-multiple: true
+
+      - name: Run quicktest
+        id: quicktest
+        run: |
+          ./quicktest/quicktest test_install_calamares cachyos dailylive
+        env:
+          QT_NOTIFY: "false"
+          QT_OPEN_RESULTS: "false"
+          QT_QUICKGET_SKIP: "true"
+          QT_TESTCASES_DIR: "./testcases"
+          QUICKEMU_DISPLAY: "none"
+          QUICKEMU_VM_DIR: "./machines"
+
+      - name: Upload results to artifacts
+        id: upload-results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cachyos-desktop-linux-results-${{needs.build.outputs.builddate}}
+          path: results/*
