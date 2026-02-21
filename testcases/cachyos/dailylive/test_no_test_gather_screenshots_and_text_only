@@ -1,0 +1,39 @@
+# This test merely loops forever, taking a screenshot when asked
+
+function test_description() {
+    cat << EOF
+This test merely loops forever, taking a screenshot when asked
+The goal of this is for you to manually run the distro or release you wish to test,
+and press [return] in the terminal window, whenever you wish to take a screenshot.
+This script will take a screenshot, and then wait for you to press [return] again.
+After taking the screeshot, it will run tesseract to turn the image into text.
+This is useful if you wish to gather screenshots and text for a new distro, or
+release, or language. You can then use this text to create a new test script.
+EOF
+}
+
+function test_setup() {
+    # Settings we choose to override here
+    QT_KEEP_SCREENSHOTS=true
+    QT_KEEP_TESSERACT_TEXT=true
+
+    # Set the language to test
+    # Be sure to install the relavent tesseract language pack
+    # e.g. tesseract-ocr-fra
+    TESSERACT_LANG="eng"
+}
+
+function test_loop_gathering_screenshots_and_text() {
+    qt_screenshot_ppm notest
+    qt_ocr_only notest
+    qt_wait_for_host_keypress
+}
+
+function test_no_test_gather_screenshots_and_text_only() {
+    # Loop forever
+    while true; do
+        test_loop_gathering_screenshots_and_text
+    done
+}
+
+test_description

@@ -1,0 +1,58 @@
+# CachyOS Calamares install
+
+# Language
+
+TESSERACT_LANG="eng"
+
+# GRUB
+
+text_console_gnu_grub="GNU GRUB"
+
+# Initial splash
+
+text_console_prompt_welcome="Welcome to CachyOS"
+text_console_prompt_login="localhost login"
+
+# Calamares Welcome
+
+text_calamares_welcome="Welcome to the CachyOS installer"
+
+# Calamares Language
+
+text_calamares_language="The system language will be set to"
+
+# Calamares Keyboard
+
+text_calamares_keyboard="Keyboard model"
+
+# Calamares Bootloader
+
+text_calamares_bootloader="Limine"
+
+# Calamares Partitions
+
+text_calamares_partitions="Select storage device"
+
+# Calamares Desktop
+
+text_calamares_desktop="Plasma Desktop"
+
+# Calamares Packages
+
+text_calamares_packages="Additional packages"
+
+# Calamares Users
+
+text_calamares_users="What name do you want to use to log in?"
+
+# Calamares Summary
+
+text_calamares_summary="This is an overview"
+
+# Calamares Install
+
+text_calamares_install="Continue with Installation"
+
+# Calamares Finished
+
+text_calamares_finished="All done"

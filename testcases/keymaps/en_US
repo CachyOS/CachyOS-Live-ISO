@@ -1,0 +1,55 @@
+# English (US) key mappings for sendkey
+
+KEYS+=(
+  ["\`"]=grave
+  ["~"]=shift-grave
+  ["!"]=shift-1
+  ["@"]=shift-2
+  ["#"]=shift-3
+  ["$"]=shift-4
+  ["%"]=shift-5
+  ["^"]=shift-6
+  ["&"]=shift-7
+  ["*"]=shift-8
+  ["("]=shift-9
+  [")"]=shift-0
+  ["-"]=minus
+  ["_"]=shift-minus
+  ["="]=equal
+  ["+"]=shift-equal
+  ["["]=bracketleft
+  ["{"]=shift-bracketleft
+  ["]"]=bracketright
+  ["}"]=shift-bracketright
+  ["\\"]=backslash
+  ["|"]=shift-backslash
+  [";"]=semicolon
+  [":"]=shift-semicolon
+  ["'"]=apostrophe
+  ["@"]=shift-apostrophe
+  [","]=comma
+  ["<"]=shift-comma
+  [">"]=shift-period
+  ["/"]=slash
+  ["?"]=shift-slash
+  ["."]=dot
+  [" "]=spc
+  ["enter"]=ret
+  ["return"]=ret
+  ["escape"]=esc
+  ["esc"]=esc
+  ["tab"]=tab
+)
+
+for letter in {a..z}; do
+  KEYS+=(
+    ["$letter"]=$letter
+    ["${letter^^}"]=shift-$letter
+  )
+done
+
+for number in {0..9}; do
+  KEYS+=(
+    ["$number"]=$number
+  )
+done
