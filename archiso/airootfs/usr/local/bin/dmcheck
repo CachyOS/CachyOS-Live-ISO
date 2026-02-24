@@ -17,7 +17,8 @@
 
 package=ly
 if pacman -Qs $package > /dev/null ; then
-  ln -sf /usr/lib/systemd/system/ly.service /etc/systemd/system/display-manager.service
+  rm -f /etc/systemd/system/getty.target.wants/getty@tty2.service
+  ln -sf /usr/lib/systemd/system/ly@.service /etc/systemd/system/multi-user.target.wants/ly@tty2.service
 fi
 package=plasma-login-manager
 if pacman -Qs $package > /dev/null ; then
