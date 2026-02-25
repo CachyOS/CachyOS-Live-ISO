@@ -45,12 +45,17 @@ jobs:
           name: cachyos-desktop-linux-${{ steps.date.outputs.builddate }}
           path: out/desktop/*
   quicktest:
-    name: Testing
+    name: Testing (${{ matrix.bootloader }})
     runs-on: ubuntu-latest
     needs: build
     container:
       image: archlinux:base-devel
       options: --privileged
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        bootloader: [grub, systemd-boot, refind, limine]
     steps:
       - name: Clone CachyOS-Live-ISO
         id: clone
@@ -102,11 +107,12 @@ jobs:
           QT_TESTCASES_DIR: "./testcases"
           QUICKEMU_DISPLAY: "none"
           QUICKEMU_VM_DIR: "./machines"
+          TEST_BOOTLOADER: "${{ matrix.bootloader }}"
 
       - name: Upload results to artifacts
         id: upload-results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cachyos-desktop-linux-results-${{needs.build.outputs.builddate}}
+          name: cachyos-desktop-linux-results-${{needs.build.outputs.builddate}}-${{ matrix.bootloader }}
           path: results/*
