@@ -62,8 +62,19 @@ function test_calamares_keyboard() {
 
 function test_calamares_bootloader() {
     qt_wait_for_text "$FUNCNAME" "$text_calamares_bootloader" 10 5
+    qt_send_key_combo "shift-tab"
+    qt_send_key_combo "shift-tab"
+    qt_send_key_combo "shift-tab"
     qt_send_key_combo "spc"
+
+    for ((i=0; i < bootloader_index; i++)); do
+        qt_send_key_combo "down"
+    done
+
+    qt_send_key_combo "shift-tab"
+    qt_send_key_combo "shift-tab"
     qt_screenshot_ppm "$FUNCNAME"
+    qt_send_key_combo "spc"
 }
 
 function test_calamares_partitions() {
@@ -133,7 +144,30 @@ function test_power_off_vm() {
     qt_poweroff_vm
 }
 
+function test_input_validation() {
+    local -Ar bootloaders=(
+        ["grub"]="0"
+        ["refind"]="1"
+        ["refind-ai"]="2"
+        ["systemd-boot"]="3"
+        ["limine"]="4"
+    )
+
+    local bootloader="${TEST_BOOTLOADER:-Limine}"
+    local -g bootloader_index="${bootloaders[$bootloader]}"
+
+    if [ -z "$bootloader_index" ]; then
+        qt_echo "🚨 Unknown bootloader passed: $bootloader"
+        exit 1
+    else
+        qt_echo "✅ Selected bootloader is $bootloader ($bootloader_index)"
+    fi
+
+    qt_echo "✅ Validation passed"
+}
+
 function test_install_calamares() {
+    test_input_validation
     test_setup
     test_post_boot_grub
     test_launch_calamares
