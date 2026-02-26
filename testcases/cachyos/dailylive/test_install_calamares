@@ -83,13 +83,23 @@ function test_calamares_partitions() {
     qt_send_key_combo "tab"
     qt_send_key_combo "tab"
     qt_send_key_combo "spc"
-    qt_send_key_combo "shift-tab"
-    qt_send_key_combo "shift-tab"
-    qt_send_key_combo "shift-tab"
-    qt_send_key_combo "shift-tab"
-    qt_send_key_combo "shift-tab"
+    qt_send_key_combo "tab"
     qt_send_key_combo "spc"
+
+    for ((i=0; i < filesystem_index; i++)); do
+        qt_send_key_combo "down"
+    done
+
+    qt_send_key "enter"
+    qt_wait_for_seconds 2
+    qt_send_key_combo "shift-tab"
+    qt_send_key_combo "shift-tab"
+    qt_send_key_combo "shift-tab"
+    qt_send_key_combo "shift-tab"
+    qt_send_key_combo "shift-tab"
+    qt_send_key_combo "shift-tab"
     qt_screenshot_ppm "$FUNCNAME"
+    qt_send_key_combo "spc"
 }
 
 function test_calamares_desktop() {
@@ -153,6 +163,14 @@ function test_input_validation() {
         ["limine"]="4"
     )
 
+    local -Ar filesystems=(
+        ["btrfs"]="0"
+        ["xfs"]="1"
+        ["ext4"]="2"
+        ["f2fs"]="3"
+        ["zfs"]="4"
+    )
+
     local bootloader="${TEST_BOOTLOADER:-Limine}"
     local -g bootloader_index="${bootloaders[$bootloader]}"
 
@@ -161,6 +179,16 @@ function test_input_validation() {
         exit 1
     else
         qt_echo "✅ Selected bootloader is $bootloader ($bootloader_index)"
+    fi
+
+    local filesystem="${TEST_FILESYSTEM:-btrfs}"
+    local -g filesystem_index="${filesystems[$filesystem]}"
+
+    if [ -z "$filesystem_index" ]; then
+        qt_echo "🚨 Unknown filesystem passed: $filesystem"
+        exit 1
+    else
+        qt_echo "✅ Selected filesystem is $filesystem ($filesystem_index)"
     fi
 
     qt_echo "✅ Validation passed"
