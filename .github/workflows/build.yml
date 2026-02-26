@@ -45,7 +45,7 @@ jobs:
           name: cachyos-desktop-linux-${{ steps.date.outputs.builddate }}
           path: out/desktop/*
   quicktest:
-    name: Testing (${{ matrix.bootloader }})
+    name: Testing (${{ matrix.bootloader }} / ${{ matrix.filesystem }})
     runs-on: ubuntu-latest
     needs: build
     container:
@@ -56,6 +56,7 @@ jobs:
       max-parallel: 4
       matrix:
         bootloader: [grub, systemd-boot, refind, limine]
+        filesystem: [btrfs, xfs, ext4, f2fs, zfs]
     steps:
       - name: Clone CachyOS-Live-ISO
         id: clone
@@ -108,11 +109,12 @@ jobs:
           QUICKEMU_DISPLAY: "none"
           QUICKEMU_VM_DIR: "./machines"
           TEST_BOOTLOADER: "${{ matrix.bootloader }}"
+          TEST_FILESYSTEM: "${{ matrix.filesystem }}"
 
       - name: Upload results to artifacts
         id: upload-results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cachyos-desktop-linux-results-${{needs.build.outputs.builddate}}-${{ matrix.bootloader }}
+          name: cachyos-desktop-linux-results-${{needs.build.outputs.builddate}}-${{ matrix.bootloader }}-${{ matrix.filesystem }}
           path: results/*
