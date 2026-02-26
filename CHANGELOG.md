@@ -1,3 +1,34 @@
+# 26.03
+
+**Features:**
+
+* **Installer:**
+  * Added support to show GIF/webp videos in the Desktop Selection to showcase the desktops. This is enabled for Plasma, Gnome, Cosmic and Niri
+  * Cachy Update now gets enabled as default for the Gnome and KDE installation
+  * Improved microcode installation logic - it will now get detected and then the proper microcode installed instead of installing both and then removing the not needed one
+  * Improved error message when EFI partition is too small
+* **CachyOS-Welcome:**
+  * Added button to easily install and enable "Winboat" for an easy Windows docker VM
+  * Added support for Keyboard Navigation for better accessbility
+  * Added support for FFMUC DNS Server in DNS selection
+  * Ukraine translation 
+* **cachyos-rate-mirrors:** Improved the expierence for people in China massively with a proper check before rating the mirrors
+* **cachyos-settings:** Added support to automatically set the wireless regularity domain based on Timezone
+* **website:** The website design has been overworked and improved to follow more modern standards
+* **Github:** Added to important github issue templates to improve the quality of bugreports and guidance for the user
+
+**Fixes:**
+
+* **Installer:** 
+  * Removed support for bcachefs in the filesystem selection due the requirement of bcachefs-dkms
+  * Fixed encryption when LUKS2 is used
+  * Fixed enabling "ly" display manager
+
+**Changelog for Handheld Edition:**
+  * **handheld-settings**: Imported several tweaks of SteamOS to the Handheld Edition
+  * **Displaymanager**: Changed to own "gamescope-session", which is forked from SteamOS
+
+
 # 26.01
 
 **Features:**
