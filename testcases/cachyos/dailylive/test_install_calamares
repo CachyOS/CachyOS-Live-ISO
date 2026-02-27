@@ -11,6 +11,28 @@ function test_setup() {
     test_password="ILoveCandy"
 }
 
+function qt_wait_else() {
+    local test_name="$1"
+    local fallback="$2"
+    local text="$3"
+    local retries=$4
+    local interval=$5
+
+    for c in $( seq 1 $retries ); do
+        qt_echo "🔁 $c / $retries «$text» "
+        qt_screenshot_ppm "$test_name"
+        # We only ever OCR the most recent image, so we just send the text name and the screenshot count
+        if qt_search_screenshot "$test_name" "$text"; then
+            return 0
+        fi
+        qt_wait_for_seconds "$interval"
+    done
+
+    "$fallback" "$test_name"
+
+    qt_test_fail "Coulnd't find text «$text» in screenshot «$QT_SCREENSHOT_COUNT» after $retries retries"
+}
+
 function test_post_boot_grub() {
     qt_wait_for_seconds 5
     qt_wait_for_text "$FUNCNAME" "GNU GRUB" 3 5
@@ -144,8 +166,14 @@ function test_calamares_install() {
     qt_screenshot_ppm "$FUNCNAME"
 }
 
+function test_calamares_failed() {
+    qt_send_key_combo "spc"
+    qt_wait_for_seconds 2
+    qt_screenshot_ppm "$FUNCNAME"
+}
+
 function test_calamares_finished() {
-    qt_wait_for_text "$FUNCNAME" "$text_calamares_finished" 30 60
+    qt_wait_else "$FUNCNAME" "test_calamares_failed" "$text_calamares_finished" 30 60
     qt_send_key_combo "spc"
     qt_screenshot_ppm "$FUNCNAME"
 }
