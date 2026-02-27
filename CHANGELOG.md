@@ -11,7 +11,7 @@
   * Added button to easily install and enable "Winboat" for an easy Windows docker VM
   * Added support for Keyboard Navigation for better accessbility
   * Added support for FFMUC DNS Server in DNS selection
-  * Ukraine translation 
+  * Ukraine translation
 * **cachyos-rate-mirrors:** Improved the expierence for people in China massively with a proper check before rating the mirrors
 * **cachyos-settings:** Added support to automatically set the wireless regularity domain based on Timezone
 * **website:** The website design has been overworked and improved to follow more modern standards
@@ -19,14 +19,15 @@
 
 **Fixes:**
 
-* **Installer:** 
+* **Installer:**
   * Removed support for bcachefs in the filesystem selection due the requirement of bcachefs-dkms
   * Fixed encryption when LUKS2 is used
   * Fixed enabling "ly" display manager
 
 **Changelog for Handheld Edition:**
-  * **handheld-settings**: Imported several tweaks of SteamOS to the Handheld Edition
-  * **Displaymanager**: Changed to own "gamescope-session", which is forked from SteamOS
+* **gamescope-session**: Replace gamescope-session-plus with gamescope-session-cachyos, which is forked from Valve's gamescope-session
+  * Enables firmware updates for Steam Deck and Lenovo Legion Go devices
+* **plasma-login-manager**: Replaced SDDM with plasma-login-manager for the login manager.
 
 
 # 26.01
@@ -39,7 +40,7 @@
   * GRUB now uses LUKS2 for encryption.
   * Pass --needed to pacman to avoid installing packages twice.
   * Use single-level compression on NVMe for Btrfs
-  * Removed xorg dependecies on Wayland desktops environments 
+  * Removed xorg dependecies on Wayland desktops environments
 * **ISO:**
   * Switched to `plasma-login-manager` for the ISO environment.
   * The ISO now contains both Stable and LTS kernels. The Stable kernel is selected by default.
@@ -70,7 +71,7 @@
 **Fixes:**
 
 * **Limine:** Increased boot partition size to 4192MB to accommodate high requirements from `limine-snapper-sync`.
-* **Installer:** 
+* **Installer:**
   * The installer now blocks/prevents proceeding if the EFI partition is too small when using "alongside" or "replace partition" options.
   * Fixed an issue, when selected a desktop and go a step further, then going back again and selecting a different desktop it would result that both are selected.
 * **chwd:** Removed the environment variable forcing `libva-nvidia-driver`, as it caused issues on dual-GPU systems.
@@ -137,7 +138,7 @@
 
 **Fixes:**
 
-* **Limine:** 
+* **Limine:**
     - Fixed `limine bios-install /dev/sdaX` error when selecting the **/boot** mount point as the boot location on MBR systems.
     - Fixed uninitialized value of the `bootLoader` path, which caused installation failures on MBR systems when the bootloader location wasn’t explicitly selected.
     - Added a warning about using the **bios-grub** flag on the boot partition, which can cause a “Stage 3 file not found” error.
@@ -148,7 +149,7 @@
  25.07
 
 **Features:**
--   **Shell**: The user shell can be now choosen at installation time between fish, zsh and bash. Fish still stays to be default enabled. 
+-   **Shell**: The user shell can be now choosen at installation time between fish, zsh and bash. Fish still stays to be default enabled.
 -   **chwd**: Install plasma-x11 for legacy NVIDIA Drivers
 -   **Netinstall**: Added fwupd to KDE Plasma and Gnome
 -   **mesa-git**: Added support for AMD Anti Lag
