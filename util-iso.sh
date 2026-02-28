@@ -140,18 +140,18 @@ prepare_profile(){
     rm -f ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
     if [ "$profile" == "handheld" ]; then
         cp ${src_dir}/archiso/packages_handheld.x86_64 ${src_dir}/archiso/packages.x86_64
-        ln -sf /usr/lib/systemd/system/sddm.service ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
+        ln -sf /usr/lib/systemd/system/plasmalogin.service ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
     else
         die "Unknown profile: [%s]" "${profile}"
     fi
 
     generate_environment "${profile}"
 
-    # Write out edition to be able to check ISO edition
-    generate_edition_tag "${profile}"
-
     # Write out version to be able to check ISO version
     generate_version_tag "${profile}" "${_iso_version}"
+
+    # Write out edition to be able to check ISO edition
+    generate_edition_tag "${profile}"
 
     iso_file=$(gen_iso_fn).iso
 }
@@ -212,6 +212,16 @@ run_build() {
         fi
     done
     show_elapsed_time "${FUNCNAME}" "${timer_start}"
+    if [[ "$build_in_ram" == "true" && "$remove_build_dir" == "false" ]]; then
+        msg "!!! Remember to remove $work_dir !!!"
+        msg2 "sudo rm -rf $work_dir"
+    fi
+    if [[ "$remove_build_dir" == "true" ]]; then
+        msg "Automatically removing build directory ($work_dir)..."
+        umount_fs
+        [ -d ${work_dir} ] && sudo rm -rf ${work_dir}
+        msg2 "Removed"
+    fi
 }
 
 gen_iso_fn(){

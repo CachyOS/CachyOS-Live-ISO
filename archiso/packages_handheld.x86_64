@@ -15,7 +15,7 @@ brltty
 btrfs-progs
 firefox
 cachy-chroot
-cachyos-calamares-qt6-next-deckify
+cachyos-calamares-deckify
 cachyos-cli-installer-new
 cachyos-fish-config
 cachyos-hello
@@ -24,7 +24,7 @@ cachyos-keyring
 cachyos-mirrorlist
 cachyos-rate-mirrors
 cachyos-settings
-cachyos-themes-sddm
+plasma-login-manager
 cachyos-v3-mirrorlist
 cachyos-v4-mirrorlist
 cachyos-zsh-config
@@ -166,8 +166,6 @@ rp-pppoe
 rsync
 rtkit
 rxvt-unicode-terminfo
-sddm
-sddm-kcm
 sdparm
 sg3_utils
 smartmontools

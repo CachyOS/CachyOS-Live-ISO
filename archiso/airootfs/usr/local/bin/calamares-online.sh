@@ -55,8 +55,8 @@ Main() {
 
     BOOTLOADER="SYSTEMD-BOOT Deckify"
     echo "USING SYSTEMD-BOOT-DECKIFY!"
-    yes | sudo pacman -R cachyos-calamares-qt6-next-deckify
-    yes | sudo pacman -Sy cachyos-calamares-qt6-next-deckify
+    yes | sudo pacman -R cachyos-calamares-deckify
+    yes | sudo pacman -Sy cachyos-calamares-deckify
 
     cat <<EOF > $log
 ########## $log by $progname
@@ -68,7 +68,7 @@ EOF
     FollowFile "$log" "Install log" 20 20
 
     sudo cp /usr/share/calamares/settings_${mode}.conf /etc/calamares/settings.conf
-    sudo -E  dbus-launch calamares -D6 >> $log &
+    pkexec-wrapper calamares -D6 >> $log &
 
     # comment out the following line if pacman.log is not needed:
     [ "$mode" = "online" ] && catch_chrooted_pacman_log "$progname"

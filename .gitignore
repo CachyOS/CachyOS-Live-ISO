@@ -18,3 +18,5 @@ archiso/airootfs/etc/systemd/system/display-manager.service
 archiso/airootfs/etc/motd
 archiso/airootfs/etc/environment
 archiso/airootfs/etc/pacman.d/cachyos-mirrorlist
+archiso/airootfs/etc/edition-tag
+archiso/airootfs/etc/version-tag
