@@ -7,15 +7,19 @@
   * Cachy Update now gets enabled as default for the Gnome and KDE installation
   * Improved microcode installation logic - it will now get detected and then the proper microcode installed instead of installing both and then removing the not needed one
   * Improved error message when EFI partition is too small
+  * Sorted the Desktop Enviroment list from "easy and accessable" to harder setups like WMs
 * **CachyOS-Welcome:**
   * Added button to easily install and enable "Winboat" for an easy Windows docker VM
   * Added support for Keyboard Navigation for better accessbility
   * Added support for FFMUC DNS Server in DNS selection
   * Ukraine translation
+* **chwd:** Decreased the initramfs size massively for NVIDIA dGPU configurations
+* **linux-cachyos:** Instead of generating a "0001-cachyos-base-all.patch" there is now a release in a linux repository generated for each release of our patched kernel
 * **cachyos-rate-mirrors:** Improved the expierence for people in China massively with a proper check before rating the mirrors
 * **cachyos-settings:** Added support to automatically set the wireless regularity domain based on Timezone
 * **website:** The website design has been overworked and improved to follow more modern standards
-* **Github:** Added to important github issue templates to improve the quality of bugreports and guidance for the user
+* **Github:** Added to important github repos issue templates to improve the quality of bugreports and guidance for the user
+* **Mirrors:** New mirrors in Russia (jura12), Swedish (Zyner) and Canada (All things Linux)
 
 **Fixes:**
 
@@ -23,6 +27,11 @@
   * Removed support for bcachefs in the filesystem selection due the requirement of bcachefs-dkms
   * Fixed encryption when LUKS2 is used
   * Fixed enabling "ly" display manager
+* **cachyos-settings:** cachyos-bugreport.sh now redacts IP, Username, Hostname and MAC
+* **chwd:**
+  * Install GPU Profile before Handheld profiles
+  * fwupd is now enabed for Lenovo Handhelds
+
 
 **Changelog for Handheld Edition:**
 * **gamescope-session**: Replace gamescope-session-plus with gamescope-session-cachyos, which is forked from Valve's gamescope-session
