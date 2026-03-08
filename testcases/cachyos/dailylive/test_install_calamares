@@ -1,0 +1,245 @@
+# Install CachyOS daily live
+
+function test_description() {
+    cat << EOF
+Do a clean install of CachyOS using all the defaults
+EOF
+}
+
+function test_setup() {
+    test_user="cachyos"
+    test_password="ILoveCandy"
+}
+
+function qt_wait_else() {
+    local test_name="$1"
+    local fallback="$2"
+    local text="$3"
+    local retries=$4
+    local interval=$5
+
+    for c in $( seq 1 $retries ); do
+        qt_echo "🔁 $c / $retries «$text» "
+        qt_screenshot_ppm "$test_name"
+        # We only ever OCR the most recent image, so we just send the text name and the screenshot count
+        if qt_search_screenshot "$test_name" "$text"; then
+            return 0
+        fi
+        qt_wait_for_seconds "$interval"
+    done
+
+    "$fallback" "$test_name"
+
+    qt_test_fail "Coulnd't find text «$text» in screenshot «$QT_SCREENSHOT_COUNT» after $retries retries"
+}
+
+function test_post_boot_grub() {
+    qt_wait_for_seconds 5
+    qt_wait_for_text "$FUNCNAME" "GNU GRUB" 3 5
+    qt_screenshot_ppm "$FUNCNAME"
+    qt_send_key "return"
+}
+
+function test_launch_calamares() {
+    qt_wait_for_text "$FUNCNAME" "Welcome to CachyOS!" 3 60
+    qt_screenshot_ppm "$FUNCNAME"
+    qt_send_key_combo "alt-f2"
+    qt_wait_for_seconds 2
+    qt_screenshot_ppm "$FUNCNAME"
+    qt_send_string_tab "CALAMARES_SKIP_GEOIP=1 sudo -E dbus-launch calamares -D6"
+    qt_screenshot_ppm "$FUNCNAME"
+    qt_wait_for_text "$FUNCNAME" "CALAMARES_SKIP_GEOIP=1 sudo -E dbus-launch calamares -D6" 3 3
+    qt_screenshot_ppm "$FUNCNAME"
+    qt_send_key_combo "tab"
+    qt_send_key_combo "tab"
+    qt_send_key_combo "tab"
+    qt_send_key "return"
+    qt_screenshot_ppm "$FUNCNAME"
+    qt_wait_for_seconds 20
+}
+
+function test_calamares_welcome() {
+    qt_wait_for_text "$FUNCNAME" "$text_calamares_welcome" 10 5
+    qt_send_key_combo "tab"
+    qt_send_key_combo "tab"
+    qt_send_key_combo "spc"
+}
+
+function test_calamares_location() {
+    qt_wait_for_text "$FUNCNAME" "$text_calamares_language" 10 5
+    qt_send_key_combo "tab"
+    qt_send_key_combo "tab"
+    qt_send_key_combo "tab"
+    qt_send_key_combo "tab"
+    qt_send_key_combo "tab"
+    qt_send_key_combo "tab"
+    qt_send_key_combo "spc"
+}
+
+function test_calamares_keyboard() {
+    qt_wait_for_text "$FUNCNAME" "$text_calamares_keyboard" 10 5
+    qt_send_key_combo "spc"
+    qt_screenshot_ppm "$FUNCNAME"
+}
+
+function test_calamares_bootloader() {
+    qt_wait_for_text "$FUNCNAME" "$text_calamares_bootloader" 10 5
+    qt_send_key_combo "shift-tab"
+    qt_send_key_combo "shift-tab"
+    qt_send_key_combo "shift-tab"
+    qt_send_key_combo "spc"
+
+    for ((i=0; i < bootloader_index; i++)); do
+        qt_send_key_combo "down"
+    done
+
+    qt_send_key_combo "shift-tab"
+    qt_send_key_combo "shift-tab"
+    qt_screenshot_ppm "$FUNCNAME"
+    qt_send_key_combo "spc"
+}
+
+function test_calamares_partitions() {
+    qt_wait_for_text "$FUNCNAME" "$text_calamares_partitions" 10 5
+    qt_send_key_combo "tab"
+    qt_send_key_combo "tab"
+    qt_send_key_combo "tab"
+    qt_send_key_combo "spc"
+    qt_send_key_combo "tab"
+    qt_send_key_combo "spc"
+
+    for ((i=0; i < filesystem_index; i++)); do
+        qt_send_key_combo "down"
+    done
+
+    qt_send_key "enter"
+    qt_wait_for_seconds 2
+    qt_send_key_combo "shift-tab"
+    qt_send_key_combo "shift-tab"
+    qt_send_key_combo "shift-tab"
+    qt_send_key_combo "shift-tab"
+    qt_send_key_combo "shift-tab"
+    qt_send_key_combo "shift-tab"
+    qt_screenshot_ppm "$FUNCNAME"
+    qt_send_key_combo "spc"
+}
+
+function test_calamares_desktop() {
+    qt_wait_for_text "$FUNCNAME" "$text_calamares_desktop" 10 5
+    qt_send_key_combo "spc"
+    qt_screenshot_ppm "$FUNCNAME"
+}
+
+function test_calamares_packages() {
+    qt_wait_for_text "$FUNCNAME" "$text_calamares_packages" 10 5
+    qt_screenshot_ppm "$FUNCNAME"
+    qt_send_key_combo "tab"
+    qt_send_key_combo "tab"
+    qt_send_key_combo "tab"
+    qt_send_key_combo "spc"
+    qt_screenshot_ppm "$FUNCNAME"
+}
+
+function test_calamares_users() {
+    qt_wait_for_text "$FUNCNAME" "$text_calamares_users" 10 5
+    qt_send_string_tab "$test_user"
+    qt_send_key_combo "tab"
+    qt_send_key_combo "tab"
+    qt_send_string_tab "$test_password"
+    qt_send_string_tab "$test_password"
+    qt_send_key_combo "tab"
+    qt_send_key_combo "tab"
+    qt_send_key_combo "tab"
+    qt_send_key_combo "spc"
+    qt_screenshot_ppm "$FUNCNAME"
+}
+
+function test_calamares_summary() {
+    qt_wait_for_text "$FUNCNAME" "$text_calamares_summary" 10 5
+    qt_send_key_combo "spc"
+    qt_screenshot_ppm "$FUNCNAME"
+}
+
+function test_calamares_install() {
+    qt_wait_for_text "$FUNCNAME" "$text_calamares_install" 10 30
+    qt_send_key_combo "spc"
+    qt_screenshot_ppm "$FUNCNAME"
+}
+
+function test_calamares_failed() {
+    qt_send_key_combo "spc"
+    qt_wait_for_seconds 2
+    qt_screenshot_ppm "$FUNCNAME"
+}
+
+function test_calamares_finished() {
+    qt_wait_else "$FUNCNAME" "test_calamares_failed" "$text_calamares_finished" 30 60
+    qt_send_key_combo "spc"
+    qt_screenshot_ppm "$FUNCNAME"
+}
+
+function test_power_off_vm() {
+    qt_poweroff_vm
+}
+
+function test_input_validation() {
+    local -Ar bootloaders=(
+        ["grub"]="0"
+        ["refind"]="1"
+        ["refind-ai"]="2"
+        ["systemd-boot"]="3"
+        ["limine"]="4"
+    )
+
+    local -Ar filesystems=(
+        ["btrfs"]="0"
+        ["xfs"]="1"
+        ["ext4"]="2"
+        ["f2fs"]="3"
+        ["zfs"]="4"
+    )
+
+    local bootloader="${TEST_BOOTLOADER:-Limine}"
+    local -g bootloader_index="${bootloaders[$bootloader]}"
+
+    if [ -z "$bootloader_index" ]; then
+        qt_echo "🚨 Unknown bootloader passed: $bootloader"
+        exit 1
+    else
+        qt_echo "✅ Selected bootloader is $bootloader ($bootloader_index)"
+    fi
+
+    local filesystem="${TEST_FILESYSTEM:-btrfs}"
+    local -g filesystem_index="${filesystems[$filesystem]}"
+
+    if [ -z "$filesystem_index" ]; then
+        qt_echo "🚨 Unknown filesystem passed: $filesystem"
+        exit 1
+    else
+        qt_echo "✅ Selected filesystem is $filesystem ($filesystem_index)"
+    fi
+
+    qt_echo "✅ Validation passed"
+}
+
+function test_install_calamares() {
+    test_input_validation
+    test_setup
+    test_post_boot_grub
+    test_launch_calamares
+    test_calamares_welcome
+    test_calamares_location
+    test_calamares_keyboard
+    test_calamares_bootloader
+    test_calamares_partitions
+    test_calamares_desktop
+    test_calamares_packages
+    test_calamares_users
+    test_calamares_summary
+    test_calamares_install
+    test_calamares_finished
+    test_power_off_vm
+}
+
+test_description
+
