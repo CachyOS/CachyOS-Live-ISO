@@ -3,40 +3,44 @@
 **Features:**
 
 * **Installer:**
-  * Added support to show GIF/webp videos in the Desktop Selection to showcase the desktops. This is enabled for Plasma, Gnome, Cosmic and Niri
-  * Cachy Update now gets enabled as default for the Gnome and KDE installation
-  * Improved microcode installation logic - it will now get detected and then the proper microcode installed instead of installing both and then removing the not needed one
-  * Improved error message when EFI partition is too small
-  * Sorted the Desktop Enviroment list from "easy and accessable" to harder setups like WMs
+  * Added support to show GIF/WebP videos in the Desktop Selection to showcase the desktops. This is enabled for Plasma, GNOME, Niri and COSMIC
+  * Added support for JPEG XL in the Desktop Selection to reduce image sizes
+  * Cachy-Update is now enabled by default for the GNOME and KDE installations
+  * Improved microcode installation logic — it will now detect the hardware and install the proper microcode instead of installing both and then removing the unneeded one
+  * Improved error message when the EFI partition is too small
+  * Sorted the Desktop Environment list from easy and accessible setups to more advanced ones like WMs
 * **CachyOS-Welcome:**
-  * Added button to easily install and enable "Winboat" for an easy Windows docker VM
-  * Added support for Keyboard Navigation for better accessbility
-  * Added support for FFMUC DNS Server in DNS selection
-  * Ukraine translation
+  * Added a button to easily install and enable "Winboat" for an easy Windows Docker VM
+  * Added support for FFMUC DNS server in DNS selection
+  * Added Ukrainian translation
 * **chwd:** Decreased the initramfs size massively for NVIDIA dGPU configurations
-* **linux-cachyos:** Instead of generating a "0001-cachyos-base-all.patch" there is now a release in a linux repository generated for each release of our patched kernel
-* **cachyos-rate-mirrors:** Improved the expierence for people in China massively with a proper check before rating the mirrors
-* **cachyos-settings:** Added support to automatically set the wireless regularity domain based on Timezone
-* **website:** The website design has been overworked and improved to follow more modern standards
-* **Github:** Added to important github repos issue templates to improve the quality of bugreports and guidance for the user
-* **Mirrors:** New mirrors in Russia (jura12), Swedish (Zyner) and Canada (All things Linux)
+* **linux-cachyos:** Instead of generating a `0001-cachyos-base-all.patch`, a release is now generated in a Linux repository for each release of our patched kernel
+* **cachyos-rate-mirrors:** Improved the experience for users in China&Russia massively with a proper check before rating the mirrors
+* **cachyos-settings:** Added support to automatically set the wireless regulatory domain based on timezone
+* **website:** The website design has been reworked and improved to follow more modern standards
+* **GitHub:** Added issue templates to important GitHub repos to improve the quality of bug reports and provide guidance for the user
+* **Mirrors:** New mirrors in Russia (jura12, cachy-arch.ru), Sweden (Zyner), and Canada (All Things Linux)
 
 **Fixes:**
 
 * **Installer:**
-  * Removed support for bcachefs in the filesystem selection due the requirement of bcachefs-dkms
-  * Fixed encryption when LUKS2 is used
-  * Fixed enabling "ly" display manager
-* **cachyos-settings:** cachyos-bugreport.sh now redacts IP, Username, Hostname and MAC
+  * Removed support for bcachefs in the filesystem selection due to the requirement of bcachefs-dkms
+  * Fixed encryption when LUKS2 is used for specific devices
+  * Fixed enabling the "ly" display manager
+* **cachyos-settings:** `cachyos-bugreport.sh` now redacts IP, username, hostname, and MAC address
 * **chwd:**
-  * Install GPU Profile before Handheld profiles
-  * fwupd is now enabed for Lenovo Handhelds
+  * Generic handheld profiles and improved support for handheld GPUs
+  * fwupd is now enabled for Lenovo handhelds
 
 
 **Changelog for Handheld Edition:**
-* **gamescope-session**: Replace gamescope-session-plus with gamescope-session-cachyos, which is forked from Valve's gamescope-session
+
+* **gamescope-session:** Replaced gamescope-session-plus with gamescope-session-cachyos, which is forked from Valve's gamescope-session
   * Enables firmware updates for Steam Deck and Lenovo Legion Go devices
-* **plasma-login-manager**: Replaced SDDM with plasma-login-manager for the login manager.
+* **plasma-login-manager:** Replaced SDDM with plasma-login-manager for the login manager
+* **bootloaders:** Limine is now selected as default with automatic snapshots. systemd-boot will still be selectable
+* **Installer:** Merged Handheld Calamares with desktop edition calamares together
+* **ISO:** ISO now uses Wayland instead of X11
 
 
 # 26.01
