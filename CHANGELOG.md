@@ -1,3 +1,39 @@
+# 26.04
+**Features:**
+
+* **Installer:**
+  * Shelly is now the default used GUI Package Manager instead of Octopi
+  * Creates now a clean snapshot directly after the installation, which can be used as restore. This snapshot stays permamently.
+  * GRUB OS_PROPER is now default enabled
+  * UKUI Desktop has been dropped
+  * AMD GPUs use now a different plymouth theme, since the amdgpu driver on laptop and a second monitor is not capable to present more then 69 picture  * Cleanup and modernise Gnome package selection
+  * **CachyOS-Welcome:**
+  * Added support for DNS over HTTPs via blocky
+  * DNS Page now allows to latency test specific dns servers and added support for custom servers
+  * Toggle added to enable better VRAM Management on AMD and Intel dGPUs. This can be only used with gamescope or KDE.
+  * Keyboard Navigation
+* **chwd:**
+  * Added support to enable fingerprint sudo for supported devices
+  * Added support for intel-lpmd for supported device and created an own fork for better configs
+  * Chassis Type Detection in profiles
+  * Added Xbox Rog Ally pattern to chwd profile
+* **cachyos-settings:** Switched to NVMe Scheduler from none to kyber 
+
+**Fixes:**
+
+* **Installer:**
+  * Print partition method into debug log
+  * Remove old microcode if reusing boot partition
+* **CachyOS-Welcome:**
+  * 
+
+* **chwd:**
+  * Kernel search is now more accurate in nvidia profiles
+  * Remove forcing Xorg session in 470xx profiles
+  * Match handheld product names now better
+* **cachyos-settings:**
+  * Dropped S01x power management due issues with 595 nvidia driver
+  * Disabled AggresiveVblank due VR issues with the NVIDIA Driver
 # 26.03
 
 **Features:**
