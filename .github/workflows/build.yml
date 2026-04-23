@@ -37,10 +37,12 @@ jobs:
           pacman-key --recv-keys F3B607488DB35A47 --keyserver keyserver.ubuntu.com
           pacman-key --lsign-key F3B607488DB35A47
 
+          sed -i '/^\[core\]$/i[cachyos]\nServer = https://mirror.cachyos.org/repo/$arch/$repo\n' /etc/pacman.conf
+
       - name: Install dependencies
         id: dependencies
         run: |
-          sudo pacman -Syu --noconfirm archiso mkinitcpio-archiso squashfs-tools grub
+          sudo pacman -Syu --noconfirm archiso cachyos-keyring mkinitcpio-archiso squashfs-tools grub
 
       - name: Build ISO (${{ steps.date.outputs.builddate }})
         id: build
