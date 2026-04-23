@@ -9,6 +9,7 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
+set -e
 src_dir=$(pwd)
 [[ -r ${src_dir}/util-msg.sh ]] && source ${src_dir}/util-msg.sh
 import ${src_dir}/util.sh
@@ -75,5 +76,6 @@ for sig in TERM HUP QUIT; do
 done
 trap 'trap_exit INT "$(gettext "Aborted by user! Exiting...")"' INT
 trap 'trap_exit USR1 "$(gettext "An unknown error has occurred. Exiting...")"' ERR
+trap 'trap_exit EXIT "$(gettext "An unknown error has occurred. Exiting...")"' EXIT
 
 run_build "${build_list_iso}"
