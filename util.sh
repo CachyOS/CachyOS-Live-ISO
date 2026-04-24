@@ -93,6 +93,11 @@ sign_with_key() {
         exit 1
     fi
 
+    if [ -z "$GPGKEY" ]; then
+        warning "Skipping signing due to lack of GPG key"
+        return 0
+    fi
+
     msg2 "signing [%s] with key %s" "${1##*/}" "${GPGKEY}"
     [[ -e "$1".sig ]] && rm "$1".sig
 
