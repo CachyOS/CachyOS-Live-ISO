@@ -44,10 +44,18 @@ jobs:
         run: |
           sudo pacman -Syu --noconfirm archiso cachyos-keyring mkinitcpio-archiso squashfs-tools grub
 
+      - name: Create build user
+        id: user-archiso
+        run: |
+          useradd builder -m
+          echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+          chmod -R a+rw .
+
       - name: Build ISO (${{ steps.date.outputs.builddate }})
         id: build
         run: |
-          ./buildiso.sh
+          sudo -H -E -u builder ./buildiso.sh
+
       - name: Upload ISO to artifacts
         id: upload
         uses: actions/upload-artifact@v4
