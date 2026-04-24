@@ -85,7 +85,7 @@ create_chksums() {
 }
 
 sign_with_key() {
-    load_vars "$HOME/.makepkg.conf"
+    load_vars "$HOME/.makepkg.conf" || true
     load_vars /etc/makepkg.conf
 
     if [ ! -e "$1" ]; then
