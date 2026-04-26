@@ -85,12 +85,17 @@ create_chksums() {
 }
 
 sign_with_key() {
-    load_vars "$HOME/.makepkg.conf"
+    load_vars "$HOME/.makepkg.conf" || true
     load_vars /etc/makepkg.conf
 
     if [ ! -e "$1" ]; then
         error "%s does not exist!" "$1"
         exit 1
+    fi
+
+    if [ -z "$GPGKEY" ]; then
+        warning "Skipping signing due to lack of GPG key"
+        return 0
     fi
 
     msg2 "signing [%s] with key %s" "${1##*/}" "${GPGKEY}"
