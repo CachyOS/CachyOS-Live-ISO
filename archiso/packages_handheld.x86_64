@@ -72,6 +72,7 @@ iptables-nft
 irssi
 iw
 iwd
+inotify-tools
 jfsutils
 kde-gtk-config
 kio
