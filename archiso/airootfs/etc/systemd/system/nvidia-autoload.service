@@ -1,0 +1,21 @@
+[Unit]
+Description=Select and load the correct NVIDIA driver for the live session
+Documentation=https://github.com/CachyOS/CachyOS-Live-ISO/pull/99
+# chwd reads PCI topology from /sys, which the kernel populates before userspace,
+# so ordering after udevd is enough for detection. Run before the display stack
+# so the GPU driver is bound before plasmalogin starts.
+After=systemd-udevd.service
+Before=display-manager.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+# Run only when an NVIDIA GPU (PCI vendor 0x10de) is present and the user did not
+# request nomodeset. This keeps the unit inert on AMD/Intel-only systems (so the
+# loader's nouveau fallback never fires there) and keeps the nomodeset diagnostic
+# boot entry a true no-GPU-driver console.
+ExecCondition=/bin/sh -c '! grep -qw nomodeset /proc/cmdline && grep -qx 0x10de /sys/bus/pci/devices/*/vendor'
+ExecStart=/usr/local/bin/nvidia-module-loader
+
+[Install]
+WantedBy=multi-user.target
