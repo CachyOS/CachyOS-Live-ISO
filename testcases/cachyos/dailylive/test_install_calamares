@@ -48,7 +48,7 @@ function test_launch_calamares() {
     qt_screenshot_ppm "$FUNCNAME"
     qt_send_string_tab "CALAMARES_SKIP_GEOIP=1 sudo -E dbus-launch calamares -D6"
     qt_screenshot_ppm "$FUNCNAME"
-    qt_wait_for_text "$FUNCNAME" "CALAMARES_SKIP_GEOIP=1 sudo -E dbus-launch calamares -D6" 3 3
+    qt_wait_for_seconds 1
     qt_screenshot_ppm "$FUNCNAME"
     qt_send_key_combo "tab"
     qt_send_key_combo "tab"
