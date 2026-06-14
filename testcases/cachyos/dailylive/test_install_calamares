@@ -167,6 +167,7 @@ function test_calamares_install() {
 }
 
 function test_calamares_failed() {
+    qt_send_key_combo "tab"
     qt_send_key_combo "spc"
     qt_wait_for_seconds 2
     qt_screenshot_ppm "$FUNCNAME"
