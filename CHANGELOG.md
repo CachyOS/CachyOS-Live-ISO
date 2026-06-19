@@ -1,3 +1,44 @@
+# 26.07
+**Features:**
+
+
+* **Packages:**: 
+  - Python now used extended PGO to improve the performance
+  - Fixed a regression found in Phronix Benchmarks, when OpenBLAS was used on high core count CPUs.
+* **Installer:**
+  - Added CachyOS Hyprland Noctilia desktop option and preview video.
+  - Added SDDM as the display manager for MangoWM.
+  - Replaced GNOME System Monitor with Resources.
+  - Added realtime-privileges to the audio package group.
+  - Improved live-session keyboard layout and variant detection.
+  - Removed the redundant Limine post-install step.
+  * **CachyOS-Welcome:**
+  - DNS over QUIC (DoQ) support through blocky, including custom endpoints.
+  - Dedicated Troubleshooting page.
+  - Ptyxis terminal support.
+  - Azerbaijani and Greek localizations.
+  - French readme and involvement pages.
+* **chwd:**
+  - Added Turkish localization.
+  - Removed cachyos-handheld from handheld package lists.
+* **cachyos-settings:**  Applied 15-second startup and 10-second shutdown timeouts to user services, preventing 90-second shutdown delays.
+
+**Fixes:**
+
+* **Installer:**
+  - Fixed keyboard layout ordering and GNOME/locale1 configuration handling.
+  - Fixed architecture detection for Zen 4+ CPUs without AVX-512.
+  - Fixed copying the correct pacman configuration into the installed system.
+  - Removed leftover /etc/calamares directories after installation.
+  - Moved Calamares cleanup after all installation scripts.
+* **CachyOS-Welcome:**
+  - Prevented a crash when selecting “Install Apps” without cachyos-pi installed; the button is now hidden when unavailable.
+* **chwd:**
+  - Corrected virtual-machine vendor IDs.
+  - Removed unnecessary fprintd service activation.
+  - Fixed the Mesa removal guard.
+
+
 # 26.04
 **Features:**
 
