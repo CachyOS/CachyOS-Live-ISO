@@ -10,3 +10,4 @@ Description = Enabling KWin keyboard layout syncing for the live environment...
 When = PostTransaction
 Depends = kconfig
 Exec = /usr/bin/kwriteconfig6 --file /etc/skel/.config/kwinrc --group Wayland --key FollowLocale1 true
+
