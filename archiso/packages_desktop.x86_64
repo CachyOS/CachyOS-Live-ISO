@@ -3,7 +3,6 @@ alsa-utils
 amd-ucode
 arch-install-scripts
 archlinux-keyring
-avahi
 b43-fwcutter
 base
 bash-completion
@@ -130,7 +129,6 @@ open-vm-tools
 opendesktop-fonts
 openssh
 openvpn
-orca
 os-prober
 partclone
 parted
@@ -163,7 +161,6 @@ plasma-login-manager
 sdparm
 sg3_utils
 smartmontools
-smbclient
 sof-firmware
 spectacle
 spice-vdagent
