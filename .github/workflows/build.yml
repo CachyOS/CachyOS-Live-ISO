@@ -1,4 +1,4 @@
-name: Desktop ISO
+name: LisoOS.iso
 on:
   push:
     branches:
