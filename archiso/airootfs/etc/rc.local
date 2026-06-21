@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# 1. Força todos os núcleos da CPU ao limite máximo de performance
+for cpu in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do
+    echo "performance" > "$cpu"
+done
+
+# 2. Desativa a economia de energia do clock da CPU AMD/Intel
+if [ -f /sys/devices/system/cpu/intel_pstate/no_turbo ]; then
+    echo "0" > /sys/devices/system/cpu/intel_pstate/no_turbo
+fi
+
+# 3. Libera o controle de fans e sliders de Overclock para GPUs NVIDIA (Coolbits)
+if command -v nvidia-xconfig &> /dev/null; then
+    nvidia-xconfig --cool-bits=28 --allow-empty-initial-configuration
+fi
+
+exit 0
