@@ -10,12 +10,14 @@ text_console_gnu_grub="GNU GRUB"
 
 # Initial splash
 
-text_console_prompt_welcome="Welcome to CachyOS"
+text_console_prompt_welcome="Welcome to LisoOS"
 text_console_prompt_login="localhost login"
 
 # Calamares Welcome
 
-text_calamares_welcome="Welcome to the CachyOS installer"
+# Use a generic welcome string so OCR-based tests are less fragile across
+# renames/themes. Tests look for a substring like "Welcome" or "installer".
+text_calamares_welcome="Welcome to the installer"
 
 # Calamares Language
 
