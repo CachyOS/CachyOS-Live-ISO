@@ -11,8 +11,7 @@
   - Replaced GNOME System Monitor with Resources.
   - Added realtime-privileges to the audio package group.
   - Improved live-session keyboard layout and variant detection.
-  - Removed the redundant Limine post-install step.
-  * **CachyOS-Welcome:**
+* **CachyOS-Welcome:**
   - DNS over QUIC (DoQ) support through blocky, including custom endpoints.
   - Dedicated Troubleshooting page.
   - Ptyxis terminal support.
@@ -24,13 +23,12 @@
 * **cachyos-settings:**  Applied 15-second startup and 10-second shutdown timeouts to user services, preventing 90-second shutdown delays.
 
 **Fixes:**
-
 * **Installer:**
-  - Fixed keyboard layout ordering and GNOME/locale1 configuration handling.
-  - Fixed architecture detection for Zen 4+ CPUs without AVX-512.
+  - Fixed keyboard layout ordering and locale1 configuration handling.
   - Fixed copying the correct pacman configuration into the installed system.
   - Removed leftover /etc/calamares directories after installation.
   - Moved Calamares cleanup after all installation scripts.
+  - Removed the redundant Limine post-install step.
 * **CachyOS-Welcome:**
   - Prevented a crash when selecting “Install Apps” without cachyos-pi installed; the button is now hidden when unavailable.
 * **chwd:**
