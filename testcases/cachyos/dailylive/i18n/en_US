@@ -31,7 +31,7 @@ text_calamares_bootloader="Limine"
 
 # Calamares Partitions
 
-text_calamares_partitions="Select storage device"
+text_calamares_partitions="Erase disk"
 
 # Calamares Desktop
 
