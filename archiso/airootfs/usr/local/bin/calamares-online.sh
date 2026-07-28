@@ -32,7 +32,7 @@ main() {
     local ISO_VERSION="$(cat /etc/version-tag)"
     echo "USING ISO VERSION: ${ISO_VERSION}"
 
-    sudo pacman -Sy --noconfirm cachyos-calamares
+    sudo pacman -Sy --noconfirm cachyos-calamares-next
 
     # Get Hardware Informations
     inxi -F > "$log"
