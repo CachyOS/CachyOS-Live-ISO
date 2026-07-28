@@ -135,6 +135,9 @@ prepare_profile(){
     # Fetch up-to-date version of CachyOS repo mirrorlist
     fetch_cachyos_mirrorlist
 
+    # mask cachyos-rate-mirrors timer
+    ln -sf /dev/null ${src_dir}/archiso/airootfs/etc/systemd/system/cachyos-rate-mirrors.timer
+
     generate_motd
 
     rm -f ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service

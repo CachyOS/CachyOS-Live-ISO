@@ -15,6 +15,7 @@ meta-data
 archiso/packages.x86_64
 archiso/airootfs/etc/gdm/
 archiso/airootfs/etc/systemd/system/display-manager.service
+archiso/airootfs/etc/systemd/system/cachyos-rate-mirrors.timer
 archiso/airootfs/etc/motd
 archiso/airootfs/etc/environment
 archiso/airootfs/etc/pacman.d/cachyos-mirrorlist
