@@ -50,5 +50,5 @@ if pacman -Qs $package > /dev/null ; then
 fi
 package=greetd
 if pacman -Qs $package > /dev/null ; then
-  ln -sf /usr/lib/systemd/system/greetd.service /etc/systemd/systemd/display-manager.service
+  ln -sf /usr/lib/systemd/system/greetd.service /etc/systemd/system/display-manager.service
 fi
