@@ -2,20 +2,20 @@
 
 ## Open
 
-1. **Regression test 2.6.0 on an existing desktop install** before merging:
-   test VM from ssh-ready, full first run from the desktop, re-apply, a few
-   components off and on (every `systemctl --user` now goes through
-   `user_systemctl`; with a session it should behave exactly as before).
-2. **Steamify PR**: `feat/defaults-mode` (2.6.0, `b948c20`) in
+1. **Steamify PR**: `feat/defaults-mode` (2.6.0, `b948c20`) in
    steamify-cachyos, pushed, no PR yet (checked 2026-09-27: not on main,
-   newest release v2.5.2). Open it after the regression test; the user
+   newest release v2.5.2). Ready: open it; the user
    merges (never commit to main). The ISO's first-login step needs 2.6.0
    released.
-3. **Test on the real Steam Machine** from a USB stick (gamescope, LEDs, CEC,
+2. **Test on the real Steam Machine** from a USB stick (gamescope, LEDs, CEC,
    power-off) before calling the ISO usable.
 
 ## Done
 
+- **Regression test 2.6.0 on an existing desktop install** (test VM from
+  ssh-ready, `--fremont`): full first run, re-apply, notifications/CEC/theme
+  off and on again. No errors; user units enabled and running, theme applied
+  and restored live, no first-login autostart with a session.
 - **ISO name**: `steamify-cachyos-<date>-x86_64.iso` (`iso_name` in
   `archiso/profiledef.sh`); the volume label stays `COS_<yyyymm>`.
 - **VM install from the ISO (2026-09-27, `f42859a`):** a VM install from the ISO (Hello's
