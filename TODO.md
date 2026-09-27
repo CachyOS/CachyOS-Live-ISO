@@ -2,21 +2,22 @@
 
 ## Open
 
-1. **Rename the ISO** file/label to Steam Machine CachyOS (see Later).
-2. **Regression test 2.6.0 on an existing desktop install** before merging:
+1. **Regression test 2.6.0 on an existing desktop install** before merging:
    test VM from ssh-ready, full first run from the desktop, re-apply, a few
    components off and on (every `systemctl --user` now goes through
    `user_systemctl`; with a session it should behave exactly as before).
-3. **Steamify PR**: `feat/defaults-mode` (2.6.0, `b948c20`) in
+2. **Steamify PR**: `feat/defaults-mode` (2.6.0, `b948c20`) in
    steamify-cachyos, pushed, no PR yet (checked 2026-09-27: not on main,
    newest release v2.5.2). Open it after the regression test; the user
    merges (never commit to main). The ISO's first-login step needs 2.6.0
    released.
-4. **Test on the real Steam Machine** from a USB stick (gamescope, LEDs, CEC,
+3. **Test on the real Steam Machine** from a USB stick (gamescope, LEDs, CEC,
    power-off) before calling the ISO usable.
 
 ## Done
 
+- **ISO name**: `steamify-cachyos-<date>-x86_64.iso` (`iso_name` in
+  `archiso/profiledef.sh`); the volume label stays `COS_<yyyymm>`.
 - **VM install from the ISO (2026-09-27, `f42859a`):** a VM install from the ISO (Hello's
   Install, no manual fixes) ran Steamify's step: every component OK,
   `exit: 0`, SDDM autologin into gamescope. First desktop login (session switched to plasma in the VM) passed too:
@@ -48,8 +49,8 @@
   global storage; `steamify-install` passes them to
   `steamify.sh --backend apply <ids>` (`--boot gamescope|desktop`) instead of
   `--defaults`.
-- **Branding**: name the ISO file and live session "Steam Machine CachyOS"
-  (not plain `cachyos-*.iso`); check with the CachyOS team.
+- **Branding**: the live session still says CachyOS (Hello, os-release,
+  boot menu); decide what to rename there and check with the CachyOS team.
 - **Release**: a CI job that builds the ISO (privileged container, flags from
   the steam-machine-iso skill) and hosts it (>2 GB, not a GitHub release asset).
 - **Drop the Boost 1.91 workaround** in `steamify-prepare.sh` once
