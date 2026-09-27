@@ -6,7 +6,8 @@
    in the ISO VM: the current packagechooser page ("Steam Machine", mode
    `optionalmultiple`) only lets you select one item, not several. Wanted:
    - a page titled **"Steamify"** (not "Steam Machine");
-   - **checkboxes or toggle switches** like the Steamify app's (`ui/qml` in
+   - **toggle switches like the Steamify app's** (preferred, so the page
+     looks like Steamify itself; checkboxes only as a fallback) (`ui/qml` in
      steamify-cachyos: the rows with "now on" and a switch), one per Steamify
      option, **all on by default** (opt-out: switch off what you don't
      want), several at a time; a QML page could reuse the app's look
