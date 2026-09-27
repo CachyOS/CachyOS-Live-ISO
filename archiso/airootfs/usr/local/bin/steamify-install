@@ -1,0 +1,20 @@
+#!/bin/bash
+# steamify-install <target root> <user>: runs Steamify's default setup for
+# the new user inside the installed system (Calamares, after the users and
+# services steps). Steamify refuses root and asks sudo per command, so the
+# user gets a NOPASSWD rule for this run only. Never fails the install: a
+# problem leaves the log and Steamify can be run again from the desktop.
+root="$1" user="$2"
+log="$root/var/log/steamify-install.log"
+rule="$root/etc/sudoers.d/00-steamify-install"
+[[ -d "$root" && -n "$user" ]] || exit 0
+
+install -Dm755 /usr/local/share/steamify/steamify.sh "$root/var/tmp/steamify.sh"
+printf '%s ALL=(ALL) NOPASSWD: ALL\n' "$user" > "$rule"
+chmod 440 "$rule"
+arch-chroot "$root" runuser -u "$user" -- env -i HOME="/home/$user" USER="$user" LOGNAME="$user" \
+    PATH=/usr/local/bin:/usr/bin TERM=dumb LANG=C.UTF-8 \
+    bash -c 'cd ~ && bash /var/tmp/steamify.sh --defaults < /dev/null' > "$log" 2>&1
+echo "exit: $?" >> "$log"
+rm -f "$rule" "$root/var/tmp/steamify.sh"
+exit 0
