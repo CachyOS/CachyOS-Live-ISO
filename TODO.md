@@ -1,26 +1,31 @@
 # To do (Steam Machine edition)
 
-## In progress (2026-09-27)
+## Open
 
-1. **Done (2026-09-27, `f42859a`):** a VM install from the ISO (Hello's
-   Install, no manual fixes) ran Steamify's step: every component OK,
-   `exit: 0`, SDDM autologin into gamescope. First desktop login (session switched to plasma in the VM) passed too:
-   Vapor layout, the app opened with everything on. The first-login script
-   runs the newest *release*, so it only works once 2.6.0 is released (in the
-   test it was pointed at the bundle).
-   The VM's text
-   console doesn't show (virgl): read the installed disk with
-   `qemu-nbd -r` + `mount -o ro,rescue=nologreplay,subvol=@` (logs in `@log`).
-2. **Rename the ISO** file/label to Steam Machine CachyOS (see Later).
-3. **Regression test 2.6.0 on an existing desktop install** before merging:
+1. **Rename the ISO** file/label to Steam Machine CachyOS (see Later).
+2. **Regression test 2.6.0 on an existing desktop install** before merging:
    test VM from ssh-ready, full first run from the desktop, re-apply, a few
    components off and on (every `systemctl --user` now goes through
    `user_systemctl`; with a session it should behave exactly as before).
-4. **Steamify PR**: `feat/defaults-mode` (2.6.0, `b948c20`) in
-   steamify-cachyos, pushed but no PR yet. Open it once the install test
-   passes; the user merges (never commit to main).
-5. **Test on the real Steam Machine** from a USB stick (gamescope, LEDs, CEC,
+3. **Steamify PR**: `feat/defaults-mode` (2.6.0, `b948c20`) in
+   steamify-cachyos, pushed, no PR yet (checked 2026-09-27: not on main,
+   newest release v2.5.2). Open it after the regression test; the user
+   merges (never commit to main). The ISO's first-login step needs 2.6.0
+   released.
+4. **Test on the real Steam Machine** from a USB stick (gamescope, LEDs, CEC,
    power-off) before calling the ISO usable.
+
+## Done
+
+- **VM install from the ISO (2026-09-27, `f42859a`):** a VM install from the ISO (Hello's
+  Install, no manual fixes) ran Steamify's step: every component OK,
+  `exit: 0`, SDDM autologin into gamescope. First desktop login (session switched to plasma in the VM) passed too:
+  Vapor layout, the app opened with everything on. The first-login script
+  runs the newest *release*, so it only works once 2.6.0 is released (in the
+  test it was pointed at the bundle).
+  The VM's text
+  console doesn't show (virgl): read the installed disk with
+  `qemu-nbd -r` + `mount -o ro,rescue=nologreplay,subvol=@` (logs in `@log`).
 
 ## Later
 
