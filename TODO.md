@@ -2,11 +2,10 @@
 
 ## Open
 
-1. **Test the live session** after the next build (`build-live-modules.sh`
-   runs in the container before buildiso.sh): Vapor look and layout at the
-   live login, `lsmod | grep steamify` in the live session (on the Steam
-   Machine it loads; in the VM with `--fremont` too), and shutting down from
-   the live session on the real Steam Machine stays off.
+1. **Check the live name** after the next build: Hello's subtitle should say
+   "Steamify CachyOS, based on CachyOS rolling" (`steamify-customize.sh`,
+   run by mkarchiso after the packages; the airootfs copy of os-release is
+   overwritten by a package).
 2. **Steamify PR**: `feat/defaults-mode` (2.6.0, `b948c20`) in
    steamify-cachyos, pushed, no PR yet (checked 2026-09-27: not on main,
    newest release v2.5.2). Ready: open it; the user
@@ -17,6 +16,11 @@
 
 ## Done
 
+- **Live session** (VM, `--fremont`): Vapor look and layout (Steam Deck
+  wallpaper) at the live login; the power-off module is built for both ISO
+  kernels and loaded at boot, in the VM it returns "No such device" (no
+  AMDI0030 GPIO controller), as designed. Whether it keeps the real Steam
+  Machine off is part of the hardware test.
 - **Regression test 2.6.0 on an existing desktop install** (test VM from
   ssh-ready, `--fremont`): full first run, re-apply, notifications/CEC/theme
   off and on again. No errors; user units enabled and running, theme applied

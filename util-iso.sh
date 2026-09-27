@@ -129,6 +129,10 @@ modify_mkarchiso() {
     else
         msg "mkarchiso is already patched!"
     fi
+    # Steamify: live-system changes after the packages (they overwrite airootfs).
+    if ! grep -q 'steamify-customize.sh' /usr/bin/mkarchiso; then
+        sudo sed "s#_run_once _make_customize_airootfs#_run_once _make_customize_airootfs\n\t${src_dir}/steamify-customize.sh \"\${pacstrap_dir}\"#" -i /usr/bin/mkarchiso
+    fi
 }
 
 prepare_profile(){
