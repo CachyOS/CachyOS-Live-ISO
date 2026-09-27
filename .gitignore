@@ -24,3 +24,5 @@ archiso/airootfs/etc/version-tag
 archiso/airootfs/usr/local/share/steamify/
 archiso/airootfs/usr/lib/libboost_*
 archiso/airootfs/etc/steammachine-iso-build
+archiso/airootfs/usr/lib/modules/
+archiso/airootfs/etc/modules-load.d/steamify-fremont-poweroff.conf

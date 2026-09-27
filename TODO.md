@@ -2,12 +2,17 @@
 
 ## Open
 
-1. **Steamify PR**: `feat/defaults-mode` (2.6.0, `b948c20`) in
+1. **Test the live session** after the next build (`build-live-modules.sh`
+   runs in the container before buildiso.sh): Vapor look and layout at the
+   live login, `lsmod | grep steamify` in the live session (on the Steam
+   Machine it loads; in the VM with `--fremont` too), and shutting down from
+   the live session on the real Steam Machine stays off.
+2. **Steamify PR**: `feat/defaults-mode` (2.6.0, `b948c20`) in
    steamify-cachyos, pushed, no PR yet (checked 2026-09-27: not on main,
    newest release v2.5.2). Ready: open it; the user
    merges (never commit to main). The ISO's first-login step needs 2.6.0
    released.
-2. **Test on the real Steam Machine** from a USB stick (gamescope, LEDs, CEC,
+3. **Test on the real Steam Machine** from a USB stick (gamescope, LEDs, CEC,
    power-off) before calling the ISO usable.
 
 ## Done
@@ -30,16 +35,6 @@
 
 ## Later
 
-- **Power-off fix in the live session.** Without it the Steam Machine starts
-  again right after shutting down from the live ISO. Build
-  `steamify-fremont-poweroff.ko` in `steamify-prepare.sh` against the headers
-  of the ISO's kernel, put it in `airootfs/usr/lib/modules/<version>/extra`
-  and run depmod (small); or ship DKMS packages from a local repo (~250 MB of
-  headers on the ISO). Later maybe the CEC and LED drivers the same way.
-- **Vapor theme in the live session.** Add `cachyos-vapor` to
-  `packages_desktop.x86_64` and set it as the live user's look and feel in
-  `airootfs/etc/skel` (kdeglobals `LookAndFeelPackage`, no layout file, so
-  Plasma lays out Vapor at the live login).
 - **Steamify wizard pages in the installer**, before anything is installed:
   the same choices as Steamify's menu (conversion, boot into gamescope or
   desktop, theme, Deck icons, single user, shortcut + non-Steam game,

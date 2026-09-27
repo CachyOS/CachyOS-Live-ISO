@@ -1,0 +1,7 @@
+#!/bin/bash
+# The live session in the Vapor look, with its SteamOS desktop layout.
+# CachyOS's own layout comes from /etc/skel, which the live user gets before
+# this runs; lookandfeeltool needs plasmashell up to replace it.
+for _ in $(seq 30); do pgrep -u "$USER" -x plasmashell >/dev/null && break; sleep 1; done
+sleep 2
+lookandfeeltool -a com.valve.vapor.desktop --resetLayout

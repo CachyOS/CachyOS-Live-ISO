@@ -90,6 +90,7 @@ linux-cachyos
 linux-cachyos-nvidia-open
 linux-cachyos-zfs
 linux-firmware
+cachyos-vapor
 linux-firmware-marvell
 lsb-release
 lsof

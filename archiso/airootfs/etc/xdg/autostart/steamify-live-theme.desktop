@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Steamify live theme
+Exec=/usr/local/bin/steamify-live-theme
+OnlyShowIn=KDE;
+X-KDE-autostart-phase=2
+NoDisplay=true

@@ -11,6 +11,13 @@ if [[ -n "${1:-}" ]]; then
 else
     curl -fsSL https://github.com/theupriser/steamify-cachyos/releases/latest/download/steamify.sh -o "$dest"
 fi
+# The power-off fix's source, for build-live-modules.sh (live session).
+poweroff="$(dirname "$dest")/steamify-fremont-poweroff.c"
+if [[ -n "${1:-}" ]]; then
+    cp "$1/patches/steamify-fremont-poweroff.c" "$poweroff"
+else
+    curl -fsSL https://raw.githubusercontent.com/theupriser/steamify-cachyos/main/patches/steamify-fremont-poweroff.c -o "$poweroff"
+fi
 grep -q -- '--defaults' "$dest" || { echo "This Steamify has no --defaults (needs 2.6.0 or newer)." >&2; exit 1; }
 chmod 755 "$dest"
 # Temporary: cachyos-calamares-next 3.4.2-13 is linked against Boost 1.91
