@@ -2,11 +2,12 @@
 # steamify-install <target root> <user>: runs Steamify's default setup for
 # the new user inside the installed system (Calamares, after the users and
 # services steps). Steamify refuses root and asks sudo per command, so the
-# user gets a NOPASSWD rule for this run only. Never fails the install: a
+# user gets a NOPASSWD rule for this run only, named to be read last: sudo
+# takes the last matching rule, and a later %wheel rule would ask again. Never fails the install: a
 # problem leaves the log and Steamify can be run again from the desktop.
 root="$1" user="$2"
 log="$root/var/log/steamify-install.log"
-rule="$root/etc/sudoers.d/00-steamify-install"
+rule="$root/etc/sudoers.d/zz-steamify-install"
 [[ -d "$root" && -n "$user" ]] || exit 0
 
 install -Dm755 /usr/local/share/steamify/steamify.sh "$root/var/tmp/steamify.sh"
