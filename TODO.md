@@ -2,20 +2,14 @@
 
 ## In progress (2026-09-27)
 
-1. **Finish the running build** (`f663ce8`+) on the Steam Machine
-   (`~/projects/steammachine-cachyos-live-iso`, log `~/projects/iso-build.log`;
-   the harmless `chown: missing operand` error at the end is expected).
-2. **Test install in the ISO VM** (`~/projects/iso-vm`): power it off, delete
-   `disk.qcow2` and `vars.fd` (run.sh recreates them), point `cachyos.iso` at
-   the new ISO, `run.sh install --fremont` as a user unit. Check:
-   - Hello's Install opens Calamares without the "testing ISO" message
-     (version-tag = CachyOS release);
-   - Calamares starts without the manual Boost fix;
-   - the "Setting up the Steam Machine (Steamify)" step runs;
-   - after reboot: `/var/log/steamify-install.log` (every component OK,
-     `exit: 0`), SDDM autologin into gamescope (black/looping in the VM is
-     expected; Ctrl+Alt+F3 for a console), first desktop login: Vapor layout,
-     single user's launcher, the app next to Hello.
+1. **Done (2026-09-27, `f42859a`):** a VM install from the ISO (Hello's
+   Install, no manual fixes) ran Steamify's step: every component OK,
+   `exit: 0`, SDDM autologin into gamescope. Still to check: the first
+   desktop login (Vapor layout, single user's launcher, the app next to
+   Hello); in the VM switch the SDDM session to plasma first. The VM's text
+   console doesn't show (virgl): read the installed disk with
+   `qemu-nbd -r` + `mount -o ro,rescue=nologreplay,subvol=@` (logs in `@log`).
+2. **Rename the ISO** file/label to Steam Machine CachyOS (see Later).
 3. **Steamify PR**: `feat/defaults-mode` (2.6.0, `b948c20`) in
    steamify-cachyos, pushed but no PR yet. Open it once the install test
    passes; the user merges (never commit to main).
