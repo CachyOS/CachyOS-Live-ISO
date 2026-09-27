@@ -16,9 +16,6 @@
      `exit: 0`), SDDM autologin into gamescope (black/looping in the VM is
      expected; Ctrl+Alt+F3 for a console), first desktop login: Vapor layout,
      single user's launcher, the app next to Hello.
-   Likely problem: in the chroot `uname -r` is the live kernel, so the LED
-   module load/check in `machine_enable` may fail although DKMS built for the
-   installed kernel. Make those checks tolerate a different running kernel.
 3. **Steamify PR**: `feat/defaults-mode` (2.6.0, `b948c20`) in
    steamify-cachyos, pushed but no PR yet. Open it once the install test
    passes; the user merges (never commit to main).
@@ -37,9 +34,15 @@
   `packages_desktop.x86_64` and set it as the live user's look and feel in
   `airootfs/etc/skel` (kdeglobals `LookAndFeelPackage`, no layout file, so
   Plasma lays out Vapor at the live login).
-- **Steamify options in the installer**: a Calamares page (netinstall-style
-  YAML or QML) listing Steamify's options; pass the ticked ids to
-  `steamify.sh --backend apply <ids>` instead of `--defaults`.
+- **Steamify wizard pages in the installer**, before anything is installed:
+  the same choices as Steamify's menu (conversion, boot into gamescope or
+  desktop, theme, Deck icons, single user, shortcut + non-Steam game,
+  notifications, VRAM booster, HDMI-CEC, Steam Machine support + power-off
+  fix), defaults ticked like a first run. A Calamares page (netinstall-style
+  YAML or a QML module in the `show` sequence) stores the ticked ids in
+  global storage; `steamify-install` passes them to
+  `steamify.sh --backend apply <ids>` (`--boot gamescope|desktop`) instead of
+  `--defaults`.
 - **Branding**: name the ISO file and live session "Steam Machine CachyOS"
   (not plain `cachyos-*.iso`); check with the CachyOS team.
 - **Release**: a CI job that builds the ISO (privileged container, flags from
