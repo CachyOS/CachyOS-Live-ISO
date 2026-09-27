@@ -12,19 +12,21 @@ src=archiso/airootfs/usr/local/share/steamify/steamify-fremont-poweroff.c
 [[ -f "$src" ]] || { echo "No $src: run steamify-prepare.sh first." >&2; exit 1; }
 
 pacman -S --needed --noconfirm base-devel clang llvm lld linux-cachyos-headers linux-cachyos-lts-headers >/dev/null
-work="$(mktemp -d)"
-cp "$src" "$work/"
-echo 'obj-m += steamify-fremont-poweroff.o' > "$work/Makefile"
 for build in /usr/lib/modules/*/build; do
     kver="$(basename "$(dirname "$build")")"
+    # A fresh folder per kernel: `make clean modules` in one call makes
+    # kbuild re-run itself endlessly for an external module.
+    work="$(mktemp -d)"
+    cp "$src" "$work/"
+    echo 'obj-m += steamify-fremont-poweroff.o' > "$work/Makefile"
     # CachyOS's kernels differ in compiler (linux-cachyos is clang-built):
     # build with the one the kernel was built with.
     llvm=()
     grep -q '^CONFIG_CC_IS_CLANG=y' "$build/.config" && llvm=(LLVM=1)
-    make -s -C "$build" M="$work" "${llvm[@]}" clean modules
+    make -s -C "$build" M="$work" "${llvm[@]}" modules
     install -Dm644 "$work/steamify-fremont-poweroff.ko" \
         "archiso/airootfs/usr/lib/modules/$kver/extra/steamify-fremont-poweroff.ko"
+    rm -rf "$work"
     echo "Power-off fix built for $kver."
 done
-rm -rf "$work"
 install -Dm644 /dev/stdin archiso/airootfs/etc/modules-load.d/steamify-fremont-poweroff.conf <<< 'steamify-fremont-poweroff'
