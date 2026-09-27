@@ -22,3 +22,4 @@ archiso/airootfs/etc/pacman.d/cachyos-mirrorlist
 archiso/airootfs/etc/edition-tag
 archiso/airootfs/etc/version-tag
 archiso/airootfs/usr/local/share/steamify/
+archiso/airootfs/usr/lib/libboost_*
