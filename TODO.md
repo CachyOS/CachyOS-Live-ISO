@@ -6,8 +6,11 @@
    in the ISO VM: the current packagechooser page ("Steam Machine", mode
    `optionalmultiple`) only lets you select one item, not several. Wanted:
    - a page titled **"Steamify"** (not "Steam Machine");
-   - **checkboxes**, one per Steamify option, **all ticked by default**
-     (opt-out: untick what you don't want), several at a time;
+   - **checkboxes or toggle switches** like the Steamify app's (`ui/qml` in
+     steamify-cachyos: the rows with "now on" and a switch), one per Steamify
+     option, **all on by default** (opt-out: switch off what you don't
+     want), several at a time; a QML page could reuse the app's look
+     (`Theme`, its toggle rows) and texts (`Texts`);
    - the "Start in" page (gaming mode / desktop) can stay.
    Calamares has no ready checkbox page whose ticks come out as plain ids
    (netinstall's checkboxes are package installs), so this needs our own page:
