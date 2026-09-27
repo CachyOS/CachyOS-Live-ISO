@@ -2,27 +2,35 @@
 
 ## Open
 
-1. **Test the Steamify installer pages** (after the next build, needs
-   Steamify 2.7.0 with `--skip`/`--boot`; the ISO has the branch's bundle
-   until it's released): a "Steam Machine" page (leave out: multi-select,
-   nothing selected = full setup) and a "Start in" page (gaming mode or
-   desktop) after the Desktop page; check `/var/log/steamify-install.log`
-   for the skipped items and the boot choice. If Calamares doesn't expand
-   `${gs[...]}` in shellprocess, the log shows "Unknown item: ${gs[...".
-2. **Check the live name** after the next build: Hello's subtitle should say
+1. **Steamify installer page with checkboxes** (next, 2026-09-28). Tested
+   in the ISO VM: the current packagechooser page ("Steam Machine", mode
+   `optionalmultiple`) only lets you select one item, not several. Wanted:
+   - a page titled **"Steamify"** (not "Steam Machine");
+   - **checkboxes**, one per Steamify option, **all ticked by default**
+     (opt-out: untick what you don't want), several at a time;
+   - the "Start in" page (gaming mode / desktop) can stay.
+   Calamares has no ready checkbox page whose ticks come out as plain ids
+   (netinstall's checkboxes are package installs), so this needs our own page:
+   a QML page (adapt CachyOS's `packagechooserq`) or a small Calamares
+   module. The unticked ids go to `steamify-install` as before
+   (`--skip <ids> --boot ...`, Steamify 2.7.0); Steamify needs no change.
+   Also still to check with it: that `${gs[...]}` reaches shellprocess (the
+   install log shows "Unknown item: ${gs[..." if not).
+2. **Check the live name** (the build tree has it right:
+   `build/x86_64/airootfs/etc/os-release`) after the next build: Hello's subtitle should say
    "Steamify CachyOS, based on CachyOS rolling" (`steamify-customize.sh`,
    run by mkarchiso after the packages; the airootfs copy of os-release is
    overwritten by a package).
-3. **Steamify PR**: `feat/defaults-mode` (2.6.0, `b948c20`) in
-   steamify-cachyos, pushed, no PR yet (checked 2026-09-27: not on main,
-   newest release v2.5.2). Ready: open it; the user
-   merges (never commit to main). The ISO's first-login step needs 2.6.0
-   released.
+3. **Steamify PR** for `feat/defaults-options` (2.7.0, `4f6e6fd`: `--skip`,
+   `--boot`): pushed, no PR yet; the user merges (never commit to main).
+   2.6.0 is released. Until 2.7.0 is, build the ISO with
+   `steamify-prepare.sh ~/projects/steamify-cachyos` (the branch).
 4. **Test on the real Steam Machine** from a USB stick (gamescope, LEDs, CEC,
    power-off) before calling the ISO usable.
 
 ## Done
 
+- **Steamify 2.6.0** released (`--defaults`, install-time mode).
 - **Live session** (VM, `--fremont`): Vapor look and layout (Steam Deck
   wallpaper) at the live login; the power-off module is built for both ISO
   kernels and loaded at boot, in the VM it returns "No such device" (no
@@ -46,10 +54,6 @@
 
 ## Later
 
-- **Checkboxes instead of the leave-out list**: Calamares has no ready
-  checkbox page whose ticks come out as plain ids (netinstall's are package
-  installs); it would take a QML page (packagechooserq) or a small C++
-  module. Steamify's side (`--skip`, `--boot`) stays the same.
 - **Branding**: the live session's os-release says "Steamify, based on
   CachyOS" (Hello's subtitle); Hello's window title and the boot menu still
   say CachyOS. Check with the CachyOS team.
