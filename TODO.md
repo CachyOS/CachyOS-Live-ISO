@@ -12,10 +12,14 @@
    console doesn't show (virgl): read the installed disk with
    `qemu-nbd -r` + `mount -o ro,rescue=nologreplay,subvol=@` (logs in `@log`).
 2. **Rename the ISO** file/label to Steam Machine CachyOS (see Later).
-3. **Steamify PR**: `feat/defaults-mode` (2.6.0, `b948c20`) in
+3. **Regression test 2.6.0 on an existing desktop install** before merging:
+   test VM from ssh-ready, full first run from the desktop, re-apply, a few
+   components off and on (every `systemctl --user` now goes through
+   `user_systemctl`; with a session it should behave exactly as before).
+4. **Steamify PR**: `feat/defaults-mode` (2.6.0, `b948c20`) in
    steamify-cachyos, pushed but no PR yet. Open it once the install test
    passes; the user merges (never commit to main).
-4. **Test on the real Steam Machine** from a USB stick (gamescope, LEDs, CEC,
+5. **Test on the real Steam Machine** from a USB stick (gamescope, LEDs, CEC,
    power-off) before calling the ISO usable.
 
 ## Later
