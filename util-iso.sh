@@ -104,7 +104,14 @@ generate_version_tag() {
     local _profile="$1"
     local _version="$2"
     if [ "$_profile" == "desktop" ]; then
-        echo "${_version}" > ${src_dir}/archiso/airootfs/etc/version-tag
+        # Steam Machine edition: CachyOS Hello won't install an ISO newer
+        # than CachyOS's newest release (it calls it a testing ISO), so the
+        # tag is that release, the one this build follows; the build's own
+        # date goes to /etc/steammachine-iso-build.
+        local _release
+        _release="$(curl -fsS --max-time 20 https://cachyos.org/versions.json | grep -o '"desktopISOVersion":"[0-9]*"' | grep -o '[0-9]\+')"
+        echo "${_release:-${_version}}" > ${src_dir}/archiso/airootfs/etc/version-tag
+        echo "${_version}" > ${src_dir}/archiso/airootfs/etc/steammachine-iso-build
     fi
 }
 
