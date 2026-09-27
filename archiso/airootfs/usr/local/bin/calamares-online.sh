@@ -47,7 +47,8 @@ EOF
     sudo cp "/usr/share/calamares/settings_${mode}.conf" /etc/calamares/settings.conf
     # Steamify: its step (modules/shellprocess_steamify.conf) before the
     # installer cleans up after itself.
-    sudo sed -i -e 's/^- id:       cleanup_calamares$/- id:       steamify\n  module:   shellprocess\n  config:   shellprocess_steamify.conf\n\n&/' \
+    sudo sed -i -e 's/^- id:       cleanup_calamares$/- id:       steamifyskip\n  module:   packagechooser\n  config:   packagechooser_steamifyskip.conf\n\n- id:       steamifyboot\n  module:   packagechooser\n  config:   packagechooser_steamifyboot.conf\n\n- id:       steamify\n  module:   shellprocess\n  config:   shellprocess_steamify.conf\n\n&/' \
+        -e 's/^  - packagechooser@desktop$/&\n  - packagechooser@steamifyskip\n  - packagechooser@steamifyboot/' \
         -e 's/^  - shellprocess@cleanup_calamares$/  - shellprocess@steamify\n&/' /etc/calamares/settings.conf
     exec pkexec-wrapper calamares -D6 >> $log
 }

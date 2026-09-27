@@ -1,11 +1,16 @@
 #!/bin/bash
-# steamify-install <target root> <user>: runs Steamify's default setup for
+# steamify-install <target root> <user> [<skip ids>] [gamescope|desktop]:
+# runs Steamify's default setup (minus what the installer's Steam Machine
+# page leaves out, where the boot page says) for
 # the new user inside the installed system (Calamares, after the users and
 # services steps). Steamify refuses root and asks sudo per command, so the
 # user gets a NOPASSWD rule for this run only, named to be read last: sudo
 # takes the last matching rule, and a later %wheel rule would ask again. Never fails the install: a
 # problem leaves the log and Steamify can be run again from the desktop.
 root="$1" user="$2"
+# The pages' ids, comma-separated; the "Everything" entry is an empty id.
+skip="$(tr ',' '\n' <<< "${3:-}" | grep -v '^$' | paste -sd, -)"
+boot="${4:-gamescope}"
 log="$root/var/log/steamify-install.log"
 rule="$root/etc/sudoers.d/zz-steamify-install"
 [[ -d "$root" && -n "$user" ]] || exit 0
@@ -15,7 +20,7 @@ printf '%s ALL=(ALL) NOPASSWD: ALL\n' "$user" > "$rule"
 chmod 440 "$rule"
 arch-chroot "$root" runuser -u "$user" -- env -i HOME="/home/$user" USER="$user" LOGNAME="$user" \
     PATH=/usr/local/bin:/usr/bin TERM=dumb LANG=C.UTF-8 \
-    bash -c 'cd ~ && bash /var/tmp/steamify.sh --defaults < /dev/null' > "$log" 2>&1
+    bash -c 'cd ~ && bash /var/tmp/steamify.sh --defaults --skip "$0" --boot "$1" < /dev/null' "$skip" "$boot" > "$log" 2>&1
 echo "exit: $?" >> "$log"
 rm -f "$rule" "$root/var/tmp/steamify.sh"
 exit 0

@@ -2,16 +2,23 @@
 
 ## Open
 
-1. **Check the live name** after the next build: Hello's subtitle should say
+1. **Test the Steamify installer pages** (after the next build, needs
+   Steamify 2.7.0 with `--skip`/`--boot`; the ISO has the branch's bundle
+   until it's released): a "Steam Machine" page (leave out: multi-select,
+   nothing selected = full setup) and a "Start in" page (gaming mode or
+   desktop) after the Desktop page; check `/var/log/steamify-install.log`
+   for the skipped items and the boot choice. If Calamares doesn't expand
+   `${gs[...]}` in shellprocess, the log shows "Unknown item: ${gs[...".
+2. **Check the live name** after the next build: Hello's subtitle should say
    "Steamify CachyOS, based on CachyOS rolling" (`steamify-customize.sh`,
    run by mkarchiso after the packages; the airootfs copy of os-release is
    overwritten by a package).
-2. **Steamify PR**: `feat/defaults-mode` (2.6.0, `b948c20`) in
+3. **Steamify PR**: `feat/defaults-mode` (2.6.0, `b948c20`) in
    steamify-cachyos, pushed, no PR yet (checked 2026-09-27: not on main,
    newest release v2.5.2). Ready: open it; the user
    merges (never commit to main). The ISO's first-login step needs 2.6.0
    released.
-3. **Test on the real Steam Machine** from a USB stick (gamescope, LEDs, CEC,
+4. **Test on the real Steam Machine** from a USB stick (gamescope, LEDs, CEC,
    power-off) before calling the ISO usable.
 
 ## Done
@@ -39,15 +46,10 @@
 
 ## Later
 
-- **Steamify wizard pages in the installer**, before anything is installed:
-  the same choices as Steamify's menu (conversion, boot into gamescope or
-  desktop, theme, Deck icons, single user, shortcut + non-Steam game,
-  notifications, VRAM booster, HDMI-CEC, Steam Machine support + power-off
-  fix), defaults ticked like a first run. A Calamares page (netinstall-style
-  YAML or a QML module in the `show` sequence) stores the ticked ids in
-  global storage; `steamify-install` passes them to
-  `steamify.sh --backend apply <ids>` (`--boot gamescope|desktop`) instead of
-  `--defaults`.
+- **Checkboxes instead of the leave-out list**: Calamares has no ready
+  checkbox page whose ticks come out as plain ids (netinstall's are package
+  installs); it would take a QML page (packagechooserq) or a small C++
+  module. Steamify's side (`--skip`, `--boot`) stays the same.
 - **Branding**: the live session's os-release says "Steamify, based on
   CachyOS" (Hello's subtitle); Hello's window title and the boot menu still
   say CachyOS. Check with the CachyOS team.
