@@ -1,5 +1,5 @@
-NAME="CachyOS"
-PRETTY_NAME="CachyOS"
+NAME="Steamify, based on CachyOS"
+PRETTY_NAME="Steamify, based on CachyOS"
 ID=arch
 BUILD_ID=rolling
 ANSI_COLOR="38;2;23;147;209"

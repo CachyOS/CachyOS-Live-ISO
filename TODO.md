@@ -49,8 +49,9 @@
   global storage; `steamify-install` passes them to
   `steamify.sh --backend apply <ids>` (`--boot gamescope|desktop`) instead of
   `--defaults`.
-- **Branding**: the live session still says CachyOS (Hello, os-release,
-  boot menu); decide what to rename there and check with the CachyOS team.
+- **Branding**: the live session's os-release says "Steamify, based on
+  CachyOS" (Hello's subtitle); Hello's window title and the boot menu still
+  say CachyOS. Check with the CachyOS team.
 - **Release**: a CI job that builds the ISO (privileged container, flags from
   the steam-machine-iso skill) and hosts it (>2 GB, not a GitHub release asset).
 - **Drop the Boost 1.91 workaround** in `steamify-prepare.sh` once
