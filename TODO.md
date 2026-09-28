@@ -2,31 +2,14 @@
 
 ## Open
 
-1. **Steamify installer page** (2026-09-28, working end to end).
-   `packagechooserq` (custom QML) doesn't exist in CachyOS's own
-   `cachyos-calamares-next` build (`-DSKIP_MODULES=...packagechooserq...`),
-   so it's built out of tree against the installed Calamares headers (see
-   the build VM notes in the steam-machine-iso skill) and its `.so` +
-   `module.desc` are baked straight into `archiso/airootfs/usr/lib/calamares/
-   modules/packagechooserq/` (no conflict: the package never ships that
-   path). `netinstall` (checkbox tree) stays as a manually-swappable
-   fallback (`steamify-cachyos-dev/share/sn.sh` + `nisteamify.conf`) for
-   when the module can't load, but isn't wired into `calamares-online.sh`
-   automatically yet — see the version-mismatch item below.
-   - **Fixed this session**: selected-row contrast (border-only highlight,
-     was a translucent teal fill making white text unreadable), page
-     background (was falling through to Calamares' white default), a
-     sub-option `└` marker, more right padding so the row border clears the
-     scrollbar, Summary step showing readable labels (packagechooserq's
-     `prettyStatus()` overridden, only for this module instance, to render
-     an HTML bullet list from a new `items.json` that `calamares-online.sh`
-     writes next to `Items.qml`), and a **pre-existing bug**: `steamify.sh`
-     on the ISO was never executable (`curl -o` in `steamify-prepare.sh`
-     doesn't set +x, and `profiledef.sh`'s `file_permissions` never listed
-     it), so `calamares-online.sh`'s direct exec of it
-     (`"$sbin" --defaults --list`) silently failed and `items.json` (no
-     static fallback) was never written — fixed by adding the path to
-     `file_permissions`.
+1. **Steamify installer page** (2026-09-28, working end to end; see
+   `AGENTS.md` for the module/build/testing details and gotchas behind
+   this). `packagechooserq` (custom QML) is built out of tree and baked
+   straight into `archiso/airootfs/usr/lib/calamares/modules/packagechooserq/`.
+   `netinstall` (checkbox tree) stays as a manually-swappable fallback
+   (`steamify-cachyos-dev/share/sn.sh` + `nisteamify.conf`) for when the
+   module can't load, but isn't wired into `calamares-online.sh`
+   automatically yet.
    - **Still open**:
      - Bake the `packagechooserq` *build* into the ISO build pipeline
        itself (a `build-calamares-modules.sh` step: install
@@ -47,44 +30,6 @@
        `packagechooser_steamifypage` GS key, or netinstall's
        packageOperations markers) into one `steamifyChoice` GS key, so
        `shellprocess_steamify.conf` doesn't need to know which page ran.
-   - **Lessons learned**:
-     - Verify a Calamares module is actually installed
-       (`ls /usr/lib/calamares/modules`) before writing QML/config for it;
-       `packagechooser`'s multi-select needs Shift/Ctrl-click (plain click
-       replaces the selection) — not usable as-is, `packagechooserq` or
-       `netinstall` only.
-     - Both pages are testable live in the booted ISO VM with no rebuild:
-       hot-swap `/etc/calamares/modules/*.conf` + `settings.conf`
-       (`share/sq.sh` / `share/sn.sh`), relaunch
-       `pkexec-wrapper calamares -D6` in a **separate Konsole tab** (it
-       blocks the tab it runs in). A C++ module change needs a real
-       rebuild (out-of-tree, in the build VM) + redeploy of the `.so`, no
-       shortcut.
-     - The live session's keyboard layout keeps drifting to Dutch (e.g.
-       after Calamares' Welcome page, or after opening System Settings),
-       breaking `/`/`(`/`)`/`&`/`>` in `qmptype.py`'s US-layout map with no
-       error for the common ones (`/` → `-`) — `setxkbmap us` typed via
-       QMP *does* fix it (unlike the earlier Wayland claim), but check
-       with a no-symbols probe after any language/keyboard step regardless.
-     - `qmptype.py` has no key for `&` or `>` at all: a typed command using
-       either raises "no key for" and can leave an unterminated quote in
-       the shell's input buffer; send Ctrl+C before retyping. Avoid
-       redirection/`&&` in typed commands — write it to a file and run
-       `bash /media/foo.sh` instead, since a file's contents aren't typed
-       character-by-character.
-     - Send QMP keystrokes one command at a time with a beat in between;
-       firing several `qmptype.py` calls back-to-back can interleave with
-       the guest's own prompt redraw and garble the input.
-     - Don't screenshot-poll for VM readiness: pass `VM_SERIAL=<file>` to
-       `run.sh`/`vmisoboot.sh` and grep the plain-text serial log instead
-       (near-zero tokens vs. repeated screenshot+image-analysis).
-     - The build VM's guest sshd applies OpenSSH's `PerSourcePenalties`:
-       repeated quick reconnect attempts within its window make `ssh`/`scp`
-       fail instantly with "Connection closed" (verbose: "Not allowed at
-       this time"), and each further attempt seems to extend the penalty
-       rather than reset it. Don't retry-loop through it; back off for a
-       while, or just restart the VM (clears its in-memory penalty state
-       immediately) instead of waiting it out.
 
 2. **Check the live name** (the build tree has it right:
    `build/x86_64/airootfs/etc/os-release`) after the next build: Hello's subtitle should say
