@@ -4,24 +4,19 @@
 
 1. **Steamify installer page** (2026-09-28, working end to end; see
    `AGENTS.md` for the module/build/testing details and gotchas behind
-   this). `packagechooserq` (custom QML) is built out of tree and baked
-   straight into `archiso/airootfs/usr/lib/calamares/modules/packagechooserq/`.
+   this). `packagechooserq` (custom QML) is built with each ISO by
+   `build-calamares-modules.sh` into `archiso/airootfs/usr/lib/calamares/modules/packagechooserq/`.
    `netinstall` (checkbox tree) stays as a manually-swappable fallback
    (`steamify-cachyos-dev/share/sn.sh` + `nisteamify.conf`) for when the
    module can't load, but isn't wired into `calamares-online.sh`
    automatically yet.
    - **Still open**:
-     - Bake the `packagechooserq` *build* into the ISO build pipeline
-       itself (a `build-calamares-modules.sh` step: install
-       `cachyos-calamares-next`, build out of tree, install into
-       `airootfs`) instead of committing a prebuilt `.so`, so it always
-       matches whatever Calamares version is current at build time.
-     - Version-mismatch fallback: after `calamares-online.sh`'s
-       `pacman -Sy cachyos-calamares-next`, check the installed version
-       against what the module was built for; on a mismatch, switch
-       `settings.conf` to the `netinstall` page instead (generate its
-       groups conf from `--defaults --list` there too) rather than risk an
-       "Initialization Failed" module.
+     - The Summary step shows raw ids ("Install option: gaming,theme,...")
+       for the Steamify page: the `prettyStatus()` override described in
+       `AGENTS.md` (labels from `items.json`) was never in the committed
+       `.so` (it has no `items.json` string) and its source is lost. Add it
+       as a patch that `build-calamares-modules.sh` applies to
+       `PackageChooserQmlViewStep.cpp`.
      - "Boot into gaming mode" as an opt-out sub-toggle under SteamOS
        conversion (agreed with the user) isn't implemented on either page
        yet — both still use the old Gaming/Desktop radio-row.
@@ -54,6 +49,12 @@
 
 ## Done
 
+- **packagechooserq built with the ISO** (2026-09-28):
+  `build-calamares-modules.sh` builds it in the build container/VM from
+  CachyOS's Calamares source against the current `cachyos-calamares-next`
+  (no prebuilt `.so` in git), with `built-for`; `calamares-online.sh` leaves
+  the Steamify page out when the Calamares it runs differs (the step then
+  installs everything on) instead of risking "Initialization Failed".
 - **Steamify 2.6.0** released (`--defaults`, install-time mode).
 - **Live session** (VM, `--fremont`): Vapor look and layout (Steam Deck
   wallpaper) at the live login; the power-off module is built for both ISO

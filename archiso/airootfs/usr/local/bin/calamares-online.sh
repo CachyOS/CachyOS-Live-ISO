@@ -83,8 +83,21 @@ EOF
     # Steamify: its page (packagechooserq@steamifypage, right after the
     # packages page) and its step (modules/shellprocess_steamify.conf) before
     # the installer cleans up after itself.
+    # The page's module is built for one cachyos-calamares-next
+    # (build-calamares-modules.sh); the pacman -Sy above may have brought
+    # another, which it might not load in ("Initialization Failed" blocks the
+    # installer). Then leave the page out: the step installs the page's
+    # default, everything on.
+    local built installed
+    built="$(cat /usr/lib/calamares/modules/packagechooserq/built-for 2>/dev/null)"
+    installed="$(pacman -Q cachyos-calamares-next | cut -d' ' -f2)"
+    local page=(-e 's/^  - netinstall$/&\n  - packagechooserq@steamifypage/')
+    if [[ -z "$built" || "$built" != "$installed" ]]; then
+        echo "Steamify page left out: built for cachyos-calamares-next ${built:-?}, running $installed." >> "$log"
+        page=()
+    fi
     sudo sed -i -e 's/^- id:       cleanup_calamares$/- id:       steamifypage\n  module:   packagechooserq\n  config:   packagechooserq_steamifypage.conf\n\n- id:       steamify\n  module:   shellprocess\n  config:   shellprocess_steamify.conf\n\n&/' \
-        -e 's/^  - netinstall$/&\n  - packagechooserq@steamifypage/' \
+        "${page[@]}" \
         -e 's/^  - shellprocess@cleanup_calamares$/  - shellprocess@steamify\n&/' /etc/calamares/settings.conf
     exec pkexec-wrapper calamares -D6 >> $log
 }
