@@ -1,0 +1,74 @@
+diff -ruN a/packagechooserq/PackageChooserQmlViewStep.cpp b/packagechooserq/PackageChooserQmlViewStep.cpp
+--- a/packagechooserq/PackageChooserQmlViewStep.cpp	2026-09-28 16:56:21
++++ b/packagechooserq/PackageChooserQmlViewStep.cpp	2026-09-28 16:56:21
+@@ -17,6 +17,12 @@
+ #include "utils/System.h"
+ #include "utils/Variant.h"
+ 
++#include <QFile>
++#include <QHash>
++#include <QJsonArray>
++#include <QJsonDocument>
++#include <QJsonObject>
++
+ CALAMARES_PLUGIN_FACTORY_DEFINITION( PackageChooserQmlViewStepFactory, registerPlugin< PackageChooserQmlViewStep >(); )
+ 
+ PackageChooserQmlViewStep::PackageChooserQmlViewStep( QObject* parent )
+@@ -35,9 +41,54 @@
+ QString
+ PackageChooserQmlViewStep::prettyStatus() const
+ {
+-    //QString option = m_pkgc;
+-    //return tr( "Install option: %1" ).arg( option );
+-    return m_config->prettyStatus();
++    // Steamify page (steammachine-cachyos-live-iso): its choice is Steamify's
++    // item ids ("boot" = start in the desktop, "none" = nothing on); show
++    // their labels, from the rows calamares-online.sh writes next to the
++    // page, instead of the raw ids. Any other use keeps the stock text.
++    const QString choice = m_config->packageChoice();
++    QFile rows( QStringLiteral( "/usr/local/share/steamify/qml/items.json" ) );
++    if ( moduleInstanceKey().id() != QStringLiteral( "steamifypage" ) || choice.isEmpty()
++         || !rows.open( QIODevice::ReadOnly ) )
++    {
++        return m_config->prettyStatus();
++    }
++    QHash< QString, QString > labels;
++    const auto items = QJsonDocument::fromJson( rows.readAll() ).array();
++    for ( const auto& item : items )
++    {
++        const auto row = item.toObject();
++        labels.insert( row.value( QStringLiteral( "id" ) ).toString(),
++                       row.value( QStringLiteral( "label" ) ).toString() );
++    }
++    if ( labels.isEmpty() )
++    {
++        return m_config->prettyStatus();
++    }
++    QStringList on;
++    bool desktop = false, gaming = false;
++    for ( const auto& part : choice.split( QLatin1Char( ',' ) ) )
++    {
++        const QString id = part.trimmed();
++        if ( id.isEmpty() || id == QStringLiteral( "none" ) )
++        {
++            continue;
++        }
++        if ( id == QStringLiteral( "boot" ) )
++        {
++            desktop = true;
++            continue;
++        }
++        gaming = gaming || id == QStringLiteral( "gaming" );
++        on << labels.value( id, id ).toHtmlEscaped();
++    }
++    QString status = on.isEmpty() ? tr( "Steamify: <strong>nothing</strong>" )
++                                  : tr( "Steamify: <strong>%1</strong>" ).arg( on.join( QStringLiteral( ", " ) ) );
++    if ( gaming )
++    {
++        status += QStringLiteral( "<br/>" )
++            + ( desktop ? tr( "Starts in: <strong>the desktop</strong>" ) : tr( "Starts in: <strong>gaming mode</strong>" ) );
++    }
++    return status;
+ }
+ 
+ bool

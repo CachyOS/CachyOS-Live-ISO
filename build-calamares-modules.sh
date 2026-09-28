@@ -14,7 +14,7 @@ dest=archiso/airootfs/usr/lib/calamares/modules/packagechooserq
 src_url=https://github.com/CachyOS/cachyos-calamares/archive/refs/heads/cachyos.tar.gz
 
 pacman -S --needed --noconfirm cachyos-calamares-next cmake extra-cmake-modules \
-    qt6-declarative qt6-tools qt6-svg kcoreaddons yaml-cpp base-devel >/dev/null
+    qt6-declarative qt6-tools qt6-svg kcoreaddons yaml-cpp base-devel patch >/dev/null
 work="$(mktemp -d)"
 mkdir -p "$work/src" "$work/cmake"
 # The module and the packagechooser sources it shares (Config, PackageModel),
@@ -24,6 +24,8 @@ tar -xzf "$work/calamares.tar.gz" --strip-components=3 -C "$work/src" \
     cachyos-calamares-cachyos/src/modules/packagechooserq cachyos-calamares-cachyos/src/modules/packagechooser
 tar -xzf "$work/calamares.tar.gz" --strip-components=2 -C "$work/cmake" \
     cachyos-calamares-cachyos/CMakeModules/AppStreamHelper.cmake
+# The Steamify page's Summary line shows labels instead of ids.
+patch -s -d "$work/src" -p1 < patches/packagechooserq-steamify-summary.patch
 # KF6CoreAddons before Calamares: Calamares' CMake config needs its target.
 cat > "$work/src/CMakeLists.txt" << EOF
 cmake_minimum_required(VERSION 3.16)
