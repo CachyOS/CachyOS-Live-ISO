@@ -199,10 +199,20 @@ run_build() {
     [ -d "$outFolder/$_profile" ] || mkdir -p "$outFolder/$_profile"
     cd ${work_dir}/archiso/
     sudo mkarchiso -v -w ${work_dir} -o "$outFolder/$_profile" ${work_dir}/archiso/
-    sudo chown $USER $outFolder
+    # $USER is empty when this runs as root (e.g. in a container): an empty
+    # chown failed and aborted the rest (the build was done, the exit code 1).
+    sudo chown "${SUDO_USER:-${USER:-$(id -un)}}" "$outFolder"
 
-    cp ${work_dir}/iso/arch/pkglist.x86_64.txt "$outFolder/$_profile/$(gen_iso_fn).pkgs.txt"
-    mv "$outFolder/$_profile/cachyos-$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d)-x86_64.iso" "$outFolder/$_profile/${iso_file}"
+    # Steamify: profiledef.sh's iso_name (steamify-cachyos) names the ISO, so
+    # CachyOS's rename only applies when mkarchiso wrote cachyos-<date>.
+    local built="$outFolder/$_profile/cachyos-$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d)-x86_64.iso"
+    if [[ -e "$built" ]]; then
+        mv "$built" "$outFolder/$_profile/${iso_file}"
+    else
+        built="$(ls -t "$outFolder/$_profile"/*.iso | head -1)"
+        iso_file="$(basename "$built")"
+    fi
+    cp ${work_dir}/iso/arch/pkglist.x86_64.txt "$outFolder/$_profile/${iso_file%.iso}.pkgs.txt"
 
     msg "Done [Build ISO] ${iso_file}"
     msg "Finished building [%s]" "${_profile}"
