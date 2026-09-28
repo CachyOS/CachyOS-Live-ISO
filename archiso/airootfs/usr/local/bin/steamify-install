@@ -1,29 +1,30 @@
 #!/bin/bash
-# steamify-install <target root> <user> [<skip ids>] [gamescope|desktop]:
-# runs Steamify's default setup (minus what the installer's Steam Machine
-# page leaves out, where the boot page says) for
+# steamify-install <target root> <user> <choice>: runs Steamify's setup for
 # the new user inside the installed system (Calamares, after the users and
-# services steps). Steamify refuses root and asks sudo per command, so the
+# services steps), as chosen on the installer's Steamify page: <choice> is the
+# ids that are on, comma-separated, plus "boot" for Boot into Desktop, or
+# "none" (packagechooser_steamifypage). Steamify refuses root and asks sudo
+# per command, so the
 # user gets a NOPASSWD rule for this run only, named to be read last: sudo
 # takes the last matching rule, and a later %wheel rule would ask again. Never fails the install: a
 # problem leaves the log and Steamify can be run again from the desktop.
-root="$1" user="$2"
-# The pages' ids, comma-separated; the "Everything" entry is an empty id.
-skip="$(tr ',' '\n' <<< "${3:-}" | grep -v '^$' | paste -sd, -)"
-boot="${4:-gamescope}"
-# Steamify 2.7.0 takes the items to turn on (--options), not the ones to
-# leave out: every item of the default setup minus the skipped ones (the
-# power-off fix goes with Steam Machine support). Until the Steamify page
-# passes the "on" list itself.
-options=""
-for id in gaming theme glyphs single launcher notify vram cec machine poweroff; do
-    [[ ",$skip," == *",$id,"* ]] && continue
-    [[ "$id" == poweroff && ",$skip," == *",machine,"* ]] && continue
-    options+="${options:+,}$id"
+root="$1" user="$2" choice="${3:-}"
+# Not filled in by Calamares (empty, or the literal ${gs[...]}): the page's
+# default, everything on.
+[[ -z "$choice" || "$choice" == *'${'* ]] && choice=gaming,theme,glyphs,single,launcher,notify,vram,cec,machine,poweroff
+boot=gamescope options=""
+for id in ${choice//,/ }; do
+    case "$id" in
+        boot) boot=desktop ;;
+        none) ;;
+        *) options+="${options:+,}$id" ;;
+    esac
 done
 log="$root/var/log/steamify-install.log"
 rule="$root/etc/sudoers.d/zz-steamify-install"
 [[ -d "$root" && -n "$user" ]] || exit 0
+# Everything switched off on the page: nothing to set up.
+[[ -n "$options" ]] || { echo "Nothing chosen on the Steamify page." > "$log"; exit 0; }
 
 install -Dm755 /usr/local/share/steamify/steamify.sh "$root/var/tmp/steamify.sh"
 printf '%s ALL=(ALL) NOPASSWD: ALL\n' "$user" > "$rule"

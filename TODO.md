@@ -2,29 +2,26 @@
 
 ## Open
 
-1. **Steamify installer page with checkboxes** (next, 2026-09-28). Tested
-   in the ISO VM: the current packagechooser page ("Steam Machine", mode
-   `optionalmultiple`) only lets you select one item, not several. Wanted:
-   - a page titled **"Steamify"** (not "Steam Machine");
-   - **toggle switches like the Steamify app's** (preferred, so the page
-     looks like Steamify itself; checkboxes only as a fallback) (`ui/qml` in
-     steamify-cachyos: the rows with "now on" and a switch), one per Steamify
-     option, **all on by default** (opt-out: switch off what you don't
-     want), several at a time; a QML page could reuse the app's look
-     (`Theme`, its toggle rows) and texts (`Texts`);
-   - the "Start in" page (gaming mode / desktop) can stay.
-   Calamares has no ready checkbox page whose ticks come out as plain ids
-   (netinstall's checkboxes are package installs), so this needs our own page:
-   a QML page (adapt CachyOS's `packagechooserq`) or a small Calamares
-   module. The page passes the **ticked** ids to `steamify-install`, which
-   runs `--defaults --options <ids> --boot gamescope|desktop` (Steamify 2.7.0:
-   exactly these on; Boot into can be a row under the conversion like in the
-   app, or stay its own page). Rows and texts can come from
-   `steamify.sh --backend status` (+ the app's `Texts.qml`). Until then
-   `steamify-install` turns the current page's "leave out" ids into
-   `--options`. "Add as non-Steam game" needs a Steam account: not at install.
-   Also still to check with it: that `${gs[...]}` reaches shellprocess (the
-   install log shows "Unknown item: ${gs[..." if not).
+1. **Steamify installer page** (in progress 2026-09-28; next ISO build after 13:00).
+   Done in the tree, not yet tried in Calamares:
+   - `packagechooserq@steamifypage` right after the packages page, titled
+     "Steamify"; the old skip/boot pages are gone.
+   - `usr/local/share/steamify-installer/SteamifyPage.qml`: CachyOS installer
+     look (palette, turquoise #00CED1, standard Switch/RadioButton), rows left,
+     explanation right, Boot into under the conversion. Stores the on-ids
+     (+ `boot` for desktop, `none`) as `packagechooser_steamifypage`;
+     `steamify-install` turns that into `--options`/`--boot`.
+   - Rows from `steamify.sh --defaults --list` (Steamify 2.8.0,
+     `feature/defaults-list`): `Items.qml` in `usr/local/share/steamify/qml`
+     (fallback: steamify-installer/Items.qml, copied by steamify-prepare.sh).
+   - **Next:** copy `Theme.qml` too (Texts.qml needs it); fix the RowLayout
+     "recursive rearrange" warning; `calamares-online.sh` downloads the newest
+     steamify.sh + Texts/Theme before Calamares (fallback: the ISO's) and writes
+     Items.qml from `--defaults --list`. Build with `steamify-prepare.sh <2.8.0
+     checkout>` (`vmisobuild.sh --steamify /mnt`), test in the ISO VM
+     (`vmisoboot.sh --fresh --fremont`), check `/var/log/steamify-install.log`.
+   - Quick page test without a build: `qml6` in the test VM with a stub
+     `config` and stub io.calamares modules (QT_FORCE_STDERR_LOGGING=1).
 2. **Check the live name** (the build tree has it right:
    `build/x86_64/airootfs/etc/os-release`) after the next build: Hello's subtitle should say
    "Steamify CachyOS, based on CachyOS rolling" (`steamify-customize.sh`,
