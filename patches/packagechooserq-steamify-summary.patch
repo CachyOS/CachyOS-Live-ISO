@@ -1,6 +1,6 @@
 diff -ruN a/packagechooserq/PackageChooserQmlViewStep.cpp b/packagechooserq/PackageChooserQmlViewStep.cpp
 --- a/packagechooserq/PackageChooserQmlViewStep.cpp	2026-09-28 16:56:21
-+++ b/packagechooserq/PackageChooserQmlViewStep.cpp	2026-09-28 16:56:21
++++ b/packagechooserq/PackageChooserQmlViewStep.cpp	2026-09-28 16:57:29
 @@ -17,6 +17,12 @@
  #include "utils/System.h"
  #include "utils/Variant.h"
@@ -14,7 +14,7 @@ diff -ruN a/packagechooserq/PackageChooserQmlViewStep.cpp b/packagechooserq/Pack
  CALAMARES_PLUGIN_FACTORY_DEFINITION( PackageChooserQmlViewStepFactory, registerPlugin< PackageChooserQmlViewStep >(); )
  
  PackageChooserQmlViewStep::PackageChooserQmlViewStep( QObject* parent )
-@@ -35,9 +41,54 @@
+@@ -35,9 +41,61 @@
  QString
  PackageChooserQmlViewStep::prettyStatus() const
  {
@@ -61,13 +61,20 @@ diff -ruN a/packagechooserq/PackageChooserQmlViewStep.cpp b/packagechooserq/Pack
 +        gaming = gaming || id == QStringLiteral( "gaming" );
 +        on << labels.value( id, id ).toHtmlEscaped();
 +    }
-+    QString status = on.isEmpty() ? tr( "Steamify: <strong>nothing</strong>" )
-+                                  : tr( "Steamify: <strong>%1</strong>" ).arg( on.join( QStringLiteral( ", " ) ) );
 +    if ( gaming )
 +    {
-+        status += QStringLiteral( "<br/>" )
-+            + ( desktop ? tr( "Starts in: <strong>the desktop</strong>" ) : tr( "Starts in: <strong>gaming mode</strong>" ) );
++        on << ( desktop ? tr( "Starts in the desktop" ) : tr( "Starts in gaming mode" ) );
 +    }
++    if ( on.isEmpty() )
++    {
++        return tr( "Steamify: <strong>nothing</strong>" );
++    }
++    QString status = tr( "Steamify:" ) + QStringLiteral( "<ul>" );
++    for ( const auto& item : on )
++    {
++        status += QStringLiteral( "<li>" ) + item + QStringLiteral( "</li>" );
++    }
++    status += QStringLiteral( "</ul>" );
 +    return status;
  }
  
