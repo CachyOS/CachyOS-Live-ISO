@@ -16,8 +16,13 @@
    Calamares has no ready checkbox page whose ticks come out as plain ids
    (netinstall's checkboxes are package installs), so this needs our own page:
    a QML page (adapt CachyOS's `packagechooserq`) or a small Calamares
-   module. The unticked ids go to `steamify-install` as before
-   (`--skip <ids> --boot ...`, Steamify 2.7.0); Steamify needs no change.
+   module. The page passes the **ticked** ids to `steamify-install`, which
+   runs `--defaults --options <ids> --boot gamescope|desktop` (Steamify 2.7.0:
+   exactly these on; Boot into can be a row under the conversion like in the
+   app, or stay its own page). Rows and texts can come from
+   `steamify.sh --backend status` (+ the app's `Texts.qml`). Until then
+   `steamify-install` turns the current page's "leave out" ids into
+   `--options`. "Add as non-Steam game" needs a Steam account: not at install.
    Also still to check with it: that `${gs[...]}` reaches shellprocess (the
    install log shows "Unknown item: ${gs[..." if not).
 2. **Check the live name** (the build tree has it right:
@@ -25,11 +30,17 @@
    "Steamify CachyOS, based on CachyOS rolling" (`steamify-customize.sh`,
    run by mkarchiso after the packages; the airootfs copy of os-release is
    overwritten by a package).
-3. **Steamify PR** for `feat/defaults-options` (2.7.0, `4f6e6fd`: `--skip`,
-   `--boot`): pushed, no PR yet; the user merges (never commit to main).
+3. **Steamify PR** for `feat/defaults-options` (2.7.0, `c771001`:
+   `--options`, `--boot`; also `steamify.sh --boot` on its own and the
+   HDMI-CEC volume fix): pushed and regression-tested in the VM (`--fremont`),
+   no PR yet; the user merges (never commit to main).
    2.6.0 is released. Until 2.7.0 is, build the ISO with
    `steamify-prepare.sh ~/projects/steamify-cachyos` (the branch).
-4. **Test on the real Steam Machine** from a USB stick (gamescope, LEDs, CEC,
+4. **Build in the test VM** instead of on the Steam Machine
+   (steam-machine-iso skill), and install the result unattended with
+   `scripts/vminstall.sh --iso` (vm-install skill; the Calamares Steamify
+   step then needs `steamify-install` run from the live script).
+5. **Test on the real Steam Machine** from a USB stick (gamescope, LEDs, CEC,
    power-off) before calling the ISO usable.
 
 ## Done
