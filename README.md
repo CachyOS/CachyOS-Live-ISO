@@ -9,7 +9,7 @@ A CachyOS desktop ISO for the Valve Steam Machine with
 
 > **Choose KDE Plasma in the installer.** Steamify only works with KDE Plasma
 > (the default). With another desktop (GNOME, Hyprland, Cosmic, ...) Steamify
-> doesn't work yet.
+> is not supported.
 
 ## Building the ISO yourself
 
