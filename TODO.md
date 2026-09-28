@@ -16,7 +16,10 @@
      `"packagechooser@steamifypage" selected "single,gaming,theme"` — a
      real comma-separated list, matching `steamify-install`'s expected
      `--options` format. Global storage key: `packagechooser_steamifypage`.
-   - **But its UI doesn't look like a multi-select** (a plain list with a
+   - **Multi-select only works with Shift/Ctrl-click** (plain clicks
+     replace the selection), so it's unusable as the Steamify page and
+     not a fallback either.
+   - **Its UI doesn't look like a multi-select either** (a plain list with a
      big blank preview pane, no checkboxes shown) — confirmed by the user
      watching the VM live. Not good enough visually, even though it's
      functionally correct.
