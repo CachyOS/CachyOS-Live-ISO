@@ -2,73 +2,91 @@
 
 ## Open
 
-1. **Steamify installer page** (2026-09-28, in progress).
-   Tested live in the ISO VM (vmisoboot.sh, QMP clicks/screenshots +
-   `pkexec-wrapper calamares -D6` foregrounded, its own debug log):
-   - **`packagechooserq` (custom QML) does not exist on this Calamares
-     build**: only `packagechooser` is installed
-     (`ls /usr/lib/calamares/modules`). `SteamifyPage.qml` can't be loaded
-     by any real module here; confirm a module is actually installed
-     before writing QML/config for it again.
-   - **`packagechooser`, `mode: optionalmultiple`, genuinely multi-selects**
-     (confirmed from its actual global-storage write, not its static label
-     text which misleadingly says "Choose a product..." either way):
-     `"packagechooser@steamifypage" selected "single,gaming,theme"` — a
-     real comma-separated list, matching `steamify-install`'s expected
-     `--options` format. Global storage key: `packagechooser_steamifypage`.
-   - **Multi-select only works with Shift/Ctrl-click** (plain clicks
-     replace the selection), so it's unusable as the Steamify page and
-     not a fallback either.
-   - **Its UI doesn't look like a multi-select either** (a plain list with a
-     big blank preview pane, no checkboxes shown) — confirmed by the user
-     watching the VM live. Not good enough visually, even though it's
-     functionally correct.
-   - **Decision (the user, 2026-09-28): use `netinstall` instead**, the
-     module that actually renders a checkbox tree (confirmed live on the
-     Packages step: CachyOS Packages/shell config/base-devel/KDE-Desktop
-     all ticked together, real checkboxes). Not yet re-confirmed live this
-     session (the live session's keyboard layout flipped to Dutch after
-     the Welcome page's live keyboard preview, breaking `/`/`(`/`)` in
-     `qmptype.py`'s US-layout key map — `setxkbmap us` has no effect on
-     Wayland; fix the layout in the live session's own settings before
-     typing shell commands with those characters again).
-   - **Next**, from already-known Calamares internals (its `Config.cpp`
-     logged `"packagechooser@desktop" groups to select in netinstall
-     QList("KDE-Desktop")` — i.e. netinstall groups CAN be driven by
-     another module's choice, and/or defined directly): write a
-     `netinstall_steamify.conf`/groups YAML for Steamify's items (id,
-     name, description per group; check whether a non-package/virtual
-     group is possible, or whether `packages: []` with `critical: false`
-     is enough to make a group purely informational/no-op for pacman) from
-     `steamify.sh --defaults --list`, generated in `calamares-online.sh`
-     (same spot the abandoned Items.qml/packagechooser YAML generation
-     was). Read the selection back from whichever global-storage key
-     netinstall actually writes (`netinstallSelect`, seen in Config.cpp;
-     confirm the exact key/shape live) in
-     `shellprocess_steamify.conf`/`steamify-install`. Boot into
-     (gaming/desktop) still needs its own small `packagechooser`,
-     `mode: required` page (an either/or choice doesn't fit a checkbox
-     tree).
-   - Dead code from this session, left in the tree for now: `SteamifyPage.qml`.
-   - **Lessons for next time:**
+1. **Steamify installer page** (2026-09-28, working end to end).
+   `packagechooserq` (custom QML) doesn't exist in CachyOS's own
+   `cachyos-calamares-next` build (`-DSKIP_MODULES=...packagechooserq...`),
+   so it's built out of tree against the installed Calamares headers (see
+   the build VM notes in the steam-machine-iso skill) and its `.so` +
+   `module.desc` are baked straight into `archiso/airootfs/usr/lib/calamares/
+   modules/packagechooserq/` (no conflict: the package never ships that
+   path). `netinstall` (checkbox tree) stays as a manually-swappable
+   fallback (`steamify-cachyos-dev/share/sn.sh` + `nisteamify.conf`) for
+   when the module can't load, but isn't wired into `calamares-online.sh`
+   automatically yet — see the version-mismatch item below.
+   - **Fixed this session**: selected-row contrast (border-only highlight,
+     was a translucent teal fill making white text unreadable), page
+     background (was falling through to Calamares' white default), a
+     sub-option `└` marker, more right padding so the row border clears the
+     scrollbar, Summary step showing readable labels (packagechooserq's
+     `prettyStatus()` overridden, only for this module instance, to render
+     an HTML bullet list from a new `items.json` that `calamares-online.sh`
+     writes next to `Items.qml`), and a **pre-existing bug**: `steamify.sh`
+     on the ISO was never executable (`curl -o` in `steamify-prepare.sh`
+     doesn't set +x, and `profiledef.sh`'s `file_permissions` never listed
+     it), so `calamares-online.sh`'s direct exec of it
+     (`"$sbin" --defaults --list`) silently failed and `items.json` (no
+     static fallback) was never written — fixed by adding the path to
+     `file_permissions`.
+   - **Still open**:
+     - Bake the `packagechooserq` *build* into the ISO build pipeline
+       itself (a `build-calamares-modules.sh` step: install
+       `cachyos-calamares-next`, build out of tree, install into
+       `airootfs`) instead of committing a prebuilt `.so`, so it always
+       matches whatever Calamares version is current at build time.
+     - Version-mismatch fallback: after `calamares-online.sh`'s
+       `pacman -Sy cachyos-calamares-next`, check the installed version
+       against what the module was built for; on a mismatch, switch
+       `settings.conf` to the `netinstall` page instead (generate its
+       groups conf from `--defaults --list` there too) rather than risk an
+       "Initialization Failed" module.
+     - "Boot into gaming mode" as an opt-out sub-toggle under SteamOS
+       conversion (agreed with the user) isn't implemented on either page
+       yet — both still use the old Gaming/Desktop radio-row.
+     - A Python job (e.g. `steamifychoice`, before `packages@online`) to
+       normalize either page's choice (packagechooserq's
+       `packagechooser_steamifypage` GS key, or netinstall's
+       packageOperations markers) into one `steamifyChoice` GS key, so
+       `shellprocess_steamify.conf` doesn't need to know which page ran.
+   - **Lessons learned**:
      - Verify a Calamares module is actually installed
-       (`ls /usr/lib/calamares/modules`) before writing QML/config for it.
-     - Read a module's *actual* logged global-storage writes, not its UI
-       label text, to know what a `mode`/`method` really does.
-     - Both testable live in the booted ISO VM with no rebuild: edit
-       `/etc/calamares/modules/*.conf` + `settings.conf`, relaunch
+       (`ls /usr/lib/calamares/modules`) before writing QML/config for it;
+       `packagechooser`'s multi-select needs Shift/Ctrl-click (plain click
+       replaces the selection) — not usable as-is, `packagechooserq` or
+       `netinstall` only.
+     - Both pages are testable live in the booted ISO VM with no rebuild:
+       hot-swap `/etc/calamares/modules/*.conf` + `settings.conf`
+       (`share/sq.sh` / `share/sn.sh`), relaunch
        `pkexec-wrapper calamares -D6` in a **separate Konsole tab** (it
-       blocks the tab it runs in — typing into that same tab just echoes
-       inertly into its blocked stdin, doesn't run commands).
-     - Watch for the live session's keyboard layout changing away from US
-       (e.g. via Calamares' Welcome page keyboard preview) mid-session:
-       `qmptype.py` assumes US and silently sends wrong characters
-       (`/` → `-`, parens garbled) once it does, with no error for the
-       common ones. Check with a no-symbols probe (`echo test123`) after
-       any language/keyboard step, and fix via the live session's own
-       keyboard settings if needed, not `setxkbmap` (no effect on Wayland).
+       blocks the tab it runs in). A C++ module change needs a real
+       rebuild (out-of-tree, in the build VM) + redeploy of the `.so`, no
+       shortcut.
+     - The live session's keyboard layout keeps drifting to Dutch (e.g.
+       after Calamares' Welcome page, or after opening System Settings),
+       breaking `/`/`(`/`)`/`&`/`>` in `qmptype.py`'s US-layout map with no
+       error for the common ones (`/` → `-`) — `setxkbmap us` typed via
+       QMP *does* fix it (unlike the earlier Wayland claim), but check
+       with a no-symbols probe after any language/keyboard step regardless.
+     - `qmptype.py` has no key for `&` or `>` at all: a typed command using
+       either raises "no key for" and can leave an unterminated quote in
+       the shell's input buffer; send Ctrl+C before retyping. Avoid
+       redirection/`&&` in typed commands — write it to a file and run
+       `bash /media/foo.sh` instead, since a file's contents aren't typed
+       character-by-character.
+     - Send QMP keystrokes one command at a time with a beat in between;
+       firing several `qmptype.py` calls back-to-back can interleave with
+       the guest's own prompt redraw and garble the input.
+     - Don't screenshot-poll for VM readiness: pass `VM_SERIAL=<file>` to
+       `run.sh`/`vmisoboot.sh` and grep the plain-text serial log instead
+       (near-zero tokens vs. repeated screenshot+image-analysis).
+     - The build VM's guest sshd applies OpenSSH's `PerSourcePenalties`:
+       repeated quick reconnect attempts within its window make `ssh`/`scp`
+       fail instantly with "Connection closed" (verbose: "Not allowed at
+       this time"), and each further attempt seems to extend the penalty
+       rather than reset it. Don't retry-loop through it; back off for a
+       while, or just restart the VM (clears its in-memory penalty state
+       immediately) instead of waiting it out.
 
-2. **Check the live name**2. **Check the live name**2. **Check the live name**2. **Check the live name** (the build tree has it right:
+2. **Check the live name** (the build tree has it right:
    `build/x86_64/airootfs/etc/os-release`) after the next build: Hello's subtitle should say
    "Steamify CachyOS, based on CachyOS rolling" (`steamify-customize.sh`,
    run by mkarchiso after the packages; the airootfs copy of os-release is
