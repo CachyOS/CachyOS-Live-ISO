@@ -44,6 +44,15 @@ don't fit a skill's step-by-step flow.
   its blocked stdin). A C++ module change needs an actual rebuild
   (out-of-tree, in the build VM) and redeploying the `.so` — no shortcut.
 
+## Shell pitfalls
+
+`local a=/x b="$a/y"` expands every value before assigning any, so `b` is
+`/y`: `calamares-online.sh` wrote the downloaded `steamify.sh` to
+`/steamify.sh` and `items.json` to a nonexistent `/qml/`, silently (stderr
+went to `/dev/null`), so the Steamify page always ran on build-time rows and
+the Summary had no labels. Declare a variable in its own `local` before
+using it, and send a step's errors to the launcher's log, not `/dev/null`.
+
 ## ISO permissions
 
 `steamify-prepare.sh` fetches `steamify.sh` with `curl -o`, which doesn't

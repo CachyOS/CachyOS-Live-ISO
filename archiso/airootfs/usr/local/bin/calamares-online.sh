@@ -47,7 +47,10 @@ EOF
     # Steamify: try the newest release before Calamares starts, so the page
     # and the install step both show/use it; keep the ISO's copy (from
     # steamify-prepare.sh) on any failure (no network, GitHub unreachable).
-    local sdir=/usr/local/share/steamify sbin="$sdir/steamify.sh" sqml="$sdir/qml"
+    # Separate statements: `local` expands all its values before assigning
+    # any, so "$sdir" would still be empty in the same one.
+    local sdir=/usr/local/share/steamify
+    local sbin="$sdir/steamify.sh" sqml="$sdir/qml"
     local tmp; tmp="$(mktemp)"
     if curl -fsSL --max-time 20 https://github.com/theupriser/steamify-cachyos/releases/latest/download/steamify.sh -o "$tmp" &&
         grep -q -- '--defaults' "$tmp"; then
@@ -68,7 +71,7 @@ EOF
     # punctuation and text fields Steamify itself writes: nothing here can
     # break out of the property).
     tmp="$(mktemp)"
-    if "$sbin" --defaults --list > "$tmp" 2>/dev/null && [[ -s "$tmp" ]]; then
+    if "$sbin" --defaults --list > "$tmp" 2>> "$log" && [[ -s "$tmp" ]]; then
         { printf 'pragma Singleton\nimport QtQuick\n\nQtObject {\n    readonly property var rows: '
           cat "$tmp"
           printf '\n}\n'
