@@ -25,6 +25,8 @@ Item {
     SystemPalette { id: pal; colorGroup: SystemPalette.Active }
     readonly property color accent: "#00CED1"
 
+    Rectangle { anchors.fill: parent; color: pal.window }
+
     // Only what can be set up here (Steamify leaves out the rest).
     readonly property var rows: Items.rows.filter(function (r) { return r.selectable; })
     property var want: ({})
@@ -56,7 +58,11 @@ Item {
         for (var i = 0; i < rows.length; i++)
             if (rows[i].kind === "toggle" && want[rows[i].id]) on.push(rows[i].id);
         if (want.gaming && boot === "desktop") on.push("boot");
-        return on.length ? on.join(",") : "none";
+        // ", " (not ","): Calamares' packagechooser Summary step shows this
+        // value raw ("Install option: <value>"); steamify-install still
+        // parses it fine (${choice//,/ } + bash word-splitting collapses
+        // the extra space).
+        return on.length ? on.join(", ") : "none";
     }
     onWantChanged: config.packageChoice = choice()
     onBootChanged: config.packageChoice = choice()
@@ -102,12 +108,12 @@ Item {
                     readonly property var it: modelData
                     readonly property bool vis: page.shown(it)
                     readonly property bool selected: vis && index === page.sel
-                    width: list.width - 12
+                    width: list.width - 25
                     height: vis ? 52 : 0
                     visible: vis
                     radius: 4
-                    color: selected ? Qt.rgba(page.accent.r, page.accent.g, page.accent.b, 0.18) : pal.base
-                    border.width: 1
+                    color: pal.base
+                    border.width: selected ? 2 : 1
                     border.color: selected ? page.accent : Qt.rgba(pal.windowText.r, pal.windowText.g, pal.windowText.b, 0.15)
 
                     MouseArea {
@@ -118,9 +124,16 @@ Item {
                     }
                     RowLayout {
                         anchors.fill: parent
-                        anchors.leftMargin: row.it.parent ? 32 : 12
+                        anchors.leftMargin: row.it.parent ? 12 : 12
                         anchors.rightMargin: 12
-                        spacing: 12
+                        spacing: 8
+                        Label {
+                            visible: !!row.it.parent
+                            text: "└"
+                            color: pal.text
+                            opacity: 0.6
+                            font.pointSize: 11
+                        }
                         ColumnLayout {
                             Layout.fillWidth: true
                             spacing: 0

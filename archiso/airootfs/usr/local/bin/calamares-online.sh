@@ -73,6 +73,9 @@ EOF
           cat "$tmp"
           printf '\n}\n'
         } | sudo tee "$sqml/Items.qml" > /dev/null
+        # Same rows, plain JSON: packagechooserq's prettyStatus() override
+        # reads this to show the Summary step's choice as labels, not ids.
+        sudo cp "$tmp" "$sqml/items.json"
     fi
     rm -f "$tmp"
 
