@@ -11,9 +11,6 @@
    module can't load, but isn't wired into `calamares-online.sh`
    automatically yet.
    - **Still open**:
-     - "Boot into gaming mode" as an opt-out sub-toggle under SteamOS
-       conversion (agreed with the user) isn't implemented on either page
-       yet — both still use the old Gaming/Desktop radio-row.
      - A Python job (e.g. `steamifychoice`, before `packages@online`) to
        normalize either page's choice (packagechooserq's
        `packagechooser_steamifypage` GS key, or netinstall's
@@ -43,6 +40,8 @@
 
 ## Done
 
+- **Boot choice as a switch** on the Steamify page ("Boot into gaming
+  mode" under the SteamOS conversion; the user confirmed it's done).
 - **Full ISO install with the Steamify page** (2026-09-28, ISO VM,
   `--fremont`, Start in: desktop): Summary listed the choices, the
   install step ran Steamify 2.8.0 with every item OK, `--boot desktop`
