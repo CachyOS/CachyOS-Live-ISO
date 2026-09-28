@@ -2,50 +2,55 @@
 
 ## Open
 
-1. **Steamify installer page** (2026-09-28, confirmed dead end, next: netinstall).
-   Tested live in the ISO VM (vmisoboot.sh, QMP clicks/screenshots):
+1. **Steamify installer page** (2026-09-28, in progress; working path found).
+   Tested live in the ISO VM (vmisoboot.sh, QMP clicks/screenshots + the
+   Calamares debug log, `pkexec-wrapper calamares -D6` foregrounded):
    - **`packagechooserq` (custom QML) does not exist on this Calamares
      build.** `cachyos-calamares-next` ships `packagechooserq.conf` as a
      vestigial config file, but no `.so`: `/usr/lib/calamares/modules/`
-     only has `packagechooser` (no q). Calamares refuses to start
-     ("Module ... not found in module search paths"). So `SteamifyPage.qml`
-     (app-styled switches) **cannot be loaded as a real module** on this
-     ISO; don't retry it without first confirming the module is installed
-     (`pacman -Ql cachyos-calamares-next | grep viewmodule`, or
-     `ls /usr/lib/calamares/modules` in the live session) before building.
-   - **`packagechooser` (the real, installed module), `method: legacy`, is
-     single-choice regardless of `mode`.** Tested `mode: optionalmultiple`
-     live: renders as "Choose a product from the list. The selected
-     product will be installed." — a single-select list, not checkboxes.
-     This matches the pre-session finding that started this whole redesign
-     (the very first packagechooser-based skip/boot pages had the same
-     single-select bug). So going back to plain `packagechooser` for
-     Steamify's options does **not** give real multi-select either.
-   - **`netinstall` is the one module that genuinely renders checkboxes**
-     for multiple simultaneous selections (confirmed live on the Packages
-     step: CachyOS Packages, shell config, base-devel, KDE-Desktop all
-     ticked together, a real QTreeView-with-checkboxes widget). Next
-     attempt: a `netinstall`-based page for Steamify's options (custom
-     `netinstall.yaml`/groups data instead of real packages; the choice
-     goes to global storage as `netinstallSelect`, which
-     `shellprocess_steamify.conf` would read instead of
-     `packagechooser_steamifypage`). Verify the exact global-storage key
-     and whether netinstall's groups mechanism can host non-package items
-     before building anything.
-   - **Lesson for next time (the user's point):** check a Calamares module
-     is actually installed/available (`ls /usr/lib/calamares/modules`,
-     `pacman -Ql cachyos-calamares-next`) and test the page live by editing
-     `/etc/calamares/settings.conf` + the module's `.conf` in a running
-     live session (`pkexec-wrapper calamares -D6`, no full ISO rebuild
-     needed) *before* spending a 13+ minute ISO build on it.
-   - Steamify-side work from this session (kept, still valid once a real
-     page module is found): `steamify.sh --defaults --list` (2.8.0,
-     released) and `calamares-online.sh`'s newest-steamify.sh-before-install
-     fetch. `SteamifyPage.qml`/`Items.qml`/`Theme.qml` copies are dead code
-     until/unless `packagechooserq` becomes available; left in the tree for
-     now, not referenced by any working settings.conf sequence.
+     only has `packagechooser` (no q). Calamares refuses to start ("Module
+     ... not found in module search paths"). So `SteamifyPage.qml`
+     (app-styled switches) is dead: no module can load it here. Before
+     trying custom QML again, confirm the module is installed
+     (`ls /usr/lib/calamares/modules`, `pacman -Ql cachyos-calamares-next
+     | grep viewmodule`) in a live session first.
+   - **`packagechooser`, `mode: optionalmultiple`, DOES support real
+     multi-select**, confirmed from the Calamares debug log's actual
+     global-storage write (not from its static label text, which
+     misleadingly reads "Choose a product... the selected product will be
+     installed" in both single- and multi-select modes):
+     `"packagechooser@steamifypage" selected "single,gaming,theme"` — a
+     genuine comma-separated list, matching exactly the CSV format
+     `steamify-install` already expects for `--options`. This is the
+     `Config::updateGlobalStorage(const QStringList&)` overload (plural),
+     distinct from the single-choice `m_packageChoice` path. So the
+     **native, installed `packagechooser` module is the working page**;
+     no netinstall detour needed.
+   - Global storage key: `packagechooser_steamifypage` (module instance
+     id), value the comma-separated selected item ids.
+   - **Next:** generate `packagechooser_steamifypage.conf`'s `items:` list
+     from `steamify.sh --defaults --list` (in `calamares-online.sh`, same
+     spot as the abandoned Items.qml generation) instead of the QML
+     approach; check whether per-item `selected: true` (or similar) exists
+     for defaulting everything on, or whether "everything on by default"
+     needs a different mechanism (e.g. Steamify's own `--options` default
+     when the page reports nothing chosen). Boot into (gaming/desktop)
+     still needs its own answer: a separate small `packagechooser`
+     `mode: required` page (two items), since optionalmultiple's list
+     doesn't suit an exclusive either/or choice.
+   - Dead code from this session, left in the tree for now:
+     `SteamifyPage.qml`, `Items.qml`'s QML-singleton shape (its JSON
+     *content*, generated by `--defaults --list`, is still exactly what's
+     needed for the new plain-YAML `items:` list, just not as a QML file).
+   - **Lesson for next time:** verify a Calamares module is actually
+     installed before writing QML/config for it, and read a module's
+     *actual* logged global-storage writes (not just its UI label text)
+     before concluding whether a mode does what its name suggests. Both
+     are testable live in the booted ISO VM without any rebuild
+     (edit `/etc/calamares/modules/*.conf` + `settings.conf`, relaunch
+     `pkexec-wrapper calamares -D6`, watch its foregrounded debug output).
 
-2. **Check the live name**2. **Check the live name** (the build tree has it right:
+2. **Check the live name**2. **Check the live name**2. **Check the live name** (the build tree has it right:
    `build/x86_64/airootfs/etc/os-release`) after the next build: Hello's subtitle should say
    "Steamify CachyOS, based on CachyOS rolling" (`steamify-customize.sh`,
    run by mkarchiso after the packages; the airootfs copy of os-release is
