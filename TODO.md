@@ -43,6 +43,10 @@
 
 ## Done
 
+- **Full ISO install with the Steamify page** (2026-09-28, ISO VM,
+  `--fremont`, Start in: desktop): Summary listed the choices, the
+  install step ran Steamify 2.8.0 with every item OK, `--boot desktop`
+  applied, `exit: 0`; the installed system boots into the desktop.
 - **Steamify Summary** (2026-09-28, ISO VM): an unordered list of the chosen
   items' names plus "Starts in gaming mode/the desktop"
   (`patches/packagechooserq-steamify-summary.patch`), with `items.json`
