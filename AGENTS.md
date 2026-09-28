@@ -79,14 +79,9 @@ at build time needs to run directly (not `bash script.sh`), add it to
   (`/` → `-`, `&`/`>` fail outright) with no error for the common
   substitutions. Check with a no-symbols probe (`echo test123`) after any
   language/keyboard step. Typing `setxkbmap us` via QMP does fix it.
-- `qmptype.py` has no key mapping for `&` or `>` at all: a typed command
-  using either raises "no key for" and can leave an unterminated quote in
-  the shell's input buffer (symptom: the prompt shows a bare `>`
-  continuation). Send Ctrl+C before retyping. Avoid redirection/`&&` in
-  typed commands entirely — write the commands to a file on the shared
-  `vmtools`/`share` mount and run `bash /media/foo.sh` instead, since a
-  file's contents aren't typed character-by-character and have no such
-  limits.
+- `qmptype.py` types `&`, `>`, `<`, `?`, `{`, `}` since 2026-09-28 (before,
+  `>` raised "no key for" and left half a command in the prompt: send
+  Ctrl+C before retyping). Its map is US-layout, see above.
 - Send QMP keystrokes one command at a time with a beat (~1-2s) in between.
   Firing several `qmptype.py` calls back-to-back can interleave with the
   guest's own prompt redraw and garble the input (seen as commands merging
