@@ -5,6 +5,6 @@
 # overwrite them.
 set -euo pipefail
 root="$1"
-# The name CachyOS Hello shows ("Steamify CachyOS, based on CachyOS rolling").
-sed -i -e 's/^NAME=.*/NAME="Steamify CachyOS, based on CachyOS"/' \
-    -e 's/^PRETTY_NAME=.*/PRETTY_NAME="Steamify CachyOS, based on CachyOS"/' "$root/etc/os-release"
+# Nothing yet: the live session keeps CachyOS's own name (only the installer
+# says "CachyOS with Steamify", see calamares-online.sh).
+exit 0

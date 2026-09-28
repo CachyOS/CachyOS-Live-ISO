@@ -17,17 +17,12 @@
        packageOperations markers) into one `steamifyChoice` GS key, so
        `shellprocess_steamify.conf` doesn't need to know which page ran.
 
-2. **Titles**: the installer is "CachyOS - Steamify Installer" (productName,
-   set by calamares-online.sh after its reinstall; check after the next
-   build). Hello's window title "CachyOS Hello" is compiled into
-   `/usr/bin/cachyos-hello`: "CachyOS - Steamify Hello" needs Hello rebuilt
-   with a patch (like packagechooserq), or only its launcher entry renamed.
-   The Gaming mode / Desktop radio buttons stay (the user likes them).
-3. **Check the live name** (the build tree has it right:
-   `build/x86_64/airootfs/etc/os-release`) after the next build: Hello's subtitle should say
-   "Steamify CachyOS, based on CachyOS rolling" (`steamify-customize.sh`,
-   run by mkarchiso after the packages; the airootfs copy of os-release is
-   overwritten by a package).
+2. **Names**: only the installer says Steamify ("CachyOS with Steamify
+   Installer", productName set by calamares-online.sh); the live session,
+   Hello and About this System keep CachyOS's own names (legal clarity). The
+   ISO file stays `steamify-cachyos-<date>.iso`.
+3. **Check the names** after the next build: installer title, Hello and
+   About this System say CachyOS.
 4. ~~Steamify PR for `feat/defaults-options`~~ — done: 2.7.0 (`--options`,
    `--boot`, `steamify.sh --boot` standalone) and 2.8.0
    (`--defaults --list`, what the Steamify page's rows come from) are both
@@ -84,9 +79,8 @@
 
 ## Later
 
-- **Branding**: the live session's os-release says "Steamify, based on
-  CachyOS" (Hello's subtitle); Hello's window title and the boot menu still
-  say CachyOS. Check with the CachyOS team.
+- **Branding**: only the installer carries Steamify's name; check with the
+  CachyOS team whether that and the ISO file name are fine with them.
 - **Release**: a CI job that builds the ISO (privileged container, flags from
   the steam-machine-iso skill) and hosts it (>2 GB, not a GitHub release asset).
 - **Drop the Boost 1.91 workaround** in `steamify-prepare.sh` once
