@@ -19,19 +19,19 @@ else
     curl -fsSL https://raw.githubusercontent.com/theupriser/steamify-cachyos/main/patches/steamify-fremont-poweroff.c -o "$poweroff"
 fi
 # The installer's Steamify page (/usr/local/share/steamify-installer/
-# SteamifyPage.qml) shows the app's explanations (Texts.qml, from the
+# SteamifyPage.qml) shows the app's explanations (Theme.qml, Texts.qml, from the
 # checkout, else the newest release's app) and its rows (Items.qml: this
 # fallback until calamares-online.sh writes the real list).
 qml="$(dirname "$dest")/qml"
 rm -rf "$qml"; mkdir -p "$qml"
 if [[ -n "${1:-}" ]]; then
-    cp "$1/ui/qml/Texts.qml" "$qml/"
+    cp "$1"/ui/qml/{Theme,Texts}.qml "$qml/"
 else
     curl -fsSL https://github.com/theupriser/steamify-cachyos/releases/latest/download/steamify-app.tar.gz |
-        tar -xz -C "$qml" --strip-components=2 ui/qml/Texts.qml
+        tar -xz -C "$qml" --strip-components=2 ui/qml/Theme.qml ui/qml/Texts.qml
 fi
 cp "$(cd "$(dirname "$0")" && pwd)/archiso/airootfs/usr/local/share/steamify-installer/Items.qml" "$qml/"
-printf '%s\n' 'singleton Texts 1.0 Texts.qml' 'singleton Items 1.0 Items.qml' > "$qml/qmldir"
+printf '%s\n' 'singleton Theme 1.0 Theme.qml' 'singleton Texts 1.0 Texts.qml' 'singleton Items 1.0 Items.qml' > "$qml/qmldir"
 grep -q -- '--defaults' "$dest" || { echo "This Steamify has no --defaults (needs 2.6.0 or newer)." >&2; exit 1; }
 chmod 755 "$dest"
 # Temporary: cachyos-calamares-next 3.4.2-13 is linked against Boost 1.91

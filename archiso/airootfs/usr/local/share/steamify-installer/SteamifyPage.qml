@@ -88,7 +88,8 @@ Item {
             ListView {
                 id: list
                 Layout.fillHeight: true
-                Layout.preferredWidth: parent.width * 0.55
+                Layout.fillWidth: true
+                Layout.preferredWidth: 55
                 clip: true
                 spacing: 4
                 boundsBehavior: Flickable.StopAtBounds
@@ -150,6 +151,7 @@ Item {
                 readonly property var tx: Texts.items[it.id] || ({})
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                Layout.preferredWidth: 45
                 radius: 4
                 color: pal.base
                 border.width: 1

@@ -44,6 +44,38 @@ main() {
 ########## System: $SYSTEM
 EOF
 
+    # Steamify: try the newest release before Calamares starts, so the page
+    # and the install step both show/use it; keep the ISO's copy (from
+    # steamify-prepare.sh) on any failure (no network, GitHub unreachable).
+    local sdir=/usr/local/share/steamify sbin="$sdir/steamify.sh" sqml="$sdir/qml"
+    local tmp; tmp="$(mktemp)"
+    if curl -fsSL --max-time 20 https://github.com/theupriser/steamify-cachyos/releases/latest/download/steamify.sh -o "$tmp" &&
+        grep -q -- '--defaults' "$tmp"; then
+        sudo install -Dm755 "$tmp" "$sbin"
+    fi
+    rm -f "$tmp"
+    tmp="$(mktemp -d)"
+    if curl -fsSL --max-time 20 https://github.com/theupriser/steamify-cachyos/releases/latest/download/steamify-app.tar.gz |
+        tar -xz -C "$tmp" --strip-components=2 ui/qml/Theme.qml ui/qml/Texts.qml 2>/dev/null; then
+        sudo cp "$tmp/Theme.qml" "$tmp/Texts.qml" "$sqml/"
+    fi
+    rm -rf "$tmp"
+    # The page's rows, from whichever steamify.sh ended up on the ISO
+    # (regenerated even when the download failed: the fallback Items.qml
+    # doesn't know this machine, e.g. no VRAM region or no Steam account yet).
+    # JSON is valid JS array-literal syntax, so the output goes straight into
+    # the singleton as-is (--list guarantees one line of only its own JSON
+    # punctuation and text fields Steamify itself writes: nothing here can
+    # break out of the property).
+    tmp="$(mktemp)"
+    if "$sbin" --defaults --list > "$tmp" 2>/dev/null && [[ -s "$tmp" ]]; then
+        { printf 'pragma Singleton\nimport QtQuick\n\nQtObject {\n    readonly property var rows: '
+          cat "$tmp"
+          printf '\n}\n'
+        } | sudo tee "$sqml/Items.qml" > /dev/null
+    fi
+    rm -f "$tmp"
+
     sudo cp "/usr/share/calamares/settings_${mode}.conf" /etc/calamares/settings.conf
     # Steamify: its page (packagechooserq@steamifypage, right after the
     # packages page) and its step (modules/shellprocess_steamify.conf) before
