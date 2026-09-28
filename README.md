@@ -7,6 +7,10 @@ A CachyOS desktop ISO for the Valve Steam Machine with
   you pick the options and whether the PC starts in gaming mode or on the
   desktop. Steamify is applied during the install.
 
+> **Choose KDE Plasma in the installer.** Steamify only works with KDE Plasma
+> (the default). With another desktop (GNOME, Hyprland, Cosmic, ...) Steamify
+> doesn't work yet.
+
 ## Building the ISO yourself
 
 You need about 20 GB of free space, and a Linux PC with
