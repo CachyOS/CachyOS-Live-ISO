@@ -76,6 +76,10 @@ for sig in TERM HUP QUIT; do
 done
 trap 'trap_exit INT "$(gettext "Aborted by user! Exiting...")"' INT
 trap 'trap_exit USR1 "$(gettext "An unknown error has occurred. Exiting...")"' ERR
-trap 'trap_exit EXIT "$(gettext "An unknown error has occurred. Exiting...")"' EXIT
+# Steamify: unconditional, so it printed "An unknown error has occurred"
+# (and tried to self-kill with the bogus signal name EXIT) after every
+# build, success included. Only report it, and only exit through
+# trap_exit's self-kill, on an actual nonzero exit.
+trap 'ec=$?; if [[ $ec -ne 0 ]]; then trap_exit EXIT "$(gettext "An unknown error has occurred. Exiting...")"; else umount_fs; fi' EXIT
 
 run_build "${build_list_iso}"
