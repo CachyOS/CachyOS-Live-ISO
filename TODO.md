@@ -11,12 +11,6 @@
    module can't load, but isn't wired into `calamares-online.sh`
    automatically yet.
    - **Still open**:
-     - The Summary step shows raw ids ("Install option: gaming,theme,...")
-       for the Steamify page: the `prettyStatus()` override described in
-       `AGENTS.md` (labels from `items.json`) was never in the committed
-       `.so` (it has no `items.json` string) and its source is lost. Add it
-       as a patch that `build-calamares-modules.sh` applies to
-       `PackageChooserQmlViewStep.cpp`.
      - "Boot into gaming mode" as an opt-out sub-toggle under SteamOS
        conversion (agreed with the user) isn't implemented on either page
        yet — both still use the old Gaming/Desktop radio-row.
@@ -49,6 +43,10 @@
 
 ## Done
 
+- **Steamify Summary** (2026-09-28, ISO VM): an unordered list of the chosen
+  items' names plus "Starts in gaming mode/the desktop"
+  (`patches/packagechooserq-steamify-summary.patch`), with `items.json`
+  written by the launcher (its `$sdir` bug fixed, `0cc7367`).
 - **packagechooserq built with the ISO** (2026-09-28):
   `build-calamares-modules.sh` builds it in the build container/VM from
   CachyOS's Calamares source against the current `cachyos-calamares-next`
