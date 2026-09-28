@@ -30,7 +30,7 @@
    "Steamify CachyOS, based on CachyOS rolling" (`steamify-customize.sh`,
    run by mkarchiso after the packages; the airootfs copy of os-release is
    overwritten by a package).
-3. **Steamify PR** for `feat/defaults-options` (2.7.0, `c771001`:
+3. **Steamify PR** for `feat/defaults-options` (2.7.0, `c4ec755`:
    `--options`, `--boot`; also `steamify.sh --boot` on its own and the
    HDMI-CEC volume fix): pushed and regression-tested in the VM (`--fremont`),
    no PR yet; the user merges (never commit to main).
