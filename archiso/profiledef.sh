@@ -36,4 +36,10 @@ file_permissions=(
   ["/usr/local/bin/prepare-live-desktop.sh"]="0:0:755"
   ["/usr/local/bin/nvidia-module-loader"]="0:0:755"
   ["/usr/local/bin/pkexec-wrapper"]="0:0:755"
+  # steamify-prepare.sh writes this via curl -o, which doesn't carry the
+  # executable bit; calamares-online.sh runs it directly ("$sbin" --defaults
+  # --list) to regenerate Items.qml/items.json at boot, so without this it
+  # silently fails (stderr redirected) and the Steamify page/Summary step
+  # fall back to build-time data.
+  ["/usr/local/share/steamify/steamify.sh"]="0:0:755"
 )
