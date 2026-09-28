@@ -33,6 +33,10 @@ main() {
     echo "USING ISO VERSION: ${ISO_VERSION}"
 
     sudo pacman -Sy --noconfirm cachyos-calamares-next
+    # The installer's window title ("%1 Installer") and welcome text use the
+    # branding's productName; the reinstall above restored CachyOS's.
+    sudo sed -i 's/^\(    productName: *\)CachyOS$/\1CachyOS - Steamify/' \
+        /usr/share/calamares/branding/cachyos/branding.desc
 
     # Get Hardware Informations
     inxi -F > "$log"

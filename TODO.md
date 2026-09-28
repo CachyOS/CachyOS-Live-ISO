@@ -11,22 +11,24 @@
    module can't load, but isn't wired into `calamares-online.sh`
    automatically yet.
    - **Still open**:
-     - "Boot into gaming mode" as an opt-out switch under the SteamOS
-       conversion (agreed with the user), instead of the page's Gaming
-       mode / Desktop radio buttons (`SteamifyPage.qml`); on = gaming
-       mode, off = desktop (the `boot` id on the choice).
      - A Python job (e.g. `steamifychoice`, before `packages@online`) to
        normalize either page's choice (packagechooserq's
        `packagechooser_steamifypage` GS key, or netinstall's
        packageOperations markers) into one `steamifyChoice` GS key, so
        `shellprocess_steamify.conf` doesn't need to know which page ran.
 
-2. **Check the live name** (the build tree has it right:
+2. **Titles**: the installer is "CachyOS - Steamify Installer" (productName,
+   set by calamares-online.sh after its reinstall; check after the next
+   build). Hello's window title "CachyOS Hello" is compiled into
+   `/usr/bin/cachyos-hello`: "CachyOS - Steamify Hello" needs Hello rebuilt
+   with a patch (like packagechooserq), or only its launcher entry renamed.
+   The Gaming mode / Desktop radio buttons stay (the user likes them).
+3. **Check the live name** (the build tree has it right:
    `build/x86_64/airootfs/etc/os-release`) after the next build: Hello's subtitle should say
    "Steamify CachyOS, based on CachyOS rolling" (`steamify-customize.sh`,
    run by mkarchiso after the packages; the airootfs copy of os-release is
    overwritten by a package).
-3. ~~Steamify PR for `feat/defaults-options`~~ — done: 2.7.0 (`--options`,
+4. ~~Steamify PR for `feat/defaults-options`~~ — done: 2.7.0 (`--options`,
    `--boot`, `steamify.sh --boot` standalone) and 2.8.0
    (`--defaults --list`, what the Steamify page's rows come from) are both
    released. **The ISO builder is up to date with this**: no checkout
@@ -35,11 +37,11 @@
    without a rebuild for a Steamify-side change alone. Only pass
    `steamify-prepare.sh <checkout>` / `vmisobuild.sh --steamify <path>` when
    testing an *unreleased* Steamify change.
-4. **Build in the test VM** instead of on the Steam Machine
+5. **Build in the test VM** instead of on the Steam Machine
    (steam-machine-iso skill), and install the result unattended with
    `scripts/vminstall.sh --iso` (vm-install skill; the Calamares Steamify
    step then needs `steamify-install` run from the live script).
-5. **Test on the real Steam Machine** from a USB stick (gamescope, LEDs, CEC,
+6. **Test on the real Steam Machine** from a USB stick (gamescope, LEDs, CEC,
    power-off) before calling the ISO usable.
 
 ## Done
