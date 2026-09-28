@@ -11,6 +11,16 @@ root="$1" user="$2"
 # The pages' ids, comma-separated; the "Everything" entry is an empty id.
 skip="$(tr ',' '\n' <<< "${3:-}" | grep -v '^$' | paste -sd, -)"
 boot="${4:-gamescope}"
+# Steamify 2.7.0 takes the items to turn on (--options), not the ones to
+# leave out: every item of the default setup minus the skipped ones (the
+# power-off fix goes with Steam Machine support). Until the Steamify page
+# passes the "on" list itself.
+options=""
+for id in gaming theme glyphs single launcher notify vram cec machine poweroff; do
+    [[ ",$skip," == *",$id,"* ]] && continue
+    [[ "$id" == poweroff && ",$skip," == *",machine,"* ]] && continue
+    options+="${options:+,}$id"
+done
 log="$root/var/log/steamify-install.log"
 rule="$root/etc/sudoers.d/zz-steamify-install"
 [[ -d "$root" && -n "$user" ]] || exit 0
@@ -20,7 +30,7 @@ printf '%s ALL=(ALL) NOPASSWD: ALL\n' "$user" > "$rule"
 chmod 440 "$rule"
 arch-chroot "$root" runuser -u "$user" -- env -i HOME="/home/$user" USER="$user" LOGNAME="$user" \
     PATH=/usr/local/bin:/usr/bin TERM=dumb LANG=C.UTF-8 \
-    bash -c 'cd ~ && bash /var/tmp/steamify.sh --defaults --skip "$0" --boot "$1" < /dev/null' "$skip" "$boot" > "$log" 2>&1
+    bash -c 'cd ~ && bash /var/tmp/steamify.sh --defaults --options "$0" --boot "$1" < /dev/null' "$options" "$boot" > "$log" 2>&1
 echo "exit: $?" >> "$log"
 rm -f "$rule" "$root/var/tmp/steamify.sh"
 exit 0
