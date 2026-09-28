@@ -91,12 +91,15 @@
    "Steamify CachyOS, based on CachyOS rolling" (`steamify-customize.sh`,
    run by mkarchiso after the packages; the airootfs copy of os-release is
    overwritten by a package).
-3. **Steamify PR** for `feat/defaults-options` (2.7.0, `c4ec755`:
-   `--options`, `--boot`; also `steamify.sh --boot` on its own and the
-   HDMI-CEC volume fix): pushed and regression-tested in the VM (`--fremont`),
-   no PR yet; the user merges (never commit to main).
-   2.6.0 is released. Until 2.7.0 is, build the ISO with
-   `steamify-prepare.sh ~/projects/steamify-cachyos` (the branch).
+3. ~~Steamify PR for `feat/defaults-options`~~ — done: 2.7.0 (`--options`,
+   `--boot`, `steamify.sh --boot` standalone) and 2.8.0
+   (`--defaults --list`, what the Steamify page's rows come from) are both
+   released. **The ISO builder is up to date with this**: no checkout
+   argument needed, `steamify-prepare.sh` (no args) and `calamares-online.sh`
+   at boot both just fetch the newest release, so the ISO always has 2.8.0+
+   without a rebuild for a Steamify-side change alone. Only pass
+   `steamify-prepare.sh <checkout>` / `vmisobuild.sh --steamify <path>` when
+   testing an *unreleased* Steamify change.
 4. **Build in the test VM** instead of on the Steam Machine
    (steam-machine-iso skill), and install the result unattended with
    `scripts/vminstall.sh --iso` (vm-install skill; the Calamares Steamify
