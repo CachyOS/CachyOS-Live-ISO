@@ -1,6 +1,8 @@
 # The Steamify ISO, built and released on the Gitea mirror (git.upriser.nl) by its own runner: the same
-# build as by hand (the wsl-build-host skill in steamify-cachyos-dev), then a Gitea release v<date> with the ISO,
-# its checksums and package list, notes from CHANGELOG.md's Steamify section. GitHub skips it (one file
+# build as by hand (the wsl-build-host skill in steamify-cachyos-dev), then a Gitea release with the ISO,
+# its checksums and package list, notes from CHANGELOG.md's Steamify section. The ISO's version is the
+# Steamify version on it plus the build date: master releases v<steamify>-<date> (never overwritten),
+# feat/steamify a pre-release v<steamify>-dev.<date> (a rebuild that day replaces it). GitHub skips it (one file
 # for both servers; GitHub releases take at most 2 GB per file, the ISO is bigger).
 # The runner needs privileged containers (archiso mounts loop devices) and ~20 GB of disk; Gitea's
 # [attachment] MAX_SIZE must allow the ISO (default 2 GB).
@@ -8,7 +10,7 @@ name: Steamify ISO (Gitea release)
 
 on:
   push:
-    branches: [feat/steamify]
+    branches: [master, feat/steamify]
   workflow_dispatch:
 
 concurrency:
@@ -47,48 +49,54 @@ jobs:
 
       - name: Release name and notes
         id: rel
+        env:
+          TOKEN: ${{ github.token }}
         run: |
           iso="$(ls out/desktop/*.iso | head -n 1)"
           [ -f "$iso" ] || { echo "::error::no ISO in out/desktop"; exit 1; }
           date="$(basename "$iso" | grep -oE '[0-9]{4}\.[0-9]{2}\.[0-9]{2}')"
           steamify="$(sed -n 's/^VERSION=//p' archiso/airootfs/usr/local/share/steamify/steamify.sh | head -n 1)"
-          echo "tag=v$date" >> "$GITHUB_OUTPUT"
-          echo "date=$date" >> "$GITHUB_OUTPUT"
-          # The Steamify section of CHANGELOG.md ("## CachyOS with Steamify Live ISO ..."), without its heading.
-          section="$(awk '/^## CachyOS with Steamify Live ISO/ {found = 1; print; next} found && /^#/ {exit} found' CHANGELOG.md)"
-          title="$(head -n 1 <<< "$section" | sed 's/^## //')"
-          echo "title=$title" >> "$GITHUB_OUTPUT"
+          [ -n "$steamify" ] || { echo "::error::no Steamify version on the ISO"; exit 1; }
+          api="${{ github.server_url }}/api/v1/repos/${{ github.repository }}"
+          exists() { curl -fsS -o /dev/null -H "Authorization: token $TOKEN" "$api/releases/tags/$1"; }
+          if [ "${{ github.ref }}" = refs/heads/master ]; then
+            tag="v$steamify-$date" prerelease=false name="CachyOS with Steamify Live ISO $steamify ($date)"
+            if exists "$tag"; then
+              echo "::warning::$tag is already released and won't be overwritten (a release is never replaced)."
+              echo "publish=false" >> "$GITHUB_OUTPUT"; exit 0
+            fi
+          else
+            tag="v$steamify-dev.$date" prerelease=true name="CachyOS with Steamify Live ISO $steamify (test build $date)"
+            # One test build per day: a rebuild that day replaces it (release and tag).
+            if exists "$tag"; then
+              id="$(curl -fsS -H "Authorization: token $TOKEN" "$api/releases/tags/$tag" | jq -r .id)"
+              curl -fsS -X DELETE -H "Authorization: token $TOKEN" "$api/releases/$id"
+              curl -fsS -X DELETE -H "Authorization: token $TOKEN" "$api/tags/$tag" || true
+              echo "Replacing $tag"
+            fi
+          fi
+          { echo "publish=true"; echo "tag=$tag"; echo "prerelease=$prerelease"; echo "name=$name"; } >> "$GITHUB_OUTPUT"
+          # The Steamify section of CHANGELOG.md ("## CachyOS with Steamify Live ISO"), without its heading.
+          section="$(awk '/^## CachyOS with Steamify Live ISO/ {found = 1; next} found && /^#/ {exit} found' CHANGELOG.md)"
           {
-            echo "Built $(date -u '+%F %H:%M UTC') from \`$(git rev-parse --short HEAD)\` (feat/steamify), with Steamify $steamify."
+            echo "Built $(date -u '+%F %H:%M UTC') from \`$(git rev-parse --short HEAD)\` (${{ github.ref_name }}), with Steamify $steamify."
             echo
             echo "SHA-256: \`$(cut -d' ' -f1 "$iso.sha256")\`"
             echo
-            tail -n +2 <<< "$section"
+            echo "$section"
           } > release-notes.md
           cat release-notes.md
 
-      # One release per day: a rebuild on the same day replaces that day's release (and its tag).
-      - name: Replace today's release
-        env:
-          TOKEN: ${{ github.token }}
-          TAG: ${{ steps.rel.outputs.tag }}
-        run: |
-          api="${{ github.server_url }}/api/v1/repos/${{ github.repository }}"
-          if curl -fsS -H "Authorization: token $TOKEN" "$api/releases/tags/$TAG" -o /tmp/rel.json; then
-            curl -fsS -X DELETE -H "Authorization: token $TOKEN" "$api/releases/$(jq -r .id /tmp/rel.json)"
-            curl -fsS -X DELETE -H "Authorization: token $TOKEN" "$api/tags/$TAG" || true
-            echo "Replaced the release $TAG"
-          fi
-
       - name: Publish ${{ steps.rel.outputs.tag }}
+        if: steps.rel.outputs.publish == 'true'
         uses: akkuman/gitea-release-action@v1.3.7
         with:
           token: ${{ github.token }}
           tag_name: ${{ steps.rel.outputs.tag }}
           target_commitish: ${{ github.sha }}
-          name: ${{ steps.rel.outputs.title }} (${{ steps.rel.outputs.date }})
+          name: ${{ steps.rel.outputs.name }}
           body_path: release-notes.md
-          prerelease: true
+          prerelease: ${{ steps.rel.outputs.prerelease }}
           files: |
             out/desktop/*.iso
             out/desktop/*.iso.sha256
