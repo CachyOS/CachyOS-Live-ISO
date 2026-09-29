@@ -56,6 +56,9 @@ CachyOS 26.08 with Steamify built in: install CachyOS and turn the PC into a Ste
   `steamify-install` now registers it with `efibootmgr` from the live system, with the ESP's real
   disk and partition (bootctl in the chroot writes an entry without a partition, which the firmware
   can't load); the output is in `/var/log/steamify-bootentry.log`
+* **Installer:** Steamify's install-time logs (`/var/log/steamify-install.log`,
+  `steamify-bootentry.log`) are readable after the first boot: `/var/log` is its own btrfs subvolume
+  (`@log`) that wasn't mounted yet when Steamify ran, so they ended up hidden under it
 * **Installer:** Steamify's setup never asks for a password (its sudo rule is read after CachyOS's
   `%wheel` rule); Calamares starts with the Boost version it was linked against
 * **Build:** finishes cleanly as root and reports no error after a successful build; the Steamify page's
