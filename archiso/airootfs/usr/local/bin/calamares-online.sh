@@ -37,6 +37,20 @@ main() {
     # branding's productName; the reinstall above restored CachyOS's.
     sudo sed -i 's/^\(    productName: *\)CachyOS$/\1CachyOS with Steamify/' \
         /usr/share/calamares/branding/cachyos/branding.desc
+    # Only what Steamify supports, like CachyOS's handheld edition does:
+    # KDE Plasma as the desktop, and the boot loaders Steamify knows how to
+    # update (Limine, systemd-boot, GRUB; not rEFInd). Drops every other
+    # `    - id:` item block; `default:` (KDE-Desktop, limine) stays valid.
+    local keep_items='/^    - id: / { id = $3; gsub(/"/, "", id); skip = id == "" || index(" " keep " ", " " id " ") == 0 }
+/^[^ ]/ { skip = 0 }
+!skip'
+    local chooser keep
+    for chooser in "desktop:KDE-Desktop" "bootloader:limine systemd-boot grub"; do
+        keep="${chooser#*:}"
+        chooser="/etc/calamares/modules/packagechooser_${chooser%%:*}.conf"
+        awk -v keep="$keep" "$keep_items" "$chooser" | sudo tee "$chooser.new" > /dev/null &&
+            sudo mv "$chooser.new" "$chooser"
+    done
 
     # Get Hardware Informations
     inxi -F > "$log"
