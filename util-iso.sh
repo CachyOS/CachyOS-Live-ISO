@@ -201,7 +201,8 @@ run_build() {
 
     [ -d "$outFolder/$_profile" ] || mkdir -p "$outFolder/$_profile"
     cd ${work_dir}/archiso/
-    sudo mkarchiso -v -w ${work_dir} -o "$outFolder/$_profile" ${work_dir}/archiso/
+    # sudo drops the environment: the release tag's file name and label (profiledef.sh) must get through.
+    sudo --preserve-env=STEAMIFY_ISO_VERSION,STEAMIFY_BUILD_STAMP mkarchiso -v -w ${work_dir} -o "$outFolder/$_profile" ${work_dir}/archiso/
     # $USER is empty when this runs as root (e.g. in a container): an empty
     # chown failed and aborted the rest (the build was done, the exit code 1).
     sudo chown "${SUDO_USER:-${USER:-$(id -un)}}" "$outFolder"
