@@ -1,38 +1,4 @@
 # 26.08
-*CachyOS with Steamify Live ISO: CachyOS's desktop ISO with Steamify built in (install CachyOS and turn the
-PC into a Steam Machine in one go). Its additions come first; CachyOS's own notes follow.*
-
-**CachyOS with Steamify Live ISO: features:**
-
-* **ISO:** called `steamify-cachyos-<date>-x86_64.iso`; CachyOS Hello installs it like CachyOS's own
-  release (the build date is kept in `/etc/steammachine-iso-build`)
-* **Installer (CachyOS - Steamify Installer):**
-  * A Steamify page after the packages page: which Steam Machine parts to set up (rows from
-    `steamify.sh --defaults --list`, the newest Steamify fetched before Calamares starts) and where
-    the PC starts (gaming mode or the desktop)
-  * The Summary lists every chosen item and where the PC starts
-  * The new user's Steam Machine setup runs during the install (`steamify-install`, a Calamares step
-    before cleanup): the first boot is already a Steam Machine
-  * Only what Steamify supports is offered: KDE Plasma, and the boot loaders Limine, systemd-boot and
-    GRUB (not rEFInd)
-* **Live session:** keeps CachyOS's own name; the power-off fix is built for the ISO's kernels, and
-  the login has the Vapor look
-
-**CachyOS with Steamify Live ISO: fixes:**
-
-* **systemd-boot:** the installed system gets its "Linux Boot Manager" EFI boot entry, first in the
-  boot order. cachyos-installer runs `bootctl install` in a chroot, where bootctl leaves the EFI
-  variables alone, so the entry was missing: the PC could only boot through the disk's fallback path
-  (`\EFI\BOOT\BOOTX64.EFI`). Most PCs find it early and boot normally, but firmware that tries the
-  network first waits minutes on every boot (QEMU/OVMF: PXE, HTTP boot and the EFI shell come first),
-  and anything else that writes the fallback file (another OS) takes the boot over.
-  `steamify-install` now runs `bootctl --variables=yes install` from the live system;
-  the output is in `/var/log/steamify-bootentry.log`
-* **Installer:** Steamify's setup never asks for a password (its sudo rule is read after CachyOS's
-  `%wheel` rule); Calamares starts with the Boost version it was linked against
-* **Build:** finishes cleanly as root and reports no error after a successful build; the Steamify page's
-  Calamares module is built with the ISO and left out when Calamares' version differs
-
 **Features:**
 
 * **Installer:**
@@ -59,6 +25,40 @@ PC into a Steam Machine in one go). Its additions come first; CachyOS's own note
   * Gracefully handle a missing board_name DMI file
   * Correctly handle VM environments
   * Correctly quote pacman arguments
+
+## CachyOS with Steamify Live ISO 1.0.0 (unreleased)
+CachyOS 26.08 with Steamify built in: install CachyOS and turn the PC into a Steam Machine in one go.
+
+**Features:**
+
+* **ISO:** called `steamify-cachyos-<date>-x86_64.iso`; CachyOS Hello installs it like CachyOS's own
+  release (the build date is kept in `/etc/steammachine-iso-build`)
+* **Installer (CachyOS - Steamify Installer):**
+  * A Steamify page after the packages page: which Steam Machine parts to set up (rows from
+    `steamify.sh --defaults --list`, the newest Steamify fetched before Calamares starts) and where
+    the PC starts (gaming mode or the desktop)
+  * The Summary lists every chosen item and where the PC starts
+  * The new user's Steam Machine setup runs during the install (`steamify-install`, a Calamares step
+    before cleanup): the first boot is already a Steam Machine
+  * Only what Steamify supports is offered: KDE Plasma, and the boot loaders Limine, systemd-boot and
+    GRUB (not rEFInd)
+* **Live session:** keeps CachyOS's own name; the power-off fix is built for the ISO's kernels, and
+  the login has the Vapor look
+
+**Fixes:**
+
+* **systemd-boot:** the installed system gets its "Linux Boot Manager" EFI boot entry, first in the
+  boot order. cachyos-installer runs `bootctl install` in a chroot, where bootctl leaves the EFI
+  variables alone, so the entry was missing: the PC could only boot through the disk's fallback path
+  (`\EFI\BOOT\BOOTX64.EFI`). Most PCs find it early and boot normally, but firmware that tries the
+  network first waits minutes on every boot (QEMU/OVMF: PXE, HTTP boot and the EFI shell come first),
+  and anything else that writes the fallback file (another OS) takes the boot over.
+  `steamify-install` now runs `bootctl --variables=yes install` from the live system;
+  the output is in `/var/log/steamify-bootentry.log`
+* **Installer:** Steamify's setup never asks for a password (its sudo rule is read after CachyOS's
+  `%wheel` rule); Calamares starts with the Boost version it was linked against
+* **Build:** finishes cleanly as root and reports no error after a successful build; the Steamify page's
+  Calamares module is built with the ISO and left out when Calamares' version differs
 
 # 26.07
 **Features:**
