@@ -1,0 +1,61 @@
+# The Steamify ISO's release, step 1 of 2 (GitHub): names it and creates its tag and a release with the notes.
+# The Gitea mirror (git.upriser.nl) gets the tag with its next sync (triggered here when GITEA_TOKEN is set),
+# builds the ISO on that tag and attaches it to its own release for it (steamify-iso.yml). The ISO lives there:
+# GitHub releases take at most 2 GB per file, the ISO is bigger, and a release on the mirror only survives its
+# syncs when its tag comes from here.
+# Name: the Steamify version the ISO gets (its newest release) plus the time: master releases
+# v<steamify>-<YYYY.MM.DD>-<HHMM> (UTC), feat/steamify a pre-release v<steamify>-dev.<YYYY.MM.DD>-<HHMM>.
+name: Steamify ISO release (tag)
+
+on:
+  push:
+    branches: [master, feat/steamify]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  GITEA_URL: https://git.upriser.nl
+  GITEA_REPO: theupriser/steamify-cachyos-live-iso
+
+jobs:
+  tag:
+    if: github.server_url == 'https://github.com'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Tag and release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          steamify="$(gh release view -R theupriser/steamify-cachyos --json tagName -q .tagName)"
+          steamify="${steamify#v}"
+          stamp="$(date -u +%Y.%m.%d-%H%M)"
+          if [ "${{ github.ref }}" = refs/heads/master ]; then
+            tag="v$steamify-$stamp" pre="" name="CachyOS with Steamify Live ISO $steamify ($stamp UTC)"
+          else
+            tag="v$steamify-dev.$stamp" pre="--prerelease" name="CachyOS with Steamify Live ISO $steamify (test build $stamp UTC)"
+          fi
+          # The Steamify section of CHANGELOG.md ("## CachyOS with Steamify Live ISO"), without its heading.
+          section="$(awk '/^## CachyOS with Steamify Live ISO/ {found = 1; next} found && /^#/ {exit} found' CHANGELOG.md)"
+          notes="The ISO is built from \`$(git rev-parse --short HEAD)\` (${{ github.ref_name }}) with Steamify $steamify and published on the mirror (GitHub releases take at most 2 GB per file); it appears there within minutes of the mirror's sync:
+
+          **Download: $GITEA_URL/$GITEA_REPO/releases/tag/$tag**
+
+          Sources: [Steamify](https://github.com/theupriser/steamify-cachyos/tree/v$steamify), this repository at this tag, and the packages' sources at [CachyOS](https://github.com/CachyOS) and [Arch Linux](https://archlinux.org/packages/).
+
+          $section"
+          gh release create "$tag" --target "$GITHUB_SHA" $pre --title "$name" --notes "$notes"
+          echo "Released $tag"
+
+      # Optional: sync the mirror at once instead of at its interval (a Gitea token with repository write
+      # access as the secret GITEA_TOKEN).
+      - name: Sync the Gitea mirror
+        env:
+          GITEA_TOKEN: ${{ secrets.GITEA_TOKEN }}
+        run: |
+          if [ -z "$GITEA_TOKEN" ]; then echo "No GITEA_TOKEN: the mirror picks the tag up at its next sync."; exit 0; fi
+          curl -fsS -X POST -H "Authorization: token $GITEA_TOKEN" "$GITEA_URL/api/v1/repos/$GITEA_REPO/mirror-sync" &&
+            echo "Mirror sync started"

@@ -29,6 +29,7 @@
 ## CachyOS with Steamify Live ISO
 CachyOS 26.08 with Steamify built in: install CachyOS and turn the PC into a Steam Machine in one go.
 Its version is the Steamify version on it plus the build date and time (a release on `master` is `v<Steamify version>-<date>-<HHMM UTC>`, e.g. `v2.9.1-2026.09.29-1432`).
+Releases: GitHub creates the tag and a release with the notes; the ISO itself (over GitHub's 2 GB limit) is built on the Gitea mirror and attached to its release for that tag (git.upriser.nl).
 
 **Features:**
 
