@@ -2,7 +2,14 @@
 # shellcheck disable=SC2034
 
 iso_name="steamify-cachyos"
-iso_label="COS_$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m)"
+# The label follows the release name: the Steamify version on the ISO (steamify-prepare.sh put it there)
+# plus the build date and time, e.g. STEAMIFY_2_9_1_20260929_1432 (ISO 9660: at most 32 characters,
+# A-Z 0-9 _). STEAMIFY_BUILD_STAMP (YYYYMMDD_HHMM, UTC) from the release workflow, so both name the same
+# moment; built by hand, the time now.
+_steamify="$(sed -n 's/^VERSION=//p' "${BASH_SOURCE[0]%/*}/airootfs/usr/local/share/steamify/steamify.sh" 2>/dev/null | head -n 1)"
+_stamp="${STEAMIFY_BUILD_STAMP:-$(date -u --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m%d_%H%M)}"
+iso_label="STEAMIFY_${_steamify:+${_steamify//./_}_}${_stamp}"
+iso_label="${iso_label:0:32}"
 iso_publisher="CachyOS <https://cachyos.org>"
 iso_application="Steamify CachyOS Live (based on CachyOS)"
 iso_version="$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d)"
