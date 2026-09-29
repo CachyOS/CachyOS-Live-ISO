@@ -3,13 +3,13 @@
 # builds the ISO on that tag and attaches it to its own release for it (steamify-iso.yml). The ISO lives there:
 # GitHub releases take at most 2 GB per file, the ISO is bigger, and a release on the mirror only survives its
 # syncs when its tag comes from here.
-# Name: the Steamify version the ISO gets (its newest release) plus the time: master releases
-# v<steamify>-<YYYY.MM.DD>-<HHMM> (UTC), feat/steamify a pre-release v<steamify>-dev.<YYYY.MM.DD>-<HHMM>.
+# Name: the Steamify version the ISO gets (its newest release) plus the time (Dutch time, Europe/Amsterdam):
+# master releases v<steamify>-<YYYY.MM.DD>-<HHMM>, feat/steamify a pre-release v<steamify>-dev.<...>.
 name: Steamify ISO release (tag)
 
+# Started by a new Steamify release (its bundle.yml, secret ISO_DISPATCH_TOKEN) or by hand (Run workflow,
+# on master for a release, on feat/steamify for a test build); not by every push.
 on:
-  push:
-    branches: [master, feat/steamify]
   workflow_dispatch:
 
 permissions:
@@ -32,11 +32,11 @@ jobs:
         run: |
           steamify="$(gh release view -R theupriser/steamify-cachyos --json tagName -q .tagName)"
           steamify="${steamify#v}"
-          stamp="$(date -u +%Y.%m.%d-%H%M)"
+          stamp="$(TZ=Europe/Amsterdam date +%Y.%m.%d-%H%M)"
           if [ "${{ github.ref }}" = refs/heads/master ]; then
-            tag="v$steamify-$stamp" pre="" name="CachyOS with Steamify Live ISO $steamify ($stamp UTC)"
+            tag="v$steamify-$stamp" pre="" name="CachyOS with Steamify Live ISO $steamify ($stamp)"
           else
-            tag="v$steamify-dev.$stamp" pre="--prerelease" name="CachyOS with Steamify Live ISO $steamify (test build $stamp UTC)"
+            tag="v$steamify-dev.$stamp" pre="--prerelease" name="CachyOS with Steamify Live ISO $steamify (test build $stamp)"
           fi
           # The Steamify section of CHANGELOG.md ("## CachyOS with Steamify Live ISO"), without its heading.
           section="$(awk '/^## CachyOS with Steamify Live ISO/ {found = 1; next} found && /^#/ {exit} found' CHANGELOG.md)"
@@ -47,7 +47,12 @@ jobs:
           Sources: [Steamify](https://github.com/theupriser/steamify-cachyos/tree/v$steamify), this repository at this tag, and the packages' sources at [CachyOS](https://github.com/CachyOS) and [Arch Linux](https://archlinux.org/packages/).
 
           $section"
-          gh release create "$tag" --target "$GITHUB_SHA" $pre --title "$name" --notes "$notes"
+          # An annotated tag: its own date, so the mirror sorts releases on the same commit in order (a
+          # lightweight tag only has its commit's date).
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "$tag" -m "$name" "$GITHUB_SHA" && git push origin "refs/tags/$tag"
+          gh release create "$tag" --verify-tag $pre --title "$name" --notes "$notes"
           echo "Released $tag"
 
       # Optional: sync the mirror at once instead of at its interval (a Gitea token with repository write
