@@ -1,4 +1,4 @@
-# Steamify ISO 1.0.0 (unreleased)
+# CachyOS with Steamify Live ISO 1.0.0 (unreleased)
 CachyOS's desktop ISO with Steamify built in: install CachyOS and turn the PC into a Steam Machine in
 one go. Based on CachyOS 26.08 (its own notes follow below).
 
