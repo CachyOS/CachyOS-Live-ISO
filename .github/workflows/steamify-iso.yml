@@ -49,6 +49,8 @@ jobs:
             # One moment for the ISO's label (profiledef.sh) and the release's name: the tag's (Dutch time).
             echo "STEAMIFY_BUILD_STAMP=${m[3]}${m[4]}${m[5]}_${m[6]}"
             echo "ISO_PRERELEASE=$([ -n "${m[2]}" ] && echo true || echo false)"
+            # The ISO's file name: the tag without its v (profiledef.sh).
+            echo "STEAMIFY_ISO_VERSION=${tag#v}"
           } >> "$GITHUB_ENV"
 
       - name: Steamify on the ISO (the version the tag names)

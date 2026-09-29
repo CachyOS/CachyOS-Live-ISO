@@ -38,11 +38,14 @@ jobs:
           else
             tag="v$steamify-dev.$stamp" pre="--prerelease" name="CachyOS with Steamify Live ISO $steamify (test build $stamp)"
           fi
+          # The ISO's file on the mirror is named after the tag (steamify-iso.yml, profiledef.sh), so its
+          # download link is known now.
+          file="steamify-cachyos-${tag#v}-x86_64.iso" dl="$GITEA_URL/$GITEA_REPO/releases/download/$tag"
           # The Steamify section of CHANGELOG.md ("## CachyOS with Steamify Live ISO"), without its heading.
           section="$(awk '/^## CachyOS with Steamify Live ISO/ {found = 1; next} found && /^#/ {exit} found' CHANGELOG.md)"
-          notes="The ISO is built from \`$(git rev-parse --short HEAD)\` (${{ github.ref_name }}) with Steamify $steamify and published on the mirror (GitHub releases take at most 2 GB per file); it appears there within minutes of the mirror's sync:
+          notes="The ISO is built from \`$(git rev-parse --short HEAD)\` (${{ github.ref_name }}) with Steamify $steamify and published on the mirror (GitHub releases take at most 2 GB per file), about half an hour after this release (the mirror's sync, then the build):
 
-          **Download: $GITEA_URL/$GITEA_REPO/releases/tag/$tag**
+          **Download: [$file]($dl/$file)** ([SHA-256]($dl/$file.sha256), [release page]($GITEA_URL/$GITEA_REPO/releases/tag/$tag))
 
           Sources: [Steamify](https://github.com/theupriser/steamify-cachyos/tree/v$steamify), this repository at this tag, and the packages' sources at [CachyOS](https://github.com/CachyOS) and [Arch Linux](https://archlinux.org/packages/).
 

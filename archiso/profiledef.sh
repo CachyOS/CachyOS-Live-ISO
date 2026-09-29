@@ -12,7 +12,10 @@ iso_label="STEAMIFY_${_steamify:+${_steamify//./_}_}${_stamp}"
 iso_label="${iso_label:0:32}"
 iso_publisher="CachyOS <https://cachyos.org>"
 iso_application="Steamify CachyOS Live (based on CachyOS)"
-iso_version="$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d)"
+# The file name (<iso_name>-<iso_version>-x86_64.iso) follows the release tag without its v
+# (STEAMIFY_ISO_VERSION from the release workflow: steamify-cachyos-2.9.3-dev.2026.09.29-2230-x86_64.iso);
+# built by hand, the date.
+iso_version="${STEAMIFY_ISO_VERSION:-$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d)}"
 install_dir="arch"
 buildmodes=('iso')
 ## GRUB
