@@ -22,14 +22,11 @@ for id in ${choice//,/ }; do
 done
 # /var/log is its own btrfs subvolume (@log) that the installer doesn't mount at $root/var/log: what is
 # written there now (these logs, Steamify's) would end up hidden under the mount after boot. Mount it
-# from the new system's fstab for this run.
-mounted_log=false
+# from the new system's fstab and leave it mounted: the caller reads the log afterwards, and unmounts
+# all of $root at the end anyway (Calamares' umount step, the test's poweroff).
 if [[ -n "$root" && -d "$root/var/log" ]] && ! mountpoint -q "$root/var/log"; then
     read -r dev _ _ opts _ < <(awk '$2 == "/var/log" && $1 !~ /^#/' "$root/etc/fstab" 2>/dev/null)
-    if [[ -n "${dev:-}" ]] && mount -o "$opts" "$dev" "$root/var/log" 2>/dev/null; then
-        mounted_log=true
-        trap '$mounted_log && umount "$root/var/log"' EXIT
-    fi
+    [[ -n "${dev:-}" ]] && mount -o "$opts" "$dev" "$root/var/log" 2>/dev/null
 fi
 # systemd-boot: cachyos-installer runs `bootctl install` in a chroot, and bootctl leaves the EFI
 # variables alone there: no "Linux Boot Manager" boot entry, so the firmware tries the network and
