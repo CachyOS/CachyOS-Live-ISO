@@ -109,3 +109,24 @@ Large `scp` transfers (e.g. the ~3.2GB built ISO) over this same flaky link
 can report "Connection closed" while actually still having copied fully —
 check the destination file's size/timestamp before assuming a real
 failure, and retry the copy (it's idempotent) rather than the whole build.
+
+## Releases (GitHub tag, ISO built and attached on the Gitea mirror)
+
+Full write-up, with every trap: `steamify-iso-release` in steamify-cachyos-dev. What matters here:
+
+- `.github/workflows/iso-release.yml` (GitHub, `workflow_dispatch` only: by hand, or started by a new Steamify
+  release, whose `bundle.yml` needs the secret `ISO_DISPATCH_TOKEN`) names the release: the Steamify version plus
+  GitHub's UTC time, `vX.Y.Z-[dev.]YYYY.MM.DD-HHMM`, an **annotated** tag and a release with notes and the direct
+  download link. `feat/steamify` makes a `dev.` pre-release, `master` a real one.
+- `.github/workflows/steamify-iso.yml` (Gitea, `on: push: tags: v*`, skipped on GitHub) builds the ISO for that
+  tag and attaches it to the mirror's release. The tag decides everything: Steamify version (`steamify-prepare.sh`
+  takes `STEAMIFY_VERSION`), file name (`STEAMIFY_ISO_VERSION` -> `iso_version` in `profiledef.sh`), label
+  (`STEAMIFY_BUILD_STAMP`), boot menu and `/etc/steammachine-iso-build`. The build reads no clock; without a
+  tag everything says `local`.
+- `util-iso.sh` runs `sudo mkarchiso`: sudo drops the environment, so `--preserve-env=STEAMIFY_ISO_VERSION,
+  STEAMIFY_BUILD_STAMP` is required (without it the ISO comes out `-local-`).
+- Never create a release on the mirror by hand or from a Gitea-only tag: the pull mirror's next sync deletes tags
+  GitHub doesn't have, and the release with them. GitHub releases can't hold the ISO (2 GB per file).
+- Gitea needs `[repository.release] FILE_MAX_SIZE` above the ISO (413 otherwise) and the runner
+  `container: privileged: true` (archiso mounts `/proc`); the workflow's `--privileged` option is ignored.
+- CachyOS's own `Desktop ISO` workflow (`build.yml`) only runs in `CachyOS/CachyOS-Live-ISO`.
