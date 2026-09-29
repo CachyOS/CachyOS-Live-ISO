@@ -20,6 +20,13 @@ for id in ${choice//,/ }; do
         *) options+="${options:+,}$id" ;;
     esac
 done
+# systemd-boot: cachyos-installer runs `bootctl install` in a chroot, and bootctl leaves the EFI
+# variables alone there: no "Linux Boot Manager" boot entry, so the firmware tries the network and
+# its other entries first and finds the disk's fallback path last (or never). Register it now.
+if [[ -n "$root" && -f "$root/boot/EFI/systemd/systemd-bootx64.efi" && -d /sys/firmware/efi/efivars ]]; then
+    arch-chroot "$root" bootctl --esp-path=/boot --variables=yes install > "$root/var/log/steamify-bootentry.log" 2>&1
+    arch-chroot "$root" efibootmgr >> "$root/var/log/steamify-bootentry.log" 2>&1
+fi
 log="$root/var/log/steamify-install.log"
 rule="$root/etc/sudoers.d/zz-steamify-install"
 [[ -d "$root" && -n "$user" ]] || exit 0
