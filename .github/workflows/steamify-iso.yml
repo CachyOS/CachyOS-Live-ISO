@@ -39,7 +39,10 @@ jobs:
           fetch-depth: 0
 
       - name: Steamify on the ISO (its newest release)
-        run: ./steamify-prepare.sh
+        run: |
+          ./steamify-prepare.sh
+          # One moment for the ISO's label (profiledef.sh) and the release's name.
+          echo "STEAMIFY_BUILD_STAMP=$(date -u +%Y%m%d_%H%M)" >> "$GITHUB_ENV"
 
       - name: Build
         run: |
@@ -54,12 +57,12 @@ jobs:
         run: |
           iso="$(ls out/desktop/*.iso | head -n 1)"
           [ -f "$iso" ] || { echo "::error::no ISO in out/desktop"; exit 1; }
-          date="$(basename "$iso" | grep -oE '[0-9]{4}\.[0-9]{2}\.[0-9]{2}')"
           steamify="$(sed -n 's/^VERSION=//p' archiso/airootfs/usr/local/share/steamify/steamify.sh | head -n 1)"
           [ -n "$steamify" ] || { echo "::error::no Steamify version on the ISO"; exit 1; }
           api="${{ github.server_url }}/api/v1/repos/${{ github.repository }}"
           exists() { curl -fsS -o /dev/null -H "Authorization: token $TOKEN" "$api/releases/tags/$1"; }
-          stamp="$date-$(date -u +%H%M)"   # the ISO's date, the time of this run (UTC): every build its own name
+          b="$STEAMIFY_BUILD_STAMP"   # YYYYMMDD_HHMM (UTC), the same moment as the ISO's label
+          stamp="${b:0:4}.${b:4:2}.${b:6:2}-${b:9:4}"   # every build its own name
           if [ "${{ github.ref }}" = refs/heads/master ]; then
             tag="v$steamify-$stamp" prerelease=false name="CachyOS with Steamify Live ISO $steamify ($stamp UTC)"
           else
@@ -76,7 +79,7 @@ jobs:
           {
             echo "Built $(date -u '+%F %H:%M UTC') from \`$(git rev-parse --short HEAD)\` (${{ github.ref_name }}), with Steamify $steamify."
             echo
-            echo "SHA-256: \`$(cut -d' ' -f1 "$iso.sha256")\`"
+            echo "SHA-256: \`$(cut -d' ' -f1 "$iso.sha256")\`, label \`STEAMIFY_${steamify//./_}_$b\`"
             echo
             echo "$section"
           } > release-notes.md
