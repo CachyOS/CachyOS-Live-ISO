@@ -33,7 +33,7 @@ Releases: GitHub creates the tag and a release with the notes; the ISO itself (o
 
 **Features:**
 
-* **ISO:** named after its release tag (`steamify-cachyos-2.9.3-2026.09.29-2230-x86_64.iso`; built by hand, the date), labelled after the Steamify version on it and the build time (`STEAMIFY_2_9_1_20260929_1432`, was CachyOS's `COS_<year><month>`); CachyOS Hello installs it like CachyOS's own
+* **ISO:** named after its release tag (`steamify-cachyos-2.9.3-2026.09.29-2030-x86_64.iso`; built by hand, without a tag: `local`), labelled after the Steamify version on it and the build time (`STEAMIFY_2_9_1_20260929_1432`, was CachyOS's `COS_<year><month>`); CachyOS Hello installs it like CachyOS's own
   release (the ISO's own release, its tag without the v, is in `/etc/steammachine-iso-build` and the boot menu)
 * **Installer (CachyOS - Steamify Installer):**
   * A Steamify page after the packages page: which Steam Machine parts to set up (rows from
