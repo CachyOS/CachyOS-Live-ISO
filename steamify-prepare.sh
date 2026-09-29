@@ -2,21 +2,25 @@
 # steamify-prepare.sh [steamify checkout]: puts the Steamify bundle on the
 # ISO (archiso/airootfs/usr/local/share/steamify/steamify.sh), used by the
 # installer's Steamify step, and what its Steamify page shows (qml/). Built from a checkout when given, else the
-# newest release. Run before buildiso.sh.
+# newest release, or exactly release $STEAMIFY_VERSION (e.g. 2.9.2: the ISO release workflow, whose tag names
+# the version). Run before buildiso.sh.
 set -euo pipefail
+rel="https://github.com/theupriser/steamify-cachyos/releases/${STEAMIFY_VERSION:+download/v$STEAMIFY_VERSION}"
+[[ -n "${STEAMIFY_VERSION:-}" ]] || rel+="latest/download"
+src_ref="${STEAMIFY_VERSION:+v$STEAMIFY_VERSION}"; src_ref="${src_ref:-main}"
 dest="$(cd "$(dirname "$0")" && pwd)/archiso/airootfs/usr/local/share/steamify/steamify.sh"
 mkdir -p "$(dirname "$dest")"
 if [[ -n "${1:-}" ]]; then
     (cd "$1" && .github/tools/bundle.sh "$dest")
 else
-    curl -fsSL https://github.com/theupriser/steamify-cachyos/releases/latest/download/steamify.sh -o "$dest"
+    curl -fsSL "$rel/steamify.sh" -o "$dest"
 fi
 # The power-off fix's source, for build-live-modules.sh (live session).
 poweroff="$(dirname "$dest")/steamify-fremont-poweroff.c"
 if [[ -n "${1:-}" ]]; then
     cp "$1/patches/steamify-fremont-poweroff.c" "$poweroff"
 else
-    curl -fsSL https://raw.githubusercontent.com/theupriser/steamify-cachyos/main/patches/steamify-fremont-poweroff.c -o "$poweroff"
+    curl -fsSL "https://raw.githubusercontent.com/theupriser/steamify-cachyos/$src_ref/patches/steamify-fremont-poweroff.c" -o "$poweroff"
 fi
 # The installer's Steamify page (/usr/local/share/steamify-installer/
 # SteamifyPage.qml) shows the app's explanations (Theme.qml, Texts.qml, from the
@@ -27,7 +31,7 @@ rm -rf "$qml"; mkdir -p "$qml"
 if [[ -n "${1:-}" ]]; then
     cp "$1"/ui/qml/{Theme,Texts}.qml "$qml/"
 else
-    curl -fsSL https://github.com/theupriser/steamify-cachyos/releases/latest/download/steamify-app.tar.gz |
+    curl -fsSL "$rel/steamify-app.tar.gz" |
         tar -xz -C "$qml" --strip-components=2 ui/qml/Theme.qml ui/qml/Texts.qml
 fi
 cp "$(cd "$(dirname "$0")" && pwd)/archiso/airootfs/usr/local/share/steamify-installer/Items.qml" "$qml/"
