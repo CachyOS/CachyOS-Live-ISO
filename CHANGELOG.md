@@ -1,8 +1,8 @@
-# CachyOS with Steamify Live ISO 1.0.0 (unreleased)
-CachyOS's desktop ISO with Steamify built in: install CachyOS and turn the PC into a Steam Machine in
-one go. Based on CachyOS 26.08 (its own notes follow below).
+# 26.08
+*CachyOS with Steamify Live ISO: CachyOS's desktop ISO with Steamify built in (install CachyOS and turn the
+PC into a Steam Machine in one go). Its additions come first; CachyOS's own notes follow.*
 
-**Features:**
+**CachyOS with Steamify Live ISO: features:**
 
 * **ISO:** called `steamify-cachyos-<date>-x86_64.iso`; CachyOS Hello installs it like CachyOS's own
   release (the build date is kept in `/etc/steammachine-iso-build`)
@@ -18,7 +18,7 @@ one go. Based on CachyOS 26.08 (its own notes follow below).
 * **Live session:** keeps CachyOS's own name; the power-off fix is built for the ISO's kernels, and
   the login has the Vapor look
 
-**Fixes:**
+**CachyOS with Steamify Live ISO: fixes:**
 
 * **systemd-boot:** the installed system gets its "Linux Boot Manager" EFI boot entry, first in the
   boot order. cachyos-installer runs `bootctl install` in a chroot, where bootctl leaves the EFI
@@ -33,7 +33,6 @@ one go. Based on CachyOS 26.08 (its own notes follow below).
 * **Build:** finishes cleanly as root and reports no error after a successful build; the Steamify page's
   Calamares module is built with the ISO and left out when Calamares' version differs
 
-# 26.08
 **Features:**
 
 * **Installer:**
