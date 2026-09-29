@@ -3,7 +3,7 @@
 # builds the ISO on that tag and attaches it to its own release for it (steamify-iso.yml). The ISO lives there:
 # GitHub releases take at most 2 GB per file, the ISO is bigger, and a release on the mirror only survives its
 # syncs when its tag comes from here.
-# Name: the Steamify version the ISO gets (its newest release) plus the time (Dutch time, Europe/Amsterdam):
+# Name: the Steamify version the ISO gets (its newest release) plus the time (UTC, GitHub's clock when the release starts):
 # master releases v<steamify>-<YYYY.MM.DD>-<HHMM>, feat/steamify a pre-release v<steamify>-dev.<...>.
 name: Steamify ISO release (tag)
 
@@ -32,11 +32,11 @@ jobs:
         run: |
           steamify="$(gh release view -R theupriser/steamify-cachyos --json tagName -q .tagName)"
           steamify="${steamify#v}"
-          stamp="$(TZ=Europe/Amsterdam date +%Y.%m.%d-%H%M)"
+          stamp="$(date -u +%Y.%m.%d-%H%M)"
           if [ "${{ github.ref }}" = refs/heads/master ]; then
-            tag="v$steamify-$stamp" pre="" name="CachyOS with Steamify Live ISO $steamify ($stamp)"
+            tag="v$steamify-$stamp" pre="" name="CachyOS with Steamify Live ISO $steamify ($stamp UTC)"
           else
-            tag="v$steamify-dev.$stamp" pre="--prerelease" name="CachyOS with Steamify Live ISO $steamify (test build $stamp)"
+            tag="v$steamify-dev.$stamp" pre="--prerelease" name="CachyOS with Steamify Live ISO $steamify (test build $stamp UTC)"
           fi
           # The ISO's file on the mirror is named after the tag (steamify-iso.yml, profiledef.sh), so its
           # download link is known now.

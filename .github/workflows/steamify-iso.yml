@@ -46,7 +46,7 @@ jobs:
           m=("${BASH_REMATCH[@]}")
           {
             echo "STEAMIFY_VERSION=${m[1]}"
-            # One moment for the ISO's label (profiledef.sh) and the release's name: the tag's (Dutch time).
+            # One moment for the ISO's label (profiledef.sh) and the release's name: the tag's (UTC).
             echo "STEAMIFY_BUILD_STAMP=${m[3]}${m[4]}${m[5]}_${m[6]}"
             echo "ISO_PRERELEASE=$([ -n "${m[2]}" ] && echo true || echo false)"
             # The ISO's file name: the tag without its v (profiledef.sh).
@@ -72,9 +72,9 @@ jobs:
           tag="${{ github.ref_name }}" b="$STEAMIFY_BUILD_STAMP"
           stamp="${b:0:4}.${b:4:2}.${b:6:2}-${b:9:4}"
           if [ "$ISO_PRERELEASE" = true ]; then
-            name="CachyOS with Steamify Live ISO $STEAMIFY_VERSION (test build $stamp)"
+            name="CachyOS with Steamify Live ISO $STEAMIFY_VERSION (test build $stamp UTC)"
           else
-            name="CachyOS with Steamify Live ISO $STEAMIFY_VERSION ($stamp)"
+            name="CachyOS with Steamify Live ISO $STEAMIFY_VERSION ($stamp UTC)"
           fi
           # Never overwritten: a release for this tag that already has the ISO is left alone.
           api="${{ github.server_url }}/api/v1/repos/${{ github.repository }}"
