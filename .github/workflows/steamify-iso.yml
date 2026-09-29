@@ -51,7 +51,7 @@ jobs:
             echo "ISO_PRERELEASE=$([ -n "${m[2]}" ] && echo true || echo false)"
           } >> "$GITHUB_ENV"
 
-      - name: Steamify ${{ env.STEAMIFY_VERSION }} on the ISO
+      - name: Steamify on the ISO (the version the tag names)
         run: ./steamify-prepare.sh
 
       - name: Build
