@@ -1,0 +1,96 @@
+# The Steamify ISO, built and released on the Gitea mirror (git.upriser.nl) by its own runner: the same
+# build as by hand (the wsl-build-host skill in steamify-cachyos-dev), then a Gitea release v<date> with the ISO,
+# its checksums and package list, notes from CHANGELOG.md's Steamify section. GitHub skips it (one file
+# for both servers; GitHub releases take at most 2 GB per file, the ISO is bigger).
+# The runner needs privileged containers (archiso mounts loop devices) and ~20 GB of disk; Gitea's
+# [attachment] MAX_SIZE must allow the ISO (default 2 GB).
+name: Steamify ISO (Gitea release)
+
+on:
+  push:
+    branches: [feat/steamify]
+  workflow_dispatch:
+
+concurrency:
+  group: steamify-iso
+  cancel-in-progress: true
+
+jobs:
+  iso:
+    if: github.server_url != 'https://github.com'
+    runs-on: ubuntu-latest
+    container:
+      image: docker.io/cachyos/cachyos:latest
+      options: --privileged
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Tools
+        run: |
+          pacman-key --init && pacman-key --populate
+          # nodejs: the actions below run in this container
+          pacman -Syu --noconfirm --needed archiso mkinitcpio-archiso git squashfs-tools grub sudo nodejs curl jq
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Steamify on the ISO (its newest release)
+        run: ./steamify-prepare.sh
+
+      - name: Build
+        run: |
+          ./build-live-modules.sh
+          ./build-calamares-modules.sh
+          ./buildiso.sh -p desktop -w || ./buildiso.sh -p desktop -c -w
+
+      - name: Release name and notes
+        id: rel
+        run: |
+          iso="$(ls out/desktop/*.iso | head -n 1)"
+          [ -f "$iso" ] || { echo "::error::no ISO in out/desktop"; exit 1; }
+          date="$(basename "$iso" | grep -oE '[0-9]{4}\.[0-9]{2}\.[0-9]{2}')"
+          steamify="$(sed -n 's/^VERSION=//p' archiso/airootfs/usr/local/share/steamify/steamify.sh | head -n 1)"
+          echo "tag=v$date" >> "$GITHUB_OUTPUT"
+          echo "date=$date" >> "$GITHUB_OUTPUT"
+          # The Steamify section of CHANGELOG.md ("## CachyOS with Steamify Live ISO ..."), without its heading.
+          section="$(awk '/^## CachyOS with Steamify Live ISO/ {found = 1; print; next} found && /^#/ {exit} found' CHANGELOG.md)"
+          title="$(head -n 1 <<< "$section" | sed 's/^## //')"
+          echo "title=$title" >> "$GITHUB_OUTPUT"
+          {
+            echo "Built $(date -u '+%F %H:%M UTC') from \`$(git rev-parse --short HEAD)\` (feat/steamify), with Steamify $steamify."
+            echo
+            echo "SHA-256: \`$(cut -d' ' -f1 "$iso.sha256")\`"
+            echo
+            tail -n +2 <<< "$section"
+          } > release-notes.md
+          cat release-notes.md
+
+      # One release per day: a rebuild on the same day replaces that day's release (and its tag).
+      - name: Replace today's release
+        env:
+          TOKEN: ${{ github.token }}
+          TAG: ${{ steps.rel.outputs.tag }}
+        run: |
+          api="${{ github.server_url }}/api/v1/repos/${{ github.repository }}"
+          if curl -fsS -H "Authorization: token $TOKEN" "$api/releases/tags/$TAG" -o /tmp/rel.json; then
+            curl -fsS -X DELETE -H "Authorization: token $TOKEN" "$api/releases/$(jq -r .id /tmp/rel.json)"
+            curl -fsS -X DELETE -H "Authorization: token $TOKEN" "$api/tags/$TAG" || true
+            echo "Replaced the release $TAG"
+          fi
+
+      - name: Publish ${{ steps.rel.outputs.tag }}
+        uses: akkuman/gitea-release-action@v1.3.7
+        with:
+          token: ${{ github.token }}
+          tag_name: ${{ steps.rel.outputs.tag }}
+          target_commitish: ${{ github.sha }}
+          name: ${{ steps.rel.outputs.title }} (${{ steps.rel.outputs.date }})
+          body_path: release-notes.md
+          prerelease: true
+          files: |
+            out/desktop/*.iso
+            out/desktop/*.iso.sha256
+            out/desktop/*.iso.sha1
+            out/desktop/*.pkgs.txt
