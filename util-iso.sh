@@ -140,7 +140,9 @@ prepare_profile(){
 
     info "Profile: [%s]" "${profile}"
 
-    local _iso_version="$(date +%y%m%d)"
+    # The release tag without its v when the release workflow builds (STEAMIFY_ISO_VERSION): the boot menu
+    # and /etc/steammachine-iso-build name the same release as the file, label and tag. By hand: the date.
+    local _iso_version="${STEAMIFY_ISO_VERSION:-$(date +%y%m%d)}"
     change_grub_version "${_iso_version}"
 
     # Fetch up-to-date version of CachyOS repo mirrorlist

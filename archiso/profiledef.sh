@@ -4,15 +4,18 @@
 iso_name="steamify-cachyos"
 # The label follows the release name: the Steamify version on the ISO (steamify-prepare.sh put it there)
 # plus the build date and time, e.g. STEAMIFY_2_9_1_20260929_1432 (ISO 9660: at most 32 characters,
-# A-Z 0-9 _). STEAMIFY_BUILD_STAMP (YYYYMMDD_HHMM, UTC) from the release workflow, so both name the same
-# moment; built by hand, the time now.
+# A-Z 0-9 _). STEAMIFY_BUILD_STAMP (YYYYMMDD_HHMM, Dutch time) from the release workflow, so both name the
+# same moment; built by hand, the time now (Europe/Amsterdam).
 _steamify="$(sed -n 's/^VERSION=//p' "${BASH_SOURCE[0]%/*}/airootfs/usr/local/share/steamify/steamify.sh" 2>/dev/null | head -n 1)"
-_stamp="${STEAMIFY_BUILD_STAMP:-$(date -u --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m%d_%H%M)}"
+_stamp="${STEAMIFY_BUILD_STAMP:-$(TZ=Europe/Amsterdam date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m%d_%H%M)}"
 iso_label="STEAMIFY_${_steamify:+${_steamify//./_}_}${_stamp}"
 iso_label="${iso_label:0:32}"
 iso_publisher="CachyOS <https://cachyos.org>"
 iso_application="Steamify CachyOS Live (based on CachyOS)"
-iso_version="$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d)"
+# The file name (<iso_name>-<iso_version>-x86_64.iso) follows the release tag without its v
+# (STEAMIFY_ISO_VERSION from the release workflow: steamify-cachyos-2.9.3-dev.2026.09.29-2230-x86_64.iso);
+# built by hand, the date.
+iso_version="${STEAMIFY_ISO_VERSION:-$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d)}"
 install_dir="arch"
 buildmodes=('iso')
 ## GRUB

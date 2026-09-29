@@ -28,13 +28,13 @@
 
 ## CachyOS with Steamify Live ISO
 CachyOS 26.08 with Steamify built in: install CachyOS and turn the PC into a Steam Machine in one go.
-Its version is the Steamify version on it plus the build date and time (a release on `master` is `v<Steamify version>-<date>-<HHMM UTC>`, e.g. `v2.9.1-2026.09.29-1432`).
+Its version is the Steamify version on it plus the build date and time (Dutch time; a release on `master` is `v<Steamify version>-<date>-<HHMM>`, e.g. `v2.9.3-2026.09.29-2205`). A new Steamify release starts one (a test build for now); by hand: Run workflow on "Steamify ISO release (tag)".
 Releases: GitHub creates the tag and a release with the notes; the ISO itself (over GitHub's 2 GB limit) is built on the Gitea mirror and attached to its release for that tag (git.upriser.nl).
 
 **Features:**
 
-* **ISO:** called `steamify-cachyos-<date>-x86_64.iso`, labelled after the Steamify version on it and the build time (`STEAMIFY_2_9_1_20260929_1432`, was CachyOS's `COS_<year><month>`); CachyOS Hello installs it like CachyOS's own
-  release (the build date is kept in `/etc/steammachine-iso-build`)
+* **ISO:** named after its release tag (`steamify-cachyos-2.9.3-2026.09.29-2230-x86_64.iso`; built by hand, the date), labelled after the Steamify version on it and the build time (`STEAMIFY_2_9_1_20260929_1432`, was CachyOS's `COS_<year><month>`); CachyOS Hello installs it like CachyOS's own
+  release (the ISO's own release, its tag without the v, is in `/etc/steammachine-iso-build` and the boot menu)
 * **Installer (CachyOS - Steamify Installer):**
   * A Steamify page after the packages page: which Steam Machine parts to set up (rows from
     `steamify.sh --defaults --list`, the newest Steamify fetched before Calamares starts) and where
