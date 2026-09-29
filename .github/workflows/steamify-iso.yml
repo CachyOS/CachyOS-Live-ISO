@@ -1,8 +1,8 @@
 # The Steamify ISO, built and released on the Gitea mirror (git.upriser.nl) by its own runner: the same
 # build as by hand (the wsl-build-host skill in steamify-cachyos-dev), then a Gitea release with the ISO,
 # its checksums and package list, notes from CHANGELOG.md's Steamify section. The ISO's version is the
-# Steamify version on it plus the build date: master releases v<steamify>-<date> (never overwritten),
-# feat/steamify a pre-release v<steamify>-dev.<date> (a rebuild that day replaces it). GitHub skips it (one file
+# Steamify version on it plus the build date and time (UTC): master releases v<steamify>-<date>-<HHMM>,
+# feat/steamify a pre-release v<steamify>-dev.<date>-<HHMM>. Never overwritten. GitHub skips it (one file
 # for both servers; GitHub releases take at most 2 GB per file, the ISO is bigger).
 # The runner needs privileged containers (archiso mounts loop devices) and ~20 GB of disk; Gitea's
 # [attachment] MAX_SIZE must allow the ISO (default 2 GB).
@@ -59,21 +59,16 @@ jobs:
           [ -n "$steamify" ] || { echo "::error::no Steamify version on the ISO"; exit 1; }
           api="${{ github.server_url }}/api/v1/repos/${{ github.repository }}"
           exists() { curl -fsS -o /dev/null -H "Authorization: token $TOKEN" "$api/releases/tags/$1"; }
+          stamp="$date-$(date -u +%H%M)"   # the ISO's date, the time of this run (UTC): every build its own name
           if [ "${{ github.ref }}" = refs/heads/master ]; then
-            tag="v$steamify-$date" prerelease=false name="CachyOS with Steamify Live ISO $steamify ($date)"
-            if exists "$tag"; then
-              echo "::warning::$tag is already released and won't be overwritten (a release is never replaced)."
-              echo "publish=false" >> "$GITHUB_OUTPUT"; exit 0
-            fi
+            tag="v$steamify-$stamp" prerelease=false name="CachyOS with Steamify Live ISO $steamify ($stamp UTC)"
           else
-            tag="v$steamify-dev.$date" prerelease=true name="CachyOS with Steamify Live ISO $steamify (test build $date)"
-            # One test build per day: a rebuild that day replaces it (release and tag).
-            if exists "$tag"; then
-              id="$(curl -fsS -H "Authorization: token $TOKEN" "$api/releases/tags/$tag" | jq -r .id)"
-              curl -fsS -X DELETE -H "Authorization: token $TOKEN" "$api/releases/$id"
-              curl -fsS -X DELETE -H "Authorization: token $TOKEN" "$api/tags/$tag" || true
-              echo "Replacing $tag"
-            fi
+            tag="v$steamify-dev.$stamp" prerelease=true name="CachyOS with Steamify Live ISO $steamify (test build $stamp UTC)"
+          fi
+          # Never overwritten (a rerun in the same minute would find its tag taken).
+          if exists "$tag"; then
+            echo "::warning::$tag is already released and won't be overwritten."
+            echo "publish=false" >> "$GITHUB_OUTPUT"; exit 0
           fi
           { echo "publish=true"; echo "tag=$tag"; echo "prerelease=$prerelease"; echo "name=$name"; } >> "$GITHUB_OUTPUT"
           # The Steamify section of CHANGELOG.md ("## CachyOS with Steamify Live ISO"), without its heading.
