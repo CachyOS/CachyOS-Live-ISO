@@ -22,10 +22,20 @@ for id in ${choice//,/ }; do
 done
 # systemd-boot: cachyos-installer runs `bootctl install` in a chroot, and bootctl leaves the EFI
 # variables alone there: no "Linux Boot Manager" boot entry, so the firmware tries the network and
-# its other entries first and finds the disk's fallback path last (or never). Register it now.
+# its other entries first and finds the disk's fallback path last (or never). bootctl can't be made
+# to do it from the chroot either (it writes the entry without the partition: HD(0,GPT,0000...)).
+# So register it from the live system, with the ESP's real disk and partition; efibootmgr puts it first.
 if [[ -n "$root" && -f "$root/boot/EFI/systemd/systemd-bootx64.efi" && -d /sys/firmware/efi/efivars ]]; then
-    arch-chroot "$root" bootctl --esp-path=/boot --variables=yes install > "$root/var/log/steamify-bootentry.log" 2>&1
-    arch-chroot "$root" efibootmgr >> "$root/var/log/steamify-bootentry.log" 2>&1
+    {
+        esp="$(findmnt -no SOURCE "$root/boot")"
+        disk="/dev/$(lsblk -no PKNAME "$esp" | head -n 1)"
+        part="$(cat "/sys/class/block/${esp##*/}/partition")"
+        echo "ESP: $esp (disk $disk, partition $part)"
+        for n in $(efibootmgr | sed -n 's/^Boot\([0-9A-Fa-f]\{4\}\)\*\{0,1\} \(Fallback \)\{0,1\}Linux Boot Manager.*/\1/p'); do
+            efibootmgr -q -b "$n" -B
+        done
+        efibootmgr --create --disk "$disk" --part "$part" --label "Linux Boot Manager" --loader '\EFI\systemd\systemd-bootx64.efi'
+    } > "$root/var/log/steamify-bootentry.log" 2>&1
 fi
 log="$root/var/log/steamify-install.log"
 rule="$root/etc/sudoers.d/zz-steamify-install"

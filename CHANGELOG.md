@@ -53,8 +53,9 @@ CachyOS 26.08 with Steamify built in: install CachyOS and turn the PC into a Ste
   (`\EFI\BOOT\BOOTX64.EFI`). Most PCs find it early and boot normally, but firmware that tries the
   network first waits minutes on every boot (QEMU/OVMF: PXE, HTTP boot and the EFI shell come first),
   and anything else that writes the fallback file (another OS) takes the boot over.
-  `steamify-install` now runs `bootctl --variables=yes install` from the live system;
-  the output is in `/var/log/steamify-bootentry.log`
+  `steamify-install` now registers it with `efibootmgr` from the live system, with the ESP's real
+  disk and partition (bootctl in the chroot writes an entry without a partition, which the firmware
+  can't load); the output is in `/var/log/steamify-bootentry.log`
 * **Installer:** Steamify's setup never asks for a password (its sudo rule is read after CachyOS's
   `%wheel` rule); Calamares starts with the Boost version it was linked against
 * **Build:** finishes cleanly as root and reports no error after a successful build; the Steamify page's
