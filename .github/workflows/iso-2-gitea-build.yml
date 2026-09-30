@@ -93,6 +93,9 @@ jobs:
       options: --privileged
     strategy:
       fail-fast: false
+      # The runner has ~20 GB of RAM for this: an install VM takes 8 GB, so two at a time (needs the
+      # runner's `capacity: 2`; with 1 they run one after the other).
+      max-parallel: 2
       matrix:
         loader: [limine, systemd-boot, grub]
     defaults:
@@ -129,6 +132,7 @@ jobs:
         env:
           CI: "1"
           VM_TIMEZONE: UTC
+          VM_MEM: 8G
           VM_ISO_DIR: ${{ github.workspace }}/iso
         run: |
           mkdir -p ~/.ssh ~/vms/pkg-cache
