@@ -133,6 +133,8 @@ jobs:
           CI: "1"
           VM_TIMEZONE: UTC
           VM_MEM: 8G
+          # The runner is 4 cores / 8 threads: two VMs with 3 vCPUs leave 2 threads for the host and the runner.
+          VM_CPUS: "3"
           VM_ISO_DIR: ${{ github.workspace }}/iso
         run: |
           mkdir -p ~/.ssh ~/vms/pkg-cache
