@@ -248,7 +248,8 @@ jobs:
 
       # The suites run on a plain CachyOS VM (Plasma, no Steamify): the newest CachyOS ISO, installed once;
       # every block then starts from a fresh overlay of that VM.
-      # The CachyOS ISO (~3 GB) is cached per release (the release get-iso.sh would download).
+      # The CachyOS ISO (~3 GB): one cache entry per workflow run; it starts from the newest earlier entry of the same
+      # release (get-iso.sh replaces it when CachyOS has a newer one).
       - name: CachyOS release
         id: cachyos
         run: |
@@ -260,7 +261,8 @@ jobs:
           path: |
             steamify-cachyos-dev/cachyos.iso
             steamify-cachyos-dev/cachyos.iso.version
-          key: cachyos-iso-${{ steps.cachyos.outputs.release }}
+          key: cachyos-iso-${{ steps.cachyos.outputs.release }}-${{ github.run_id }}
+          restore-keys: cachyos-iso-
 
       - name: Plain CachyOS VM
         env:
