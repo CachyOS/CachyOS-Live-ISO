@@ -248,22 +248,16 @@ jobs:
 
       # The suites run on a plain CachyOS VM (Plasma, no Steamify): the newest CachyOS ISO, installed once;
       # every block then starts from a fresh overlay of that VM.
-      # The CachyOS ISO (~3 GB), only the base of the suites' plain VM (not the Steamify ISO this run builds: that one
-      # goes to the other jobs as the artifact `iso`): cached per CachyOS release.
-      - name: CachyOS release
-        id: cachyos
-        run: |
-          rel="$(curl -fsL https://cachyos.org/download/ | grep -oE 'cachyos-desktop-linux-[0-9]+' | head -n 1)"
-          echo "release=${rel:?no CachyOS release found}" >> "$GITHUB_OUTPUT"
-      - name: Cache - the CachyOS ISO
-        uses: actions/cache@v4
+      - uses: christopherhx/gitea-download-artifact@v4
         with:
-          path: |
-            steamify-cachyos-dev/cachyos.iso
-            steamify-cachyos-dev/cachyos.iso.version
-          key: cachyos-iso-${{ steps.cachyos.outputs.release }}
+          name: iso
+          path: iso
 
-      - name: Plain CachyOS VM
+      # The suites test steamify.sh from a plain system, so the base VM is installed from the ISO this run built
+      # with its Steamify step skipped (VM_STEAMIFY=skip): the ISO's installer, kernels, packages and boot loader
+      # are tested, every block then starts from a fresh overlay of that VM. (The boot loader jobs test the
+      # ISO with Steamify installed.)
+      - name: Base VM from the new ISO
         env:
           CI: "1"
           VM_TIMEZONE: UTC
@@ -273,9 +267,9 @@ jobs:
         run: |
           mkdir -p ~/.ssh ~/vms/pkg-cache
           ssh-keygen -q -t ed25519 -N "" -C steamify-vm -f ~/.ssh/steamify-vm_ed25519
+          iso="$(ls "$GITHUB_WORKSPACE"/iso/*.iso | head -n 1)"
           cd steamify-cachyos-dev
-          ./get-iso.sh   # does nothing when the cached ISO is the current release
-          VM_DIR="$HOME/vms/steamify-vm" scripts/vminstall.sh --iso cachyos.iso
+          VM_DIR="$HOME/vms/steamify-vm" scripts/vminstall.sh --iso "$iso"
 
       # Two suites at a time, 4 GB and 2 vCPUs each (vmsuite.sh).
       - name: vmtest.sh (every suite)

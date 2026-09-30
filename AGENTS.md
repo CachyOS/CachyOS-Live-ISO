@@ -121,7 +121,7 @@ Full write-up, with every trap: `steamify-iso-release` in steamify-cachyos-dev. 
 - `.github/workflows/iso-2-gitea-build.yml` (Gitea, `on: push: tags: v*`, skipped on GitHub) runs four jobs for that
   tag: build the ISO, test it (steamify-cachyos-dev's `scripts/vmbootloadertest.sh --install`, one job per boot loader,
   parallel up to the runner's capacity; needs `/dev/kvm` on the runner and checks out steamify-cachyos-dev `main` and
-  steamify-cachyos at the ISO's version from the mirror), then, after those, the suites (`scripts/vmtest.sh cli menu hw installer toggles` on a plain CachyOS VM installed from the newest CachyOS ISO, two at a time), and only when all tests passed attach it to the mirror's release. The tag decides everything: Steamify version (`steamify-prepare.sh`
+  steamify-cachyos at the ISO's version from the mirror), then, after those, the suites (`scripts/vmtest.sh cli menu hw installer toggles` on a plain VM installed from the new ISO with `VM_STEAMIFY=skip`, two at a time), and only when all tests passed attach it to the mirror's release. The tag decides everything: Steamify version (`steamify-prepare.sh`
   takes `STEAMIFY_VERSION`), file name (`STEAMIFY_ISO_VERSION` -> `iso_version` in `profiledef.sh`), label
   (`STEAMIFY_BUILD_STAMP`), boot menu and `/etc/steammachine-iso-build`. The build reads no clock; without a
   tag everything says `local`.
@@ -131,5 +131,5 @@ Full write-up, with every trap: `steamify-iso-release` in steamify-cachyos-dev. 
   GitHub doesn't have, and the release with them. GitHub releases can't hold the ISO (2 GB per file).
 - Gitea needs `[repository.release] FILE_MAX_SIZE` above the ISO (413 otherwise) and the runner
   `container: privileged: true` (archiso mounts `/proc`); the workflow's `--privileged` option is ignored.
-- Caches (`actions/cache`, the runner's cache server): pacman's package cache per job kind (build, test), the VMs' packages (`VM_CACHE`, `~/vms/pkg-cache`) and the CachyOS ISO for the suites, per release. Each job first installs only node and git, restores the caches, then installs the rest.
+- Caches (`actions/cache`, the runner's cache server): pacman's package cache per job kind (build, test) and the VMs' packages (`VM_CACHE`, `~/vms/pkg-cache`), keys per ISO week. Each job first installs only node and git, restores the caches, then installs the rest.
 - CachyOS's own `Desktop ISO` workflow (`build.yml`) is removed here; the test job of iso-2-gitea-build.yml replaces it.
