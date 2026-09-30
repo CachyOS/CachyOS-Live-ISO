@@ -15,8 +15,9 @@ on:
     tags: ['v*']
   workflow_dispatch:
 
+# One run at a time for the whole workflow (not per tag): a new run stops the running one and takes over.
 concurrency:
-  group: steamify-iso-${{ github.ref }}
+  group: steamify-iso
   cancel-in-progress: true
 
 jobs:
