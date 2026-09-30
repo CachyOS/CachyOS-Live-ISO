@@ -96,7 +96,7 @@ jobs:
           retention-days: 3
 
   test:
-    name: Test ${{ matrix.lane }}
+    name: Test ${{ matrix.loader }}
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 90
@@ -105,10 +105,10 @@ jobs:
       options: --privileged
     strategy:
       fail-fast: false
-      # The runner ignores max-parallel, so two fixed lanes: two VMs at a time (~12 GB of RAM at most), the
-      # loaders of a lane one after the other.
+      # max-parallel is ignored by this runner (it starts all three), so the VMs are lean: 3 x 5 GB to install.
+      max-parallel: 2
       matrix:
-        lane: ["limine grub", "systemd-boot"]
+        loader: [limine, systemd-boot, grub]
     defaults:
       run:
         shell: bash
@@ -160,34 +160,30 @@ jobs:
           name: iso
           path: iso
 
-      - name: Boot loader test (${{ matrix.lane }})
+      - name: Boot loader test (${{ matrix.loader }})
         env:
           CI: "1"
           VM_TIMEZONE: UTC
-          # The runner is 4 cores / 8 threads: two VMs with 2 vCPUs leave 4 threads for the host and the runner.
+          # The runner is 4 cores / 8 threads: three VMs with 2 vCPUs leave 2 threads for the host and the runner.
           VM_CPUS: "2"
           # RAM of the live installer VM (the ISO is read from its cdrom, only the overlay and the installer use RAM); 8 GB is the local default, lean with headroom: lower it only after a run shows the install stays well under
-          VM_INSTALL_MEM: 6G
+          VM_INSTALL_MEM: 5G
           VM_ISO_DIR: ${{ github.workspace }}/iso
         run: |
           mkdir -p ~/.ssh ~/vms/pkg-cache
           ssh-keygen -q -t ed25519 -N "" -C steamify-vm -f ~/.ssh/steamify-vm_ed25519
           iso="$(ls "$VM_ISO_DIR"/*.iso | head -n 1)"
           cd steamify-cachyos-dev
-          rc=0
-          for loader in ${{ matrix.lane }}; do
-              VM_ISO="$iso" scripts/vmbootloadertest.sh "$loader" --install --quick || rc=1
-          done
-          exit $rc
+          VM_ISO="$iso" scripts/vmbootloadertest.sh "${{ matrix.loader }}" --install --quick
 
       - name: Logs
         if: always()
         uses: christopherhx/gitea-upload-artifact@v4
         with:
-          name: test-${{ strategy.job-index }}
+          name: test-${{ matrix.loader }}
           path: |
-            /root/vms/bl-*.test.log
-            /root/vms/bl-*/vm.log
+            /root/vms/bl-${{ matrix.loader }}.test.log
+            /root/vms/bl-${{ matrix.loader }}/vm.log
           retention-days: 7
           if-no-files-found: ignore
 
