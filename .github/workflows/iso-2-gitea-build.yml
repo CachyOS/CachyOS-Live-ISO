@@ -4,8 +4,8 @@
 # checksums and package list to the mirror's release for that tag. The tag names the Steamify version and
 # the time: v<steamify>-<YYYY.MM.DD>-<HHMM> (master) or v<steamify>-dev.<...> (feat/steamify, a pre-release);
 # the ISO gets exactly that Steamify release, and its label the same moment. GitHub skips it.
-# Three jobs: build the ISO -> test it (the boot loader test of steamify-cachyos-dev, one job per loader, in
-# parallel when the runner's capacity allows) -> release, only when every test passed.
+# Four jobs: build the ISO -> test it (the boot loader test of steamify-cachyos-dev, one job per loader, in
+# parallel when the runner's capacity allows) -> the vmtest.sh suites -> release, only when every test passed.
 # The runner needs /dev/kvm, privileged containers (archiso mounts loop devices) and ~20 GB of disk; Gitea's
 # [repository.release] FILE_MAX_SIZE must allow the ISO (default 2 GB).
 name: ISO 2/2 · Build, test and publish (Gitea)
@@ -155,9 +155,84 @@ jobs:
           retention-days: 7
           if-no-files-found: ignore
 
+  suites:
+    name: Test suites (vmtest.sh)
+    # After the boot loader tests, not next to them: the runner is small, and a broken ISO needs no suites.
+    needs: [build, test]
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    container:
+      image: docker.io/cachyos/cachyos:latest
+      options: --privileged
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Tools and KVM
+        run: |
+          pacman-key --init && pacman-key --populate
+          # nodejs: the actions below run in this container
+          pacman -Syu --noconfirm --needed qemu-desktop edk2-ovmf openssh libarchive procps-ng util-linux python git nodejs sudo
+          # Fail at once, with a reason, when the runner cannot run a VM with KVM.
+          [ -c /dev/kvm ] || { echo "::error::no /dev/kvm in this container: the runner needs KVM (and privileged containers)"; exit 1; }
+          nproc; free -g | sed -n 2p; df -h . | tail -n 1
+
+      # vmtest.sh wants its repos side by side: steamify-cachyos-dev (the scripts), steamify-cachyos at the
+      # ISO's Steamify version (shared into the VMs) and this repository (which boot loaders the ISO advertises).
+      - uses: actions/checkout@v4
+        with:
+          path: steamify-cachyos-live-iso
+      - uses: actions/checkout@v4
+        with:
+          repository: theupriser/steamify-cachyos-dev
+          path: steamify-cachyos-dev
+      - uses: actions/checkout@v4
+        with:
+          repository: theupriser/steamify-cachyos
+          ref: v${{ needs.build.outputs.steamify }}
+          path: steamify-cachyos
+
+      # The suites run on a plain CachyOS VM (Plasma, no Steamify): the newest CachyOS ISO, installed once;
+      # every block then starts from a fresh overlay of that VM.
+      - name: Plain CachyOS VM
+        env:
+          CI: "1"
+          VM_TIMEZONE: UTC
+          VM_CPUS: "2"
+          VM_INSTALL_MEM: 6G
+          VM_STEAMIFY: skip
+        run: |
+          mkdir -p ~/.ssh ~/vms/pkg-cache
+          ssh-keygen -q -t ed25519 -N "" -C steamify-vm -f ~/.ssh/steamify-vm_ed25519
+          cd steamify-cachyos-dev
+          ./get-iso.sh
+          VM_DIR="$HOME/vms/steamify-vm" scripts/vminstall.sh --iso cachyos.iso
+          rm -f cachyos.iso
+
+      # Two suites at a time, 4 GB and 2 vCPUs each (vmsuite.sh).
+      - name: vmtest.sh (every suite)
+        env:
+          CI: "1"
+          VM_CPUS: "2"
+          MAX_PARALLEL: "2"
+        run: |
+          cd steamify-cachyos-dev
+          scripts/vmtest.sh cli menu hw installer toggles
+
+      - name: Logs
+        if: always()
+        uses: christopherhx/gitea-upload-artifact@v4
+        with:
+          name: test-suites
+          path: |
+            /root/vms/last-test.txt
+            /root/vms/run-*.log
+          retention-days: 7
+          if-no-files-found: ignore
+
   release:
     name: Release
-    needs: [build, test]
+    needs: [build, test, suites]
     runs-on: ubuntu-latest
     container:
       image: docker.io/cachyos/cachyos:latest

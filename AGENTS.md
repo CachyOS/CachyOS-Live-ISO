@@ -118,10 +118,10 @@ Full write-up, with every trap: `steamify-iso-release` in steamify-cachyos-dev. 
   release, whose `bundle.yml` needs the secret `ISO_DISPATCH_TOKEN`) names the release: the Steamify version plus
   GitHub's UTC time, `vX.Y.Z-[dev.]YYYY.MM.DD-HHMM`, an **annotated** tag and a release with notes and the direct
   download link. `feat/steamify` makes a `dev.` pre-release, `master` a real one.
-- `.github/workflows/iso-2-gitea-build.yml` (Gitea, `on: push: tags: v*`, skipped on GitHub) runs three jobs for that
+- `.github/workflows/iso-2-gitea-build.yml` (Gitea, `on: push: tags: v*`, skipped on GitHub) runs four jobs for that
   tag: build the ISO, test it (steamify-cachyos-dev's `scripts/vmbootloadertest.sh --install`, one job per boot loader,
   parallel up to the runner's capacity; needs `/dev/kvm` on the runner and checks out steamify-cachyos-dev `main` and
-  steamify-cachyos at the ISO's version from the mirror), and only when all tests passed attach it to the mirror's release. The tag decides everything: Steamify version (`steamify-prepare.sh`
+  steamify-cachyos at the ISO's version from the mirror), then, after those, the suites (`scripts/vmtest.sh cli menu hw installer toggles` on a plain CachyOS VM installed from the newest CachyOS ISO, two at a time), and only when all tests passed attach it to the mirror's release. The tag decides everything: Steamify version (`steamify-prepare.sh`
   takes `STEAMIFY_VERSION`), file name (`STEAMIFY_ISO_VERSION` -> `iso_version` in `profiledef.sh`), label
   (`STEAMIFY_BUILD_STAMP`), boot menu and `/etc/steammachine-iso-build`. The build reads no clock; without a
   tag everything says `local`.
