@@ -96,7 +96,7 @@ jobs:
           retention-days: 3
 
   test:
-    name: Test ${{ matrix.loader }}
+    name: Test ${{ matrix.lane }}
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 90
@@ -105,11 +105,10 @@ jobs:
       options: --privileged
     strategy:
       fail-fast: false
-      # The runner has ~20 GB of RAM for this: an install VM takes 6 GB (4 GB once installed), so two at a time (needs the
-      # runner's `capacity: 2`; with 1 they run one after the other).
-      max-parallel: 2
+      # The runner ignores max-parallel, so two fixed lanes: two VMs at a time (~12 GB of RAM at most), the
+      # loaders of a lane one after the other.
       matrix:
-        loader: [limine, systemd-boot, grub]
+        lane: ["limine grub", "systemd-boot"]
     defaults:
       run:
         shell: bash
@@ -161,7 +160,7 @@ jobs:
           name: iso
           path: iso
 
-      - name: Boot loader test (${{ matrix.loader }})
+      - name: Boot loader test (${{ matrix.lane }})
         env:
           CI: "1"
           VM_TIMEZONE: UTC
@@ -175,16 +174,20 @@ jobs:
           ssh-keygen -q -t ed25519 -N "" -C steamify-vm -f ~/.ssh/steamify-vm_ed25519
           iso="$(ls "$VM_ISO_DIR"/*.iso | head -n 1)"
           cd steamify-cachyos-dev
-          VM_ISO="$iso" scripts/vmbootloadertest.sh "${{ matrix.loader }}" --install
+          rc=0
+          for loader in ${{ matrix.lane }}; do
+              VM_ISO="$iso" scripts/vmbootloadertest.sh "$loader" --install || rc=1
+          done
+          exit $rc
 
       - name: Logs
         if: always()
         uses: christopherhx/gitea-upload-artifact@v4
         with:
-          name: test-${{ matrix.loader }}
+          name: test-${{ strategy.job-index }}
           path: |
-            /root/vms/bl-${{ matrix.loader }}.test.log
-            /root/vms/bl-${{ matrix.loader }}/vm.log
+            /root/vms/bl-*.test.log
+            /root/vms/bl-*/vm.log
           retention-days: 7
           if-no-files-found: ignore
 
