@@ -1,0 +1,26 @@
+name: Sync git.upriser.nl mirror
+
+# Trigger the Gitea pull-mirror immediately instead of waiting for its interval,
+# so Gitea builds/tests right after main, a release branch or a tag lands on GitHub (the mirror has no sync interval of its own).
+on:
+  push:
+    branches: [master, feat/steamify, 'release/**']
+    tags: ['*']
+  workflow_dispatch:
+
+jobs:
+  sync:
+    # Gitea also reads .github/workflows on the mirror; only run on GitHub
+    if: github.server_url == 'https://github.com'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger mirror-sync
+        env:
+          GITEA_URL: ${{ secrets.GIT_UPRISER_URL }}
+          GIT_UPRISER_TOKEN: ${{ secrets.GIT_UPRISER_TOKEN }}
+          # Gitea "owner/repo"; defaults to the same path as on GitHub
+          GITEA_REPO: ${{ vars.GITEA_REPO || github.repository }}
+        run: |
+          curl --fail-with-body -sS --retry 5 --retry-delay 10 --retry-all-errors -X POST \
+            -H "Authorization: token ${GIT_UPRISER_TOKEN}" \
+            "${GITEA_URL%/}/api/v1/repos/${GITEA_REPO}/mirror-sync"
