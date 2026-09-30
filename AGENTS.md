@@ -131,4 +131,5 @@ Full write-up, with every trap: `steamify-iso-release` in steamify-cachyos-dev. 
   GitHub doesn't have, and the release with them. GitHub releases can't hold the ISO (2 GB per file).
 - Gitea needs `[repository.release] FILE_MAX_SIZE` above the ISO (413 otherwise) and the runner
   `container: privileged: true` (archiso mounts `/proc`); the workflow's `--privileged` option is ignored.
+- Caches (`actions/cache`, the runner's cache server): pacman's package cache per job kind (build, test), the VMs' packages (`VM_CACHE`, `~/vms/pkg-cache`) and the CachyOS ISO for the suites, per release. Each job first installs only node and git, restores the caches, then installs the rest.
 - CachyOS's own `Desktop ISO` workflow (`build.yml`) is removed here; the test job of iso-2-gitea-build.yml replaces it.

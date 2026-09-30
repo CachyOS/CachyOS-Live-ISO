@@ -34,11 +34,19 @@ jobs:
     outputs:
       steamify: ${{ steps.tag.outputs.steamify }}
     steps:
-      - name: Tools
+      # First only what the cache action needs (node, git), then the caches, then the rest from the restored cache.
+      - name: Node and git
         run: |
           pacman-key --init && pacman-key --populate
-          # nodejs: the actions below run in this container
-          pacman -Syu --noconfirm --needed archiso mkinitcpio-archiso git squashfs-tools grub sudo nodejs curl jq
+          pacman -Syu --noconfirm --needed nodejs git
+      - name: Cache - pacman packages
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/pacman/pkg
+          key: pacman-build-${{ github.run_id }}
+          restore-keys: pacman-build-
+      - name: Tools
+        run: pacman -S --noconfirm --needed archiso mkinitcpio-archiso squashfs-tools grub sudo curl jq
 
 
       - uses: actions/checkout@v4
@@ -103,11 +111,29 @@ jobs:
       run:
         shell: bash
     steps:
-      - name: Tools and KVM
+      # First only what the cache action needs (node, git), then the caches, then the rest from the restored cache.
+      - name: Node and git
         run: |
           pacman-key --init && pacman-key --populate
-          # nodejs: the actions below run in this container
-          pacman -Syu --noconfirm --needed qemu-desktop edk2-ovmf openssh libarchive procps-ng util-linux python git nodejs sudo
+          pacman -Syu --noconfirm --needed nodejs git
+      - name: Cache - pacman packages
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/pacman/pkg
+          key: pacman-test-${{ github.run_id }}
+          restore-keys: pacman-test-
+      # The guests' packages (VM_CACHE, shared into the VMs): downloaded once for every run.
+      - name: Cache - the VMs' packages
+        uses: actions/cache@v4
+        with:
+          path: /root/vms/pkg-cache
+          key: vmpkg-${{ needs.build.outputs.steamify }}-${{ github.run_id }}
+          restore-keys: |
+            vmpkg-${{ needs.build.outputs.steamify }}-
+            vmpkg-
+      - name: Tools and KVM
+        run: |
+          pacman -S --noconfirm --needed qemu-desktop edk2-ovmf openssh libarchive procps-ng util-linux python git sudo
           # Fail at once, with a reason, when the runner cannot run a VM with KVM.
           [ -c /dev/kvm ] || { echo "::error::no /dev/kvm in this container: the runner needs KVM (and privileged containers)"; exit 1; }
           nproc; free -g | sed -n 2p; df -h . | tail -n 1
@@ -169,11 +195,29 @@ jobs:
       run:
         shell: bash
     steps:
-      - name: Tools and KVM
+      # First only what the cache action needs (node, git), then the caches, then the rest from the restored cache.
+      - name: Node and git
         run: |
           pacman-key --init && pacman-key --populate
-          # nodejs: the actions below run in this container
-          pacman -Syu --noconfirm --needed qemu-desktop edk2-ovmf openssh libarchive procps-ng util-linux python git nodejs sudo
+          pacman -Syu --noconfirm --needed nodejs git
+      - name: Cache - pacman packages
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/pacman/pkg
+          key: pacman-test-${{ github.run_id }}
+          restore-keys: pacman-test-
+      # The guests' packages (VM_CACHE, shared into the VMs): downloaded once for every run.
+      - name: Cache - the VMs' packages
+        uses: actions/cache@v4
+        with:
+          path: /root/vms/pkg-cache
+          key: vmpkg-${{ needs.build.outputs.steamify }}-${{ github.run_id }}
+          restore-keys: |
+            vmpkg-${{ needs.build.outputs.steamify }}-
+            vmpkg-
+      - name: Tools and KVM
+        run: |
+          pacman -S --noconfirm --needed qemu-desktop edk2-ovmf openssh libarchive procps-ng util-linux python git sudo
           # Fail at once, with a reason, when the runner cannot run a VM with KVM.
           [ -c /dev/kvm ] || { echo "::error::no /dev/kvm in this container: the runner needs KVM (and privileged containers)"; exit 1; }
           nproc; free -g | sed -n 2p; df -h . | tail -n 1
@@ -195,6 +239,20 @@ jobs:
 
       # The suites run on a plain CachyOS VM (Plasma, no Steamify): the newest CachyOS ISO, installed once;
       # every block then starts from a fresh overlay of that VM.
+      # The CachyOS ISO (~3 GB) is cached per release (the release get-iso.sh would download).
+      - name: CachyOS release
+        id: cachyos
+        run: |
+          rel="$(curl -fsL https://cachyos.org/download/ | grep -oE 'cachyos-desktop-linux-[0-9]+' | head -n 1)"
+          echo "release=${rel:?no CachyOS release found}" >> "$GITHUB_OUTPUT"
+      - name: Cache - the CachyOS ISO
+        uses: actions/cache@v4
+        with:
+          path: |
+            steamify-cachyos-dev/cachyos.iso
+            steamify-cachyos-dev/cachyos.iso.version
+          key: cachyos-iso-${{ steps.cachyos.outputs.release }}
+
       - name: Plain CachyOS VM
         env:
           CI: "1"
@@ -206,9 +264,8 @@ jobs:
           mkdir -p ~/.ssh ~/vms/pkg-cache
           ssh-keygen -q -t ed25519 -N "" -C steamify-vm -f ~/.ssh/steamify-vm_ed25519
           cd steamify-cachyos-dev
-          ./get-iso.sh
+          ./get-iso.sh   # does nothing when the cached ISO is the current release
           VM_DIR="$HOME/vms/steamify-vm" scripts/vminstall.sh --iso cachyos.iso
-          rm -f cachyos.iso
 
       # Two suites at a time, 4 GB and 2 vCPUs each (vmsuite.sh).
       - name: vmtest.sh (every suite)
