@@ -1,10 +1,10 @@
 name: Sync git.upriser.nl mirror
 
 # Trigger the Gitea pull-mirror immediately instead of waiting for its interval,
-# so Gitea builds/tests right after main, a release branch or a tag lands on GitHub (the mirror has no sync interval of its own).
+# so Gitea builds/tests right after any branch or tag lands on GitHub (the mirror has no sync interval of its own).
 on:
   push:
-    branches: [master, feat/steamify, 'release/**']
+    branches: ['**']
     tags: ['*']
   workflow_dispatch:
 
