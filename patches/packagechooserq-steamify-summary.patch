@@ -21,7 +21,7 @@ diff -ruN a/packagechooserq/PackageChooserQmlViewStep.cpp b/packagechooserq/Pack
 -    //QString option = m_pkgc;
 -    //return tr( "Install option: %1" ).arg( option );
 -    return m_config->prettyStatus();
-+    // Steamify page (steammachine-cachyos-live-iso): its choice is Steamify's
++    // Steamify page (steamify-cachyos-live-iso): its choice is Steamify's
 +    // item ids ("boot" = start in the desktop, "none" = nothing on); show
 +    // their labels, from the rows calamares-online.sh writes next to the
 +    // page, instead of the raw ids. Any other use keeps the stock text.

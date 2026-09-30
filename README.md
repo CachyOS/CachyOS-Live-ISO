@@ -18,8 +18,8 @@ You need about 20 GB of free space, and a Linux PC with
 build runs in CachyOS's own container, so the PC doesn't have to run CachyOS.
 
 ```bash
-git clone -b feat/steamify https://github.com/theupriser/steammachine-cachyos-live-iso
-cd steammachine-cachyos-live-iso
+git clone -b feat/steamify https://github.com/theupriser/steamify-cachyos-live-iso
+cd steamify-cachyos-live-iso
 
 # Put Steamify on the ISO: the newest release. To use your own checkout,
 # pass its path: ./steamify-prepare.sh ~/steamify-cachyos
