@@ -36,14 +36,17 @@ jobs:
     steps:
       # First only what the cache action needs (node, git), then the caches, then the rest from the restored cache.
       - name: Node and git
+        id: node
         run: |
           pacman-key --init && pacman-key --populate
           pacman -Syu --noconfirm --needed nodejs git
+          # The caches' keys: one entry per ISO week (an exact hit saves nothing, a new week restores the old one and saves once).
+          echo "week=$(date -u +%G-%V)" >> "$GITHUB_OUTPUT"
       - name: Cache - pacman packages
         uses: actions/cache@v4
         with:
           path: /var/cache/pacman/pkg
-          key: pacman-build-${{ github.run_id }}
+          key: pacman-build-${{ steps.node.outputs.week }}
           restore-keys: pacman-build-
       - name: Tools
         run: pacman -S --noconfirm --needed archiso mkinitcpio-archiso squashfs-tools grub sudo curl jq
@@ -113,21 +116,24 @@ jobs:
     steps:
       # First only what the cache action needs (node, git), then the caches, then the rest from the restored cache.
       - name: Node and git
+        id: node
         run: |
           pacman-key --init && pacman-key --populate
           pacman -Syu --noconfirm --needed nodejs git
+          # The caches' keys: one entry per ISO week (an exact hit saves nothing, a new week restores the old one and saves once).
+          echo "week=$(date -u +%G-%V)" >> "$GITHUB_OUTPUT"
       - name: Cache - pacman packages
         uses: actions/cache@v4
         with:
           path: /var/cache/pacman/pkg
-          key: pacman-test-${{ github.run_id }}
+          key: pacman-test-${{ steps.node.outputs.week }}
           restore-keys: pacman-test-
       # The guests' packages (VM_CACHE, shared into the VMs): downloaded once for every run.
       - name: Cache - the VMs' packages
         uses: actions/cache@v4
         with:
           path: /root/vms/pkg-cache
-          key: vmpkg-${{ needs.build.outputs.steamify }}-${{ github.run_id }}
+          key: vmpkg-${{ needs.build.outputs.steamify }}-${{ steps.node.outputs.week }}
           restore-keys: |
             vmpkg-${{ needs.build.outputs.steamify }}-
             vmpkg-
@@ -197,21 +203,24 @@ jobs:
     steps:
       # First only what the cache action needs (node, git), then the caches, then the rest from the restored cache.
       - name: Node and git
+        id: node
         run: |
           pacman-key --init && pacman-key --populate
           pacman -Syu --noconfirm --needed nodejs git
+          # The caches' keys: one entry per ISO week (an exact hit saves nothing, a new week restores the old one and saves once).
+          echo "week=$(date -u +%G-%V)" >> "$GITHUB_OUTPUT"
       - name: Cache - pacman packages
         uses: actions/cache@v4
         with:
           path: /var/cache/pacman/pkg
-          key: pacman-test-${{ github.run_id }}
+          key: pacman-test-${{ steps.node.outputs.week }}
           restore-keys: pacman-test-
       # The guests' packages (VM_CACHE, shared into the VMs): downloaded once for every run.
       - name: Cache - the VMs' packages
         uses: actions/cache@v4
         with:
           path: /root/vms/pkg-cache
-          key: vmpkg-${{ needs.build.outputs.steamify }}-${{ github.run_id }}
+          key: vmpkg-${{ needs.build.outputs.steamify }}-${{ steps.node.outputs.week }}
           restore-keys: |
             vmpkg-${{ needs.build.outputs.steamify }}-
             vmpkg-
