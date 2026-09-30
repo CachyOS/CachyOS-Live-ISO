@@ -4,9 +4,11 @@
 # checksums and package list to the mirror's release for that tag. The tag names the Steamify version and
 # the time: v<steamify>-<YYYY.MM.DD>-<HHMM> (master) or v<steamify>-dev.<...> (feat/steamify, a pre-release);
 # the ISO gets exactly that Steamify release, and its label the same moment. GitHub skips it.
-# The runner needs privileged containers (archiso mounts loop devices) and ~20 GB of disk; Gitea's
+# Three jobs: build the ISO -> test it (the boot loader test of steamify-cachyos-dev, one job per loader, in
+# parallel when the runner's capacity allows) -> release, only when every test passed.
+# The runner needs /dev/kvm, privileged containers (archiso mounts loop devices) and ~20 GB of disk; Gitea's
 # [repository.release] FILE_MAX_SIZE must allow the ISO (default 2 GB).
-name: ISO 2/2 · Build and publish (Gitea)
+name: ISO 2/2 · Build, test and publish (Gitea)
 
 on:
   push:
@@ -18,7 +20,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  iso:
+  build:
+    name: Build the ISO
     if: github.server_url != 'https://github.com'
     runs-on: ubuntu-latest
     container:
@@ -27,12 +30,140 @@ jobs:
     defaults:
       run:
         shell: bash
+    outputs:
+      steamify: ${{ steps.tag.outputs.steamify }}
     steps:
       - name: Tools
         run: |
           pacman-key --init && pacman-key --populate
           # nodejs: the actions below run in this container
           pacman -Syu --noconfirm --needed archiso mkinitcpio-archiso git squashfs-tools grub sudo nodejs curl jq
+
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Version and time from the tag
+        id: tag
+        run: |
+          tag="${{ github.ref_name }}"
+          [[ "$tag" =~ ^v([0-9]+\.[0-9]+\.[0-9]+)-(dev\.)?([0-9]{4})\.([0-9]{2})\.([0-9]{2})-([0-9]{4})$ ]] ||
+              { echo "::error::$tag is not a Steamify ISO release tag (v<steamify>-[dev.]<YYYY.MM.DD>-<HHMM>)"; exit 1; }
+          m=("${BASH_REMATCH[@]}")
+          {
+            echo "STEAMIFY_VERSION=${m[1]}"
+            # One moment for the ISO's label (profiledef.sh) and the release's name: the tag's (UTC).
+            echo "STEAMIFY_BUILD_STAMP=${m[3]}${m[4]}${m[5]}_${m[6]}"
+            echo "ISO_PRERELEASE=$([ -n "${m[2]}" ] && echo true || echo false)"
+            # The ISO's file name: the tag without its v (profiledef.sh).
+            echo "STEAMIFY_ISO_VERSION=${tag#v}"
+          } >> "$GITHUB_ENV"
+
+          echo "steamify=${m[1]}" >> "$GITHUB_OUTPUT"
+
+      - name: Steamify on the ISO (the version the tag names)
+        run: ./steamify-prepare.sh
+
+      - name: Build
+        run: |
+          ./build-live-modules.sh
+          ./build-calamares-modules.sh
+          ./buildiso.sh -p desktop -w || ./buildiso.sh -p desktop -c -w
+
+
+      - name: Keep the ISO for the tests and the release
+        uses: christopherhx/gitea-upload-artifact@v4
+        with:
+          name: iso
+          path: |
+            out/desktop/*.iso
+            out/desktop/*.iso.sha256
+            out/desktop/*.iso.sha1
+            out/desktop/*.pkgs.txt
+          retention-days: 3
+
+  test:
+    name: Test ${{ matrix.loader }}
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    container:
+      image: docker.io/cachyos/cachyos:latest
+      options: --privileged
+    strategy:
+      fail-fast: false
+      matrix:
+        loader: [limine, systemd-boot, grub]
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Tools and KVM
+        run: |
+          pacman-key --init && pacman-key --populate
+          # nodejs: the actions below run in this container
+          pacman -Syu --noconfirm --needed qemu-desktop edk2-ovmf openssh libarchive procps-ng util-linux python git nodejs sudo
+          # Fail at once, with a reason, when the runner cannot run a VM with KVM.
+          [ -c /dev/kvm ] || { echo "::error::no /dev/kvm in this container: the runner needs KVM (and privileged containers)"; exit 1; }
+          nproc; free -g | sed -n 2p; df -h . | tail -n 1
+
+      # The test scripts expect their repos side by side: steamify-cachyos-dev (the scripts),
+      # steamify-cachyos at the Steamify version the ISO has (shared into the VM, 9p `repo`).
+      - uses: actions/checkout@v4
+        with:
+          repository: theupriser/steamify-cachyos-dev
+          path: steamify-cachyos-dev
+      - uses: actions/checkout@v4
+        with:
+          repository: theupriser/steamify-cachyos
+          ref: v${{ needs.build.outputs.steamify }}
+          path: steamify-cachyos
+
+      - uses: christopherhx/gitea-download-artifact@v4
+        with:
+          name: iso
+          path: iso
+
+      - name: Boot loader test (${{ matrix.loader }})
+        env:
+          CI: "1"
+          VM_TIMEZONE: UTC
+          VM_ISO_DIR: ${{ github.workspace }}/iso
+        run: |
+          mkdir -p ~/.ssh ~/vms/pkg-cache
+          ssh-keygen -q -t ed25519 -N "" -C steamify-vm -f ~/.ssh/steamify-vm_ed25519
+          iso="$(ls "$VM_ISO_DIR"/*.iso | head -n 1)"
+          cd steamify-cachyos-dev
+          VM_ISO="$iso" scripts/vmbootloadertest.sh "${{ matrix.loader }}" --install
+
+      - name: Logs
+        if: always()
+        uses: christopherhx/gitea-upload-artifact@v4
+        with:
+          name: test-${{ matrix.loader }}
+          path: |
+            /root/vms/bl-${{ matrix.loader }}.test.log
+            /root/vms/bl-${{ matrix.loader }}/vm.log
+          retention-days: 7
+          if-no-files-found: ignore
+
+  release:
+    name: Release
+    needs: [build, test]
+    runs-on: ubuntu-latest
+    container:
+      image: docker.io/cachyos/cachyos:latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Tools
+        run: |
+          pacman-key --init && pacman-key --populate
+          # nodejs: the actions below run in this container
+          pacman -Syu --noconfirm --needed git nodejs curl jq
+
 
       - uses: actions/checkout@v4
         with:
@@ -53,14 +184,11 @@ jobs:
             echo "STEAMIFY_ISO_VERSION=${tag#v}"
           } >> "$GITHUB_ENV"
 
-      - name: Steamify on the ISO (the version the tag names)
-        run: ./steamify-prepare.sh
 
-      - name: Build
-        run: |
-          ./build-live-modules.sh
-          ./build-calamares-modules.sh
-          ./buildiso.sh -p desktop -w || ./buildiso.sh -p desktop -c -w
+      - uses: christopherhx/gitea-download-artifact@v4
+        with:
+          name: iso
+          path: out/desktop
 
       - name: Release name and notes
         id: rel
