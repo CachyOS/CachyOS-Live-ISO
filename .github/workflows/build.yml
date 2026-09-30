@@ -12,7 +12,7 @@ concurrency:
 jobs:
   build:
     # CachyOS's plain ISO and its quicktest matrix: only in CachyOS's own repo, not in this fork
-    # (the Steamify ISO is steamify-iso.yml).
+    # (the Steamify ISO is iso-2-gitea-build.yml).
     if: github.repository == 'CachyOS/CachyOS-Live-ISO'
     runs-on: ubuntu-latest
     container:

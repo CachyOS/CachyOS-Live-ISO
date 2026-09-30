@@ -114,11 +114,11 @@ failure, and retry the copy (it's idempotent) rather than the whole build.
 
 Full write-up, with every trap: `steamify-iso-release` in steamify-cachyos-dev. What matters here:
 
-- `.github/workflows/iso-release.yml` (GitHub, `workflow_dispatch` only: by hand, or started by a new Steamify
+- `.github/workflows/iso-1-github-tag.yml` (GitHub, `workflow_dispatch` only: by hand, or started by a new Steamify
   release, whose `bundle.yml` needs the secret `ISO_DISPATCH_TOKEN`) names the release: the Steamify version plus
   GitHub's UTC time, `vX.Y.Z-[dev.]YYYY.MM.DD-HHMM`, an **annotated** tag and a release with notes and the direct
   download link. `feat/steamify` makes a `dev.` pre-release, `master` a real one.
-- `.github/workflows/steamify-iso.yml` (Gitea, `on: push: tags: v*`, skipped on GitHub) builds the ISO for that
+- `.github/workflows/iso-2-gitea-build.yml` (Gitea, `on: push: tags: v*`, skipped on GitHub) builds the ISO for that
   tag and attaches it to the mirror's release. The tag decides everything: Steamify version (`steamify-prepare.sh`
   takes `STEAMIFY_VERSION`), file name (`STEAMIFY_ISO_VERSION` -> `iso_version` in `profiledef.sh`), label
   (`STEAMIFY_BUILD_STAMP`), boot menu and `/etc/steammachine-iso-build`. The build reads no clock; without a

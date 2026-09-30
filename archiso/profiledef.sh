@@ -2,7 +2,7 @@
 # shellcheck disable=SC2034
 
 iso_name="steamify-cachyos"
-# The label follows the release tag, which GitHub names (iso-release.yml): the Steamify version on the ISO
+# The label follows the release tag, which GitHub names (iso-1-github-tag.yml): the Steamify version on the ISO
 # (steamify-prepare.sh put it there) plus the tag's date and time, e.g. STEAMIFY_2_9_3_20260929_2030 (ISO 9660:
 # at most 32 characters, A-Z 0-9 _). STEAMIFY_BUILD_STAMP (YYYYMMDD_HHMM, UTC) comes from the tag; the build
 # reads no clock of its own. Built by hand, without a tag: LOCAL.

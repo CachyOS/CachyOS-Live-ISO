@@ -1,12 +1,12 @@
 # The Steamify ISO's release, step 2 of 2 (the Gitea mirror, git.upriser.nl, on its own runner): builds the
-# ISO for a release tag that iso-release.yml created on GitHub (it comes in with the mirror's sync, and a
+# ISO for a release tag that iso-1-github-tag.yml created on GitHub (it comes in with the mirror's sync, and a
 # release on the mirror only survives its syncs when its tag comes from GitHub), then attaches the ISO, its
 # checksums and package list to the mirror's release for that tag. The tag names the Steamify version and
 # the time: v<steamify>-<YYYY.MM.DD>-<HHMM> (master) or v<steamify>-dev.<...> (feat/steamify, a pre-release);
 # the ISO gets exactly that Steamify release, and its label the same moment. GitHub skips it.
 # The runner needs privileged containers (archiso mounts loop devices) and ~20 GB of disk; Gitea's
 # [repository.release] FILE_MAX_SIZE must allow the ISO (default 2 GB).
-name: Steamify ISO (Gitea release)
+name: ISO 2/2 · Build and publish (Gitea)
 
 on:
   push:
