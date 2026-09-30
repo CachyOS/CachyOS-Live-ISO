@@ -93,7 +93,7 @@ jobs:
       options: --privileged
     strategy:
       fail-fast: false
-      # The runner has ~20 GB of RAM for this: an install VM peaks at 6 GB (4 GB once installed), so two at a time (needs the
+      # The runner has ~20 GB of RAM for this: an install VM takes 4 GB (4 GB once installed too), so two at a time (needs the
       # runner's `capacity: 2`; with 1 they run one after the other).
       max-parallel: 2
       matrix:
@@ -132,10 +132,10 @@ jobs:
         env:
           CI: "1"
           VM_TIMEZONE: UTC
-          # The runner is 4 cores / 8 threads: two VMs with 3 vCPUs leave 2 threads for the host and the runner.
-          VM_CPUS: "3"
-          # RAM of the live installer VM (the ISO is read from its cdrom, only the overlay and the installer use RAM); 8 GB was the local default
-          VM_INSTALL_MEM: 6G
+          # The runner is 4 cores / 8 threads: two VMs with 2 vCPUs leave 4 threads for the host and the runner.
+          VM_CPUS: "2"
+          # RAM of the live installer VM (the ISO is read from its cdrom, only the overlay and the installer use RAM); 8 GB is the local default, this is the lean end: raise it if an install dies out of memory
+          VM_INSTALL_MEM: 4G
           VM_ISO_DIR: ${{ github.workspace }}/iso
         run: |
           mkdir -p ~/.ssh ~/vms/pkg-cache
