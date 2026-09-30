@@ -184,6 +184,9 @@ jobs:
           path: |
             /root/vms/bl-${{ matrix.loader }}.test.log
             /root/vms/bl-${{ matrix.loader }}/vm.log
+            /root/vms/bl-${{ matrix.loader }}/vm-install.log
+            /root/vms/bl-${{ matrix.loader }}/serial.log
+            /root/vms/bl-${{ matrix.loader }}/install.log
           retention-days: 7
           if-no-files-found: ignore
 
