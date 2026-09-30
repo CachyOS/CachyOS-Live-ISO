@@ -4,8 +4,8 @@
 # checksums and package list to the mirror's release for that tag. The tag names the Steamify version and
 # the time: v<steamify>-<YYYY.MM.DD>-<HHMM> (master) or v<steamify>-dev.<...> (feat/steamify, a pre-release);
 # the ISO gets exactly that Steamify release, and its label the same moment. GitHub skips it.
-# Four jobs: build the ISO -> test it (the boot loader test of steamify-cachyos-dev, one job per loader, in
-# parallel when the runner's capacity allows) -> the vmtest.sh suites -> release, only when every test passed.
+# Three jobs: build the ISO -> test it (the boot loader test of steamify-cachyos-dev, one job per loader, in
+# parallel when the runner's capacity allows) -> release, only when every test passed. (The suites that test steamify.sh run in steamify-cachyos, vmtest.yml.)
 # The runner needs /dev/kvm, privileged containers (archiso mounts loop devices) and ~20 GB of disk; Gitea's
 # [repository.release] FILE_MAX_SIZE must allow the ISO (default 2 GB).
 name: ISO 2/2 · Build, test and publish (Gitea)
@@ -191,113 +191,9 @@ jobs:
           retention-days: 7
           if-no-files-found: ignore
 
-  suites:
-    name: Test suites (vmtest.sh)
-    # After the boot loader tests, not next to them: the runner is small, and a broken ISO needs no suites.
-    needs: [build, test]
-    runs-on: ubuntu-latest
-    timeout-minutes: 150
-    container:
-      image: docker.io/cachyos/cachyos:latest
-      options: --privileged
-    defaults:
-      run:
-        shell: bash
-    steps:
-      # First only what the cache action needs (node, git), then the caches, then the rest from the restored cache.
-      - name: Node and git
-        id: node
-        run: |
-          pacman-key --init && pacman-key --populate
-          pacman -Syu --noconfirm --needed nodejs git
-          # The caches' keys: one entry per ISO week (an exact hit saves nothing, a new week restores the old one and saves once).
-          echo "week=$(date -u +%G-%V)" >> "$GITHUB_OUTPUT"
-      - name: Cache - pacman packages
-        uses: actions/cache@v4
-        with:
-          path: /var/cache/pacman/pkg
-          key: pacman-test-${{ steps.node.outputs.week }}
-          restore-keys: pacman-test-
-      # The guests' packages (VM_CACHE, shared into the VMs): downloaded once for every run.
-      - name: Cache - the VMs' packages
-        uses: actions/cache@v4
-        with:
-          path: /root/vms/pkg-cache
-          key: vmpkg-${{ needs.build.outputs.steamify }}-${{ steps.node.outputs.week }}
-          restore-keys: |
-            vmpkg-${{ needs.build.outputs.steamify }}-
-            vmpkg-
-      - name: Tools and KVM
-        run: |
-          pacman -S --noconfirm --needed qemu-desktop edk2-ovmf openssh libarchive procps-ng util-linux python git sudo
-          # Fail at once, with a reason, when the runner cannot run a VM with KVM.
-          [ -c /dev/kvm ] || { echo "::error::no /dev/kvm in this container: the runner needs KVM (and privileged containers)"; exit 1; }
-          nproc; free -g | sed -n 2p; df -h . | tail -n 1
-
-      # vmtest.sh wants its repos side by side: steamify-cachyos-dev (the scripts), steamify-cachyos at the
-      # ISO's Steamify version (shared into the VMs) and this repository (which boot loaders the ISO advertises).
-      - uses: actions/checkout@v4
-        with:
-          path: steamify-cachyos-live-iso
-      - uses: actions/checkout@v4
-        with:
-          repository: theupriser/steamify-cachyos-dev
-          path: steamify-cachyos-dev
-      - uses: actions/checkout@v4
-        with:
-          repository: theupriser/steamify-cachyos
-          ref: v${{ needs.build.outputs.steamify }}
-          path: steamify-cachyos
-
-      # The suites run on a plain CachyOS VM (Plasma, no Steamify): the newest CachyOS ISO, installed once;
-      # every block then starts from a fresh overlay of that VM.
-      - uses: christopherhx/gitea-download-artifact@v4
-        with:
-          name: iso
-          path: iso
-
-      # The suites test steamify.sh from a plain system, so the base VM is installed from the ISO this run built
-      # with its Steamify step skipped (VM_STEAMIFY=skip): the ISO's installer, kernels, packages and boot loader
-      # are tested, every block then starts from a fresh overlay of that VM. (The boot loader jobs test the
-      # ISO with Steamify installed.)
-      - name: Base VM from the new ISO
-        env:
-          CI: "1"
-          VM_TIMEZONE: UTC
-          VM_CPUS: "2"
-          VM_INSTALL_MEM: 6G
-          VM_STEAMIFY: skip
-        run: |
-          mkdir -p ~/.ssh ~/vms/pkg-cache
-          ssh-keygen -q -t ed25519 -N "" -C steamify-vm -f ~/.ssh/steamify-vm_ed25519
-          iso="$(ls "$GITHUB_WORKSPACE"/iso/*.iso | head -n 1)"
-          cd steamify-cachyos-dev
-          VM_DIR="$HOME/vms/steamify-vm" scripts/vminstall.sh --iso "$iso"
-
-      # Two suites at a time, 4 GB and 2 vCPUs each (vmsuite.sh).
-      - name: vmtest.sh (every suite)
-        env:
-          CI: "1"
-          VM_CPUS: "2"
-          MAX_PARALLEL: "2"
-        run: |
-          cd steamify-cachyos-dev
-          scripts/vmtest.sh cli menu hw installer toggles
-
-      - name: Logs
-        if: always()
-        uses: christopherhx/gitea-upload-artifact@v4
-        with:
-          name: test-suites
-          path: |
-            /root/vms/last-test.txt
-            /root/vms/run-*.log
-          retention-days: 7
-          if-no-files-found: ignore
-
   release:
     name: Release
-    needs: [build, test, suites]
+    needs: [build, test]
     runs-on: ubuntu-latest
     container:
       image: docker.io/cachyos/cachyos:latest
