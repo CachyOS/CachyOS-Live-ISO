@@ -119,7 +119,7 @@ Full write-up, with every trap: `steamify-iso-release` in steamify-cachyos-dev. 
   GitHub's UTC time, `vX.Y.Z-[dev.]YYYY.MM.DD-HHMM`, an **annotated** tag and a release with notes and the direct
   download link. `feat/steamify` makes a `dev.` pre-release, `master` a real one.
 - `.github/workflows/iso-2-gitea-build.yml` (Gitea, `on: push: tags: v*`, skipped on GitHub) runs three jobs for that
-  tag: build the ISO, test it (steamify-cachyos-dev's `scripts/vmbootloadertest.sh --install`, one job per boot loader,
+  tag: build the ISO, test it (steamify-cachyos-dev's `scripts/vmbootloadertest.sh --install --quick` (only that the ISO installs correctly: boot entry, OS name, loader, Steamify state and modules; steamify.sh itself is tested in steamify-cachyos), two lanes,
   parallel up to the runner's capacity; needs `/dev/kvm` on the runner and checks out steamify-cachyos-dev `main` and
   steamify-cachyos at the ISO's version from the mirror), and only when all tests passed attach it to the mirror's release. The tag decides everything: Steamify version (`steamify-prepare.sh`
   takes `STEAMIFY_VERSION`), file name (`STEAMIFY_ISO_VERSION` -> `iso_version` in `profiledef.sh`), label

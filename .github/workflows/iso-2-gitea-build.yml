@@ -4,7 +4,7 @@
 # checksums and package list to the mirror's release for that tag. The tag names the Steamify version and
 # the time: v<steamify>-<YYYY.MM.DD>-<HHMM> (master) or v<steamify>-dev.<...> (feat/steamify, a pre-release);
 # the ISO gets exactly that Steamify release, and its label the same moment. GitHub skips it.
-# Three jobs: build the ISO -> test it (the boot loader test of steamify-cachyos-dev, one job per loader, in
+# Three jobs: build the ISO -> test that it installs correctly (vmbootloadertest.sh --quick of steamify-cachyos-dev per loader, in
 # parallel when the runner's capacity allows) -> release, only when every test passed. (The suites that test steamify.sh run in steamify-cachyos, vmtest.yml.)
 # The runner needs /dev/kvm, privileged containers (archiso mounts loop devices) and ~20 GB of disk; Gitea's
 # [repository.release] FILE_MAX_SIZE must allow the ISO (default 2 GB).
@@ -176,7 +176,7 @@ jobs:
           cd steamify-cachyos-dev
           rc=0
           for loader in ${{ matrix.lane }}; do
-              VM_ISO="$iso" scripts/vmbootloadertest.sh "$loader" --install || rc=1
+              VM_ISO="$iso" scripts/vmbootloadertest.sh "$loader" --install --quick || rc=1
           done
           exit $rc
 
