@@ -40,3 +40,5 @@ sudo ./buildiso.sh -p desktop -v -w
 ```
 
 As the result iso appears at the `out` folder
+
+Use `-p handheld` to build the handheld image with the shared live environment and installer.
