@@ -3,27 +3,37 @@
 
 * **Easy Anti-Cheat:**
   - Added `linux-cachyos-eac`, an EAC-compatible kernel variant signed with the CachyOS key, including `nvidia-580xx` module packages
-  - Added `cachyos-eac-signing-key` and `systemd-boot-cachyos-signed` packages
+  - Added `cachyos-eac-signing-key`, `systemd-boot-cachyos-signed` and `cachyos-eac-grub-hook` packages
   - Added `eac-setup` and `eac-status` scripts to cachyos-settings to set up and verify the Secure Boot chain
   - `sbctl-batch-sign` now skips files which are already signed by CachyOS
-  - Wiki: New Easy Anti-Cheat guide for systemd-boot and Limine, including migration from existing Secure Boot setups
+  - Wiki: New Easy Anti-Cheat guide for systemd-boot, Limine and rEFInd, including migration from existing Secure Boot setups
 * **Kernel:**
   - Linux 7.3.4, LTS 6.18.60
   - Added support for Rust together with ThinLTO
+  - Enabled Rust Binder
   - `nvidia-580xx` modules are now prebuilt for the kernels
   - linux-cachyos-server defaults THP to `madvise`
 * **Packages:**
   - NVIDIA 620.70.06
+  - Mesa 26.3.0
+  - Limine 12.10.0
   - proton-cachyos 11.0-20261015, proton-cachyos-native is now wow64-only
   - LLVM/Clang is now built from one unified PKGBUILD, added `llvm-bolt` and `clang-libs`
   - mutter is now shipped with the tearing patches merged
   - Added bpftune-gaming, pahole and a custom plymouth package
   - Dropped winboat and void
+* **cachyos-recovery (WIP):** New recovery image, which can be booted from the boot menu if the system is no longer starting
+  - This is still work in progress and not yet enabled by default
+  - Shipped as UKI (`cachyos-recovery.efi`) and installed via a pacman hook
+  - Starts a recovery utility, which can repair the installed system and regenerate the boot files
+  - Btrfs snapshots can be rolled back directly from its menu without booting into the snapshot first
+  - Supports LUKS encrypted installations
 * **cachyos-drm-awaiter:** New package replacing early KMS and `nvidia-module-loader`
   - Waits for the GPU drivers before starting the display manager, for any driver and not only NVIDIA
   - Shows a QR code if the driver failed to load
   - Supports kmscon and can be disabled via kernel parameter
 * **Installer:**
+  - Calamares now uses the shared CachyOS installer libraries (gucc) from the CLI Installer as backend for the initramfs, machine-id and post-install steps
   - Plymouth is now optional and can be deselected in the package selection
   - The `kms` hook is no longer added to the initramfs by default, plymouth uses simpledrm to show the splash screen
   - Added `gvfs-mtp` and `gst-plugin-dav1d`
@@ -33,6 +43,16 @@
   - Large refactor onto the shared gucc library with a typed installer state and reworked bootloader handling
   - Username and hostname are validated at config validation
   - Creates a cmdline file by default for systemd-boot
+  - Root partition is now created with the `SD_GPT_ROOT_X86_64` partition type by default
+  - Reworked LUKS and LVM handling for the bootloader, `rd.luks.uuid=` is used when possible
+  - Added LUKS passphrase and console keymap options to the config
+  - Hardware clock defaults to UTC
+  - Initramfs is now generated only once and the `kms` hook is removed
+  - Dropped the `EraseAndAuto` layout
+* **ISO:**
+  - Synced the GRUB configuration with archiso 92
+  - Added `ghostty-terminfo` and `kmscon-terminfo`
+  - Dropped linux-atm
 * **chwd:**
   - Eliminated early KMS in favor of proper systemd chainload via cachyos-drm-awaiter
   - Added `cpu_hybrid` profile check, intel-lpmd is only used on hybrid CPUs
@@ -49,6 +69,10 @@
   - Added xswap configuration handling
   - cachyos-bugreport: Redacts SSID, IPv6, MAC, UUID and `file://` paths
   - Dropped `DefaultTimeoutStartSec`
+* **Desktops:**
+  - Hyprland Noctalia: Swapped Satty for Swash, added qview to the mimeapps and a keybind for silent workspace moves
+  - Mango Noctalia: Added plugins for easier keybind and layout management, reworked keybinds
+* **cachyos-handheld:** steamos-gamemode now uses `steamosctl` to switch to game mode
 * **systemd-boot-manager:** Added support for UKI images, `LINUX_OPTIONS` is appended to the cmdline
 * **cachyos-hooks:**
   - Rewrote `update-initramfs` with better booster detection
@@ -71,6 +95,11 @@
 * **CLI Installer:**
   - Fixed user supplied kernel being ignored
   - Fixed fallback of the root partition filesystem name
+  - Properly cleans up on installation abort, failure and success
+  - Fixes for removable devices and the systemd encrypt hook parameters
+* **ISO:**
+  - Fixed the memtest86+ entry paths for systemd-boot and syslinux
+  - Removed the leftover broadcom-wl modprobe configuration
 * **chwd:**
   - Removed RTD3 workaround for NVIDIA dGPUs, DynamicPowerManagement is only set for Turing
   - Do not use lspci to check on NVIDIA dGPUs
@@ -83,6 +112,10 @@
   - iw-set-regdomain: Broadened no-country zones, resolve timezone aliases
   - Blacklisted `wdat_wdt`
   - oomd: Generate the user slice drop-in only if PID 1 is visible
+* **Desktops:**
+  - Hyprland Noctalia: Fixed workspace keybinds on AZERTY layouts and the Noctalia config for the latest release
+  - Fixed the qt6ct path to the Noctalia template in the Mango and Jay variants
+* **cachyos-kdump-tools:** Support the deploy filenames of limine-mkinitcpio-hook >= 1.37
 * **cachyos-hooks:** reboot-required no longer blocks pacman when no notification daemon starts
 * **Packages:**
   - nvidia-utils: Fixed runtime D3 on Linux 7.3, do not force loading nvidia-uvm
