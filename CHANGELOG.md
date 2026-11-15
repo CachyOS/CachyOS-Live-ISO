@@ -1,3 +1,98 @@
+# 26.11
+**Features:**
+
+* **Easy Anti-Cheat:**
+  - Added `linux-cachyos-eac`, an EAC-compatible kernel variant signed with the CachyOS key, including `nvidia-580xx` module packages
+  - Added `cachyos-eac-signing-key` and `systemd-boot-cachyos-signed` packages
+  - Added `eac-setup` and `eac-status` scripts to cachyos-settings to set up and verify the Secure Boot chain
+  - `sbctl-batch-sign` now skips files which are already signed by CachyOS
+  - Wiki: New Easy Anti-Cheat guide for systemd-boot and Limine, including migration from existing Secure Boot setups
+* **Kernel:**
+  - Linux 7.3.4, LTS 6.18.60
+  - Added support for Rust together with ThinLTO
+  - `nvidia-580xx` modules are now prebuilt for the kernels
+  - linux-cachyos-server defaults THP to `madvise`
+* **Packages:**
+  - NVIDIA 620.70.06
+  - proton-cachyos 11.0-20261015, proton-cachyos-native is now wow64-only
+  - LLVM/Clang is now built from one unified PKGBUILD, added `llvm-bolt` and `clang-libs`
+  - mutter is now shipped with the tearing patches merged
+  - Added bpftune-gaming, pahole and a custom plymouth package
+  - Dropped winboat and void
+* **cachyos-drm-awaiter:** New package replacing early KMS and `nvidia-module-loader`
+  - Waits for the GPU drivers before starting the display manager, for any driver and not only NVIDIA
+  - Shows a QR code if the driver failed to load
+  - Supports kmscon and can be disabled via kernel parameter
+* **Installer:**
+  - Plymouth is now optional and can be deselected in the package selection
+  - The `kms` hook is no longer added to the initramfs by default, plymouth uses simpledrm to show the splash screen
+  - Added `gvfs-mtp` and `gst-plugin-dav1d`
+  - Removed the rEFInd + AI SDK bootloader option
+  - Removed the Iridescent KDE theme from the defaults
+* **CLI Installer:**
+  - Large refactor onto the shared gucc library with a typed installer state and reworked bootloader handling
+  - Username and hostname are validated at config validation
+  - Creates a cmdline file by default for systemd-boot
+* **chwd:**
+  - Eliminated early KMS in favor of proper systemd chainload via cachyos-drm-awaiter
+  - Added `cpu_hybrid` profile check, intel-lpmd is only used on hybrid CPUs
+  - Added Wildcat Lake to the intel-lpmd detection
+  - Added tablet mode support for the Framework Laptop 12
+  - NVIDIA PRIME profiles now match on convertibles
+  - Dropped the nvidia-dkms-470xx profile
+  - Added Simplified Chinese, Hungarian and Arabic localization
+* **cachyos-settings:**
+  - systemd-oomd configuration returned and is enabled by default; it kills based on swap usage and ignores the user session
+  - sysctl: Use dirty ratios and cap writeback on slow disks and USB drives
+  - sysctl: REISUB can be performed by default
+  - game-performance: Added tlpctl support
+  - Added xswap configuration handling
+  - cachyos-bugreport: Redacts SSID, IPv6, MAC, UUID and `file://` paths
+  - Dropped `DefaultTimeoutStartSec`
+* **systemd-boot-manager:** Added support for UKI images, `LINUX_OPTIONS` is appended to the cmdline
+* **cachyos-hooks:**
+  - Rewrote `update-initramfs` with better booster detection
+  - reboot-required: Triggers on nvidia-utils and nvidia-open too, notification is now translated
+* **Cachy-Update:** Rebased onto Arch-Update v4.4.7 - systray status follows the system state, hardened temporary and lock file handling, Vietnamese translation
+* **cachyos-rate-mirrors:** Synced with upstream rate-mirrors, added `--include-countries`, retries on transient HTTP failures and skips mirrors with an error status
+* **scx-manager:** Added French and Chinese (Simplified and Traditional) translation, dropped scx_cake profiles
+* **ananicy-rules:** New rules for several games and applications, added a linter and JSON schema for the rules
+* **WSL:** CachyOS now provides an image for the Windows Subsystem for Linux, see the [CachyOS on WSL](https://wiki.cachyos.org/virtualization/wsl/) wiki page for the installation
+* **Docker:** Added `cachyos/distrobox` image
+* **Mirrors:** New mirrors in South Korea, India, Switzerland (init7) and two in US East
+* **Wiki:** Added Simplified Chinese translation, TRIM on LUKS and Vivaldi hardware acceleration
+
+**Fixes:**
+
+* **Installer:**
+  - Disabled `GRUB_BOOTNEXT` in the GRUB configuration
+  - Removed the duplicated cosmic-greeter entry
+  - ISO: dmcheck now targets noctalia-greeter instead of greetd
+* **CLI Installer:**
+  - Fixed user supplied kernel being ignored
+  - Fixed fallback of the root partition filesystem name
+* **chwd:**
+  - Removed RTD3 workaround for NVIDIA dGPUs, DynamicPowerManagement is only set for Turing
+  - Do not use lspci to check on NVIDIA dGPUs
+  - Check on hooks even if no packages were found
+  - Updated T2 module names
+* **cachyos-settings:**
+  - Removed `NVreg_DynamicPowerManagement` from the NVIDIA modprobe configuration
+  - udev: Fixed hdparm ATA match and do not use hdparm on USB drives
+  - udev: Misc fixes for audio power management
+  - iw-set-regdomain: Broadened no-country zones, resolve timezone aliases
+  - Blacklisted `wdat_wdt`
+  - oomd: Generate the user slice drop-in only if PID 1 is visible
+* **cachyos-hooks:** reboot-required no longer blocks pacman when no notification daemon starts
+* **Packages:**
+  - nvidia-utils: Fixed runtime D3 on Linux 7.3, do not force loading nvidia-uvm
+  - nvidia-580xx-utils: Fixed plasmashell crash by using egl-wayland2 on KWin
+  - mutter: Fixed crashes in the tearing cleanup
+  - systemd-boot-manager: UKI images are only removed after successful generation
+  - cachyos-rate-mirrors: Pull in network-online from the service instead of the timer
+  - gcc: Fixed cc-rs symlinks on v4
+* **WSL:** Masked systemd units discouraged by Microsoft
+
 # 26.08
 **Features:**
 
