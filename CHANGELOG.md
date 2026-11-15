@@ -22,6 +22,13 @@
   - mutter is now shipped with the tearing patches merged
   - Added bpftune-gaming, pahole and a custom plymouth package
   - Dropped winboat and void
+* **CachyOS Package Installer:** Fully revamped with a new UI
+  - Added AUR support (opt-in), including updates for installed AUR packages
+  - PKGBUILDs and install scripts are reviewed in the app, with a static analysis that flags suspicious patterns before anything gets built
+  - Added Flatpak support (opt-in)
+  - Added AppImage support (opt-in): local files get a menu entry and icon, and AppImages can be installed from a GitHub project URL, including updates to newer releases
+  - AppImages which were added with Shelly can be taken over
+  - Added a settings page with colour themes
 * **cachyos-recovery (WIP):** New recovery image, which can be booted from the boot menu if the system is no longer starting
   - This is still work in progress and not yet enabled by default
   - Shipped as UKI (`cachyos-recovery.efi`) and installed via a pacman hook
