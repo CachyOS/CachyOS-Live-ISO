@@ -7,7 +7,6 @@ iso_publisher="CachyOS <https://cachyos.org>"
 iso_application="CachyOS Live/Rescue DVD"
 iso_version="$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d)"
 install_dir="arch"
-buildmodes=('iso')
 ## GRUB
 bootmodes=('bios.syslinux' 'uefi.grub')
 ## systemd-boot
