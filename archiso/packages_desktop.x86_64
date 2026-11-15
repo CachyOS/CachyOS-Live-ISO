@@ -53,6 +53,7 @@ fakeroot
 fatresize
 firefox
 gcc
+ghostty-terminfo
 gpart
 gparted
 gptfdisk
@@ -74,6 +75,7 @@ kate
 kcalc
 kde-gtk-config
 kinfocenter
+kmscon-terminfo
 konsole
 kscreen
 kxkb2locale1
