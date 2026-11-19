@@ -15,40 +15,25 @@
 #
 ###############################################################################
 
-package=ly
-if pacman -Qs $package > /dev/null ; then
-  rm -f /etc/systemd/system/getty.target.wants/getty@tty2.service
-  ln -sf /usr/lib/systemd/system/ly@.service /etc/systemd/system/multi-user.target.wants/ly@tty2.service
-fi
-package=plasma-login-manager
-if pacman -Qs $package > /dev/null ; then
-  ln -sf /usr/lib/systemd/system/plasmalogin.service /etc/systemd/system/display-manager.service
-fi
-package=sddm
-if pacman -Qs $package > /dev/null ; then
-    ln -sf /usr/lib/systemd/system/sddm.service /etc/systemd/system/display-manager.service
-fi
-package=plasma-login-manager
-if pacman -Qs $package > /dev/null ; then
-    ln -sf /usr/lib/systemd/system/plasmalogin.service /etc/systemd/system/display-manager.service
-fi
-package=gdm
-if pacman -Qs $package > /dev/null ; then
-    ln -sf /usr/lib/systemd/system/gdm.service /etc/systemd/system/display-manager.service
-fi
-package=cosmic-greeter
-if pacman -Qs $package > /dev/null ; then
-    ln -sf /usr/lib/systemd/system/cosmic-greeter.service /etc/systemd/system/display-manager.service
-fi
-package=lxdm
-if pacman -Qs $package > /dev/null ; then
-    ln -sf /usr/lib/systemd/system/lxdm.service /etc/systemd/system/display-manager.service
-fi
-package=lightdm
-if pacman -Qs $package > /dev/null ; then
-  ln -sf /usr/lib/systemd/system/lightdm.service /etc/systemd/system/display-manager.service
-fi
-package=noctalia-greeter
-if pacman -Qs $package > /dev/null ; then
-  ln -sf /usr/lib/systemd/system/greetd.service /etc/systemd/system/display-manager.service
-fi
+declare -A display_managers=(
+    ["ly"]=" /usr/lib/systemd/system/ly@.service"
+    ["plasma-login-manager"]="/usr/lib/systemd/system/plasmalogin.service"
+    ["sddm"]="/usr/lib/systemd/system/sddm.service"
+    ["gdm"]="/usr/lib/systemd/system/gdm.service"
+    ["cosmic-greeter"]="/usr/lib/systemd/system/cosmic-greeter.service"
+    ["lxdm"]="/usr/lib/systemd/system/lxdm.service"
+    ["lightdm"]="/usr/lib/systemd/system/lightdm.service"
+    ["noctalia-greeter"]="/usr/lib/systemd/system/greetd.service"
+)
+
+while IFS= read -rd '' package; do
+    service="${display_managers[$package]}"
+    if pacman -Q "$package" &>/dev/null; then
+        if [[ "$package" == "ly" ]]; then
+            rm -f /etc/systemd/system/getty.target.wants/getty@tty2.service
+            ln -sf "$service" /etc/systemd/system/multi-user.target.wants/ly@tty2.service
+        else
+            ln -sf "$service" /etc/systemd/system/display-manager.service
+        fi
+    fi
+done < <(printf '%s\0' "${!display_managers[@]}" | sort -t '.' -n -k 1 -z)
