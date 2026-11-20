@@ -93,7 +93,7 @@ change_grub_version() {
 
 generate_environment() {
     local _profile="$1"
-    if [ "$_profile" == "desktop" ]; then
+    if [[ "$_profile" == "desktop" || "$_profile" == "handheld" ]]; then
         cat << 'EOF' > ${src_dir}/archiso/airootfs/etc/environment
 ZPOOL_VDEV_NAME_PATH=1
 EOF
@@ -103,7 +103,7 @@ EOF
 generate_version_tag() {
     local _profile="$1"
     local _version="$2"
-    if [ "$_profile" == "desktop" ]; then
+    if [[ "$_profile" == "desktop" || "$_profile" == "handheld" ]]; then
         echo "${_version}" > ${src_dir}/archiso/airootfs/etc/version-tag
     fi
 }
@@ -141,12 +141,15 @@ prepare_profile(){
     generate_motd
 
     rm -f ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
-    if [ "$profile" == "desktop" ]; then
-        cp ${src_dir}/archiso/packages_desktop.x86_64 ${src_dir}/archiso/packages.x86_64
-        ln -sf /usr/lib/systemd/system/plasmalogin.service ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
-    else
-        die "Unknown profile: [%s]" "${profile}"
-    fi
+    case "$profile" in
+        desktop)
+            cp "${src_dir}/archiso/packages_desktop.x86_64" "${src_dir}/archiso/packages.x86_64";;
+        handheld)
+            sed '/^paru$/d' "${src_dir}/archiso/packages_desktop.x86_64" > "${src_dir}/archiso/packages.x86_64"
+            printf '%s\n' drm-info plasma-keyboard steamdeck-firmware v4l-utils >> "${src_dir}/archiso/packages.x86_64";;
+        *) die "Unknown profile: [%s]" "${profile}";;
+    esac
+    ln -sf /usr/lib/systemd/system/plasmalogin.service "${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service"
 
     generate_environment "${profile}"
 
@@ -160,8 +163,12 @@ prepare_profile(){
 }
 
 run_build() {
-    prepare_profile "$1"
     local _profile="$1"
+    if ! $clean_first && [[ -f "$work_dir/archiso/airootfs/etc/edition-tag" ]] &&
+        [[ "$(< "$work_dir/archiso/airootfs/etc/edition-tag")" != "$_profile" ]]; then
+        die "Clean the working directory before switching profiles"
+    fi
+    prepare_profile "$_profile"
 
     msg "Prepare [work: ${work_dir}, out: ${outFolder}]"
 
@@ -177,8 +184,16 @@ run_build() {
     fi
 
     msg2 "Copying the Archiso folder to build work"
-    mkdir -p ${work_dir}
-    cp -r archiso ${work_dir}/archiso
+    mkdir -p "${work_dir}/archiso"
+    cp -r archiso/. "${work_dir}/archiso"
+
+    if [[ "$_profile" == "handheld" ]]; then
+        local _archiso="${work_dir}/archiso"
+        local _target
+        for _target in sleep suspend hibernate hybrid-sleep suspend-then-hibernate; do
+            ln -sf /dev/null "$_archiso/airootfs/etc/systemd/system/$_target.target"
+        done
+    fi
 
     msg "Start [Build ISO]"
 
