@@ -4,18 +4,19 @@
 * **Easy Anti-Cheat:**
   - Added `linux-cachyos-eac`, an EAC-compatible kernel variant signed with the CachyOS key, including `nvidia-580xx` module packages
   - Added `cachyos-eac-signing-key`, `systemd-boot-cachyos-signed` and `cachyos-eac-grub-hook` packages
-  - Added `eac-setup` and `eac-status` scripts to cachyos-settings to set up and verify the Secure Boot chain
+  - Added `eac-setup` and `eac-status` scripts to cachyos-settings to set up and verify the Secure Boot chain, with experimental GRUB support
   - `sbctl-batch-sign` now skips files which are already signed by CachyOS
-  - Wiki: New Easy Anti-Cheat guide for systemd-boot, Limine and rEFInd, including migration from existing Secure Boot setups
+  - Wiki: New Easy Anti-Cheat guide for systemd-boot, Limine, rEFInd and GRUB (experimental), including migration from existing Secure Boot setups
 * **Kernel:**
-  - Linux 7.3.4, LTS 6.18.60
+  - Linux 7.3.5, LTS 6.18.64
   - Added support for Rust together with ThinLTO
   - Enabled Rust Binder
   - `nvidia-580xx` modules are now prebuilt for the kernels
   - linux-cachyos-server defaults THP to `madvise`
+  - Build the `applesmc` module
 * **Packages:**
-  - NVIDIA 620.70.06
-  - Mesa 26.3.0
+  - NVIDIA 620.73.04
+  - Mesa 26.3.1
   - Limine 12.10.0
   - proton-cachyos 11.0-20261015, proton-cachyos-native is now wow64-only
   - LLVM/Clang is now built from one unified PKGBUILD, added `llvm-bolt` and `clang-libs`
@@ -23,17 +24,18 @@
   - Added bpftune-gaming, pahole and a custom plymouth package
   - Dropped winboat and void
 * **CachyOS Package Installer:** Fully revamped with a new UI
-  - Added AUR support (opt-in), including updates for installed AUR packages
+  - Added AUR support (opt-in), including updates for installed AUR packages and a diff since the installed version when reviewing an update
   - PKGBUILDs and install scripts are reviewed in the app, with a static analysis that flags suspicious patterns before anything gets built
   - Added Flatpak support (opt-in)
   - Added AppImage support (opt-in): local files get a menu entry and icon, and AppImages can be installed from a GitHub project URL, including updates to newer releases
-  - AppImages which were added with Shelly can be taken over
-  - Added a settings page with colour themes
-* **cachyos-recovery (WIP):** New recovery image, which can be booted from the boot menu if the system is no longer starting
-  - This is still work in progress and not yet enabled by default
-  - Shipped as UKI (`cachyos-recovery.efi`) and installed via a pacman hook
-  - Starts a recovery utility, which can repair the installed system and regenerate the boot files
-  - Btrfs snapshots can be rolled back directly from its menu without booting into the snapshot first
+  - AppImages which were added with Shelly or Gear Lever can be taken over
+  - Added a settings page with colour themes and a button to rank the mirrors with cachyos-rate-mirrors
+* **cachyos-recovery:** New self-contained recovery environment, which can be booted from the bootloader or directly from UEFI without needing a live USB
+  - Btrfs snapshots can be restored from a TUI, independent of Snapper and mostly bootloader agnostic
+  - Snapshots can be booted with a writable root via overlayfs before restoring them
+  - Shipped as UKI on UEFI systems (takes about 70 MB on the ESP) and as `cachyos-recovery-legacy` for BIOS systems, installed via a pacman hook
+  - Adds a UEFI boot entry, a Limine entry (UEFI and BIOS) and a GRUB entry on BIOS systems
+  - The image is signed for Secure Boot if sbctl is set up
   - Supports LUKS encrypted installations
 * **cachyos-drm-awaiter:** New package replacing early KMS and `nvidia-module-loader`
   - Waits for the GPU drivers before starting the display manager, for any driver and not only NVIDIA
@@ -41,6 +43,8 @@
   - Supports kmscon and can be disabled via kernel parameter
 * **Installer:**
   - Calamares now uses the shared CachyOS installer libraries (gucc) from the CLI Installer as backend for the initramfs, machine-id and post-install steps
+  - Root partition is now created with the `SD_GPT_ROOT_X86_64` partition type by default
+  - systemd-boot now uses the max console-mode by default
   - Plymouth is now optional and can be deselected in the package selection
   - The `kms` hook is no longer added to the initramfs by default, plymouth uses simpledrm to show the splash screen
   - Added `gvfs-mtp` and `gst-plugin-dav1d`
@@ -85,7 +89,7 @@
   - Rewrote `update-initramfs` with better booster detection
   - reboot-required: Triggers on nvidia-utils and nvidia-open too, notification is now translated
 * **Cachy-Update:** Rebased onto Arch-Update v4.4.7 - systray status follows the system state, hardened temporary and lock file handling, Vietnamese translation
-* **cachyos-rate-mirrors:** Synced with upstream rate-mirrors, added `--include-countries`, retries on transient HTTP failures and skips mirrors with an error status
+* **cachyos-rate-mirrors:** Synced with upstream rate-mirrors, added `--include-countries`, retries on transient HTTP failures, skips mirrors with an error status and no longer forces top priority mirrors
 * **scx-manager:** Added French and Chinese (Simplified and Traditional) translation, dropped scx_cake profiles
 * **ananicy-rules:** New rules for several games and applications, added a linter and JSON schema for the rules
 * **WSL:** CachyOS now provides an image for the Windows Subsystem for Linux, see the [CachyOS on WSL](https://wiki.cachyos.org/virtualization/wsl/) wiki page for the installation
@@ -98,6 +102,7 @@
 * **Installer:**
   - Disabled `GRUB_BOOTNEXT` in the GRUB configuration
   - Removed the duplicated cosmic-greeter entry
+  - plymouthcfg now only changes the uncommented section
   - ISO: dmcheck now targets noctalia-greeter instead of greetd
 * **CLI Installer:**
   - Fixed user supplied kernel being ignored
@@ -119,6 +124,7 @@
   - iw-set-regdomain: Broadened no-country zones, resolve timezone aliases
   - Blacklisted `wdat_wdt`
   - oomd: Generate the user slice drop-in only if PID 1 is visible
+  - eac-status: Requires `intel_iommu=on` only on Intel CPUs, clearer failure messages and more checks
 * **Desktops:**
   - Hyprland Noctalia: Fixed workspace keybinds on AZERTY layouts and the Noctalia config for the latest release
   - Fixed the qt6ct path to the Noctalia template in the Mango and Jay variants
