@@ -16,7 +16,7 @@
 ###############################################################################
 
 declare -A display_managers=(
-    ["ly"]=" /usr/lib/systemd/system/ly@.service"
+    ["ly"]="/usr/lib/systemd/system/ly@.service"
     ["plasma-login-manager"]="/usr/lib/systemd/system/plasmalogin.service"
     ["sddm"]="/usr/lib/systemd/system/sddm.service"
     ["gdm"]="/usr/lib/systemd/system/gdm.service"
