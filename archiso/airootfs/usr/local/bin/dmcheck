@@ -16,20 +16,21 @@
 ###############################################################################
 
 declare -A display_managers=(
-    ["ly"]=" /usr/lib/systemd/system/ly@.service"
-    ["plasma-login-manager"]="/usr/lib/systemd/system/plasmalogin.service"
-    ["sddm"]="/usr/lib/systemd/system/sddm.service"
-    ["gdm"]="/usr/lib/systemd/system/gdm.service"
-    ["cosmic-greeter"]="/usr/lib/systemd/system/cosmic-greeter.service"
-    ["lxdm"]="/usr/lib/systemd/system/lxdm.service"
-    ["lightdm"]="/usr/lib/systemd/system/lightdm.service"
-    ["noctalia-greeter"]="/usr/lib/systemd/system/greetd.service"
+    ["1. ly"]="/usr/lib/systemd/system/ly@.service"
+    ["2. plasma-login-manager"]="/usr/lib/systemd/system/plasmalogin.service"
+    ["3. sddm"]="/usr/lib/systemd/system/sddm.service"
+    ["4. gdm"]="/usr/lib/systemd/system/gdm.service"
+    ["5. cosmic-greeter"]="/usr/lib/systemd/system/cosmic-greeter.service"
+    ["6. lightdm"]="/usr/lib/systemd/system/lightdm.service"
+    ["7. lxdm"]="/usr/lib/systemd/system/lxdm.service"
+    ["8. noctalia-greeter"]="/usr/lib/systemd/system/greetd.service"
 )
 
 while IFS= read -rd '' package; do
     service="${display_managers[$package]}"
-    if pacman -Q "$package" &>/dev/null; then
-        if [[ "$package" == "ly" ]]; then
+    name="${package#*. }"
+    if pacman -Q "$name" &>/dev/null; then
+        if [[ "$name" == "ly" ]]; then
             rm -f /etc/systemd/system/getty.target.wants/getty@tty2.service
             ln -sf "$service" /etc/systemd/system/multi-user.target.wants/ly@tty2.service
         else
