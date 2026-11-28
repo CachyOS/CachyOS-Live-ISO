@@ -9,9 +9,11 @@ concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
 
+# Set the repository variable CI_RUNNER=cachyos-actionserver to run on the
+# self-hosted runners; without it, jobs use GitHub-hosted runners.
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ github.event_name == 'pull_request' && 'ubuntu-latest' || vars.CI_RUNNER || 'ubuntu-latest' }}
     container:
       image: archlinux:base-devel
       options: --privileged
@@ -64,7 +66,7 @@ jobs:
           path: out/desktop/*
   quicktest:
     name: Testing (${{ matrix.bootloader }} / ${{ matrix.filesystem }})
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER || 'ubuntu-latest' }}
     needs: build
     container:
       image: archlinux:base-devel
