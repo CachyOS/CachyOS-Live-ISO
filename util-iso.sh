@@ -48,8 +48,9 @@ check_umount() {
 }
 
 trap_exit() {
-    local sig=$1; shift
-    error "$@"
+    local rc=$? sig=$1; shift
+    # The EXIT trap also runs on success: only report an error if the exit status is non-zero
+    [[ "$sig" != EXIT || "$rc" -ne 0 ]] && error "$@"
     umount_fs
     trap -- "$sig"
     kill "-$sig" "$$"
