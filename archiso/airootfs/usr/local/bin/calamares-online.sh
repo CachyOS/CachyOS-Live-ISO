@@ -32,9 +32,11 @@ main() {
     local ISO_VERSION="$(cat /etc/version-tag)"
     echo "USING ISO VERSION: ${ISO_VERSION}"
 
-    # NOTE: in order to keep both releases working, we need to bump with -next postfix for both
-    # calamares and installer libs
-    sudo pacman -Sy --noconfirm cachyos-calamares cachyos-installer-libs
+    if [[ -r /etc/edition-tag && $(< /etc/edition-tag) == handheld ]]; then
+        sudo pacman -Sy --noconfirm cachyos-calamares-next || return
+    else
+        sudo pacman -Sy --noconfirm cachyos-calamares cachyos-installer-libs
+    fi
 
     # Get Hardware Informations
     inxi -F > "$log"

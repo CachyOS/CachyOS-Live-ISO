@@ -40,3 +40,5 @@ sudo ./buildiso.sh -p desktop -v -w
 ```
 
 As the result iso appears at the `out` folder
+
+Use `-p handheld` to build the Deckify live image. It uses the same installer launcher as desktop.

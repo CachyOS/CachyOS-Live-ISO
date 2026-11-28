@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Steam Deck desktop rescaler
+Exec=/usr/bin/deckscale
+Comment=Scale the desktop for handheld devices
+X-GNOME-Autostart-enabled=true
+X-KDE-autostart-phase=0

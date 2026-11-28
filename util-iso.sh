@@ -92,20 +92,13 @@ change_grub_version() {
 }
 
 generate_environment() {
-    local _profile="$1"
-    if [ "$_profile" == "desktop" ]; then
-        cat << 'EOF' > ${src_dir}/archiso/airootfs/etc/environment
+    cat << 'EOF' > ${src_dir}/archiso/airootfs/etc/environment
 ZPOOL_VDEV_NAME_PATH=1
 EOF
-    fi
 }
 
 generate_version_tag() {
-    local _profile="$1"
-    local _version="$2"
-    if [ "$_profile" == "desktop" ]; then
-        echo "${_version}" > ${src_dir}/archiso/airootfs/etc/version-tag
-    fi
+    echo "$1" > ${src_dir}/archiso/airootfs/etc/version-tag
 }
 
 generate_edition_tag() {
@@ -126,6 +119,10 @@ modify_mkarchiso() {
 
 prepare_profile(){
     profile=$1
+    case "$profile" in
+        desktop|handheld) ;;
+        *) die "Unknown profile: [%s]" "$profile" ;;
+    esac
 
     info "Profile: [%s]" "${profile}"
 
@@ -141,17 +138,13 @@ prepare_profile(){
     generate_motd
 
     rm -f ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
-    if [ "$profile" == "desktop" ]; then
-        cp ${src_dir}/archiso/packages_desktop.x86_64 ${src_dir}/archiso/packages.x86_64
-        ln -sf /usr/lib/systemd/system/plasmalogin.service ${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service
-    else
-        die "Unknown profile: [%s]" "${profile}"
-    fi
+    cp "${src_dir}/archiso/packages_desktop.x86_64" "${src_dir}/archiso/packages.x86_64"
+    ln -sf /usr/lib/systemd/system/plasmalogin.service "${src_dir}/archiso/airootfs/etc/systemd/system/display-manager.service"
 
-    generate_environment "${profile}"
+    generate_environment
 
     # Write out version to be able to check ISO version
-    generate_version_tag "${profile}" "${_iso_version}"
+    generate_version_tag "${_iso_version}"
 
     # Write out edition to be able to check ISO edition
     generate_edition_tag "${profile}"
@@ -159,9 +152,37 @@ prepare_profile(){
     iso_file=$(gen_iso_fn).iso
 }
 
+prepare_handheld_profile() {
+    local _archiso="$1"
+    sed -Ei '/^paru$/d; /^linux-cachyos-lts(-nvidia-open|-zfs)?$/d
+             s/^cachyos-calamares$/cachyos-calamares-next/
+             s/^linux-cachyos(-nvidia-open|-zfs)?$/linux-cachyos-deckify\1/' "$_archiso/packages.x86_64"
+    printf '%s\n' drm-info plasma-keyboard steamdeck-firmware v4l-utils >> "$_archiso/packages.x86_64"
+
+    cp -a "${src_dir}/profiles/handheld/airootfs/." "$_archiso/airootfs/"
+    printf '\nfile_permissions["/usr/bin/deckscale"]="0:0:755"\n' >> "$_archiso/profiledef.sh"
+
+    sed -i '/^menuentry "CachyOS LTS Kernel"/,/^}/d' "$_archiso/grub/grub.cfg"
+    rm -f "$_archiso/efiboot/loader/entries/02-archiso-linux-cachyos.conf"
+    sed -Ei 's/linux-cachyos(-lts)?/linux-cachyos-deckify/g' \
+        "$_archiso/airootfs/etc/mkinitcpio.d/linux.preset" \
+        "$_archiso"/grub/{grub,loopback}.cfg \
+        "$_archiso"/syslinux/archiso_{sys,pxe}-linux.cfg \
+        "$_archiso"/efiboot/loader/entries/{01-archiso-linux,fallback}.conf
+
+    local _target
+    for _target in sleep suspend hibernate hybrid-sleep suspend-then-hibernate; do
+        ln -sf /dev/null "$_archiso/airootfs/etc/systemd/system/$_target.target"
+    done
+}
+
 run_build() {
-    prepare_profile "$1"
     local _profile="$1"
+    if ! $clean_first && [[ -f "$work_dir/archiso/airootfs/etc/edition-tag" ]] &&
+        [[ "$(< "$work_dir/archiso/airootfs/etc/edition-tag")" != "$_profile" ]]; then
+        die "Clean the working directory before switching profiles"
+    fi
+    prepare_profile "$_profile"
 
     msg "Prepare [work: ${work_dir}, out: ${outFolder}]"
 
@@ -177,8 +198,12 @@ run_build() {
     fi
 
     msg2 "Copying the Archiso folder to build work"
-    mkdir -p ${work_dir}
-    cp -r archiso ${work_dir}/archiso
+    mkdir -p "${work_dir}/archiso"
+    cp -r archiso/. "${work_dir}/archiso"
+
+    if [[ "$_profile" == "handheld" ]]; then
+        prepare_handheld_profile "${work_dir}/archiso"
+    fi
 
     msg "Start [Build ISO]"
 
