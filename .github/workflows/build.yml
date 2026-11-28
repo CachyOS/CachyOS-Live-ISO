@@ -13,7 +13,7 @@ concurrency:
 # self-hosted runners; without it, jobs use GitHub-hosted runners.
 jobs:
   build:
-    runs-on: ${{ vars.CI_RUNNER || 'ubuntu-latest' }}
+    runs-on: ${{ github.event_name == 'pull_request' && 'ubuntu-latest' || vars.CI_RUNNER || 'ubuntu-latest' }}
     container:
       image: archlinux:base-devel
       options: --privileged
