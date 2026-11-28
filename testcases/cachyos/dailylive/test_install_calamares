@@ -187,9 +187,8 @@ function test_input_validation() {
     local -Ar bootloaders=(
         ["grub"]="0"
         ["refind"]="1"
-        ["refind-ai"]="2"
-        ["systemd-boot"]="3"
-        ["limine"]="4"
+        ["systemd-boot"]="2"
+        ["limine"]="3"
     )
 
     local -Ar filesystems=(
@@ -200,7 +199,7 @@ function test_input_validation() {
         ["zfs"]="4"
     )
 
-    local bootloader="${TEST_BOOTLOADER:-Limine}"
+    local bootloader="${TEST_BOOTLOADER:-limine}"
     local -g bootloader_index="${bootloaders[$bootloader]}"
 
     if [ -z "$bootloader_index" ]; then

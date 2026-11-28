@@ -28,7 +28,7 @@ jobs:
 
       - name: Clone CachyOS-Live-ISO
         id: clone
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -66,7 +66,7 @@ jobs:
           path: out/desktop/*
   quicktest:
     name: Testing (${{ matrix.bootloader }} / ${{ matrix.filesystem }})
-    runs-on: ${{ vars.CI_RUNNER || 'ubuntu-latest' }}
+    runs-on: ${{ github.event_name == 'pull_request' && 'ubuntu-latest' || vars.CI_RUNNER || 'ubuntu-latest' }}
     needs: build
     container:
       image: archlinux:base-devel
@@ -114,8 +114,8 @@ jobs:
         id: download
         uses: actions/download-artifact@v4
         with:
+          name: cachyos-desktop-linux-${{ needs.build.outputs.builddate }}
           path: machines/cachyos-dailylive
-          merge-multiple: true
 
       - name: Run quicktest
         id: quicktest
